@@ -2,8 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
-const db = require("../db");
-const AuthRoutes = require("./routes/auth.routes.js");
+const Router = require("./routes/admin.routes.js");
 
 const app = express();
 

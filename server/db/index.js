@@ -8,7 +8,6 @@ const {
   HOST,
   DIALECT,
 } = require("./constant");
-
 const sequelize = new Sequelize(DATABASE_NAME, USERNAME, PASSWORD, {
   host: HOST,
   dialect: DIALECT,
