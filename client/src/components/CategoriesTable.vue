@@ -149,12 +149,8 @@ export default {
     return {
       categories: [
         {
-          name: "Paintings",
-          numberOfArtists: 159,
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          imageUrl:
-            "https://www.theartist.me/wp-content/uploads/2017/08/the-lover-by-rene.jpg",
+          props:['categorys'],
+          
         },
       ],
     };
@@ -164,13 +160,17 @@ export default {
     CategoryCard,
   },
   methods: {
+    //  delete category from db
     deleteCategory() {
-      axios.delete(`http://localhost:3000/categorys${id}`).then((deleted) => {
+      axios.delete(`http://localhost:3000/categorys$`).then((deleted) => {
         console.log(deleted);
       });
     },
+    // update categorys from db
     updateCategory() {
-      axios.put(`http://localhost:3000/categorys`).then(() => {});
+      axios.put(`http://localhost:3000/categorys`).then((updated) => {
+        console.log(updated);
+      });
     },
   },
 };
