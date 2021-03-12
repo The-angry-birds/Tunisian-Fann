@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const admin = require("./models/admin.model");
+const admin = require("./models.js");
 const {
   DATABASE_NAME,
   USERNAME,
@@ -8,12 +8,11 @@ const {
   HOST,
   DIALECT,
 } = require("./constant");
-
 const sequelize = new Sequelize(DATABASE_NAME, USERNAME, PASSWORD, {
   host: HOST,
   dialect: DIALECT,
 });
-
+console.log(admin);
 const Admin = admin(sequelize, Sequelize);
 
 sequelize.sync({ force: false }).then(() => {
