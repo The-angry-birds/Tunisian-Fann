@@ -1,7 +1,14 @@
 const Router = require("express").Router();
 
-const controller = require("../controllers/admin.controller.js");
+const controller = require("../controllers/controller.js");
 
-Router.post("/", controller.login);
+
+Router.get("/", controller.getCategories);
+Router.post("/",controller.storeCategory);
+Router.delete("/:id",controller.deleteCategory);
+Router.put("/:id",controller.updateCategory);
+
+
+
 
 module.exports = Router;
