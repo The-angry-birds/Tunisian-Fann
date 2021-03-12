@@ -6,12 +6,17 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
+            name: "login",
             path: "/",
-            component: () => import("@/components/CategoriesTable.vue"),
-        },
-        {
-            path: "/login",
             component: () => import("@/components/LoginForm.vue"),
         },
+        {
+            name: "main",
+            path: "/main",
+            component: () => import("@/components/CategoriesTable.vue"),
+        },
+        
+        
+        
     ]
 })

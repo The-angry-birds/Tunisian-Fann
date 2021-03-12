@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <AdminNavBar></AdminNavBar>
+    <CategoryCard></CategoryCard>
     <v-app id="inspire">
       <v-simple-table>
         <template v-slot:default>
@@ -19,8 +21,12 @@
               <td>{{ item.description }}</td>
               <td>{{ item.imageUrl }}</td>
               <td>
-                <v-btn class="btn" tile color="#8CA9D3"><v-icon left> mdi-pencil </v-icon>Edit</v-btn> 
-                <v-btn class="btn" tile color="#F26659"><v-icon left> mdi-delete </v-icon>Trash</v-btn>
+                <v-btn class="btn" tile color="#8CA9D3"
+                  ><v-icon left> mdi-pencil </v-icon>Edit</v-btn
+                >
+                <v-btn class="btn" tile color="#F26659"
+                  ><v-icon left> mdi-delete </v-icon>Trash</v-btn
+                >
               </td>
             </tr>
           </tbody>
@@ -31,6 +37,9 @@
 </template>
 
 <script>
+import AdminNavBar from "./AdminNavBar.vue";
+import CategoryCard from "./CategoryCard.vue";
+
 export default {
   data() {
     return {
@@ -62,16 +71,20 @@ export default {
       ],
     };
   },
+  components: {
+    AdminNavBar,
+    CategoryCard,
+  },
 };
 </script>
 
 <style scoped>
 #app {
   width: 100%;
-  height: 100%
+  /* height: 100% */
 }
 
 .btn {
-  margin-left:5px
+  margin-left: 5px;
 }
 </style>
