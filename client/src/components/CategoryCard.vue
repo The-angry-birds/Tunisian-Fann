@@ -33,14 +33,24 @@
 </template>
 
 <script>
+import axios from "axios"
 
 export default {
   data: () => ({
     show: false,
     products: [],
   }),
+  displayCategory(){
+        axios.get("http://localhost:3000/categorys").then((response) => {
+        this.products=response.data;
+        console.log(response.data)
+      });
+    
+  
+  }
   };
 </script>
+
 
 <style scoped>
 * {

@@ -165,12 +165,15 @@ export default {
   },
   methods: {
     deleteCategory() {
-      axios.delete(`/category/${id}`).then(() => {
-        this.categories();
+      axios.delete(`http://localhost:3000/categorys${id}`).then((deleted) => {
+        console.log(deleted);
       });
-    
-   
-}
+    },
+    updateCategory() {
+      axios.put(`http://localhost:3000/categorys`).then(() => {});
+    },
+  },
+};
 </script>
 
 <style scoped>
