@@ -29,6 +29,7 @@
                   data-target="#myEditModal"
                   tile
                   color="#8CA9D3"
+                  v-on:click="updateCategory(item.id)"
                   ><v-icon left> mdi-pencil </v-icon>Edit</v-btn
                 >
 
@@ -122,6 +123,7 @@
                           data-toggle="modal"
                           tile
                           color="#F26659"
+                          v-on:click="deleteCategory(item.id)"
                           ><v-icon left> mdi-delete </v-icon>Delete</v-btn
                         >
                       </div>
@@ -140,34 +142,15 @@
 <script>
 import AdminNavBar from "./AdminNavBar.vue";
 import CategoryCard from "./CategoryCard.vue";
+import axios from "axios";
 
 export default {
   data() {
     return {
       categories: [
         {
-          name: "Paintings",
-          numberOfArtists: 159,
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          imageUrl:
-            "https://www.theartist.me/wp-content/uploads/2017/08/the-lover-by-rene.jpg",
-        },
-        {
-          name: "Digital Paintings",
-          numberOfArtists: 170,
-          description:
-            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-          imageUrl:
-            "https://community.wacom.com/eu/wp-content/uploads/2019/03/Andrea-Stangoni-890x400.jpg",
-        },
-        {
-          name: "Sculptures",
-          numberOfArtists: 98,
-          description:
-            "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          imageUrl:
-            "https://iadsb.tmgrup.com.tr/92b0ce/1200/627/0/42/1000/564?u=https://idsb.tmgrup.com.tr/2019/12/08/1575799266963.jpg",
+          props:['categorys'],
+          
         },
       ],
     };
@@ -175,7 +158,20 @@ export default {
   components: {
     AdminNavBar,
     CategoryCard,
-
+  },
+  methods: {
+    //  delete category from db
+    deleteCategory() {
+      axios.delete(`http://localhost:3000/categorys$`).then((deleted) => {
+        console.log(deleted);
+      });
+    },
+    // update categorys from db
+    updateCategory() {
+      axios.put(`http://localhost:3000/categorys`).then((updated) => {
+        console.log(updated);
+      });
+    },
   },
 };
 </script>
