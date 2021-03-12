@@ -7,6 +7,6 @@ module.exports = (sequelize, type) => {
     },
     email: type.STRING,
     password: type.STRING,
-  });
+  },{ timestamps: false });
   return Admin;
 };
