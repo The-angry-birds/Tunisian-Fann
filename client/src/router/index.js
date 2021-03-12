@@ -7,8 +7,11 @@ export default new Router({
     routes: [
         {
             path: "/",
-            component: () => import("@/components/AdminLogin.vue"),
+            component: () => import("@/components/CategoryCard.vue"),
         },
-
+        {
+            path: "/login",
+            component: () => import("@/components/LoginForm.vue"),
+        },
     ]
 })
