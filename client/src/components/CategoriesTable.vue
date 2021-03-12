@@ -46,7 +46,34 @@
                         <h4 class="modal-title edit-title">CATEGORY EDIT</h4>
                       </div>
                       <div class="modal-body">
-                        <p>Some text in the modal.</p>
+                        <form>
+                          <div class="form-group">
+                            <label for="category-name">Category Name</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="category-name"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="category-description">
+                              Description</label
+                            >
+                            <textarea
+                              class="form-control"
+                              id="category-description"
+                              rows="3"
+                            ></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label for="category-imgurl">Image URL</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="category-imgurl"
+                            />
+                          </div>
+                        </form>
                       </div>
                       <div class="modal-footer">
                         <v-btn
@@ -166,6 +193,6 @@ export default {
 }
 
 .edit-title {
-  color: #8CA9D3
+  color: #8ca9d3;
 }
 </style>
