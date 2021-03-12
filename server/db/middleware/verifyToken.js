@@ -1,7 +1,10 @@
 const jwt = require("jsonwebtoken");
-
+const config = require("../config");
 verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
+  let email = req.body.email;
+  let user = { email };
+  let authHeader = req.headers["authorization"];
+  let token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     return res.status(403).send({
@@ -10,18 +13,17 @@ verifyToken = (req, res, next) => {
     });
   }
 
-  jwt.verify(token, config.secret, (err, decoded) => {
+  jwt.verify(token, config.secret, (err, user) => {
     if (err) {
       return res.status(500).send({
         auth: false,
         message: "Fail to Authentication. Error -> " + err,
       });
     }
-    req.userId = decoded.id;
+    req.user = user;
+
     next();
   });
 };
-const authJwt = {};
-authJwt.verifyToken = verifyToken;
 
-module.exports = authJwt;
+module.exports = verifyToken;

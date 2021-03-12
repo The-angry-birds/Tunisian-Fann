@@ -1,7 +1,6 @@
 const Sequelize = require("sequelize");
 
-const admin = require("./models/admin.model.js");
-const category=require("./models/categories.model.js");
+// const admin = require("./models/admin.model");
 const {
   DATABASE_NAME,
   USERNAME,
@@ -13,14 +12,11 @@ const sequelize = new Sequelize(DATABASE_NAME, USERNAME, PASSWORD, {
   host: HOST,
   dialect: DIALECT,
 });
-console.log(admin);
-const Admin = admin(sequelize, Sequelize);
-const Category=category(sequelize, Sequelize);
 
 sequelize.sync({ force: false }).then(() => {
   console.log(`Database & tables created here!`);
 });
 
 module.exports = {
-  Admin,Category
+  sequelize,
 };
