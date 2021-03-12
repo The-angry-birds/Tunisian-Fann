@@ -11,7 +11,7 @@ app.use(morgan("combined"));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use("e", AuthRoutes);
+app.use("/api/auth", AuthRoutes);
 app.listen(process.env.PORT || 3000, () => {
   console.log("listening on port 3000");
 });

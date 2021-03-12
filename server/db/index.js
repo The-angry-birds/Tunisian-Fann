@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const admin = require("./models/admin.model");
+// const admin = require("./models/admin.model");
 const {
   DATABASE_NAME,
   USERNAME,
@@ -14,12 +14,10 @@ const sequelize = new Sequelize(DATABASE_NAME, USERNAME, PASSWORD, {
   dialect: DIALECT,
 });
 
-const Admin = admin(sequelize, Sequelize);
-
 sequelize.sync({ force: false }).then(() => {
   console.log(`Database & tables created here!`);
 });
 
 module.exports = {
-  Admin,
+  sequelize,
 };
