@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <AdminNavBar></AdminNavBar>
     <v-app
       :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }"
       :dark="darkTheme"
@@ -62,8 +63,21 @@
     </v-app>
   </div>
 </template>
+
 <script>
-export default {};
+
+import AdminNavBar from "./AdminNavBar.vue"
+
+export default {
+  name: "App",
+  data: () => ({
+    //
+  }),
+  components: {
+    AdminNavBar,
+  }
+};
+
 </script>
 
 <style scoped>
