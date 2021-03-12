@@ -1,6 +1,9 @@
 <template>
+
   <div id="app">
+
     <AdminNavBar></AdminNavBar>
+
     <v-app
       :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }"
       :dark="darkTheme"
@@ -12,9 +15,7 @@
             <v-card elevation="4" light tag="section">
               <v-card-title>
                 <v-layout align-center justify-space-between>
-                  <h3 class="headline">
-                    Admin Login
-                  </h3>
+                  <h3 class="headline">Admin Login</h3>
                   <v-flex>
                     <v-img
                       :alt="platformName"
@@ -48,16 +49,15 @@
               </v-card-text>
               <v-divider></v-divider>
               <v-card-actions :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }">
-                
                 <v-spacer></v-spacer>
-                <v-btn class="btn" tile color="#8CA9D3"><v-icon left> mdi-checkbox-marked-circle </v-icon>Login</v-btn>
-                 
+                <v-btn class="btn" tile color="#8CA9D3"
+                  ><v-icon left> mdi-checkbox-marked-circle </v-icon
+                  >Login</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-flex>
-          <v-flex sm12 md6 offset-md3>
-           
-          </v-flex>
+          <v-flex sm12 md6 offset-md3> </v-flex>
         </v-layout>
       </v-container>
     </v-app>
@@ -66,7 +66,7 @@
 
 <script>
 
-import AdminNavBar from "./AdminNavBar.vue"
+import AdminNavBar from "./AdminNavBar.vue";
 
 export default {
   name: "App",
@@ -75,16 +75,20 @@ export default {
   }),
   components: {
     AdminNavBar,
-  }
+  },
 };
-
 </script>
 
 <style scoped>
+
+.v-card {
+  margin-top: 50px;
+}
 .v-btn .v-card {
   border-radius: 4px;
 }
 .v-card__title {
   text-transform: uppercase;
 }
+
 </style>

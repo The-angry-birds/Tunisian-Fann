@@ -1,7 +1,10 @@
 <template>
+
   <div id="app">
+
     <AdminNavBar></AdminNavBar>
     <CategoryCard></CategoryCard>
+
     <v-app id="inspire">
       <v-simple-table>
         <template v-slot:default>
@@ -34,9 +37,11 @@
       </v-simple-table>
     </v-app>
   </div>
+
 </template>
 
 <script>
+
 import AdminNavBar from "./AdminNavBar.vue";
 import CategoryCard from "./CategoryCard.vue";
 
@@ -79,6 +84,7 @@ export default {
 </script>
 
 <style scoped>
+
 #app {
   width: 100%;
   /* height: 100% */
@@ -87,4 +93,5 @@ export default {
 .btn {
   margin-left: 5px;
 }
+
 </style>
