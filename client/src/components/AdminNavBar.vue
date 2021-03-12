@@ -1,8 +1,4 @@
-<template>
-  <div id="admin-login">
-  
-  <v-app id="inspire">
-    <div>
+<template>  
       <v-app-bar
         color="#8CA9D3"
         dense
@@ -39,11 +35,7 @@
           </v-list>
         </v-menu>
       </v-app-bar>
-    </div>
-  </v-app>
 
-
-</div>
 </template>
 
 <script>
@@ -51,6 +43,9 @@ export default {};
 </script>
 
 <style scoped>
+* {
+  font-family: Verdana, sans-serif
+}
 h1 {
   text-align: center;
 }
