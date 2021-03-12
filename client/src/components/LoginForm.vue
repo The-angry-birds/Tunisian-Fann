@@ -47,11 +47,10 @@
               </v-card-text>
               <v-divider></v-divider>
               <v-card-actions :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }">
-                <v-btn color="#F26659" flat> Forgot password? </v-btn>
+                
                 <v-spacer></v-spacer>
-                <v-btn color="#8CA9D3" flat="$vuetify.breakpoint.smAndUp">
-                  Login
-                </v-btn>
+                <v-btn class="btn" tile color="#8CA9D3"><v-icon left> mdi-checkbox-marked-circle </v-icon>Login</v-btn>
+                 
               </v-card-actions>
             </v-card>
           </v-flex>

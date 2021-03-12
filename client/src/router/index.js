@@ -7,7 +7,7 @@ export default new Router({
     routes: [
         {
             path: "/",
-            component: () => import("@/components/CategoryCard.vue"),
+            component: () => import("@/components/CategoriesTable.vue"),
         },
         {
             path: "/login",
