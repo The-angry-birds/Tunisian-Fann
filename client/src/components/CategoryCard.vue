@@ -33,20 +33,12 @@
 </template>
 
 <script>
-import axios from "axios";
+
 export default {
   data: () => ({
     show: false,
     products: [],
   }),
-
-  mounted() {
-  
-      axios.get("http://localhost:3000/admin").then((response) => {
-        this.products=response.data;
-        console.log(response.data)
-      });
-    },
   };
 </script>
 
