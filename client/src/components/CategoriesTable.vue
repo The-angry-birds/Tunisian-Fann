@@ -175,6 +175,7 @@ export default {
   components: {
     AdminNavBar,
     CategoryCard,
+
   },
 };
 </script>
