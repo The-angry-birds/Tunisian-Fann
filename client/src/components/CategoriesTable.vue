@@ -162,7 +162,7 @@ export default {
   methods: {
     //  delete category from db
     deleteCategory() {
-      axios.delete(`http://localhost:3000/categorys$`).then((deleted) => {
+      axios.delete(`http://localhost:3000/categorys`).then((deleted) => {
         console.log(deleted);
       });
     },
