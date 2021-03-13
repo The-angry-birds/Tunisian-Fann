@@ -7,12 +7,14 @@ module.exports = {
     try {
       var admindata = req.body;
       const admin = await Admin.findOne({ where: { email: admindata.email } });
+
       if (admin) {
         // bcrypt.compare(admindata.password, admin.password).then((result) => {
         if (admindata.password === admin.password) {
           var token = jwt.sign({ email: admindata.email }, config.secret, {
             expiresIn: 86400, // expires in 24 hours
           });
+          console.log("dkjhsdkgfk", token);
           res.send({ message: "success", auth: true, token: token });
         } else {
           res.send({ message: "wrong password", auth: false, token: null });
