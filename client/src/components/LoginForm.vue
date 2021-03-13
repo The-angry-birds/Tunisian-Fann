@@ -55,23 +55,28 @@
 <script>
 import AdminNavBar from "./AdminNavBar.vue";
 import axios from "axios";
+// import sweetAlert from ;
 export default {
   name: "App",
   data: () => ({
     email: "",
     password: "",
   }),
-  mounted() {},
+
   methods: {
     handleSubmit() {
       console.log("===>");
       axios
-        .post("http://localhost:3000/api/auth", {
+        .post("http://localhost:3000/api/auth/login", {
           email: this.email,
           password: this.password,
         })
         .then((response) => {
-          console.log("=========>", response);
+          console.log(response);
+          if (response.data.message === "success") {
+            localStorage.setItem("token", response.data.token);
+            this.$router.push("/main");
+          }
         });
     },
   },
