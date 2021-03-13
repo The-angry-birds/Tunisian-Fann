@@ -16,7 +16,7 @@ ureWebpack: {<template>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="category in categories" :key="category.name">
+            <tr v-for="(category, i) in categories " :key="i">
               <td>{{ category.name }}</td>
               <td>{{ 0 }}</td>
               <td>{{ category.description }}</td>
@@ -29,7 +29,7 @@ ureWebpack: {<template>
                   data-target="#myEditModal"
                   tile
                   color="#8CA9D3"
-                  v-on:click="updateCategory(category.id)"
+                 
                   ><v-icon left> mdi-pencil </v-icon>Edit</v-btn
                 >
 
@@ -49,10 +49,11 @@ ureWebpack: {<template>
                       <div class="modal-body">
                         <form>
                           <div class="form-group">
-                            <label for="category-name" ù>Category Name</label>
+                            <label for="category-name" >Category Name</label>
                             <input
                               type="text"
                               class="form-control"
+                              v-model="dataInput.name"
                               id="category-name"
                             />
                           </div>
@@ -61,21 +62,24 @@ ureWebpack: {<template>
                               Description</label
                             >
                             <textarea
+                              v-model="dataInput.description"
                               class="form-control"
                               id="category-description"
                               rows="3"
                             ></textarea>
                           </div>
-                          <template>
+                          <!-- <template>
                             <v-file-input
+                              v-model="dataInput.ImageUrl"
                               accept="image/*"
                               label="File input"
                             ></v-file-input>
-                          </template>
+                          </template> -->
                         </form>
                       </div>
                       <div class="modal-footer">
                         <v-btn
+                          @click.prevent="updateCategory(category.id)"
                           type="button"
                           class="btn"
                           data-toggle="modal"
@@ -121,7 +125,7 @@ ureWebpack: {<template>
                           data-toggle="modal"
                           tile
                           color="#F26659"
-                          v-on:click="deleteCategory(category.id)"
+                          @click.prevent="deleteCategory(category.id)"
                           ><v-icon left> mdi-delete </v-icon>Delete</v-btn
                         >
                       </div>
@@ -145,6 +149,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      dataInput:{},
       categories: [],
 
     };
@@ -156,23 +161,29 @@ export default {
   methods: {
     displayCategory() {
       axios.get("http://localhost:3000/categorys").then(({ data }) => {
-        console.log(data);
+      
         this.categories = data;
-      });
+      })    
     },
     //  delete category from db
-    deleteCategory() {
+    deleteCategory(id) {
+
+    
       axios
-        .delete(`http://localhost:3000/categorys`, this.category.id)
-        .then((deleted) => {
-          console.log(deleted);
-        });
+        .delete(`http://localhost:3000/categorys/${id}`)
+        .then(() => {
+           this.displayCategory() 
+        })
+        
     },
     // update categorys from db
-    updateCategory() {
-      axios.put(`http://localhost:3000/categorys`).then((updated) => {
+    updateCategory(id) {
+      axios.put(`http://localhost:3000/categorys/${id}`,this.dataInput).then((updated) => {
         console.log(updated);
-      });
+     
+      }).then(() => {
+           this.displayCategory() 
+        })
     },
   },
   mounted() {
