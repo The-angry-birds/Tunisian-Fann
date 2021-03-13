@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/api/auth", AuthRoutes);
-app.use("/admin", Router);
+app.use("/categorys", Router);
 app.listen(process.env.PORT || 3000, () => {
   console.log("listening on port 3000");
 });

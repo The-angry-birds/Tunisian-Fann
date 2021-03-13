@@ -1,8 +1,8 @@
-const { Category } = require("../../db/models/categories.model");
+const { category } = require("../../db/models/categories.model");
 
 exports.getCategories = async function (req, res) {
   try {
-    const data = await Category.findAll();
+    const data = await category.findAll();
     res.send(data);
   } catch (err) {
     console.log(err);
@@ -11,7 +11,7 @@ exports.getCategories = async function (req, res) {
 exports.storeCategory = async function (req, res) {
   try {
     console.log(req.body);
-    const data = await Category.create(req.body);
+    const data = await category.create(req.body);
     res.send("info is stored ");
   } catch (err) {
     console.log(err);
@@ -19,7 +19,7 @@ exports.storeCategory = async function (req, res) {
 };
 exports.deleteCategory = async function (req, res) {
   try {
-    const delet = await Category.destroy({ where: { id: req.params.id } });
+    const delet = await category.destroy({ where: { id: req.params.id } });
     console.log(delet);
     res.send("deleted");
   } catch (err) {
@@ -29,7 +29,7 @@ exports.deleteCategory = async function (req, res) {
 exports.updateCategory = async function (req, res) {
   // const updateCase = await Cases.findOne({ where: { id: req.params.id}})
   try {
-    const update = await Category.update(
+    const update = await category.update(
       {
         name: req.body.name,
         description: req.body.description,

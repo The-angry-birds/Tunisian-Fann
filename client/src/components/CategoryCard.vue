@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-for="category in categories" :key="category.id">
+    <div v-for="category in categories" :key="category">
       <v-card class="mx-auto" max-width="280">
-        <v-img v-bind:src="category.imgUrl" height="200px"></v-img>
+        <v-img v-bind:src="category.ImageUrl" height="200px"></v-img>
         <v-card-title> {{ category.name }} </v-card-title>
         <v-card-subtitle>
           {{ category.description }}
@@ -30,30 +30,14 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
+  props: {
+    categories: Array,
+  },
   data: () => ({
     show: false,
-    categories: [],
   }),
-  methods: {
-
-    displayCategory() {
-
-      axios.get("http://localhost:3000/categorys").then(({data}) => {
-        console.log(data);
-        this.categories = data;
-      });
-    },
-    
-  },
-  mounted(){
-    this.displayCategory()
-  }
-}
-   
-
+};
 </script>
 
 <style scoped>
