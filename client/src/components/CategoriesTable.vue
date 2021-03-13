@@ -1,7 +1,7 @@
-<template>
+ureWebpack: {<template>
   <div id="app">
     <AdminNavBar></AdminNavBar>
-    <CategoryCard></CategoryCard>
+    <CategoryCard v-bind:categories="categories"></CategoryCard>
 
     <v-app id="inspire">
       <v-simple-table>
@@ -16,11 +16,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in categories" :key="item.name">
-              <td>{{ item.name }}</td>
-              <td>{{ item.numberOfArtists }}</td>
-              <td>{{ item.description }}</td>
-              <td>{{ item.imageUrl }}</td>
+            <tr v-for="category in categories" :key="category.name">
+              <td>{{ category.name }}</td>
+              <td>{{ 0 }}</td>
+              <td>{{ category.description }}</td>
+              <td>{{ category.imageUrl }}</td>
               <td>
                 <v-btn
                   type="button"
@@ -123,7 +123,7 @@
                           data-toggle="modal"
                           tile
                           color="#F26659"
-                          v-on:click="deleteCategory(item.id)"
+                          v-on:click="deleteCategory(category.id)"
                           ><v-icon left> mdi-delete </v-icon>Delete</v-btn
                         >
                       </div>
@@ -145,13 +145,15 @@ import CategoryCard from "./CategoryCard.vue";
 import axios from "axios";
 
 export default {
+
   data() {
     return {
       categories: [
         {
-          props:['categories'],
+          props:'categories',
           
         },
+         
       ],
     };
   },
@@ -162,7 +164,7 @@ export default {
   methods: {
     //  delete category from db
     deleteCategory() {
-      axios.delete(`http://localhost:3000/categorys`).then((deleted) => {
+      axios.delete(`http://localhost:3000/categorys`,this.category.id).then((deleted) => {
         console.log(deleted);
       });
     },
