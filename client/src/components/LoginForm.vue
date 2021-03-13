@@ -2,11 +2,7 @@
   <div id="app">
     <AdminNavBar></AdminNavBar>
 
-    <v-app
-      :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }"
-      :dark="darkTheme"
-      id="inspire"
-    >
+    <v-app :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }" id="inspire">
       <v-container>
         <v-layout wrap>
           <v-flex sm12 md6 offset-md3>
@@ -19,7 +15,7 @@
               <v-divider></v-divider>
               <v-card-text>
                 <p>Sign in with your e-mail adress and password:</p>
-                <v-form @submit.prevent="handleSubmit">
+                <v-form>
                   <v-text-field
                     outline
                     label="E-mail Adress"
@@ -38,7 +34,11 @@
               <v-divider></v-divider>
               <v-card-actions :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }">
                 <v-spacer></v-spacer>
-                <v-btn class="btn" tile color="#8CA9D3"
+                <v-btn
+                  class="btn"
+                  tile
+                  color="#8CA9D3"
+                  @click.prevent="handleSubmit()"
                   ><v-icon left> mdi-checkbox-marked-circle </v-icon
                   >Login</v-btn
                 >
@@ -64,8 +64,9 @@ export default {
   mounted() {},
   methods: {
     handleSubmit() {
+      console.log("===>");
       axios
-        .post("http://localhost:3000/api/auth/login", {
+        .post("http://localhost:3000/api/auth", {
           email: this.email,
           password: this.password,
         })
