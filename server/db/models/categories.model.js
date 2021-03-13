@@ -21,4 +21,4 @@ const myCategory = (sequelize, type) => {
 
 let category = myCategory(sequelize, Sequelize);
 
-module.exports = { myCategory };
+module.exports = { category };

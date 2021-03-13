@@ -20,7 +20,7 @@ ureWebpack: {<template>
               <td>{{ category.name }}</td>
               <td>{{ 0 }}</td>
               <td>{{ category.description }}</td>
-              <td>{{ category.imageUrl }}</td>
+              <td>{{ category.ImageUrl }}</td>
               <td>
                 <v-btn
                   type="button"
@@ -29,7 +29,7 @@ ureWebpack: {<template>
                   data-target="#myEditModal"
                   tile
                   color="#8CA9D3"
-                  v-on:click="updateCategory(item.id)"
+                  v-on:click="updateCategory(category.id)"
                   ><v-icon left> mdi-pencil </v-icon>Edit</v-btn
                 >
 
@@ -49,7 +49,7 @@ ureWebpack: {<template>
                       <div class="modal-body">
                         <form>
                           <div class="form-group">
-                            <label for="category-name">Category Name</label>
+                            <label for="category-name" ù>Category Name</label>
                             <input
                               type="text"
                               class="form-control"
@@ -66,14 +66,12 @@ ureWebpack: {<template>
                               rows="3"
                             ></textarea>
                           </div>
-                          <div class="form-group">
-                            <label for="category-imgurl">Image URL</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="category-imgurl"
-                            />
-                          </div>
+                          <template>
+                            <v-file-input
+                              accept="image/*"
+                              label="File input"
+                            ></v-file-input>
+                          </template>
                         </form>
                       </div>
                       <div class="modal-footer">
@@ -145,16 +143,10 @@ import CategoryCard from "./CategoryCard.vue";
 import axios from "axios";
 
 export default {
-
   data() {
     return {
-      categories: [
-        {
-          props:'categories',
-          
-        },
-         
-      ],
+      categories: [],
+
     };
   },
   components: {
@@ -162,11 +154,19 @@ export default {
     CategoryCard,
   },
   methods: {
+    displayCategory() {
+      axios.get("http://localhost:3000/categorys").then(({ data }) => {
+        console.log(data);
+        this.categories = data;
+      });
+    },
     //  delete category from db
     deleteCategory() {
-      axios.delete(`http://localhost:3000/categorys`,this.category.id).then((deleted) => {
-        console.log(deleted);
-      });
+      axios
+        .delete(`http://localhost:3000/categorys`, this.category.id)
+        .then((deleted) => {
+          console.log(deleted);
+        });
     },
     // update categorys from db
     updateCategory() {
@@ -174,6 +174,9 @@ export default {
         console.log(updated);
       });
     },
+  },
+  mounted() {
+    this.displayCategory();
   },
 };
 </script>
