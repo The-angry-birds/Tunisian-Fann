@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="category in categories" :key="category">
+    <div v-for="(category, i) in categories" :key="i">
       <v-card class="mx-auto" max-width="280">
         <v-img v-bind:src="category.ImageUrl" height="200px"></v-img>
         <v-card-title> {{ category.name }} </v-card-title>
