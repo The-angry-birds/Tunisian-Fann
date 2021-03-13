@@ -1,7 +1,5 @@
 <template>
-
   <div id="app">
-
     <AdminNavBar></AdminNavBar>
 
     <v-app
@@ -31,7 +29,7 @@
               <v-divider></v-divider>
               <v-card-text>
                 <p>Sign in with your e-mail adress and password:</p>
-                <v-form>
+                <v-form @submit.prevent="handleSubmit">
                   <v-text-field
                     outline
                     label="E-mail Adress"
@@ -65,14 +63,27 @@
 </template>
 
 <script>
-
 import AdminNavBar from "./AdminNavBar.vue";
-
+import axios from "axios";
 export default {
   name: "App",
   data: () => ({
-    //
+    email: "",
+    password: "",
   }),
+  mounted() {},
+  methods: {
+    handleSubmit() {
+      axios
+        .post("http://localhost:3000/api/auth/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
+          console.log("=========>", response);
+        });
+    },
+  },
   components: {
     AdminNavBar,
   },
@@ -80,7 +91,6 @@ export default {
 </script>
 
 <style scoped>
-
 .v-card {
   margin-top: 50px;
 }
@@ -90,5 +100,4 @@ export default {
 .v-card__title {
   text-transform: uppercase;
 }
-
 </style>
