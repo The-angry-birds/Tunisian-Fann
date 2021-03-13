@@ -11,19 +11,18 @@ verifyToken = (req, res, next) => {
       auth: false,
       message: "No token provided.",
     });
+  } else {
+    try {
+      var t = jwt.verify(token, config.secret);
+
+      var newtoken = jwt.sign(user, config.secret);
+      res.send({ auth: true, token: newtoken });
+    } catch (err) {
+      res.send(err);
+    }
   }
 
-  jwt.verify(token, config.secret, (err, user) => {
-    if (err) {
-      return res.status(500).send({
-        auth: false,
-        message: "Fail to Authentication. Error -> " + err,
-      });
-    }
-    req.user = user;
-
-    next();
-  });
+  next();
 };
 
 module.exports = verifyToken;
