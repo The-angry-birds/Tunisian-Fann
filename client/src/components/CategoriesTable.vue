@@ -149,7 +149,7 @@ export default {
     return {
       categories: [
         {
-          props:['categorys'],
+          props:['categories'],
           
         },
       ],
