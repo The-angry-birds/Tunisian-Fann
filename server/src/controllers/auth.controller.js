@@ -18,7 +18,7 @@ module.exports = {
         var result = bcrypt.compareSync(admindata.password, admin.password);
         if (result) {
           var token = jwt.sign({ email: admindata.email }, config.secret, {
-            expiresIn: 86400, // expires in 24 hours
+            expiresIn: "60s", // expires in 24 hours
           });
 
           res.send({ message: "success", auth: true, token: token });
@@ -56,7 +56,4 @@ module.exports = {
   //       console.error(err);
   //     }
   // },
-  verify: (req, res) => {
-    res.send("hello");
-  },
 };
