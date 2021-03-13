@@ -64,7 +64,7 @@ export default {
   mounted() {},
   methods: {
     handleSubmit() {
-      console.log("===>");
+      
       axios
         .post("http://localhost:3000/api/auth", {
           email: this.email,
