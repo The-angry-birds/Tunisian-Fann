@@ -7,7 +7,7 @@ export default new Router({
     routes: [
         {
             path: "/",
-            component: () => import("@/components/AdminLogin.vue"),
+            component: () => import("@/components/Carousel.vue"),
         },
 
     ]
