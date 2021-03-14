@@ -6,12 +6,12 @@ const config = require("../../db/config");
 module.exports = {
   login: async (req, res) => {
     // these lines of codes are just for hashing the password in the database
-  //   const salt = bcrypt.genSaltSync(saltRounds);
-  //   const hash = bcrypt.hashSync(req.body.password, salt);
-  //   const data = Admin.build({ email: req.body.email, password: hash });
-  //   var that = await data.save();
-  //   res.send(that);
-  // }
+
+    // const salt = bcrypt.genSaltSync(saltRounds);
+    // const hash = bcrypt.hashSync(req.body.password, salt);
+    // const data = Admin.build({ email: req.body.email, password: hash });
+    // var saved = await data.save();
+    // res.send(saved);
     try {
       var admindata = req.body;
       const admin = await Admin.findOne({ where: { email: admindata.email } });
@@ -33,7 +33,7 @@ module.exports = {
     } catch (err) {
       console.error(err);
     }
-  }
+  },
   //   signup: async (req, res) => {
   //     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
   //     try {
