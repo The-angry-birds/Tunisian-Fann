@@ -3,7 +3,7 @@
   <div class="navigationBar fixed-top">
     <img
       class="logo"
-      src="https://logodownload.org/wp-content/uploads/2014/10/youtube-logo-2-3.png"
+      src="https://www.darest.com/wp-content/uploads/2019/04/Logo-Roomz-Blanc.png"
       alt="#"
     />
   </div>
@@ -35,7 +35,7 @@ export default {};
   max-height: 100%;
   position: absolute;
   /* CHECK with the real logo */
-  left: 45%;     
+  left: 40%;     
   padding: 5px 
 }
 
