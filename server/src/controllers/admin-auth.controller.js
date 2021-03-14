@@ -26,7 +26,7 @@ module.exports = {
         } else {
           res.send({ message: "wrong password", auth: false, token: null });
         }
-        // });
+      
       } else {
         res.send({ message: "admin not found", auth: false, token: null });
       }
@@ -34,7 +34,9 @@ module.exports = {
       console.error(err);
     }
   },
-  //   signup: async (req, res) => {
+  
+};
+//   signup: async (req, res) => {
   //     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
   //     try {
   //       const user = await Admin.create({
@@ -57,4 +59,3 @@ module.exports = {
   //       console.error(err);
   //     }
   // },
-};
