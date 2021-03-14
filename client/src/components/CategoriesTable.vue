@@ -16,7 +16,7 @@ ureWebpack: {<template>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(category, i) in categories " :key="i">
+            <tr v-for="(category, i) in categories" :key="i">
               <td>{{ category.name }}</td>
               <td>{{ 0 }}</td>
               <td>{{ category.description }}</td>
@@ -29,7 +29,6 @@ ureWebpack: {<template>
                   data-target="#myEditModal"
                   tile
                   color="#8CA9D3"
-                 
                   ><v-icon left> mdi-pencil </v-icon>Edit</v-btn
                 >
 
@@ -49,7 +48,7 @@ ureWebpack: {<template>
                       <div class="modal-body">
                         <form>
                           <div class="form-group">
-                            <label for="category-name" >Category Name</label>
+                            <label for="category-name">Category Name</label>
                             <input
                               type="text"
                               class="form-control"
@@ -145,49 +144,67 @@ ureWebpack: {<template>
 import AdminNavBar from "./AdminNavBar.vue";
 import CategoryCard from "./CategoryCard.vue";
 import axios from "axios";
-
+import swal from "sweetalert";
 export default {
   data() {
     return {
-      dataInput:{},
+      dataInput: {},
       categories: [],
-
     };
   },
   components: {
     AdminNavBar,
     CategoryCard,
   },
+
   methods: {
+    verify() {
+      const token = localStorage.getItem("token");
+      const header = { headers: { Authorization: `Bearer ${token}` } };
+      axios
+        .get("http://localhost:3000/api/auth/verify", header)
+        .then(({ data }) => {
+          if (data.token === undefined) {
+            localStorage.removeItem("token");
+            this.$router.push("/");
+            swal("Oops!", "you should login ", "error");
+          } else {
+            localStorage.setItem("token", data.token);
+          }
+        })
+        .catch((err) => {
+          this.$router.push("/");
+
+          console.log(err);
+        });
+    },
     displayCategory() {
       axios.get("http://localhost:3000/categorys").then(({ data }) => {
-      
         this.categories = data;
-      })    
+      });
     },
     //  delete category from db
     deleteCategory(id) {
-
-    
-      axios
-        .delete(`http://localhost:3000/categorys/${id}`)
-        .then(() => {
-           this.displayCategory() 
-        })
-        
+      axios.delete(`http://localhost:3000/categorys/${id}`).then(() => {
+        this.displayCategory();
+      });
     },
     // update categorys from db
     updateCategory(id) {
-      axios.put(`http://localhost:3000/categorys/${id}`,this.dataInput).then((updated) => {
-        console.log(updated);
-     
-      }).then(() => {
-           this.displayCategory() 
+      axios
+        .put(`http://localhost:3000/categorys/${id}`, this.dataInput)
+        .then((updated) => {
+          console.log(updated);
         })
+        .then(() => {
+          this.displayCategory();
+        });
     },
   },
-  mounted() {
+  beforeMount() {
     this.displayCategory();
+    this.verify();
+    console.log("=======>");
   },
 };
 </script>

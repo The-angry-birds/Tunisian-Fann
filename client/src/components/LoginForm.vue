@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <AdminNavBar></AdminNavBar>
-
     <v-app :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }" id="inspire">
       <v-container>
         <v-layout wrap>
@@ -53,9 +51,9 @@
 </template>
 
 <script>
-import AdminNavBar from "./AdminNavBar.vue";
+// import AdminNavBar from "./AdminNavBar.vue";
 import axios from "axios";
-// import sweetAlert from ;
+import swal from "sweetalert";
 export default {
   name: "App",
   data: () => ({
@@ -75,13 +73,15 @@ export default {
           if (response.data.message === "success") {
             localStorage.setItem("token", response.data.token);
             this.$router.push("/main");
+          } else if (response.data.message === "wrong password") {
+            swal("Oops!", "Wrong Password!", "error");
+          } else {
+            swal("Oops!", "Wrong Email!", "error");
           }
         });
     },
   },
-  components: {
-    AdminNavBar,
-  },
+  components: {},
 };
 </script>
 
@@ -95,4 +95,5 @@ export default {
 .v-card__title {
   text-transform: uppercase;
 }
+
 </style>

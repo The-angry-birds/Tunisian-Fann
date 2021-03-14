@@ -11,6 +11,13 @@
         <v-btn icon v-bind="attrs" v-on="on">
           <v-icon>mdi-dots-vertical</v-icon>
         </v-btn>
+        <!-- //LOGOUT BUTTON -->
+
+        <div id="logout">
+          <v-btn depressed color="8DC" @click.prevent="handleClick()">
+            LOGOUT
+          </v-btn>
+        </div>
       </template>
 
       <v-list>
@@ -23,7 +30,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    handleClick() {
+      localStorage.removeItem("token");
+      this.$router.push("/");
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -32,5 +46,9 @@ export default {};
 }
 h1 {
   text-align: center;
+}
+#logout {
+  float: right !important;
+  /* margin-left: 1000px; */
 }
 </style>
