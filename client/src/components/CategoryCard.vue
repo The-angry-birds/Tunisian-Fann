@@ -22,11 +22,13 @@
 </template>
 
 <script>
+
 export default {
   props: {
     categories: Array,
   },
 };
+
 </script>
 
 <style scoped>
@@ -54,4 +56,5 @@ export default {
   height: 150px;
 
 }
+
 </style>

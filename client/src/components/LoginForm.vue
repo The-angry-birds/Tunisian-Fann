@@ -54,6 +54,7 @@
 // import AdminNavBar from "./AdminNavBar.vue";
 import axios from "axios";
 import swal from "sweetalert";
+
 export default {
   name: "App",
   data: () => ({
@@ -86,6 +87,7 @@ export default {
 </script>
 
 <style scoped>
+
 .v-card {
   margin-top: 50px;
 }
