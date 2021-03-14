@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <AdminNavBar></AdminNavBar>
-
     <v-app :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }" id="inspire">
       <v-container>
         <v-layout wrap>
@@ -53,7 +51,7 @@
 </template>
 
 <script>
-import AdminNavBar from "./AdminNavBar.vue";
+
 import axios from "axios";
 // import sweetAlert from ;
 export default {
@@ -78,9 +76,6 @@ export default {
           }
         });
     },
-  },
-  components: {
-    AdminNavBar,
   },
 };
 </script>

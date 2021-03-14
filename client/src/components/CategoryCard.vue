@@ -10,12 +10,13 @@
       </v-card>
     </div>
     <div>
-      <v-card >
-        <v-img id="add-category-img" src="https://s3.amazonaws.com/static.graphemica.com/glyphs/i500s/000/007/186/original/002B-500x500.png?1275320936"></v-img>
+      <v-card>
+        <v-img
+          id="add-category-img"
+          src="https://s3.amazonaws.com/static.graphemica.com/glyphs/i500s/000/007/186/original/002B-500x500.png?1275320936"
+        ></v-img>
         <v-card-title> Category Name </v-card-title>
-        <v-card-subtitle>
-          Category Description
-        </v-card-subtitle>
+        <v-card-subtitle> Category Description </v-card-subtitle>
       </v-card>
     </div>
   </div>
@@ -30,9 +31,8 @@ export default {
 </script>
 
 <style scoped>
-
 * {
-  font-family: 'Neuton', serif;
+  font-family: "Neuton", serif;
   display: flex;
   flex-wrap: wrap;
 }
@@ -49,9 +49,8 @@ export default {
   height: 150px;
 }
 
-#add-category-img{
+#add-category-img {
   object-fit: cover;
   height: 150px;
-
 }
 </style>
