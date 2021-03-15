@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const verifyToken = require("../../db/middleware/verifyToken");
-const adminController = require("../controllers/admin-auth.controller");
 
+const adminController = require("../controllers/artist-auth.controller");
+
+router.post("/signup", adminController.signup);
 router.post("/login", adminController.login);
-router.get("/verify", verifyToken);
+// router.get("/verify", verifyToken);
 
 module.exports = router;
