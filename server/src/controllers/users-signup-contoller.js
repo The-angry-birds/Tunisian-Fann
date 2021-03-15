@@ -39,8 +39,23 @@ module.exports = {
       const user = await User.findOne({
         where: { email: email },
       });
-      res.send("success");
-      
+      if (user) {
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hash = bcrypt.hashSync(req.body.password, salt);
+        console.log(hash);
+
+        var result = bcrypt.compareSync(password, user.password);
+
+        if (result) {
+          var token = jwt.sign({ email }, configUsers.secret, {
+            expiresIn: "1h",
+          });
+          res.send({ message: "success", auth: true, token: token });
+        }
+        res.send({ message: "wrrong password", auth: false, token: null });
+      } else {
+        res.send({ message: "user not found", auth: false, token: null });
+      }
     } catch (err) {
       res.send(err);
     }
