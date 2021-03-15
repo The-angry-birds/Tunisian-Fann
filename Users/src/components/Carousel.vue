@@ -65,7 +65,7 @@ img {
 }
 
 .carousel-text {
-  padding-bottom: 20%;
+  padding-bottom: 25%;
   text-shadow: 2px 2px 5px black;
   
 }
