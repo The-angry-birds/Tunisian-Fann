@@ -19,14 +19,13 @@ module.exports = {
         var result = bcrypt.compareSync(admindata.password, admin.password);
         if (result) {
           var token = jwt.sign({ email: admindata.email }, config.secret, {
-            expiresIn: "60s", // expires in 24 hours
+            expiresIn: "10s", // expires in 24 hours
           });
 
           res.send({ message: "success", auth: true, token: token });
         } else {
           res.send({ message: "wrong password", auth: false, token: null });
         }
-      
       } else {
         res.send({ message: "admin not found", auth: false, token: null });
       }
@@ -34,9 +33,7 @@ module.exports = {
       console.error(err);
     }
   },
-  
-};
-//   signup: async (req, res) => {
+  //  signup: async (req, res) => {
   //     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
   //     try {
   //       const user = await Admin.create({
@@ -58,4 +55,5 @@ module.exports = {
   //     } catch (err) {
   //       console.error(err);
   //     }
-  // },
+  //   }
+};
