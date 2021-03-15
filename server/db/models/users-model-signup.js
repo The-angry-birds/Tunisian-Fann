@@ -20,6 +20,6 @@ const usersSignupschema = (sequelize, type) => {
     return myusersSignup;
   };
   
-  let usersSignup = usersSignupschema(sequelize, Sequelize);
+  let User = usersSignupschema(sequelize, Sequelize);
   
-  module.exports = { usersSignup };
+  module.exports = { User };

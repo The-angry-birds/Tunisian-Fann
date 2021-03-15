@@ -1,4 +1,4 @@
-const { usersSignup } = require("../../db/models/users-model-signup");
+const { User } = require("../../db/models/users-model-signup");
 const configUsers = require("../../db/configUsers.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -9,13 +9,15 @@ module.exports = {
     try {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
-      const users = usersSignup.create({
+
+      const user = await User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         password: hash,
       });
-      if (users) {
+      if (user) {
+        console.log("===========>", user.password);
         var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
           expiresIn: 86400, // expires in 24 hours
         });
@@ -28,7 +30,19 @@ module.exports = {
         });
       }
     } catch (err) {
-      res.send(err)
+      res.send(err);
+    }
+  },
+  login: async (req, res) => {
+    try {
+      var { email, password } = req.body;
+      const user = await User.findOne({
+        where: { email: email },
+      });
+      res.send("success");
+      
+    } catch (err) {
+      res.send(err);
     }
   },
 };
