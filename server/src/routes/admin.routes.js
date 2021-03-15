@@ -1,6 +1,6 @@
 const Router = require("express").Router();
 
-const controller = require("../controllers/controller.js");
+const controller = require("../controllers/admin-controller");
 
 Router.get("/", controller.getCategories);
 Router.post("/", controller.storeCategory);

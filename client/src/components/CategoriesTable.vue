@@ -31,7 +31,6 @@ ureWebpack: {<template>
                   color="#8CA9D3"
                   ><v-icon left> mdi-pencil </v-icon>Edit</v-btn
                 >
-
                 <div class="modal fade" id="myEditModal" role="dialog">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -90,7 +89,6 @@ ureWebpack: {<template>
                     </div>
                   </div>
                 </div>
-
                 <v-btn
                   type="button"
                   class="btn"
@@ -100,7 +98,6 @@ ureWebpack: {<template>
                   color="#F26659"
                   ><v-icon left> mdi-delete </v-icon>Trash</v-btn
                 >
-
                 <div class="modal fade" id="myTrashModal" role="dialog">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -145,6 +142,7 @@ import AdminNavBar from "./AdminNavBar.vue";
 import CategoryCard from "./CategoryCard.vue";
 import axios from "axios";
 import swal from "sweetalert";
+
 export default {
   data() {
     return {
@@ -156,7 +154,6 @@ export default {
     AdminNavBar,
     CategoryCard,
   },
-
   methods: {
     verify() {
       const token = localStorage.getItem("token");
@@ -210,6 +207,7 @@ export default {
 </script>
 
 <style scoped>
+
 #app {
   width: 100%;
 }
@@ -225,4 +223,5 @@ export default {
 .edit-title {
   color: #8ca9d3;
 }
+
 </style>
