@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const { sequelize } = require("../index");
 
 const usersSignupschema = (sequelize, type) => {
-    const myusers = sequelize.define(
+    const myusersSignup = sequelize.define(
       "usersSignup",
       {
         id: {
@@ -17,7 +17,7 @@ const usersSignupschema = (sequelize, type) => {
       },
       { timestamps: false }
     );
-    return myusers;
+    return myusersSignup;
   };
   
   let usersSignup = usersSignupschema(sequelize, Sequelize);
