@@ -19,14 +19,13 @@ module.exports = {
         var result = bcrypt.compareSync(admindata.password, admin.password);
         if (result) {
           var token = jwt.sign({ email: admindata.email }, config.secret, {
-            expiresIn: "60s", // expires in 24 hours
+            expiresIn: "10s", // expires in 24 hours
           });
 
           res.send({ message: "success", auth: true, token: token });
         } else {
           res.send({ message: "wrong password", auth: false, token: null });
         }
-      
       } else {
         res.send({ message: "admin not found", auth: false, token: null });
       }
