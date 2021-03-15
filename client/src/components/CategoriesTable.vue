@@ -16,7 +16,7 @@ ureWebpack: {<template>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(category, i) in categories " :key="i">
+            <tr v-for="(category) in categories" :key="category.id">
               <td>{{ category.name }}</td>
               <td>{{ 0 }}</td>
               <td>{{ category.description }}</td>
@@ -29,7 +29,6 @@ ureWebpack: {<template>
                   data-target="#myEditModal"
                   tile
                   color="#8CA9D3"
-                 
                   ><v-icon left> mdi-pencil </v-icon>Edit</v-btn
                 >
 
@@ -49,12 +48,13 @@ ureWebpack: {<template>
                       <div class="modal-body">
                         <form>
                           <div class="form-group">
-                            <label for="category-name" >Category Name</label>
+                            <label for="category-name">Category Name</label>
                             <input
                               type="text"
                               class="form-control"
                               v-model="dataInput.name"
                               id="category-name"
+                          
                             />
                           </div>
                           <div class="form-group">
@@ -66,6 +66,7 @@ ureWebpack: {<template>
                               class="form-control"
                               id="category-description"
                               rows="3"
+                         
                             ></textarea>
                           </div>
                           <!-- <template>
@@ -84,6 +85,7 @@ ureWebpack: {<template>
                           class="btn"
                           data-toggle="modal"
                           tile
+
                           color="#8CA9D3"
                           ><v-icon left> mdi-pencil </v-icon>Submit</v-btn
                         >
@@ -126,6 +128,8 @@ ureWebpack: {<template>
                           tile
                           color="#F26659"
                           @click.prevent="deleteCategory(category.id)"
+                      
+
                           ><v-icon left> mdi-delete </v-icon>Delete</v-btn
                         >
                       </div>
@@ -149,9 +153,12 @@ import axios from "axios";
 export default {
   data() {
     return {
-      dataInput:{},
+      dataInput: {
+    
+        name:"",
+        description:"",
+      },
       categories: [],
-
     };
   },
   components: {
@@ -161,33 +168,32 @@ export default {
   methods: {
     displayCategory() {
       axios.get("http://localhost:3000/categorys").then(({ data }) => {
-      
         this.categories = data;
-      })    
+      });
     },
     //  delete category from db
     deleteCategory(id) {
-
-    
-      axios
-        .delete(`http://localhost:3000/categorys/${id}`)
-        .then(() => {
-           this.displayCategory() 
-        })
-        
+      axios.delete(`http://localhost:3000/categorys/${id}`).then(() => {
+            this.displayCategory();
+      });
     },
     // update categorys from db
     updateCategory(id) {
-      axios.put(`http://localhost:3000/categorys/${id}`,this.dataInput).then((updated) => {
-        console.log(updated);
-     
-      }).then(() => {
-           this.displayCategory() 
+      axios
+        .put(`http://localhost:3000/categorys/${id}`, this.dataInput)
+        .then((updated) => {
+          console.log(updated);
+          
         })
+        .then(() => {
+          this.displayCategory();
+      
+        });
     },
   },
   mounted() {
     this.displayCategory();
+
   },
 };
 </script>
