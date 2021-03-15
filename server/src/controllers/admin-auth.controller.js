@@ -33,9 +33,7 @@ module.exports = {
       console.error(err);
     }
   },
-  
-};
-//   signup: async (req, res) => {
+  //  signup: async (req, res) => {
   //     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
   //     try {
   //       const user = await Admin.create({
@@ -57,4 +55,5 @@ module.exports = {
   //     } catch (err) {
   //       console.error(err);
   //     }
-  // },
+  //   }
+};
