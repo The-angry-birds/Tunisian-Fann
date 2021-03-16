@@ -11,10 +11,12 @@ export default new Router({
         },
         {
             path: "/join-as-client",
+            name: "join_Client",
             component: () => import("@/components/JoinAsClient.vue"),
         },
         {
             path: "/join-as-artist",
+            name:"join_Artist",
             component: () => import("@/components/JoinAsArtist.vue"),
         },
 
