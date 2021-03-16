@@ -201,13 +201,11 @@ export default {
   beforeMount() {
     this.displayCategory();
     this.verify();
-    console.log("=======>");
   },
 };
 </script>
 
 <style scoped>
-
 #app {
   width: 100%;
 }
@@ -223,5 +221,4 @@ export default {
 .edit-title {
   color: #8ca9d3;
 }
-
 </style>
