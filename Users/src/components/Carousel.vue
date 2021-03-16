@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <NavigationBar></NavigationBar>
     <div class="carousel-container">
       <b-carousel
@@ -15,37 +14,54 @@
       >
         <b-carousel-slide
           class="carousel-image"
-          caption="Paintings"
-          text="Caption Text"
-          img-src="https://picsum.photos/1024/480/?image=52"
+          v-bind:caption="image.name"
+          v-bind:text="image.description.slice(0, 50)"
+          v-bind:img-src="image.ImageUrl"
         ></b-carousel-slide>
         <b-carousel-slide
+          v-for="(item, index) in images"
+          :key="index"
           class="carousel-image"
-          caption="Digital Paintings"
-          text="Caption Text"
-          img-src="https://picsum.photos/1024/480/?image=54"
+          v-bind:caption="item.name"
+          v-bind:text="item.description"
+          v-bind:img-src="item.ImageUrl"
         ></b-carousel-slide>
-        <b-carousel-slide
+        <!-- <b-carousel-slide
           class="carousel-image"
           caption="Sculptures"
           text="Caption Text"
           img-src="https://picsum.photos/1024/480/?image=53"
-        ></b-carousel-slide>
+        ></b-carousel-slide> -->
+        -->
       </b-carousel>
     </div>
-
-
   </div>
 </template>
 
 <script>
 import NavigationBar from "./NavigationBar.vue";
-
+import axios from "axios";
 export default {
+  data() {
+    return {
+      image: {},
+      images: [],
+    };
+  },
+  methods: {
+    displayImages() {
+      axios.get("http://localhost:3000/categorys").then(({ data }) => {
+        this.images = data.slice(1);
+        this.image = data[0];
+      });
+    },
+  },
+  mounted() {
+    this.displayImages();
+  },
+
   components: {
-
     NavigationBar,
-
   },
   data() {
       return {
@@ -65,16 +81,13 @@ export default {
 </script>
 
 <style scoped>
-
 .carousel-image {
-  width: 100%;
-  max-height: 92vh;
-  min-height: 92vh;
-  object-fit: cover;
-
-  transition: ease-in-out 2s !important;
-
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-family: "Neuton", serif;
 }
-</style>
 
+
+</style>
 
