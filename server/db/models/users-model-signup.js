@@ -1,23 +1,25 @@
 const Sequelize = require("sequelize");
 const { sequelize } = require("../index");
 
-const usersSchema = (sequelize, type) => {
-    const myusers = sequelize.define(
-      "users",
+const usersSignupschema = (sequelize, type) => {
+    const myusersSignup = sequelize.define(
+      "usersSignup",
       {
         id: {
           type: type.INTEGER,
           primaryKey: true,
           autoIncrement: true,
         },
+        firstName:type.STRING,
+        lastName :type.STRING,
         email: type.STRING,
         password: type.STRING,
       },
       { timestamps: false }
     );
-    return myusers;
+    return myusersSignup;
   };
   
-  let usersLogin = usersSchema(sequelize, Sequelize);
+  let User = usersSignupschema(sequelize, Sequelize);
   
-  module.exports = { usersLogin };
+  module.exports = { User };

@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <NavigationBar></NavigationBar>
     <div class="carousel-container">
       <b-carousel
@@ -32,14 +33,19 @@
         ></b-carousel-slide>
       </b-carousel>
     </div>
+
+
   </div>
 </template>
 
 <script>
 import NavigationBar from "./NavigationBar.vue";
+
 export default {
   components: {
+
     NavigationBar,
+
   },
   data() {
       return {
@@ -59,11 +65,16 @@ export default {
 </script>
 
 <style scoped>
+
 .carousel-image {
   width: 100%;
   max-height: 92vh;
   min-height: 92vh;
   object-fit: cover;
+
   transition: ease-in-out 2s !important;
+
 }
 </style>
+
+
