@@ -206,7 +206,6 @@ export default {
   },
   beforeMount() {
     this.verify();
-    console.log("=======>");
   },
 };
 </script>

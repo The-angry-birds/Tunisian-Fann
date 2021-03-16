@@ -17,7 +17,6 @@ module.exports = {
         password: hash,
       });
       if (user) {
-        console.log("===========>", user.password);
         var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
           expiresIn: 86400, // expires in 24 hours
         });
