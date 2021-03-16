@@ -1,7 +1,7 @@
 ureWebpack: {<template>
   <div id="app">
     <AdminNavBar></AdminNavBar>
-    <CategoryCard v-bind:categories="categories"></CategoryCard>
+    <CategoryCard :categories="categories"></CategoryCard>
 
     <v-app id="inspire">
       <v-simple-table>
@@ -27,6 +27,7 @@ ureWebpack: {<template>
                   class="btn"
                   data-toggle="modal"
                   data-target="#myEditModal"
+                  @click="setCurrentId(category.id)"
                   tile
                   color="#8CA9D3"
                   ><v-icon left> mdi-pencil </v-icon>Edit</v-btn
@@ -77,7 +78,7 @@ ureWebpack: {<template>
                       </div>
                       <div class="modal-footer">
                         <v-btn
-                          @click.prevent="updateCategory(category.id)"
+                          @click.prevent="updateCategory(currentId)"
                           type="button"
                           class="btn"
                           data-toggle="modal"
@@ -90,6 +91,7 @@ ureWebpack: {<template>
                   </div>
                 </div>
                 <v-btn
+                 @click="setCurrentId(category.id)"
                   type="button"
                   class="btn"
                   data-toggle="modal"
@@ -98,39 +100,35 @@ ureWebpack: {<template>
                   color="#F26659"
                   ><v-icon left> mdi-delete </v-icon>Trash</v-btn
                 >
-                <div class="modal fade" id="myTrashModal" role="dialog">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="close"
-                          data-dismiss="modal"
-                        >
-                          &times;
-                        </button>
-                        <h4 class="modal-title warning-title">WARNING</h4>
-                      </div>
-                      <div class="modal-body">
-                        <p>Are you sure you want to delete this category ?</p>
-                      </div>
-                      <div class="modal-footer">
-                        <v-btn
-                          type="button"
-                          class="btn"
-                          data-toggle="modal"
-                          tile
-                          color="#F26659"
-                          @click.prevent="deleteCategory(category.id)"
-                          ><v-icon left> mdi-delete </v-icon>Delete</v-btn
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </td>
             </tr>
           </tbody>
+          <div class="modal fade" id="myTrashModal" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                  </button>
+                  <h4 class="modal-title warning-title">WARNING</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure you want to delete this category ?</p>
+                </div>
+                <div class="modal-footer">
+                  <v-btn
+                    type="button"
+                    class="btn"
+                    data-toggle="modal"
+                    tile
+                    color="#F26659"
+                    @click.prevent="deleteCategory(currentId)"
+                    ><v-icon left> mdi-delete </v-icon>Delete</v-btn
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
         </template>
       </v-simple-table>
     </v-app>
@@ -146,6 +144,7 @@ import swal from "sweetalert";
 export default {
   data() {
     return {
+      currentId: null,
       dataInput: {},
       categories: [],
     };
@@ -155,6 +154,9 @@ export default {
     CategoryCard,
   },
   methods: {
+    setCurrentId(id) {
+      this.currentId = id
+    },
     verify() {
       const token = localStorage.getItem("token");
       const header = { headers: { Authorization: `Bearer ${token}` } };
@@ -188,6 +190,7 @@ export default {
     },
     // update categorys from db
     updateCategory(id) {
+      console.log("==>", id);
       axios
         .put(`http://localhost:3000/categorys/${id}`, this.dataInput)
         .then((updated) => {
@@ -198,8 +201,10 @@ export default {
         });
     },
   },
-  beforeMount() {
+  mounted() {
     this.displayCategory();
+  },
+  beforeMount() {
     this.verify();
   },
 };

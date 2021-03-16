@@ -7,11 +7,12 @@ module.exports = {
   login: async (req, res) => {
     // these lines of codes are just for hashing the password in the database
 
-    // const salt = bcrypt.genSaltSync(saltRounds);
-    // const hash = bcrypt.hashSync(req.body.password, salt);
-    // const data = Admin.build({ email: req.body.email, password: hash });
-    // var saved = await data.save();
-    // res.send(saved);
+    //   const salt = bcrypt.genSaltSync(saltRounds);
+    //   const hash = bcrypt.hashSync(req.body.password, salt);
+    //   const data = Admin.build({ email: req.body.email, password: hash });
+    //   var saved = await data.save();
+    //   res.send(saved);
+    // }
     try {
       var admindata = req.body;
       const admin = await Admin.findOne({ where: { email: admindata.email } });
