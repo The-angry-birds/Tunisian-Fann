@@ -3,10 +3,13 @@
     <NavigationBar></NavigationBar>
     <div class="carousel-container">
       <b-carousel
-        id="carousel-1"
         v-model="slide"
         :interval="0"
         controls
+        fade
+        @sliding-start="onSlideStart"
+        @sliding-end="onSlideEnd"
+        id="carousel-1"
         style="text-shadow: 1px 1px 2px #333"
       >
         <b-carousel-slide
@@ -60,6 +63,20 @@ export default {
   components: {
     NavigationBar,
   },
+  data() {
+      return {
+        slide: 0,
+        sliding: null
+      }
+    },
+    methods: {
+      onSlideStart() {
+        this.sliding = true
+      },
+      onSlideEnd() {
+        this.sliding = false
+      }
+    }
 };
 </script>
 
@@ -71,13 +88,6 @@ export default {
   font-family: "Neuton", serif;
 }
 
-img {
-  width: 100%;
-  max-height: 92vh;
-  min-height: 92vh;
-  object-fit: cover;
-}
+
 </style>
 
-padding: 20px; } .carousel-text { padding-bottom: 25%; text-shadow: 2px 2px 5px
-black; }
