@@ -3,10 +3,13 @@
     <NavigationBar></NavigationBar>
     <div class="carousel-container">
       <b-carousel
-        id="carousel-1"
         v-model="slide"
         :interval="0"
         controls
+        fade
+        @sliding-start="onSlideStart"
+        @sliding-end="onSlideEnd"
+        id="carousel-1"
         style="text-shadow: 1px 1px 2px #333"
       >
         <b-carousel-slide
@@ -29,7 +32,6 @@
           text="Caption Text"
           img-src="https://picsum.photos/1024/480/?image=53"
         ></b-carousel-slide> -->
-        -->
       </b-carousel>
     </div>
   </div>
@@ -43,6 +45,8 @@ export default {
     return {
       image: {},
       images: [],
+      slide: 0,
+      sliding: null,
     };
   },
   methods: {
@@ -51,6 +55,12 @@ export default {
         this.images = data.slice(1);
         this.image = data[0];
       });
+    },
+    onSlideStart() {
+      this.sliding = true;
+    },
+    onSlideEnd() {
+      this.sliding = false;
     },
   },
   mounted() {
@@ -63,21 +73,14 @@ export default {
 };
 </script>
 
-<style scoped>
-.carousel-image {
-  margin: 0;
-  padding: 0;
-  color: white;
-  font-family: "Neuton", serif;
-}
+    <style scoped>
 
-img {
-  width: 100%;
-  max-height: 92vh;
-  min-height: 92vh;
-  object-fit: cover;
-}
-</style>
+    .carousel-image {
+      width: 100%;
+      max-height: 92vh;
+      min-height: 92vh;
+      object-fit: cover;
 
-padding: 20px; } .carousel-text { padding-bottom: 25%; text-shadow: 2px 2px 5px
-black; }
+      transition: ease-in-out 2s !important;
+    }
+    </style>

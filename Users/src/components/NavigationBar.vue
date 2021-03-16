@@ -7,8 +7,8 @@
       />
       <div>
         <b-dropdown text="Join us" class="m-2" right>
-          <b-dropdown-item-button>As a client</b-dropdown-item-button>
-          <b-dropdown-item-button>As an artist</b-dropdown-item-button>
+          <b-dropdown-item-button><router-link to="/join-as-client" >As a client</router-link></b-dropdown-item-button>
+          <b-dropdown-item-button><router-link to="/join-as-artist">As an artist</router-link></b-dropdown-item-button>
         </b-dropdown>
       </div>
     </b-navbar-nav>
