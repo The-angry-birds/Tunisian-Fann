@@ -74,10 +74,12 @@ export default {
 
 <style scoped>
 .carousel-image {
-  margin: 0;
-  padding: 0;
-  color: white;
-  font-family: "Neuton", serif;
+  width:100%;
+  max-height:92vh;
+  min-height:92vh;
+  object-fit: cover;
+  transition: 1s;
+
 }
 
 
