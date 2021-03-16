@@ -1,5 +1,36 @@
 <template>
   <div>
+
+    <NavigationBar></NavigationBar>
+    <div class="carousel-container">
+      <b-carousel
+        id="carousel-1"
+        v-model="slide"
+        :interval="9999999999"
+        controls
+        style="text-shadow: 1px 1px 2px #333"
+      >
+        <b-carousel-slide
+          class="carousel-image"
+          caption="Paintings"
+          text="Caption Text"
+          img-src="https://picsum.photos/1024/480/?image=52"
+        ></b-carousel-slide>
+        <b-carousel-slide
+          class="carousel-image"
+          caption="Digital Paintings"
+          text="Caption Text"
+          img-src="https://picsum.photos/1024/480/?image=54"
+        ></b-carousel-slide>
+        <b-carousel-slide
+          class="carousel-image"
+          caption="Sculptures"
+          text="Caption Text"
+          img-src="https://picsum.photos/1024/480/?image=53"
+        ></b-carousel-slide>
+      </b-carousel>
+    </div>
+
     <!-- <NavigationBar></NavigationBar> -->
     <LoginArtist id="artist" />
     <!-- <div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
@@ -8,7 +39,9 @@
     <div class="carousel-item active" data-bs-interval="99999999999999999">
       <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/4be9c731904549.56661ae867803.jpg" class="d-block w-100">
       <div class="carousel-caption d-none d-md-block carousel-text">
-        <h1>DIGITAL PAINTINGS</h1>
+        <h1>DIGITAL PAINTINGS</h1>=======
+8371
+
        
       </div>
     </div>
@@ -34,6 +67,7 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div> -->
+
   </div>
 </template>
 
@@ -42,13 +76,19 @@
 import LoginArtist from "./LoginArtist.vue";
 export default {
   components: {
+
+    NavigationBar,
+
     // NavigationBar,
-    LoginArtist,
+
   },
 };
 </script>
 
 <style scoped>
+
+.carousel-image {
+
 * {
   margin: 0;
   padding: 0;
@@ -57,10 +97,15 @@ export default {
 }
 
 img {
+
   width: 100%;
-  max-height: 100vh;
-  min-height: 100vh;
+  max-height: 92vh;
+  min-height: 92vh;
   object-fit: cover;
+
+}
+</style>
+
   padding: 20px;
 }
 
@@ -68,4 +113,4 @@ img {
   padding-bottom: 25%;
   text-shadow: 2px 2px 5px black;
 }
-</style>
+

@@ -9,6 +9,14 @@ export default new Router({
             path: "/",
             component: () => import("@/components/Carousel.vue"),
         },
+        {
+            path: "/join-as-client",
+            component: () => import("@/components/JoinAsClient.vue"),
+        },
+        {
+            path: "/join-as-artist",
+            component: () => import("@/components/JoinAsArtist.vue"),
+        },
 
     ]
 })
