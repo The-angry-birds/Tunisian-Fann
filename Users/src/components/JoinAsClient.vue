@@ -37,12 +37,12 @@
         <div class="overlay-panel overlay-left">
           <h3>Welcome Back!</h3>
           <p>To keep connected with us please login with your personal info</p>
-          <button class="ghost" id="signIn" @click="signIn()">Sign In</button>
+          <button class="ghost" id="signIn" @click="signIn()" @click.prevent="login()">Sign In</button>
         </div>
         <div class="overlay-panel overlay-right">
           <h3>Hello, Friend!</h3>
           <p>Enter your personal details and start journey with us</p>
-          <button class="ghost" id="signUp" @click="signUp()">Sign Up</button>
+          <button class="ghost" id="signUp" @click="signUp()" >Sign Up</button>
         </div>
       </div>
     </div>
@@ -50,8 +50,49 @@
 </template>
 
 <script>
+import axios from "axios"
+import swal from 'sweetalert2'
 export default {
+  firstName:"",
+  lastName:"",
+  email:"",
+  password:"",
   methods: {
+ Login() {
+      axios
+        .post("http://localhost:3000/users/auth/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
+          console.log("==========",response);
+          if (response.data.message === "success") {
+            localStorage.setItem("token", response.data.token);
+            this.$router.push("/");
+          } else if (response.data.message === "wrong password") {
+            swal("Oops!", "Wrong Password!", "error");
+          } else {
+            swal("Oops!", "Wrong Email!", "error");
+          }
+        });
+ },
+        handleSubmit(){
+          axios.post("http://localhost:3000/users/auth/signup",{
+            firstName:this.firstName,
+            lastName :this.lastName,
+            email :this.email,
+            password :this.password
+
+          })
+          .then((newuser)=>{
+            console.log("thhereeeeeeeeeeeee",newuser)
+          })
+
+          .catch((err)=>{console.log(err);})
+          
+        }
+    },
+
     signUp: function () {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
@@ -60,8 +101,8 @@ export default {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
-  },
-};
+  }
+
 </script>
 
 <style scoped>
