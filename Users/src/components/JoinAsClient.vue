@@ -9,12 +9,16 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your email for registration</span>
-        <input type="text" placeholder="Firstname" />
-        <input type="text" placeholder="Lastname" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <input type="password" placeholder="Confirm Password" />
-        <button>Sign Up</button>
+        <input type="text" v-model="firstName" placeholder="Firstname" />
+        <input type="text" v-model="lastName" placeholder="Lastname" />
+        <input type="email" v-model="email" placeholder="Email" />
+        <input type="password" v-model="password" placeholder="Password" />
+        <input
+          type="password"
+          v-model="Confirmpassword"
+          placeholder="Confirm Password"
+        />
+        <button @click.prevent="handleSubmit()">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">
@@ -37,12 +41,16 @@
         <div class="overlay-panel overlay-left">
           <h3>Welcome Back!</h3>
           <p>To keep connected with us please login with your personal info</p>
-          <button class="ghost" id="signIn" @click="signIn()">Sign In</button>
+          <button class="ghost" id="signIn" @click="movingsignIn()">
+            Sign In
+          </button>
         </div>
         <div class="overlay-panel overlay-right">
           <h3>Hello, Friend!</h3>
           <p>Enter your personal details and start journey with us</p>
-          <button class="ghost" id="signUp" @click="signUp()">Sign Up</button>
+          <button class="ghost" id="signUp" @click="movingsignUp()">
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
@@ -50,13 +58,68 @@
 </template>
 
 <script>
+import axios from "axios";
+import swal from "sweetalert";
+
 export default {
+  data() {
+    return {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      Confirmpassword: "",
+    };
+  },
   methods: {
-    signUp: function () {
+    handleSubmit() {
+      console.log("da5let");
+      if (
+        this.email === "" ||
+        this.firstName === "" ||
+        this.lastName === "" ||
+        this.password === "" ||
+        this.Confirmpassword === ""
+      ) {
+        swal("Oops!", "please fill information", "error");
+      } else if (this.password.length < 8) {
+        swal("Oops!", "Passsword need to be more than 8 character", "error");
+      } else if (this.password !== this.Confirmpassword) {
+        swal("Oops!", "password not match", "error");
+      } else {
+        axios
+          .get(`http://localhost:3000/users/${this.email}`)
+          .then((data) => {
+            if (data.data.email == this.email) {
+              swal("Oops!", "Already exist", "error");
+            } else {
+              axios
+                .post("http://localhost:3000/users/signup", {
+                  firstName: this.firstName,
+                  lastName: this.lastName,
+                  email: this.email,
+                  password: this.password,
+                })
+                .then((res) => {
+                   swal(":)!", "welcome", ":)");
+                  console.log(res);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+
+    movingsignUp: function () {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    signIn: function () {
+    movingsignIn: function () {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
