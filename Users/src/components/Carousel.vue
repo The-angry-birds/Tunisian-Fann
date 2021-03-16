@@ -26,13 +26,7 @@
           v-bind:text="item.description"
           v-bind:img-src="item.ImageUrl"
         ></b-carousel-slide>
-        <!-- <b-carousel-slide
-          class="carousel-image"
-          caption="Sculptures"
-          text="Caption Text"
-          img-src="https://picsum.photos/1024/480/?image=53"
-        ></b-carousel-slide> -->
-        -->
+      
       </b-carousel>
     </div>
   </div>
@@ -45,7 +39,9 @@ export default {
   data() {
     return {
       image: {},
-      images: [],
+      images: [], 
+       slide: 0,
+        sliding: null
     };
   },
   methods: {
@@ -54,29 +50,25 @@ export default {
         this.images = data.slice(1);
         this.image = data[0];
       });
+      
     },
+    onSlideStart() {
+        this.sliding = true
+      },
+      onSlideEnd() {
+        this.sliding = false
+      }
   },
   mounted() {
+     
     this.displayImages();
   },
 
   components: {
     NavigationBar,
   },
-  data() {
-      return {
-        slide: 0,
-        sliding: null
-      }
-    },
-    methods: {
-      onSlideStart() {
-        this.sliding = true
-      },
-      onSlideEnd() {
-        this.sliding = false
-      }
-    }
+ 
+    
 };
 </script>
 
