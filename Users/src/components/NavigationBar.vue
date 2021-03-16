@@ -1,15 +1,18 @@
 <template>
-  <div>
-  <div class="navigationBar fixed-top">
-    <img
-      class="logo"
-      src="https://www.darest.com/wp-content/uploads/2019/04/Logo-Roomz-Blanc.png"
-      alt="#"
-    />
-  </div>
-  </div>
-  
-  
+  <b-navbar class="navigation" type="white">
+    <b-navbar-nav>
+      <img
+        class="nav-logo"
+        src="https://i.pinimg.com/originals/32/3e/02/323e02791f3dfb353927386dfaec81d9.png"
+      />
+      <div>
+        <b-dropdown text="Join us" class="m-2" right>
+          <b-dropdown-item-button>As a client</b-dropdown-item-button>
+          <b-dropdown-item-button>As an artist</b-dropdown-item-button>
+        </b-dropdown>
+      </div>
+    </b-navbar-nav>
+  </b-navbar>
 </template>
 
 <script>
@@ -17,27 +20,21 @@ export default {};
 </script>
 
 <style scoped>
-/* 
 * {
-  margin: 0;
-  padding: 0;
-} */
-
-.navigationBar {
-  background-color: #f0eff4;
-  height: 50px;
-  width: 100%;
-  box-shadow: 0px 0px 10px #404040;
+  margin: 0%;
+  padding: 0%;
 }
 
-.logo {
-  max-width: 100%;
-  max-height: 100%;
-  position: absolute;
-  /* CHECK with the real logo */
-  left: 40%;     
-  padding: 5px 
+.navigation {
+  border-radius: 0;
+  height: 8vh;
+  background-color: white;
 }
 
-
+.nav-logo {
+  height: 8vh;
+  margin-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 1px;
+}
 </style>
