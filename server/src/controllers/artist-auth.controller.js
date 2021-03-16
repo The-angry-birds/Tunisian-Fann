@@ -1,24 +1,22 @@
-const { User } = require("../../db/models/users-model-signup");
-const configUsers = require("../../db/configUsers.js");
+const { Artist } = require("../../db/models/artist-model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const config = require("../../db/configArtist");
 
 module.exports = {
   signup: async (req, res) => {
     try {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
-
-      const user = await User.create({
-        firstName: req.body.firstName,
+      const artist = await Artist.create({
         lastName: req.body.lastName,
         email: req.body.email,
         password: hash,
+        category: req.body.category,
       });
-      if (user) {
-        console.log("===========>", user.password);
-        var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
+      if (artist) {
+        var token = jwt.sign({ email: req.body.email }, config.secret, {
           expiresIn: 86400, // expires in 24 hours
         });
         res.send({ auth: true, token: token });
@@ -36,23 +34,20 @@ module.exports = {
   login: async (req, res) => {
     try {
       var { email, password } = req.body;
-      const user = await User.findOne({
+      const artist = await Artist.findOne({
         where: { email: email },
       });
-      if (user) {
-        const salt = bcrypt.genSaltSync(saltRounds);
-        const hash = bcrypt.hashSync(req.body.password, salt);
-        console.log(hash);
-
-        var result = bcrypt.compareSync(password, user.password);
-
+      if (artist) {
+        var result = bcrypt.compareSync(password, artist.password);
         if (result) {
-          var token = jwt.sign({ email }, configUsers.secret, {
-            expiresIn: "1h",
+          var token = jwt.sign({ email: email }, config.secret, {
+            expiresIn: "10s", // expires in 24 hours
           });
+
           res.send({ message: "success", auth: true, token: token });
+        } else {
+          res.send({ message: "wrong password", auth: false, token: null });
         }
-        res.send({ message: "wrrong password", auth: false, token: null });
       } else {
         res.send({ message: "user not found", auth: false, token: null });
       }

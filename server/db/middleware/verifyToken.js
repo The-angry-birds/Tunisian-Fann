@@ -1,28 +1,17 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 verifyToken = (req, res, next) => {
-  let email = req.body.email;
-  let user = { email };
-  let authHeader = req.headers["authorization"];
-  let token = authHeader && authHeader.split(" ")[1];
+  try {
+    let user = { email: "ines-piazzese.ines@gmail.com" };
 
-  if (!token) {
-    return res.status(403).send({
-      auth: false,
-      message: "No token provided.",
-    });
-  } else {
-    try {
-      var t = jwt.verify(token, config.secret);
+    let authHeader = req.headers["authorization"];
+    let token = authHeader && authHeader.split(" ")[1];
+    const t = jwt.verify(token, config.secret);
+    const newtoken = jwt.sign(user, config.secret, { expiresIn: "10s" });
 
-      var newtoken = jwt.sign(user, config.secret);
-      res.send({ auth: true, token: newtoken });
-    } catch (err) {
-      res.send(err);
-    }
+    res.send({ auth: true, token: newtoken });
+  } catch (err) {
+    res.send(err);
   }
-
-  next();
 };
-
 module.exports = verifyToken;
