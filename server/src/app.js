@@ -10,7 +10,7 @@ const app = express();
 app.use(morgan("combined"));
 app.use(bodyParser.json());
 app.use(cors());
-
+morgan(':method :url :status :res[content-length] - :response-time ms')
 app.use("/api/auth", adminRoutes);
 app.use("/categorys", Router);
 app.use("/users",usersRoutes)
