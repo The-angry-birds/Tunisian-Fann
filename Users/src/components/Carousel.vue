@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavigationBar></NavigationBar>
+    <NavigationBar/>
     <div class="carousel-container">
       <b-carousel
         v-model="slide"
