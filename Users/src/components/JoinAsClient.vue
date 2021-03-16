@@ -30,10 +30,10 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your account</span>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+        <input type="email" v-model="email" placeholder="Email" />
+        <input type="password" v-model="password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button>Sign In</button>
+        <button @click.prevent="login()" >Sign In</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -113,6 +113,27 @@ export default {
             console.log(err);
           });
       }
+    },
+    login(){
+  
+      axios
+        .post("http://localhost:3000/users/login",{email:this.email,password:this.password})
+        .then(( user ) => { 
+          console.log("=============",user);
+          if(user.email===this.email&&user.password===this.password){
+                console.log("welcome ",user)
+            
+          }else{
+           swal("Oops!", "Wrrong auth", "error");
+
+          }
+          })
+          
+          
+        .catch((err) => {
+          console.log(err);
+        });
+
     },
 
     movingsignUp: function () {
