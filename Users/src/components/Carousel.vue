@@ -73,14 +73,13 @@ export default {
 };
 </script>
 
-    <style scoped>
+<style scoped>
+.carousel-image {
+  width: 100%;
+  max-height: 92vh;
+  min-height: 92vh;
+  object-fit: cover;
 
-    .carousel-image {
-      width: 100%;
-      max-height: 92vh;
-      min-height: 92vh;
-      object-fit: cover;
-
-      transition: ease-in-out 2s !important;
-    }
-    </style>
+  transition: ease-in-out 2s !important;
+}
+</style>

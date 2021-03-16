@@ -1,7 +1,5 @@
 <template>
   <div>
-   
-
     <div class="vue-tempalte">
       <form>
         <h3>Sign In</h3>
@@ -39,14 +37,20 @@
         </div>
       </form>
     </div>
-   
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      category: "",
+      confirmPassword: "",
+    };
   },
 };
 </script>
