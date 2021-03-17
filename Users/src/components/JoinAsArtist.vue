@@ -19,7 +19,7 @@
           placeholder="Confirm Password"
         />
         <select v-model="category" id="categories" name="categories">
-          <option value="#">Choose your category</option>
+          <option selected="selected">Choose your category</option>
           <option value="paintings">Paintings</option>
           <option value="digitalpaintings">Digital Paintings</option>
           <option value="sculptures">Sculptures</option>
@@ -63,6 +63,8 @@
 <script>
 import axios from "axios";
 import swal from "sweetalert";
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
@@ -71,6 +73,8 @@ export default {
       email: "",
       password: "",
       confirmPassword: "",
+      has_special: false,
+      has_number: false,
       category: "",
     };
   },
@@ -85,6 +89,30 @@ export default {
       container.classList.remove("right-panel-active");
     },
     handleSubmit() {
+      this.has_special = /[!@#%*+=._-]/.test(this.password);
+      this.has_number = /\d/.test(this.password);
+      if (
+        this.firstName === "" ||
+        this.lastName === "" ||
+        this.email === "" ||
+        this.password === "" ||
+        this.confirmPassword === "" ||
+        this.category === ""
+      ) {
+        swal("Oops!", "Empty fields", "error");
+      }
+      if (!this.email.includes("@")) {
+        swal("Oops!", "Invalid mail", "error");
+      }
+      if (this.password !== this.confirmPassword) {
+        swal("Oops!", "Passwords not matching", "error");
+      } else if (!this.has_special && this.has_number) {
+        swal(
+          "Oops!",
+          "Password needs to have at least one special character and one number",
+          "error"
+        );
+      }
       axios
         .post("http://localhost:3000/artist/auth/signUp", {
           firstName: this.firstName,
@@ -92,39 +120,20 @@ export default {
           email: this.email,
           password: this.password,
           category: this.category,
-          confirmPassword: this.confirmPassword,
         })
         .then(({ data }) => {
-          if (
-            this.firstName.length !== "" &&
-            this.lastName.length !== "" &&
-            this.email !== "" &&
-            this.password.length > 8 &&
-            this.confirmPassword > 8 &&
-            this.category !== ""
-          ) {
-            if (
-              this.password === this.confirmPassword &&
-              this.password.includes(/[a-z]/i) &&
-              this.password.includes(/[0-9]/) &&
-              data.message === "congrats you are registred"
-            ) {
-              localStorage.setItem("token", data.token);
-              console.log("congrats you're registred");
-            } else if (this.password !== this.confirmPassword) {
-              swal("Oops", "passwords not matching", "Error");
-            }
-          } else if (!this.password.includes([a - z] / i)) {
-            swal("Oops", "your password should include at least one letter ");
-          } else if (!this.password.includes([0 - 9])) {
-            swal("Oops", "your password should include at least one number ");
-          } else {
-            console.log("hey");
-          }
+          localStorage.setItem("token", data.token);
+
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Congrats! Your have been registred",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         })
         .catch((err) => {
-          console.log(err);
-          swal("oops", "Something went wrong");
+          swal("oops", "Something went wrong", err);
         });
     },
   },
