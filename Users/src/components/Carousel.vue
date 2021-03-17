@@ -1,23 +1,23 @@
 <template>
   <div>
-    <NavigationBar></NavigationBar>
-    <div class="carousel-container">
+    <NavBar></NavBar>
+    <div>
       <b-carousel
+        id="carousel-1"
         v-model="slide"
         :interval="0"
         controls
         fade
-        @sliding-start="onSlideStart"
-        @sliding-end="onSlideEnd"
-        id="carousel-1"
+        background="transparent"
         style="text-shadow: 1px 1px 2px #333"
       >
         <b-carousel-slide
           class="carousel-image"
           v-bind:caption="image.name"
-          v-bind:text="image.description"
+          v-bind:text="image.description.slice(0, 50)"
           v-bind:img-src="image.ImageUrl"
         ></b-carousel-slide>
+
         <b-carousel-slide
           v-for="(item, index) in images"
           :key="index"
@@ -26,20 +26,15 @@
           v-bind:text="item.description"
           v-bind:img-src="item.ImageUrl"
         ></b-carousel-slide>
-
-        <!-- <b-carousel-slide
-          class="carousel-image"
-          caption="Sculptures"
-          text="Caption Text"
-          img-src="https://picsum.photos/1024/480/?image=53"
-        ></b-carousel-slide> -->
       </b-carousel>
     </div>
+    <AuctionCard></AuctionCard>
   </div>
 </template>
 
 <script>
-import NavigationBar from "./NavigationBar.vue";
+import NavBar from "./NavBar.vue";
+import AuctionCard from "./AuctionCard.vue";
 import axios from "axios";
 export default {
   data() {
@@ -57,29 +52,34 @@ export default {
         this.image = data[0];
       });
     },
-    onSlideStart() {
-      this.sliding = true;
-    },
-    onSlideEnd() {
-      this.sliding = false;
-    },
   },
   mounted() {
     this.displayImages();
   },
-
   components: {
-    NavigationBar,
+    NavBar,
+    AuctionCard,
   },
 };
 </script>
 
 <style scoped>
-.carousel-image {
+* {
+  font-family: "Spectral", serif;
+}
+body .carousel-image {
   width: 100%;
-  max-height: 92vh;
-  min-height: 92vh;
+  max-height: 70vh;
+  min-height: 70vh;
   object-fit: cover;
-  transition: 1s;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+#carousel-1 {
+  width: 100%;
+  max-height: 70vh;
+  min-height: 70vh;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 </style>
