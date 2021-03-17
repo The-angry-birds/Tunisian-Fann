@@ -9,19 +9,23 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your email for registration</span>
-        <input type="text" placeholder="Firstname" />
-        <input type="text" placeholder="Lastname" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <input type="password" placeholder="Confirm Password" />
-        <select id="categories" name="categories">
+        <input v-model="firstName" type="text" placeholder="Firstname" />
+        <input v-model="lastName" type="text" placeholder="Lastname" />
+        <input v-model="email" type="email" placeholder="Email" />
+        <input v-model="password" type="password" placeholder="Password" />
+        <input
+          v-model="confirmPassword"
+          type="password"
+          placeholder="Confirm Password"
+        />
+        <select v-model="category" id="categories" name="categories">
           <option value="#">Choose your category</option>
-          <option value="paintings">Paitings</option>
+          <option value="paintings">Paintings</option>
           <option value="digitalpaintings">Digital Paintings</option>
           <option value="sculptures">Sculptures</option>
         </select>
 
-        <button>Sign Up</button>
+        <button @click.prevent="handleSubmit()">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">
@@ -33,10 +37,10 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your account</span>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+        <input v-model="email" type="email" placeholder="Email" />
+        <input v-model="password" type="password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button>Sign In</button>
+        <button @click.prevent="handleSubmitSignIn()">Sign In</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -57,15 +61,71 @@
 </template>
 
 <script>
+import axios from "axios";
+import swal from "sweetalert";
 export default {
+  data() {
+    return {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      category: "",
+    };
+  },
+
   methods: {
-    signUp: function () {
+    signUp: function() {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    signIn: function () {
+    signIn: function() {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
+    },
+    handleSubmit() {
+      axios
+        .post("http://localhost:3000/artist/auth/signUp", {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password,
+          category: this.category,
+          confirmPassword: this.confirmPassword,
+        })
+        .then(({ data }) => {
+          if (
+            this.firstName.length !== "" &&
+            this.lastName.length !== "" &&
+            this.email !== "" &&
+            this.password.length > 8 &&
+            this.confirmPassword > 8 &&
+            this.category !== ""
+          ) {
+            if (
+              this.password === this.confirmPassword &&
+              this.password.includes(/[a-z]/i) &&
+              this.password.includes(/[0-9]/) &&
+              data.message === "congrats you are registred"
+            ) {
+              localStorage.setItem("token", data.token);
+              console.log("congrats you're registred");
+            } else if (this.password !== this.confirmPassword) {
+              swal("Oops", "passwords not matching", "Error");
+            }
+          } else if (!this.password.includes([a - z] / i)) {
+            swal("Oops", "your password should include at least one letter ");
+          } else if (!this.password.includes([0 - 9])) {
+            swal("Oops", "your password should include at least one number ");
+          } else {
+            console.log("hey");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          swal("oops", "Something went wrong");
+        });
     },
   },
 };

@@ -15,7 +15,7 @@
         <b-carousel-slide
           class="carousel-image"
           v-bind:caption="image.name"
-          v-bind:text="image.description.slice(0, 50)"
+          v-bind:text="image.description"
           v-bind:img-src="image.ImageUrl"
         ></b-carousel-slide>
         <b-carousel-slide
@@ -26,6 +26,7 @@
           v-bind:text="item.description"
           v-bind:img-src="item.ImageUrl"
         ></b-carousel-slide>
+
         <!-- <b-carousel-slide
           class="carousel-image"
           caption="Sculptures"
@@ -79,7 +80,6 @@ export default {
   max-height: 92vh;
   min-height: 92vh;
   object-fit: cover;
-
-  transition: ease-in-out 2s !important;
+  transition: 1s;
 }
 </style>
