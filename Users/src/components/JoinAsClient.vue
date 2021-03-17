@@ -33,7 +33,7 @@
         <input type="email" v-model="email" placeholder="Email" />
         <input type="password" v-model="password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button @click.prevent="login()" >Sign In</button>
+        <button @click.prevent="handleClick()" >Login</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -116,21 +116,33 @@ export default {
             console.log(err);
           });
       }
-    },
-  //  login() {
-  //     axios
-  //       .post("http://localhost:3000/users/login", {
-  //         email: this.email,
-  //         password: this.password,
-  //       })
-  //       .then((data) => {
-          
-  //           console.log(data,"==========");
-          
-  //         } 
-  //       });
     
-  //   },
+    },
+    handleClick(){
+            if (this.email === "" || this.password === "") {
+        swal("Oops!", "Empty fields", "error");
+      } else {
+        axios
+          .post("http://localhost:3000/users/auth/login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then((res ) => {
+            console.log("============");
+         if (res.data.message === "success") {
+           console.log(res.data.message);
+              localStorage.setItem("token", );
+              this.$router.push("/userProfil");
+            } else if (res.data.message === "wrong password") {
+              swal("Oops!", "Wrong Password!", "error");
+            } else {
+              swal("Oops!", "Wrong Email!", "error");
+            }
+          });
+      }
+    },
+    
+
 
     movingsignUp: function () {
       const container = document.getElementById("container");
