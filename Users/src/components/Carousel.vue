@@ -56,7 +56,6 @@ export default {
   mounted() {
     this.displayImages();
   },
-
   components: {
     NavBar,
     AuctionCard,
@@ -68,8 +67,7 @@ export default {
 * {
   font-family: "Spectral", serif;
 }
-body
-.carousel-image {
+body .carousel-image {
   width: 100%;
   max-height: 70vh;
   min-height: 70vh;
@@ -84,8 +82,5 @@ body
   min-height: 70vh;
   padding-left: 8px;
   padding-right: 8px;
-
 }
 </style>
-
-
