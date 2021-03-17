@@ -7,7 +7,7 @@ export default new Router({
     routes: [
         {
             path: "/",
-            component: () => import("@/components/Carousel.vue"),
+            component: () => import("@/components/LandingPage.vue"),
         },
         {
             path: "/join-as-client",

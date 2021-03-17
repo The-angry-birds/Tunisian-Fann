@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="auctions-header">Feel free to join our AUCTIONS</h1>
     <section class="cards">
-      <article class="card card--1">
+      <article class="card card--2">
         <div class="card__info-hover">
           <svg class="card__like" viewBox="0 0 24 24">
             <path
@@ -15,7 +15,7 @@
               <path
                 d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z"
               /></svg
-            ><span class="card__time">2 days / 5 hours / 15 min : left</span>
+            ><span class="card__time">4 days / 1 hours / 45 min : left</span>
           </div>
         </div>
         <div class="card__img"></div>
@@ -24,7 +24,7 @@
         </a>
         <div class="card__info">
           <span class="card__category">Digital Paintings</span>
-          <h3 class="card__title">Before Lights Out</h3>
+          <h3 class="card__title">After the Storm</h3>
           <span class="card__by"
             >by
             <a href="#" class="card__author" title="author"
@@ -95,7 +95,7 @@
           >
         </div>
       </article>
-      <article class="card card--1">
+      <article class="card card--2">
         <div class="card__info-hover">
           <svg class="card__like" viewBox="0 0 24 24">
             <path
@@ -108,7 +108,7 @@
               <path
                 d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z"
               /></svg
-            ><span class="card__time">2 days / 5 hours / 15 min : left</span>
+            ><span class="card__time">4 days / 1 hours / 45 min : left</span>
           </div>
         </div>
         <div class="card__img"></div>
@@ -117,7 +117,7 @@
         </a>
         <div class="card__info">
           <span class="card__category">Digital Paintings</span>
-          <h3 class="card__title">Before Lights Out</h3>
+          <h3 class="card__title">After the Storm</h3>
           <span class="card__by"
             >by
             <a href="#" class="card__author" title="author"
@@ -126,7 +126,7 @@
           >
         </div>
       </article>
-
+      <button id="loadMore" class="nav-link dropdown-toggle">Load more</button>
     </section>
   </div>
 </template>
@@ -136,13 +136,13 @@ export default {};
 </script>
 
 <style scoped>
-
 * {
   box-sizing: border-box;
   font-family: "Spectral", serif;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   width: 100%;
   height: 100%;
@@ -161,11 +161,26 @@ body {
 
 .auctions-header {
   text-align: center;
-  margin-top:10vh
+  margin-top: 25px;
+  color: #ad7d52;
+  text-shadow: 1px 1px 3px #ad7d52;
 }
+
+#loadMore {
+  text-align: center;
+  font-size: 20px;
+  color: #ad7d52;
+  text-shadow: 1px 1px 3px #ad7d52;
+}
+
+#loadMore:hover {
+  color: #000000;
+  text-shadow: 1px 1px 3px #000000;
+}
+
 .cards {
   width: 100%;
-  display: flex;  
+  display: flex;
   flex-wrap: wrap;
   display: -webkit-flex;
   justify-content: center;
@@ -175,6 +190,11 @@ body {
 .card--1 .card__img,
 .card--1 .card__img--hover {
   background-image: url("https://www.bensalemwalid.com/wp-content/uploads/2021/02/before-lights-out-artwork-by-bensalem-walid.png");
+}
+
+.card--2 .card__img,
+.card--2 .card__img--hover {
+  background-image: url("https://www.bensalemwalid.com/wp-content/uploads/2021/02/soft-voices-artwork-by-bensalem-walid.png");
 }
 
 .card__like {
@@ -235,7 +255,7 @@ body {
   overflow: hidden;
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
   margin: 20px;
-  height: 300px
+  height: 300px;
 }
 .card:hover {
   box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
@@ -251,7 +271,6 @@ body {
 }
 
 .card__category {
-  
   text-transform: uppercase;
   font-size: 13px;
   letter-spacing: 2px;
@@ -262,12 +281,10 @@ body {
 .card__title {
   margin-top: 5px;
   margin-bottom: 10px;
-  
 }
 
 .card__by {
   font-size: 12px;
-  
 }
 
 .card__author {

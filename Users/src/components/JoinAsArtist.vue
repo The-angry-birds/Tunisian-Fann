@@ -16,13 +16,7 @@
         <input type="password" placeholder="Confirm Password" />
         <select id="categories" name="categories">
           <option value="#">Choose your category</option>
-          <option value="paintings">Pai  <!-- <b-carousel-slide
-          class="carousel-image"
-          caption="Sculptures"
-          text="Caption Text"
-          img-src="https://picsum.photos/1024/480/?image=53"
-        ></b-carousel-slide> -->
-        -->tings</option>
+          <option value="paintings">Paintings</option>
           <option value="digitalpaintings">Digital Paintings</option>
           <option value="sculptures">Sculptures</option>
         </select>
