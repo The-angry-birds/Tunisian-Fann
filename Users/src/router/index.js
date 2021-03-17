@@ -19,6 +19,12 @@ export default new Router({
             name:"join_Artist",
             component: () => import("@/components/JoinAsArtist.vue"),
         },
+        {
+            path: "/userProfil",
+            name:"user",
+            component: () => import("@/components/userProfil.vue"),
+        },
+
 
     ]
 })

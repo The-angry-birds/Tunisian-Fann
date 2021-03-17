@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log("da5let");
       if (
         this.email === "" ||
         this.firstName === "" ||
@@ -100,7 +99,9 @@ export default {
                   password: this.password,
                 })
                 .then((res) => {
-                  swal(":)!", "welcome", ":)");
+<
+                   swal("Good job!", "Welcome", "success
+                 swal(":)!", "welcome", "
                   console.log(res);
                 })
                 .catch((err) => {

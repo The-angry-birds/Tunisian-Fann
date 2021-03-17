@@ -59,4 +59,16 @@ module.exports = {
       res.send(err);
     }
   },
+  findUser: async (req, res) => {
+    console.log("req", req.params);
+    try {
+      const query = await User.findOne({
+        where: { email: req.params.email },
+      }).then((data) => {
+        res.send(data);
+      });
+    } catch (err) {
+      res.send(err);
+    }
+  },
 };
