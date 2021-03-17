@@ -75,6 +75,7 @@ body .carousel-image {
   padding-left: 8px;
   padding-right: 8px;
 }
+
 #carousel-1 {
   width: 100%;
   max-height: 70vh;

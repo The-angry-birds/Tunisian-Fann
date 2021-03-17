@@ -9,12 +9,16 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your email for registration</span>
-        <input type="text" placeholder="Firstname" />
-        <input type="text" placeholder="Lastname" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <input type="password" placeholder="Confirm Password" />
-        <button>Sign Up</button>
+        <input type="text" v-model="firstName" placeholder="Firstname" />
+        <input type="text" v-model="lastName" placeholder="Lastname" />
+        <input type="email" v-model="email" placeholder="Email" />
+        <input type="password" v-model="password" placeholder="Password" />
+        <input
+          type="password"
+          v-model="Confirmpassword"
+          placeholder="Confirm Password"
+        />
+        <button @click.prevent="handleSubmit()">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">
@@ -26,10 +30,10 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your account</span>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+        <input type="email" v-model="email" placeholder="Email" />
+        <input type="password" v-model="password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button>Sign In</button>
+        <button @click.prevent="login()">Sign In</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -37,19 +41,16 @@
         <div class="overlay-panel overlay-left">
           <h3>Welcome Back!</h3>
           <p>To keep connected with us please login with your personal info</p>
-          <button
-            class="ghost"
-            id="signIn"
-            @click="signIn()"
-            @click.prevent="login()"
-          >
+          <button class="ghost" id="signIn" @click="movingsignIn()">
             Sign In
           </button>
         </div>
         <div class="overlay-panel overlay-right">
           <h3>Hello, Friend!</h3>
           <p>Enter your personal details and start journey with us</p>
-          <button class="ghost" id="signUp" @click="signUp()">Sign Up</button>
+          <button class="ghost" id="signUp" @click="movingsignUp()">
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
@@ -58,7 +59,7 @@
 
 <script>
 import axios from "axios";
-import swal from "sweetalert2";
+import swal from "sweetalert";
 export default {
   data() {
     return {
@@ -66,69 +67,92 @@ export default {
       lastName: "",
       email: "",
       password: "",
+      Confirmpassword: "",
     };
   },
-
   methods: {
-    Login() {
-      axios
-        .post("http://localhost:3000/users/auth/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((response) => {
-          console.log("==========", response);
-          if (response.data.message === "success") {
-            localStorage.setItem("token", response.data.token);
-            this.$router.push("/");
-          } else if (response.data.message === "wrong password") {
-            swal("Oops!", "Wrong Password!", "error");
-          } else {
-            swal("Oops!", "Wrong Email!", "error");
-          }
-        });
-    },
     handleSubmit() {
+      console.log("da5let");
+      if (
+        this.email === "" ||
+        this.firstName === "" ||
+        this.lastName === "" ||
+        this.password === "" ||
+        this.Confirmpassword === ""
+      ) {
+        swal("Oops!", "please fill information", "error");
+      } else if (this.password.length < 8) {
+        swal("Oops!", "Passsword need to be more than 8 character", "error");
+      } else if (this.password !== this.Confirmpassword) {
+        swal("Oops!", "password not match", "error");
+      } else {
+        axios
+          .get(`http://localhost:3000/users/${this.email}`)
+          .then((data) => {
+            if (data.data.email == this.email) {
+              swal("Oops!", "Already exist", "error");
+            } else {
+              axios
+                .post("http://localhost:3000/users/signup", {
+                  firstName: this.firstName,
+                  lastName: this.lastName,
+                  email: this.email,
+                  password: this.password,
+                })
+                .then((res) => {
+                  swal(":)!", "welcome", ":)");
+                  console.log(res);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    login() {
       axios
-        .post("http://localhost:3000/users/auth/signup", {
-          firstName: this.firstName,
-          lastName: this.lastName,
+        .post("http://localhost:3000/users/login", {
           email: this.email,
           password: this.password,
         })
-        .then((newuser) => {
-          console.log("thhereeeeeeeeeeeee", newuser);
+        .then((user) => {
+          console.log("=============", user);
+          if (user.email === this.email && user.password === this.password) {
+            console.log("welcome ", user);
+          } else {
+            swal("Oops!", "Wrrong auth", "error");
+          }
         })
 
         .catch((err) => {
           console.log(err);
         });
     },
-  },
-
-  signUp: function() {
-    const container = document.getElementById("container");
-    container.classList.add("right-panel-active");
-  },
-  signIn: function() {
-    const container = document.getElementById("container");
-    container.classList.remove("right-panel-active");
+    movingsignUp: function() {
+      const container = document.getElementById("container");
+      container.classList.add("right-panel-active");
+    },
+    movingsignIn: function() {
+      const container = document.getElementById("container");
+      container.classList.remove("right-panel-active");
+    },
   },
 };
 </script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
-
 * {
   box-sizing: border-box;
 }
-
 h2 {
   font-weight: bold;
   margin: 0;
 }
-
 p {
   font-size: 14px;
   font-weight: 100;
@@ -136,18 +160,15 @@ p {
   letter-spacing: 0.5px;
   margin: 20px 0 30px;
 }
-
 span {
   font-size: 12px;
 }
-
 a {
   color: #333;
   font-size: 14px;
   text-decoration: none;
   margin: 15px 0;
 }
-
 button {
   border-radius: 20px;
   border: 1px solid #3000cf;
@@ -160,26 +181,21 @@ button {
   text-transform: uppercase;
   transition: transform 80ms ease-in;
 }
-
 button:hover {
   border: 1px solid #3000cf;
   background-color: #3000cf;
   color: #ffffff;
 }
-
 button:active {
   transform: scale(0.95);
 }
-
 button:focus {
   outline: none;
 }
-
 button.ghost {
   background-color: transparent;
   border-color: #ffffff;
 }
-
 form {
   background-color: #ffffff;
   display: flex;
@@ -190,7 +206,6 @@ form {
   height: 100%;
   text-align: center;
 }
-
 input {
   background-color: #eee;
   border: none;
@@ -198,7 +213,6 @@ input {
   margin: 8px 0;
   width: 100%;
 }
-
 .container {
   background-color: #fff;
   border-radius: 10px;
@@ -210,52 +224,44 @@ input {
   min-height: 480px;
   margin-top: 4%;
 }
-
 .form-container {
   position: absolute;
   top: 0;
   height: 100%;
   transition: all 0.6s ease-in-out;
 }
-
 .sign-in-container {
   left: 0;
   width: 50%;
   z-index: 2;
 }
-
 .container.right-panel-active .sign-in-container {
   transform: translateX(100%);
 }
-
 .sign-up-container {
   left: 0;
   width: 50%;
   opacity: 0;
   z-index: 1;
 }
-
 .container.right-panel-active .sign-up-container {
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
   animation: show 0.6s;
 }
-
 @keyframes show {
   0%,
   49.99% {
     opacity: 0;
     z-index: 1;
   }
-
   50%,
   100% {
     opacity: 1;
     z-index: 5;
   }
 }
-
 .overlay-container {
   position: absolute;
   top: 0;
@@ -266,11 +272,9 @@ input {
   transition: transform 0.6s ease-in-out;
   z-index: 100;
 }
-
 .container.right-panel-active .overlay-container {
   transform: translateX(-100%);
 }
-
 .overlay {
   background: #0a44ff;
   background: -webkit-linear-gradient(to right, #754fff, #0a002c);
@@ -286,11 +290,9 @@ input {
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
-
 .container.right-panel-active .overlay {
   transform: translateX(50%);
 }
-
 .overlay-panel {
   position: absolute;
   display: flex;
@@ -305,28 +307,22 @@ input {
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
-
 .overlay-left {
   transform: translateX(-20%);
 }
-
 .container.right-panel-active .overlay-left {
   transform: translateX(0);
 }
-
 .overlay-right {
   right: 0;
   transform: translateX(0);
 }
-
 .container.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
-
 .social-container {
   margin: 20px 0;
 }
-
 .social-container a {
   border: 1px solid #dddddd;
   border-radius: 50%;
