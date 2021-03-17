@@ -1,16 +1,16 @@
 <template>
   <div>
     <NavBar></NavBar>
-    
+    <button class="logout-btn" @click.prevent="handleClick()">Logout</button>
     <div class="row py-5 px-4" id='profilContainer'>
       <div class="col-md-5 mx-auto">
         <div class="bg-white shadow rounded overflow-hidden">
           <div class="px-4 pt-0 pb-4 cover">
-            <button class="logout-btn" @click.prevent="handleClick()">Logout</button>
+            
             <div class="media align-items-end profile-head">
               <div class="profile mr-3">
                 <img
-                  src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+                  src="https://icon-library.com/images/facebook-user-icon/facebook-user-icon-17.jpg"
                   alt="..."
                   width="130"
                   class="rounded mb-2 img-thumbnail"
@@ -33,7 +33,7 @@
             </div>
             <div class="row">
               <div class="col-lg-6 mb-2 pr-lg-1">
-                <img
+                <img 
                   src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/in-the-garden-artwork-by-bensalem-walid.png"
                   alt=""
                   class="img-fluid rounded shadow-sm"
@@ -109,9 +109,15 @@ export default {
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: "Spectral", serif;
+}
+.img-fluid {
+height: 150px;
+width: 100%;
+object-fit: cover;
 }
 #userInfos {
- 
   margin-top: 40px;
 }
 .profile-head {
@@ -120,14 +126,24 @@ export default {
 }
 
 .cover {
-  background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+  background-image: url(https://www.bensalemwalid.com/wp-content/uploads/2021/02/dark-side-artwork-by-bensalem-walid.png);
   background-size: cover;
   background-repeat: no-repeat;
   object-fit: cover;
 }
 
 #logout-btn {
-  color: white;
+ 
+  text-align: center;
+  font-size: 20px;
+  color: #ad7d52;
+  text-shadow: 1px 1px 3px #ad7d52;
 }
+
+#logout-btn:hover {
+  color: #000000;
+  text-shadow: 1px 1px 3px #000000;
+}
+
 
 </style>
