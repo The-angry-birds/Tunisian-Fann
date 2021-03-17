@@ -8,9 +8,6 @@ const adminRoutes = require("./routes/admin-auth.routes.js");
 
 const usersRoutes = require("./routes/users.routes.js");
 const usersSignupRoutes = require("./routes/users-signup-router.js");
-
-const usersRoutes =require("./routes/users.routes.js");
-const usersSignupRoutes=require("./routes/users-signup-router.js")
 const artistAuthRoutes = require("./routes/artist-auth-routes.js");
 
 const app = express();
