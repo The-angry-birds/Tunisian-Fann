@@ -40,7 +40,7 @@
         <input v-model="email" type="email" placeholder="Email" />
         <input v-model="password" type="password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button @click.prevent="handleSubmitSignIn()">Sign In</button>
+        <button @click.prevent="handleClick()">Sign In</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -100,11 +100,9 @@ export default {
         this.category === ""
       ) {
         swal("Oops!", "Empty fields", "error");
-      }
-      if (!this.email.includes("@")) {
+      } else if (!this.email.includes("@")) {
         swal("Oops!", "Invalid mail", "error");
-      }
-      if (this.password !== this.confirmPassword) {
+      } else if (this.password !== this.confirmPassword) {
         swal("Oops!", "Passwords not matching", "error");
       } else if (!this.has_special && this.has_number) {
         swal(
@@ -112,29 +110,53 @@ export default {
           "Password needs to have at least one special character and one number",
           "error"
         );
-      }
-      axios
-        .post("http://localhost:3000/artist/auth/signUp", {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.password,
-          category: this.category,
-        })
-        .then(({ data }) => {
-          localStorage.setItem("token", data.token);
+      } else {
+        axios
+          .post("http://localhost:3000/artist/auth/signup", {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            password: this.password,
+            category: this.category,
+          })
+          .then(({ data }) => {
+            localStorage.setItem("token", data.token);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
 
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Congrats! Your have been registred",
-            showConfirmButton: false,
-            timer: 1500,
+            console.log("registred");
+          })
+          .catch((err) => {
+            console.log(err);
+            swal("oops", "Something went wrong");
           });
-        })
-        .catch((err) => {
-          swal("oops", "Something went wrong", err);
-        });
+      }
+    },
+    handleClick() {
+      if (this.email === "" || this.password === "") {
+        swal("Oops!", "Empty fields", "error");
+      } else {
+        axios
+          .post("http://localhost:3000/artist/auth/login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then(({ data }) => {
+            console.log(data);
+            if (data.message === "success") {
+              localStorage.setItem("token", data.token);
+            } else if (data.message === "wrong password") {
+              swal("Oops!", "Wrong Password!", "error");
+            } else {
+              swal("Oops!", "Wrong Email!", "error");
+            }
+          });
+      }
     },
   },
 };
