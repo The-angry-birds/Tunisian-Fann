@@ -1,6 +1,9 @@
 <template>
   <div>
     <NavBar></NavBar>
+    <div>
+     <button @click.prevent="handleClick()">Logout</button>
+  </div>
 
     <div class="row py-5 px-4">
       <div class="col-md-5 mx-auto">
@@ -99,10 +102,14 @@ export default {
       .catch(( error ) => {console.log(error)})
 
      
-    }
-  },
+    },
+   handleClick() {
+      localStorage.removeItem("token");
+      this.$router.push("/");
+    },
   mounted() {
-   this.displayUser();
+    this.displayUser();
+  }
   },
 }
 </script>
