@@ -39,19 +39,14 @@ module.exports = {
         where: { email: email },
       });
       if (user) {
-        const salt = bcrypt.genSaltSync(saltRounds);
-        const hash = bcrypt.hashSync(req.body.password, salt);
-        console.log(hash);
-
-        var result = bcrypt.compareSync(password, user.password);
-
+        var result = await bcrypt.compareSync(password, user.password);
         if (result) {
           var token = jwt.sign({ email }, configUsers.secret, {
             expiresIn: "1h",
           });
           res.send({ message: "success", auth: true, token: token });
         }
-        res.send({ message: "wrrong password", auth: false, token: null });
+        res.send({ message: "wrong password", auth: false, token: null });
       } else {
         res.send({ message: "user not found", auth: false, token: null });
       }
@@ -60,11 +55,12 @@ module.exports = {
     }
   },
   findUser: async (req, res) => {
-    console.log("req", req.params);
+    console.log("req=====>", req.params);
     try {
       const query = await User.findOne({
         where: { email: req.params.email },
       }).then((data) => {
+        console.log("🚀 ~ file: users-signup-contoller.js ~ line 63 ~ findUser: ~ data", data)
         res.send(data);
       });
     } catch (err) {
