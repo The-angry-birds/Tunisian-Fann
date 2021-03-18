@@ -1,38 +1,28 @@
 <template>
   <nav class="navbar navbar-expand-sm">
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <img
+      class="navbar-logo"
+      src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
+    />
 
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <img
-            class="navbar-logo"
-            src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
-          />
-        </li>
-        <li id="nav-join" class="nav-item dropdown dmenu">
-          <button
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbardrop"
-            data-toggle="dropdown"
-          >
-            Join Us
+    <div class="dropdown" id="nav-join">
+      <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+        Join us
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <button>
+            <router-link class="as-btns" to="/join-as-artist"
+              >As an artist</router-link
+            >
           </button>
-          <div id="joinUs" class="dropdown-menu sm-menu">
-            <button>
-              <router-link to="/join-as-client">As a client</router-link>
-            </button>
-            <button>
-              <router-link to="/join-as-artist">As an artist</router-link>
-            </button>
-          </div>
+        </li>
+        <li>
+          <button>
+            <router-link class="as-btns" to="/join-as-client"
+              >As a client</router-link
+            >
+          </button>
         </li>
       </ul>
     </div>
@@ -44,7 +34,6 @@ export default {};
 </script>
 
 <style scoped>
-
 * {
   padding: 0;
   margin: 0;
@@ -52,33 +41,54 @@ export default {};
 
 .navbar {
   background-color: white;
-  height: 8vh;
-  border-bottom: 1px solid rgb(145, 145, 145);
+  height: 50px;
+  border-bottom: 1px solid rgb(187, 187, 187);
   border-radius: 0px;
   min-width: 100%;
 }
 
-button {
+#nav-join {
   align-items: center;
-  color: #000000;
+  color: #ad7d52;
   display: flex;
+  float: left;
   font-family: "Spectral", serif;
   font-size: 16px;
   height: 100%;
   margin-left: 20px;
   padding: 0 20px;
   top: 2px;
-  text-decoration: none;
   font-weight: bold;
 }
 
-.navbar-logo {
-  width: 50%;
-  padding-left: 10px;
+#nav-join:hover {
+  color: #000000;
 }
 
-#nav-join {
-  left: 210%;
+.as-btns {
+  align-items: center;
+  color: #ad7d52;
+  display: flex;
+  float: left;
+  font-family: "Spectral", serif;
+  font-size: 16px;
+  height: 100%;
+  margin-left: 20px;
+  padding: 0 20px;
+  top: 2px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.as-btns:hover {
+  color: #000000;
+  text-shadow: 1px 1px 3px #b1b1b1;
+}
+
+.navbar-logo {
+  height: 100%;
+  margin-left: 15%;
+  color: #ad7d52;
 }
 </style>
 

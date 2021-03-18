@@ -126,7 +126,7 @@
           >
         </div>
       </article>
-
+      <button id="loadMore" class="nav-link dropdown-toggle">Load more</button>
     </section>
   </div>
 </template>
@@ -136,13 +136,13 @@ export default {};
 </script>
 
 <style scoped>
-
 * {
   box-sizing: border-box;
   font-family: "Spectral", serif;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   width: 100%;
   height: 100%;
@@ -161,11 +161,14 @@ body {
 
 .auctions-header {
   text-align: center;
-  margin-top:10vh
+  margin-top: 25px;
+  color: #ad7d52;
+  text-shadow: 1px 1px 3px #ad7d52;
 }
+
 .cards {
   width: 100%;
-  display: flex;  
+  display: flex;
   flex-wrap: wrap;
   display: -webkit-flex;
   justify-content: center;
@@ -235,7 +238,7 @@ body {
   overflow: hidden;
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
   margin: 20px;
-  height: 300px
+  height: 300px;
 }
 .card:hover {
   box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
@@ -251,7 +254,6 @@ body {
 }
 
 .card__category {
-  
   text-transform: uppercase;
   font-size: 13px;
   letter-spacing: 2px;
@@ -262,12 +264,10 @@ body {
 .card__title {
   margin-top: 5px;
   margin-bottom: 10px;
-  
 }
 
 .card__by {
   font-size: 12px;
-  
 }
 
 .card__author {
@@ -288,6 +288,18 @@ body {
 
 .card:hover .card__info-hover {
   opacity: 1;
+}
+
+#loadMore {
+  text-align: center;
+  font-size: 20px;
+  color: #ad7d52;
+  text-shadow: 1px 1px 3px #ad7d52;
+}
+
+#loadMore:hover {
+  color: #000000;
+  text-shadow: 1px 1px 3px #000000;
 }
 </style>
 

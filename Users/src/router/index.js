@@ -24,5 +24,11 @@ export default new Router({
       name: "Artist",
       component: () => import("@/components/Artistprofile.vue"),
     },
+    {
+            path: "/userProfil",
+            name:"user",
+            component: () => import("@/components/userProfil.vue"),
+     },
+
   ],
 });
