@@ -9,14 +9,20 @@ exports.getCategories = async function (req, res) {
   }
 };
 exports.storeCategory = async function (req, res) {
+  const createategory = new category({
+    name: req.body.name,
+    description: req.body.description,
+    imageUrl: req.body.imageUrl,
+  });
+
   try {
-    console.log(req.body);
-    const data = await category.create(req.body);
-    res.send("info is stored ");
+    const savecategory = await createategory.save();
+
+    res.send(create);
   } catch (err) {
-    console.log(err);
+    res.send(err);
   }
-};
+}
 exports.deleteCategory = async function (req, res) {
   try {
     const delet = await category.destroy({ where: { id: req.params.id } });

@@ -77,16 +77,15 @@ export default {
   },
   methods: {
       displayUser() {
-
       axios.get(`http://localhost:3000/users/auth/${localStorage.getItem('token')}`).then(( data ) => {
-        console.log('====================================');
-        console.log("userdata",data);
-        console.log('====================================');
+        console.log(data)
           this.firstName = data.data.firstName
           this.email=data.data.email
+          console.log(this.firstName);
+          console.log("=================================>",data.data.token)
+          
       })
       .catch(( error ) => {console.log(error)})
-
      
     },
     handleClick() {
@@ -104,7 +103,6 @@ mounted() {
 </script>
 
 <style scoped>
-
 *{
   margin: 0;
   padding: 0;
@@ -123,14 +121,12 @@ object-fit: cover;
   transform: translateY(5rem);
   
 }
-
 .cover {
   background-image: url(https://www.bensalemwalid.com/wp-content/uploads/2021/02/dark-side-artwork-by-bensalem-walid.png);
   background-size: cover;
   background-repeat: no-repeat;
   object-fit: cover;
 }
-
 #logout-btn {
  
   text-align: center;
@@ -138,13 +134,8 @@ object-fit: cover;
   color: #ad7d52;
   text-shadow: 1px 1px 3px #ad7d52;
 }
-
 #logout-btn:hover {
   color: #000000;
   text-shadow: 1px 1px 3px #000000;
 }
-
-
 </style>
-
-
