@@ -1,5 +1,6 @@
 const { category } = require("../../db/models/categories.model");
-
+const {auctions}=require("../../db/models/auction");
+const { Bid } = require("../../db/models/bid");
 exports.getCategories = async function (req, res) {
   try {
     const data = await category.findAll();

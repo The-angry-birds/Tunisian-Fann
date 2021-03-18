@@ -1,8 +1,9 @@
 const Sequelize = require("sequelize");
 const { sequelize } = require("../index");
 
+
 const myCategory = (sequelize, type) => {
-  const category = sequelize.define(
+const category= sequelize.define(
     "category",
     {
       id: {
@@ -10,16 +11,19 @@ const myCategory = (sequelize, type) => {
         primaryKey: true,
         autoIncrement: true,
       },
+ 
+   
       name: type.STRING,
       description: type.STRING,
       ImageUrl: type.STRING,
     },
     { timestamps: false }
   );
-  return category;
+ return category
 };
-
 let category = myCategory(sequelize, Sequelize);
+
+module.exports = {category };
 // category.create({
 //   name: "Paintings",
 //   numberOfArtists: 159,
@@ -45,4 +49,4 @@ let category = myCategory(sequelize, Sequelize);
 //     "https://iadsb.tmgrup.com.tr/92b0ce/1200/627/0/42/1000/564?u=https://idsb.tmgrup.com.tr/2019/12/08/1575799266963.jpg",
 // });
 
-module.exports = { category };
+

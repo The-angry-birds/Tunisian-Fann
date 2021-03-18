@@ -10,9 +10,15 @@ const usersSchema = (sequelize, type) => {
           primaryKey: true,
           autoIncrement: true,
         },
+     
+     
+        firstName: type.STRING,
+        lastName: type.STRING,
         email: type.STRING,
         password: type.STRING,
+        imageUrl: type.STRING,
       },
+ 
       { timestamps: false }
     );
     return myusers;
