@@ -102,10 +102,9 @@ export default {
                   password: this.password,
                 })
                 .then((res) => {
-                   swal("Good job!", "Welcome", "success");
-                   localStorage.setItem("mail" , this.email)
+                   localStorage.setItem("token",res.data.token) 
                    this.$router.push("/userProfil");
-                  console.log(res);
+                   swal("Good job!", "Welcome", "success");
                 })
                 .catch((err) => {
                   console.log(err);
@@ -127,11 +126,9 @@ export default {
             email: this.email,
             password: this.password,
           })
-          .then((res ) => {
-            
+          .then((res) => {
          if (res.data.message === "success") {
-           console.log(res.data);
-              localStorage.setItem("token",this.email );
+              localStorage.setItem("token",res.data.token);
               this.$router.push("/userProfil");
             } else if (res.data.message === "wrong password") {
               swal("Oops!", "Wrong Password!", "error");

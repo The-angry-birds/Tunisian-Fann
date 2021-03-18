@@ -9,17 +9,20 @@ module.exports = {
     try {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
-
+      var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
+        expiresIn: 86400, // expires in 24 hours
+      });
       const user = await User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         password: hash,
+        token: token,
       });
       if (user) {
-        var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
-          expiresIn: 86400, // expires in 24 hours
-        });
+        // var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
+        //   expiresIn: 86400, // expires in 24 hours
+        // });
         res.send({ auth: true, token: token });
       } else {
         res.send({
@@ -58,9 +61,8 @@ module.exports = {
     console.log("req=====>", req.params);
     try {
       const query = await User.findOne({
-        where: { email: req.params.email },
+        where: { token: req.params.email },
       }).then((data) => {
-        console.log("🚀 ~ file: users-signup-contoller.js ~ line 63 ~ findUser: ~ data", data)
         res.send(data);
       });
     } catch (err) {

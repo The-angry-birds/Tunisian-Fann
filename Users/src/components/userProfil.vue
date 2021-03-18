@@ -77,13 +77,13 @@ export default {
   },
   methods: {
       displayUser() {
+
       axios.get(`http://localhost:3000/users/auth/${localStorage.getItem('token')}`).then(( data ) => {
+        console.log('====================================');
+        console.log("userdata",data);
+        console.log('====================================');
           this.firstName = data.data.firstName
           this.email=data.data.email
-          console.log(this.firstName);
-
-          console.log("====",data)
-          
       })
       .catch(( error ) => {console.log(error)})
 

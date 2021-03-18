@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      component: () => import("@/components/Carousel.vue"),
+      component: () => import("@/components/LandingPage.vue"),
     },
     {
       path: "/join-as-client",
@@ -25,9 +25,9 @@ export default new Router({
       component: () => import("@/components/Artistprofile.vue"),
     },
     {
-            path: "/userProfil",
-            name:"user",
-            component: () => import("@/components/userProfil.vue"),
+       path: "/userProfil",
+      name:"user",
+      component: () => import("@/components/userProfil.vue"),
      },
 
   ],
