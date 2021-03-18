@@ -147,6 +147,9 @@ export default {
       currentId: null,
       dataInput: {},
       categories: [],
+      name:"",
+      description:"",
+      imageUrl:""
     };
   },
   components: {
@@ -200,6 +203,22 @@ export default {
           this.displayCategory();
         });
     },
+    postCategory(){
+       const create = {
+      name: this.name,
+      description: this.description,
+      imageUrl:this.imageUrl
+    };
+      axios.post("http://localhost:3000/categorys",create)
+       .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+      
+    
   },
   mounted() {
     this.displayCategory();
