@@ -149,7 +149,10 @@ export default {
       categories: [],
       name:"",
       description:"",
-      imageUrl:""
+      imageUrl:"",
+      firstName:"",
+      lastName:"",
+      email: "",
     };
   },
   components: {
@@ -211,17 +214,33 @@ export default {
     };
       axios.post("http://localhost:3000/categorys",create)
        .then((res) => {
+       
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  },
+  getAlluser(){
+    
+      axios.get(`http://localhost:3000/users`)
+      .then(( user ) => {
+
+        console.log("=================>",user)
+     
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+  },
+  
       
     
   },
   mounted() {
     this.displayCategory();
+    this.getAlluser()
   },
   beforeMount() {
     this.verify();

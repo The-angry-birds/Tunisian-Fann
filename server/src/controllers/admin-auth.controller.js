@@ -20,7 +20,7 @@ module.exports = {
         var result = bcrypt.compareSync(admindata.password, admin.password);
         if (result) {
           var token = jwt.sign({ email: admindata.email }, config.secret, {
-            expiresIn: "10s", // expires in 24 hours
+            expiresIn: "24h", // expires in 24 hours
           });
 
           res.send({ message: "success", auth: true, token: token });

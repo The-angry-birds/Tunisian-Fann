@@ -13,7 +13,7 @@ export default new Router({
         {
             name: "main",
             path: "/main",
-            component: () => import("@/components/CategoriesTable.vue"),
+            component: () => import("@/components/admin-Categories.vue"),
         },
         
         
