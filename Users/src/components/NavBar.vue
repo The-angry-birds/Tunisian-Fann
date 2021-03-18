@@ -45,6 +45,9 @@ export default {};
   border-bottom: 1px solid rgb(187, 187, 187);
   border-radius: 0px;
   min-width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10;
 }
 
 #nav-join {

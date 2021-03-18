@@ -1,8 +1,11 @@
 <template>
   <div>
     <NavBar></NavBar>
+    <LPAnimation></LPAnimation>
     <AuctionCard></AuctionCard>
     <ArtworkCard></ArtworkCard>
+    <AboutUs></AboutUs>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -10,40 +13,28 @@
 import NavBar from "./NavBar.vue";
 import AuctionCard from "./AuctionCard.vue";
 import ArtworkCard from "./ArtworkCard.vue";
+import LPAnimation from "./LPAnimation.vue";
+import AboutUs from "./AboutUs.vue";
+import Footer from "./Footer.vue";
 
-// import axios from "axios";
 export default {
-  data() {
-    return {
-      // image: {},
-      // images: [],
-      // slide: 0,
-      // sliding: null,
-    };
-  },
-  // methods: {
-  //   displayImages() {
-  //     axios.get("http://localhost:3000/categorys").then(({ data }) => {
-  //       this.images = data.slice(1);
-  //       this.image = data[0];
-  //     });
-  //   },
-  // },
-  // mounted() {
-  //   this.displayImages();
-  // },
-
   components: {
     NavBar,
     AuctionCard,
     ArtworkCard,
+    LPAnimation,
+    AboutUs,
+    Footer
   },
 };
 </script>
 
 <style scoped>
+
+
 * {
   font-family: "Spectral", serif;
+     
 }
 </style>
 
