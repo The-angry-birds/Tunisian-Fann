@@ -14,14 +14,18 @@ const artistAuthSchema = (sequelize, type) => {
       lastName: type.STRING,
       email: type.STRING,
       password: type.STRING,
+      description:type.STRING,
       category: type.STRING,
-      image: type.STRING,
+      imageUrl: type.STRING,
+      token:type.STRING,
+ 
+
+
     },
     { timestamps: false }
-);
+  );
   return artistAuth;
 };
 
-
 let Artist = artistAuthSchema(sequelize, Sequelize);
-module.exports = { Artist };
+module.exports = { Artist }
