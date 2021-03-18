@@ -128,9 +128,9 @@ export default {
             password: this.password,
           })
           .then((res ) => {
-            console.log("============");
+            
          if (res.data.message === "success") {
-           console.log(res.data.message);
+           console.log(res.data);
               localStorage.setItem("token",this.email );
               this.$router.push("/userProfil");
             } else if (res.data.message === "wrong password") {

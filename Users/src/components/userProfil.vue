@@ -21,7 +21,7 @@
 
           <div class="px-4 py-3" id="userInfos">
             <div class="p-4 rounded shadow-sm bg-light">
-              <p class="font-italic mb-0">{{firstName}}{{lastName}}</p>
+              <p class="font-italic mb-0">{{firstName}}</p>
               <p class="font-italic mb-0">{{email}}</p>
               <p class="font-italic mb-0">Location</p>
             </div>
@@ -77,7 +77,7 @@ export default {
   },
   methods: {
       displayUser() {
-      axios.get(`http://localhost:3000/users/auth/${localStorage.getItem('mail')}`).then(( data ) => {
+      axios.get(`http://localhost:3000/users/auth/${localStorage.getItem('token')}`).then(( data ) => {
           this.firstName = data.data.firstName
           this.email=data.data.email
           console.log(this.firstName);
