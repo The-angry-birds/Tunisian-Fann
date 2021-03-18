@@ -15,13 +15,12 @@ const artistAuthSchema = (sequelize, type) => {
       email: type.STRING,
       password: type.STRING,
       category: type.STRING,
-      image: type.STRING,
+      token: type.STRING,
     },
     { timestamps: false }
-);
+  );
   return artistAuth;
 };
-
 
 let Artist = artistAuthSchema(sequelize, Sequelize);
 module.exports = { Artist };

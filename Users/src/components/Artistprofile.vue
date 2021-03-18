@@ -1,62 +1,62 @@
 <template>
   <div>
     <NavBar />
-    <nav
+    <!-- <nav
       class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg "
       color-on-scroll="100"
       id="sectionsNav"
-    >
-      <div class="container">
-        <div class="navbar-translate">
-          <!-- <a
+    > -->
+    <div class="container">
+      <div class="navbar-translate">
+        <!-- <a
             class="navbar-brand"
             href="https://demos.creative-tim.com/material-kit/index.html"
             target="_blank"
             >Material Kit
           </a> -->
-          <!-- <button
+        <!-- <button
             class="navbar-toggler"
             type="button"
             data-toggle="collapse"
             aria-expanded="false"
             aria-label="Toggle navigation"
           > -->
-          <!-- <span class="navbar-toggler-icon"></span>
+        <!-- <span class="navbar-toggler-icon"></span>
             <span class="navbar-toggler-icon"></span>
             <span class="navbar-toggler-icon"></span>
           </button> -->
-        </div>
+      </div>
 
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav ml-auto">
-            <li class="dropdown nav-item">
-              <a
-                href="#"
-                class="dropdown-toggle nav-link"
-                data-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="material-icons">apps</i> Components
+      <div class="collapse navbar-collapse">
+        <!-- <ul class="navbar-nav ml-auto">
+          <li class="dropdown nav-item">
+            <a
+              href="#"
+              class="dropdown-toggle nav-link"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="material-icons">apps</i> Components
+            </a>
+            <div class="dropdown-menu dropdown-with-icons component">
+              <a href="../index.html" class="dropdown-item">
+                <i class="material-icons">layers</i> All Components
               </a>
-              <div class="dropdown-menu dropdown-with-icons">
-                <a href="../index.html" class="dropdown-item">
-                  <i class="material-icons">layers</i> All Components
-                </a>
 
-                <a
-                  href="https://demos.creative-tim.com/material-kit/docs/2.0/getting-started/introduction.html"
-                  class="dropdown-item"
-                >
-                  <i class="material-icons">content_paste</i> Documentation
-                </a>
-              </div>
-            </li>
-            <!-- <li class="nav-item">
+              <a
+                href="https://demos.creative-tim.com/material-kit/docs/2.0/getting-started/introduction.html"
+                class="dropdown-item"
+              >
+                <i class="material-icons">content_paste</i> Documentation
+              </a>
+            </div>
+          </li> -->
+        <!-- <li class="nav-item">
               <a class="nav-link" href="javascript:void(0)">
                 <i class="material-icons">cloud_download</i> Download
               </a>
             </li> -->
-            <!-- <li class="nav-item">
+        <!-- <li class="nav-item">
               <a
                 class="nav-link"
                 href="https://twitter.com/CreativeTim"
@@ -65,7 +65,7 @@
                 <i class="fa fa-twitter"></i>
               </a>
             </li> -->
-            <!-- <li class="nav-item">
+        <!-- <li class="nav-item">
               <a
                 class="nav-link"
                 href="https://www.facebook.com/CreativeTim"
@@ -74,7 +74,7 @@
                 <i class="fa fa-facebook-square"></i>
               </a>
             </li> -->
-            <!-- <li class="nav-item">
+        <!-- <li class="nav-item">
               <a
                 class="nav-link"
                 href="https://www.instagram.com/CreativeTimOfficial"
@@ -83,10 +83,10 @@
                 <i class="fa fa-instagram"></i>
               </a>
             </li> -->
-          </ul>
-        </div>
+        <!-- </ul> -->
       </div>
-    </nav>
+    </div>
+    <!-- </nav> -->
 
     <div
       class="page-header header-filter"
@@ -107,7 +107,7 @@
                   />
                 </div>
                 <div class="name">
-                  <h3 class="title">Christian Louboutin</h3>
+                  <h3 class="title">{{ lastName }}</h3>
                   <h6>Designer</h6>
                   <!-- <a
                     href="#pablo"
@@ -279,12 +279,35 @@
 import $ from "jquery";
 import noUiSlider from "nouislider";
 import NavBar from "./NavBar.vue";
+import axios from "axios";
 export default {
-  methods: {},
-  //   mounted() {
-  //     this.$nextTrick(
+  data() {
+    return {
+      firstName: "",
+      lastName: "",
+      email: "",
+    };
+  },
   components: {
     NavBar,
+  },
+  methods: {
+    getProfile() {
+      axios
+        .get(`http://localhost:3000/artist/auth/nossa@gmail.com`)
+        .then((data) => {
+          console.log("======>", data);
+          this.firstName = data.data.firstName;
+          this.lastname = data.data.lastName;
+          this.email = data.data.email;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted() {
+    this.getProfile();
   },
 };
 $(function($) {
@@ -652,6 +675,7 @@ a .material-icons {
 
 .header-filter::before {
   background: rgb(56, 56, 146);
+  margin-top: 10%;
 }
 
 .main-raised {
@@ -953,5 +977,8 @@ footer p a:hover {
   position: relative;
   text-align: center;
   color: white;
+}
+.component {
+  margin-top: 10%;
 }
 </style>

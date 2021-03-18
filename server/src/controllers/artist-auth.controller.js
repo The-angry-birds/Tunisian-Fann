@@ -9,16 +9,17 @@ module.exports = {
     try {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
+      var token = jwt.sign({ email: req.body.email }, config.secret, {
+        expiresIn: "60s",
+      });
       const artist = await Artist.create({
         lastName: req.body.lastName,
         email: req.body.email,
         password: hash,
         category: req.body.category,
+        token: token,
       });
       if (artist) {
-        var token = jwt.sign({ email: req.body.email }, config.secret, {
-          expiresIn: 86400, // expires in 24 hours
-        });
         res.send({
           message: "congrats you are registred",
           auth: true,
@@ -46,7 +47,7 @@ module.exports = {
         var result = bcrypt.compareSync(password, artist.password);
         if (result) {
           var token = jwt.sign({ email: email }, config.secret, {
-            expiresIn: "10s", // expires in 24 hours
+            expiresIn: "60s",
           });
 
           res.send({ message: "success", auth: true, token: token });
@@ -56,6 +57,19 @@ module.exports = {
       } else {
         res.send({ message: "user not found", auth: false, token: null });
       }
+    } catch (err) {
+      res.send(err);
+    }
+  },
+  findArtist: async (req, res) => {
+    console.log("=========================");
+
+    try {
+      const artist = await Artist.findOne({
+        where: { email: req.params.email },
+      });
+      res.send(artist);
+      console.log("===========", artist);
     } catch (err) {
       res.send(err);
     }
