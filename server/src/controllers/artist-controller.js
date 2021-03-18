@@ -10,3 +10,12 @@ exports.getArtist = async function (req, res) {
       console.log(err);
     }
   };
+  exports.deleteArtist= async function (req, res) {
+    try {
+      const delet = await Artist.destroy({ where: { id: req.params.id } });
+      console.log(delet);
+      res.send("deleted");
+    } catch (err) {
+      console.log(err);
+    }
+  };
