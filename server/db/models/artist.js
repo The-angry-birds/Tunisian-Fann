@@ -3,7 +3,7 @@ const { sequelize } = require("../index");
 
 const artistAuthSchema = (sequelize, type) => {
   const artistAuth = sequelize.define(
-    "artist",
+    "artists",
     {
       id: {
         type: type.INTEGER,
