@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config");
+const config = require("../../db/config.js");
 verifyToken = (req, res, next) => {
   try {
     let user = { email: "ines-piazzese.ines@gmail.com" };
