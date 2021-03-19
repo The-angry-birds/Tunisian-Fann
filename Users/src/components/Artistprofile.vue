@@ -299,8 +299,19 @@
             <label>Description</label>
             <textarea></textarea>
           </div>
-
-          <button class="ui grey basic button">SUBMIT</button>
+          <select
+            class="ui dropdown"
+            v-for="category in categories"
+            :key="category.id"
+          >
+            <option value="">Category</option>
+            <option>{{ category.name }}</option>
+            <!-- <option value="0">DIGITAL PAINTING</option>
+            <option value="0">SCULPTURES</option> -->
+          </select>
+          <div id="create">
+            <button class="ui grey basic button">SUBMIT</button>
+          </div>
         </form>
       </div>
     </div>
@@ -318,12 +329,14 @@ import axios from "axios";
 export default {
   data() {
     return {
-      firstName: "",
-      lastName: "",
-      email: "",
       data: [],
       imageUrl: "",
-      artwork: [],
+      title: "",
+      url: "",
+      price: null,
+      description: "",
+      state: false,
+      categories: [],
     };
   },
   components: {
@@ -375,9 +388,22 @@ export default {
           });
       }
     },
+    // handlesubmit() {
+    //   axios.post("http://localhost:3000/artworks", {
+
+    //   });
+    // },
+    getCategories() {
+      axios.get("http://localhost:3000/categorys").then(({ data }) => {
+        this.categories = data;
+        console.log("====", this.categories);
+      });
+    },
   },
+
   beforeMount() {
     this.getUser();
+    this.getCategories();
   },
 };
 $(function($) {
@@ -1051,6 +1077,9 @@ footer p a:hover {
 }
 .component {
   margin-top: 10%;
+}
+#create {
+  margin-top: 20px;
 }
 /* .name {
   margin-bottom: 100px;

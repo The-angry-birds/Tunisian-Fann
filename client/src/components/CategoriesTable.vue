@@ -91,7 +91,7 @@ ureWebpack: {<template>
                   </div>
                 </div>
                 <v-btn
-                 @click="setCurrentId(category.id)"
+                  @click="setCurrentId(category.id)"
                   type="button"
                   class="btn"
                   data-toggle="modal"
@@ -155,7 +155,7 @@ export default {
   },
   methods: {
     setCurrentId(id) {
-      this.currentId = id
+      this.currentId = id;
     },
     verify() {
       const token = localStorage.getItem("token");
