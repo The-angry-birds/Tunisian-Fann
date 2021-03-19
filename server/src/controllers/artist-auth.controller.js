@@ -83,7 +83,7 @@ module.exports = {
   // },
   getUserData: async (req, res) => {
     try {
-      console.log("=====>", req.headers);
+      // console.log("=====>", req.headers);
       const token = req.headers.authorization.split(" ")[1];
       const email = jwt.verify(token, config.secret);
       const user = await Artist.findOne({
@@ -98,9 +98,10 @@ module.exports = {
     try {
       const user = await Artist.update(
         { imageUrl: req.body.image },
+
         { returning: true, where: { id: req.params.id } }
       );
-      console.log(user);
+
       res.send("ok");
     } catch (err) {
       res.send(err);

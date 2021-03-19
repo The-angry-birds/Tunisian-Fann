@@ -99,7 +99,7 @@
           <div class="row">
             <div class="col-md-6 ml-auto mr-auto">
               <div class="profile">
-                <div class="avatar" v-if="imageUrl">
+                <div class="avatar" v-if="data.imageUrl">
                   <img
                     :src="data.imageUrl"
                     alt="Circle Image"
@@ -107,7 +107,7 @@
                   />
                 </div>
                 <div class="name">
-                  <h3 class="title">{{ data.firstName }}</h3>
+                  <h3 class="title">{{ data.firstName.toUpperCase() }}</h3>
                   <input
                     class="ui button"
                     type="file"
@@ -280,6 +280,29 @@
           </div>
         </div>
       </div>
+      <div>
+        <form class="ui form" id="artwork">
+          <h4 class="ui dividing header">Shipping Information</h4>
+          <div class="field">
+            <label>Title</label>
+            <input type="text" name="first-name" placeholder="First Name" />
+          </div>
+          <div class="field">
+            <label>description</label>
+            <input type="text" name="last-name" placeholder="Last Name" />
+          </div>
+          <div class="field">
+            <label>price</label>
+            <input type="text" name="last-name" placeholder="Last Name" />
+          </div>
+          <div class="field">
+            <label>Text</label>
+            <textarea></textarea>
+          </div>
+
+          <button class="ui button" type="submit">Submit</button>
+        </form>
+      </div>
     </div>
 
     <div class="footer text-center ">
@@ -314,7 +337,7 @@ export default {
         })
         .then(({ data }) => {
           this.$data.data = data;
-          console.log(data);
+          console.log("iiiiiii", data);
         })
         .catch((err) => {
           console.log(err);
@@ -339,17 +362,15 @@ export default {
     onsubmit() {
       if (this.imageUrl) {
         axios
-          .put(
+          .patch(
             "http://localhost:3000/artist/auth/upload/" + this.$data.data.id,
             {
               image: this.$data.imageUrl,
             }
           )
           .then(({ data }) => {
-            console.log({
-              image: this.$data.imageUrl,
-            });
             console.log("===", data);
+            // this.getUser();
           });
       }
     },
@@ -770,11 +791,12 @@ a .material-icons {
 }
 
 .title {
-  margin-top: 30px;
-  margin-bottom: 25px;
+  margin-top: 10px;
+  margin-bottom: 40px;
   min-height: 32px;
-  color: #3c4858;
+  color: black;
   font-weight: 700;
+  font-size: 50px;
   font-family: "Roboto Slab", "Times New Roman", serif;
 }
 
@@ -1028,5 +1050,11 @@ footer p a:hover {
 }
 .component {
   margin-top: 10%;
+}
+/* .name {
+  margin-bottom: 100px;
+} */
+#artwork {
+  padding: 20px;
 }
 </style>
