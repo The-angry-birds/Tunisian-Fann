@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="auctions-header">Feel free to join our AUCTIONS</h1>
+    <h1 class="auctions-header">Feel free to join our auctions</h1>
     <section class="cards">
       <article class="card card--1">
         <div class="card__info-hover">
@@ -141,14 +141,6 @@ export default {};
   font-family: "Spectral", serif;
 }
 
-body,
-html {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-}
-
 body {
   background-color: #d2dbdd;
   display: flex;
@@ -160,10 +152,10 @@ body {
 }
 
 .auctions-header {
+  font-size: 25px;
   text-align: center;
   margin-top: 25px;
   color: #ad7d52;
-  text-shadow: 1px 1px 3px #ad7d52;
 }
 
 .cards {
@@ -291,15 +283,14 @@ body {
 }
 
 #loadMore {
+  font-size: 15px;
   text-align: center;
-  font-size: 20px;
+  margin-top: 25px;
   color: #ad7d52;
-  text-shadow: 1px 1px 3px #ad7d52;
 }
 
 #loadMore:hover {
   color: #000000;
-  text-shadow: 1px 1px 3px #000000;
 }
 </style>
 

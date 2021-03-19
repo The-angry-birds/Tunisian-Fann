@@ -25,10 +25,14 @@ export default new Router({
       component: () => import("@/components/Artistprofile.vue"),
     },
     {
-       path: "/userProfil",
-      name:"user",
+      path: "/userProfil",
+      name: "user",
       component: () => import("@/components/userProfil.vue"),
-     },
-
+    },
+    {
+      path: "/auction-details",
+      name: "auction-details",
+      component: () => import("@/components/AuctionDetails.vue"),
+    },
   ],
 });

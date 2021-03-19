@@ -23,17 +23,16 @@ export default {};
 }
 
 .aboutUs-header {
+  font-size: 25px;
   text-align: center;
   margin-top: 25px;
   color: #ad7d52;
-  text-shadow: 1px 1px 3px #ad7d52;
 }
 
 .aboutUs-body {
   text-align: center;
   margin-right: 15vw;
   margin-left: 15vw;
-  text-shadow: 1px 1px 3px #b6b6b6;
 }
 </style>
 
