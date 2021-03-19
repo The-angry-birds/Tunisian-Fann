@@ -54,13 +54,11 @@ export default {};
   align-items: center;
   color: #ad7d52;
   display: flex;
-  float: left;
+  position: fixed;
+  float: right;
   font-family: "Spectral", serif;
   font-size: 16px;
-  height: 100%;
-  margin-left: 20px;
-  padding: 0 20px;
-  top: 2px;
+  margin-left: 80%;
   font-weight: bold;
 }
 
@@ -85,13 +83,14 @@ export default {};
 
 .as-btns:hover {
   color: #000000;
-  text-shadow: 1px 1px 3px #b1b1b1;
 }
 
 .navbar-logo {
   height: 100%;
   margin-left: 15%;
   color: #ad7d52;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>
 

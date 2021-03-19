@@ -12,7 +12,7 @@
         <span class="heading-primary-main">ART</span>
         <span class="heading-primary-sub">for a special experience</span>
       </h1>
-      <a href="#" class="btn btn-white">Discover our artists</a>
+      <a href="#" class="btn btn-white">Discover our auctions</a>
     </div>
   </header>
 </template>
@@ -116,18 +116,19 @@ header {
 
 .btn {
   display: inline-block;
-  padding: 0.7rem 2rem;
+  padding: 0.4rem 2rem;
   text-decoration: none;
   text-transform: uppercase;
   border-radius: 5px;
   transition: all 0.2s;
   position: relative;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  text-shadow: 0px 1px 1px #808080;
 }
 
 .btn-white {
   background-color: #fff;
-  color: #ad7d52;
+  color: #000000;
 }
 
 .btn-ani {

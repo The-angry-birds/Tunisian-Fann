@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="artworks-header">or buy one of our ARTWORKS</h1>
+    <h1 class="artworks-header">or buy one of our artworks</h1>
     <div class="container">
       <b-card
         img-src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/in-the-garden-artwork-by-bensalem-walid.png"
@@ -79,10 +79,10 @@ export default {};
 
 <style scoped>
 .artworks-header {
+  font-size: 25px;
   text-align: center;
   margin-top: 25px;
   color: #ad7d52;
-  text-shadow: 1px 1px 3px #ad7d52;
 }
 
 .container {
@@ -138,15 +138,14 @@ img {
 }
 
 #loadMore {
+  font-size: 15px;
   text-align: center;
-  font-size: 20px;
+  margin-top: 25px;
   color: #ad7d52;
-  text-shadow: 1px 1px 3px #ad7d52;
 }
 
 #loadMore:hover {
   color: #000000;
-  text-shadow: 1px 1px 3px #000000;
 }
 </style>
 

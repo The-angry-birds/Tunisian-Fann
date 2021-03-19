@@ -59,6 +59,7 @@ export default {};
 * {
   font-family: "Spectral", serif;
 }
+
 .fh5co-bg {
   background-size: cover;
   background-position: center center;
@@ -73,6 +74,7 @@ export default {};
   width: 100%;
   float: left;
 }
+
 .fh5co-bg .overlay {
   position: absolute;
   top: 0;
@@ -89,6 +91,7 @@ export default {};
   margin-top: 2em;
   padding-top: 2em;
 }
+
 @media screen and (max-width: 768px) {
   #fh5co-footer {
     padding: 3em 0;
@@ -98,6 +101,7 @@ export default {};
 #fh5co-footer {
   position: relative;
 }
+
 #fh5co-footer .overlay {
   position: absolute;
   top: 0;
@@ -109,6 +113,7 @@ export default {};
   -o-transition: 0.5s;
   transition: 0.5s;
 }
+
 #fh5co-footer h3 {
   margin-bottom: 15px;
   font-weight: bold;
@@ -117,19 +122,23 @@ export default {};
   text-transform: uppercase;
   color: black;
 }
+
 #fh5co-footer .fh5co-footer-links {
   padding: 0;
   margin: 0;
 }
+
 #fh5co-footer .fh5co-footer-links li {
   padding: 0;
   margin: 0;
   list-style: none;
 }
+
 #fh5co-footer .fh5co-footer-links li a {
   color: black;
   text-decoration: none;
 }
+
 #fh5co-footer .fh5co-footer-links li a:hover {
   text-decoration: underline;
 }
@@ -139,6 +148,7 @@ export default {};
     text-align: left;
   }
 }
+
 #fh5co-footer .fh5co-widget h3 {
   margin-bottom: 15px;
   font-weight: bold;
@@ -146,6 +156,7 @@ export default {};
   letter-spacing: 2px;
   text-transform: uppercase;
 }
+
 #fh5co-footer .copyright .block {
   display: block;
 }
