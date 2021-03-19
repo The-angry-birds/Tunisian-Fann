@@ -2,13 +2,13 @@
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
       <el-form-item value="name" label="Title">
-        <el-input v-model="form.title" />
+        <el-input v-model="name" />
       </el-form-item>
       <el-form-item label="Description">
-        <el-input v-model="form.desc" type="textarea" />
+        <el-input v-model="description" type="textarea" />
       </el-form-item>
       <el-form-item label="Image URL">
-        <el-input v-model="form.imgUrl" type="textarea" />
+        <el-input v-model="imageUrl" type="textarea" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click.prevent="handleSubmit()">Create</el-button>

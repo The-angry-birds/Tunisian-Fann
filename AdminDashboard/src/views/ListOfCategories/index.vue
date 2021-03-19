@@ -71,6 +71,7 @@
                       type="button"
                       class="btn btn-primary"
                       data-dismiss="modal"
+                      @click.prevent="updateCategory(currentId)"
                     >
                       Submit
                     </button>
@@ -83,6 +84,8 @@
               class="category-btns btn btn-danger"
               data-toggle="modal"
               data-target="#myDeleteModal"
+              @click="setCurrentId(category.id)"
+
             >
               Delete
             </button>
@@ -105,6 +108,8 @@
                       type="button"
                       class="btn btn-danger"
                       data-dismiss="modal"
+
+                       @click.prevent="deleteCategory(currentId)"
                     >
                       Delete
                     </button>
@@ -142,7 +147,7 @@ export default {
 
   methods: {
     displayCategory() {
-      axios.get("http://localhost:3000/categorys").then((data) => {
+      axios.get("http://localhost:3000/api/categories").then((data) => {
         console.log("===================", data);
         this.categories = data;
       });
@@ -154,13 +159,11 @@ export default {
         .then((updated) => {
           console.log(updated);
         })
-        .then(() => {
-          this.displayCategory();
-        });
+      .catch((err)=>{console.log(err)})
     },
     deleteCategory(id) {
-      axios.delete(`http://localhost:3000/api/categories/${id}`).then(() => {
-        this.displayCategory();
+      axios.delete(`http://localhost:3000/api/categories/${id}`).then((res) => {
+       console.log("deleted",res)
       });
     },
   },
