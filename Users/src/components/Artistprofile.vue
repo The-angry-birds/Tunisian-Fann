@@ -285,32 +285,48 @@
           <h4 class="ui dividing header">Fill your artwork</h4>
           <div class="field">
             <label>Title</label>
-            <input type="text" name="first-name" placeholder="First Name" />
+            <input
+              type="text"
+              name="first-name"
+              placeholder="First Name"
+              v-model="title"
+            />
           </div>
           <div class="field">
             <label>Url</label>
-            <input type="text" name="last-name" placeholder="Last Name" />
+            <input
+              type="text"
+              name="last-name"
+              placeholder="Last Name"
+              v-model="url"
+            />
           </div>
           <div class="field">
             <label>Price</label>
-            <input type="text" name="last-name" placeholder="Last Name" />
+            <input
+              type="text"
+              name="last-name"
+              placeholder="Last Name"
+              v-model="price"
+            />
           </div>
           <div class="field">
             <label>Description</label>
-            <textarea></textarea>
+            <textarea v-model="description"></textarea>
           </div>
-          <select
-            class="ui dropdown"
-            v-for="category in categories"
-            :key="category.id"
-          >
-            <option value="">Category</option>
-            <option>{{ category.name }}</option>
-            <!-- <option value="0">DIGITAL PAINTING</option>
-            <option value="0">SCULPTURES</option> -->
+          <select class="ui dropdown" v-model="name">
+            <option value="" selected>Category</option>
+            <option v-for="category in categories" :key="category.id">
+              {{ category.name }}</option
+            >
           </select>
           <div id="create">
-            <button class="ui grey basic button">SUBMIT</button>
+            <button
+              class="ui grey basic button"
+              @click.prevent="handleSubmit()"
+            >
+              SUBMIT
+            </button>
           </div>
         </form>
       </div>
@@ -326,6 +342,7 @@ import $ from "jquery";
 import noUiSlider from "nouislider";
 import NavBar from "./NavBar.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -335,8 +352,10 @@ export default {
       url: "",
       price: null,
       description: "",
+      name: "",
       state: false,
       categories: [],
+      artworks: [],
     };
   },
   components: {
@@ -382,17 +401,35 @@ export default {
               image: this.$data.imageUrl,
             }
           )
+
           .then(({ data }) => {
             console.log("===", data);
-            // this.getUser();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           });
       }
     },
-    // handlesubmit() {
-    //   axios.post("http://localhost:3000/artworks", {
-
-    //   });
-    // },
+    handleSubmit() {
+      axios
+        .post("http://localhost:3000/artworks/ ", {
+          artist_id: this.$data.data.id,
+          nameArtwork: this.title,
+          description: this.description,
+          imageUrl: this.url,
+          price: this.price,
+          categoryName: this.name,
+        })
+        .then(({ data }) => {
+          console.log("created", data);
+          this.$data.artworks.push(data);
+          console.log("=====", this.artworks);
+        });
+    },
     getCategories() {
       axios.get("http://localhost:3000/categorys").then(({ data }) => {
         this.categories = data;
