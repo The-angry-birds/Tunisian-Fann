@@ -195,8 +195,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #3000cf;
-  background-color: #3000cf;
+  border: 1px solid #ad7d52;
+  background-color: #ad7d52;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -207,8 +207,8 @@ button {
 }
 
 button:hover {
-  border: 1px solid #3000cf;
-  background-color: #3000cf;
+  border: 1px solid #c0c0c0;
+  background-color: #c0c0c0;
   color: #ffffff;
 }
 
@@ -326,8 +326,8 @@ select {
 
 .overlay {
   background: #0a44ff;
-  background: -webkit-linear-gradient(to right, #754fff, #0a002c);
-  background: linear-gradient(to right, #754fff, #0a002c);
+  background: -webkit-linear-gradient(to right, #ad7d52, #c0c0c0);
+  background: linear-gradient(to right, #ad7d52, #c0c0c0);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
