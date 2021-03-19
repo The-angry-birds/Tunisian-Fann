@@ -3,13 +3,13 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 const router = require("./routes/admin.routes.js");
-const adminRoutes = require("./routes/admin-auth.routes.js");
+const adminRoutes = require("./routes/auth.admin.routes.js");
 
 
 const usersRoutes = require("./routes/users.routes.js");
-const usersSignupRoutes = require("./routes/users-signup-router.js");
-const artistAuthRoutes = require("./routes/artist-auth-routes.js");
-const artistRoutes=require("./routes/artist-routes")
+const usersSignupRoutes = require("./routes/auth.users.routes.js");
+const artistAuthRoutes = require("./routes/auth.artists.routes.js");
+const artistRoutes=require("./routes/artists.routes")
 
 const app = express();
 
@@ -17,15 +17,15 @@ app.use(morgan("combined"));
 app.use(bodyParser.json());
 app.use(cors());
 morgan(":method :url :status :res[content-length] - :response-time ms");
-app.use("/api/auth", adminRoutes);
-app.use("/categorys", router);
+app.use("/api/auth/admin", adminRoutes);
+app.use("/api/categories", router);
 
 
-app.use("/users/auth", usersSignupRoutes);
-app.use("/users", usersRoutes);
+app.use("/api/auth/users", usersSignupRoutes);
+app.use("/api/users", usersRoutes);
 
-app.use("/artist/auth", artistAuthRoutes);
-app.use("/artist", artistRoutes);
+app.use("/api/auth/artists", artistAuthRoutes);
+app.use("/api/artists", artistRoutes);
 
 
 app.listen(process.env.PORT || 3000, () => {
