@@ -1,4 +1,3 @@
- 
 const Sequelize = require("sequelize");
 const { sequelize } = require("../index");
 const { Artist } = require("./artist");
@@ -29,7 +28,7 @@ const myArtwork = (sequelize, type) => {
       price: type.INTEGER,
     },
 
-    { timestamps: true }
+    { timestamps: false }
   );
 
   return artwork;

@@ -117,10 +117,10 @@
                   />
                   <div>
                     <button
-                      class="ui secondary button"
+                      class="ui grey basic button"
                       @click.prevent="onsubmit()"
                     >
-                      Submit
+                      SUBMIT
                     </button>
                   </div>
                   <h6>Designer</h6>
@@ -282,25 +282,25 @@
       </div>
       <div>
         <form class="ui form" id="artwork">
-          <h4 class="ui dividing header">Shipping Information</h4>
+          <h4 class="ui dividing header">Fill your artwork</h4>
           <div class="field">
             <label>Title</label>
             <input type="text" name="first-name" placeholder="First Name" />
           </div>
           <div class="field">
-            <label>description</label>
+            <label>Url</label>
             <input type="text" name="last-name" placeholder="Last Name" />
           </div>
           <div class="field">
-            <label>price</label>
+            <label>Price</label>
             <input type="text" name="last-name" placeholder="Last Name" />
           </div>
           <div class="field">
-            <label>Text</label>
+            <label>Description</label>
             <textarea></textarea>
           </div>
 
-          <button class="ui button" type="submit">Submit</button>
+          <button class="ui grey basic button">SUBMIT</button>
         </form>
       </div>
     </div>
@@ -323,6 +323,7 @@ export default {
       email: "",
       data: [],
       imageUrl: "",
+      artwork: [],
     };
   },
   components: {
