@@ -1,4 +1,4 @@
-const { Artist } = require("../../db/models/artist-model");
+const { Artist } = require("../../db/models/artist.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -10,17 +10,18 @@ module.exports = {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
       var token = jwt.sign({ email: req.body.email }, config.secret, {
-        expiresIn: "60s",
+        expiresIn: "4h",
       });
       const artist = await Artist.create({
+        firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         password: hash,
         category: req.body.category,
-        token: token,
       });
       if (artist) {
         res.send({
+          user: artist,
           message: "congrats you are registred",
           auth: true,
           token: token,
@@ -61,15 +62,46 @@ module.exports = {
       res.send(err);
     }
   },
-  findArtist: async (req, res) => {
-    console.log("=========================");
-
+  // findArtist: async (req, res) => {
+  //   try {
+  //     const artist = await Artist.findOne({
+  //       where: { email: req.params.email },
+  //     });
+  //     res.send(artist);
+  //   } catch (err) {
+  //     res.send(err);
+  //   }
+  // },
+  // findInfo: async (req, res) => {
+  //   try {
+  //     const artist = await Artist.create({
+  //       firstName: req.body.firstName,
+  //       lastName: req.body.lastName,
+  //       email: req.body.email,
+  //     });
+  //   } catch (err) {}
+  // },
+  getUserData: async (req, res) => {
     try {
-      const artist = await Artist.findOne({
-        where: { email: req.params.email },
+      console.log("=====>", req.headers);
+      const token = req.headers.authorization.split(" ")[1];
+      const email = jwt.verify(token, config.secret);
+      const user = await Artist.findOne({
+        where: { email: email.email },
       });
-      res.send(artist);
-      console.log("===========", artist);
+      res.send(user);
+    } catch (err) {
+      res.send(err);
+    }
+  },
+  upload: async (req, res) => {
+    try {
+      const user = await Artist.update(
+        { imageUrl: req.body.image },
+        { returning: true, where: { id: req.params.id } }
+      );
+      console.log(user);
+      res.send("ok");
     } catch (err) {
       res.send(err);
     }

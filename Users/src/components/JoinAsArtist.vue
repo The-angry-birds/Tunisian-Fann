@@ -112,65 +112,53 @@ export default {
         );
       } else {
         axios
-          .get(`http://localhost:3000/artist/auth/${this.email}`)
+          .post("http://localhost:3000/artist/auth/signup", {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            password: this.password,
+            category: this.category,
+          })
           .then(({ data }) => {
-            console.log("mydata=====>", data);
-            if (data.mail === this.email) {
-              swal("Oops!", "Already exist", "error");
-            } else {
-              axios
-                .post("http://localhost:3000/artist/auth/signup", {
-                  firstName: this.firstName,
-                  lastName: this.lastName,
-                  email: this.email,
-                  password: this.password,
-                  category: this.category,
-                })
-                .then(({ data }) => {
-                  localStorage.setItem("token", data.token);
-                  this.$router.push("/Artist-profile");
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Your work has been saved",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
+            localStorage.setItem("token", data.token);
+            this.$router.push("/Artist-profile");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
 
-                  console.log("registred");
-                })
-                .catch((err) => {
-                  console.log(err);
-                  swal("oops", "Something went wrong");
-                });
-            }
+            console.log("registred");
           })
           .catch((err) => {
             console.log(err);
+            swal("oops", "Something went wrong");
           });
       }
     },
-    handleClick() {
-      if (this.email === "" || this.password === "") {
-        swal("Oops!", "Empty fields", "error");
-      } else {
-        axios
-          .post("http://localhost:3000/artist/auth/login", {
-            email: this.email,
-            password: this.password,
-          })
-          .then(({ data }) => {
-            console.log(data);
-            if (data.message === "success") {
-              localStorage.setItem("token", data.token);
-            } else if (data.message === "wrong password") {
-              swal("Oops!", "Wrong Password!", "error");
-            } else {
-              swal("Oops!", "Wrong Email!", "error");
-            }
-          });
-      }
-    },
+  },
+  handleClick() {
+    if (this.email === "" || this.password === "") {
+      swal("Oops!", "Empty fields", "error");
+    } else {
+      axios
+        .post("http://localhost:3000/artist/auth/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          if (data.message === "success") {
+            localStorage.setItem("token", data.token);
+          } else if (data.message === "wrong password") {
+            swal("Oops!", "Wrong Password!", "error");
+          } else {
+            swal("Oops!", "Wrong Email!", "error");
+          }
+        });
+    }
   },
 };
 </script>

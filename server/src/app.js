@@ -5,11 +5,10 @@ const morgan = require("morgan");
 const router = require("./routes/admin.routes.js");
 const adminRoutes = require("./routes/admin-auth.routes.js");
 
-
 const usersRoutes = require("./routes/users.routes.js");
 const usersSignupRoutes = require("./routes/users-signup-router.js");
 const artistAuthRoutes = require("./routes/artist-auth-routes.js");
-
+const routerArtist = require("./routes/artist-data.js");
 const app = express();
 
 app.use(morgan("combined"));
@@ -18,7 +17,7 @@ app.use(cors());
 morgan(":method :url :status :res[content-length] - :response-time ms");
 app.use("/api/auth", adminRoutes);
 app.use("/categorys", router);
-
+app.use("/artist/verification", routerArtist);
 app.use("/users/auth", usersSignupRoutes);
 app.use("/users", usersRoutes);
 
