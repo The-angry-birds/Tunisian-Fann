@@ -129,7 +129,9 @@ export default {
     displayUser() {
       const token = localStorage.getItem("token");
       axios
+
         .get("http://localhost:3000/api/users/", {
+
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
