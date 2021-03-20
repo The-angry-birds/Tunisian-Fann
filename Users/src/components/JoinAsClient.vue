@@ -112,9 +112,11 @@ export default {
                   console.log(err);
                 });
             }
-        
-        
-      
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     
     },
     handleClick(){
