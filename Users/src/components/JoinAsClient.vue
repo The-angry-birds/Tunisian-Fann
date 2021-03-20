@@ -88,14 +88,9 @@ export default {
       } else if (this.password !== this.Confirmpassword) {
         swal("Oops!", "password not match", "error");
       } else {
-        axios
-          .get(`http://localhost:3000/users/auth/${this.email}`)
-          .then((data) => {
-            if (data.data.email == this.email) {
-              swal("Oops!", "Already exist", "error");
-            } else {
+       
               axios
-                .post("http://localhost:3000/users/auth/signup", {
+                .post("http://localhost:3000/api/auth/users/signup", {
                   firstName: this.firstName,
                   lastName: this.lastName,
                   email: this.email,
@@ -110,11 +105,9 @@ export default {
                   console.log(err);
                 });
             }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
+        
+        
+      
     
     },
     handleClick(){
