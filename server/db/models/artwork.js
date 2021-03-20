@@ -37,4 +37,5 @@ let Artwork = myArtwork(sequelize, Sequelize);
 category.hasMany(Artwork, { foreignKey: "category_id", as: "categoryArtwork" });
 Artist.hasMany(Artwork, { foreignKey: "artist_id", as: "artistArtWork" });
 
+
 module.exports = { Artwork };

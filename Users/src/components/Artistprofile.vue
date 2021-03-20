@@ -117,6 +117,7 @@
                   />
                   <div>
                     <button
+                      id="subit-image"
                       class="ui grey basic button"
                       @click.prevent="onsubmit()"
                     >
@@ -201,8 +202,12 @@
                   v-for="(element, i) in artworks"
                   :key="i"
                 >
-                  <img :src="artworks[i].imageUrl" class="rounded" />
+                  <img
+                    :src="artworks[i].imageUrl"
+                    class="rounded artwork-image"
+                  />
                 </div>
+                <!-- <div class="centered">Centered gfhggkhlh</div> -->
               </div>
             </div>
             <div class="tab-pane text-center gallery" id="works">
@@ -212,7 +217,10 @@
                   v-for="(element, i) in artworks"
                   :key="i"
                 >
-                  <img :src="artworks[i].imageUrl" class="rounded" />
+                  <img
+                    :src="artworks[i].imageUrl"
+                    class="rounded artwork-image"
+                  />
                 </div>
               </div>
             </div>
@@ -223,7 +231,10 @@
                   v-for="(element, i) in artworks"
                   :key="i"
                 >
-                  <img :src="artworks[i].imageUrl" class="rounded" />
+                  <img
+                    :src="artworks[i].imageUrl"
+                    class="rounded artwork-image"
+                  />
                   <!-- <img
                     src="https://images.unsplash.com/photo-1494028698538-2cd52a400b17?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83bf0e71786922a80c420c17b664a1f5&auto=format&fit=crop&w=334&q=80"
                     class="rounded"
@@ -370,16 +381,8 @@ export default {
               image: this.$data.imageUrl,
             }
           )
-
           .then(({ data }) => {
             console.log("===", data);
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Your work has been saved",
-              showConfirmButton: false,
-              timer: 1500,
-            });
           });
       }
     },
@@ -395,6 +398,7 @@ export default {
         })
         .then(({ data }) => {
           console.log("created", data);
+
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -833,13 +837,14 @@ a .material-icons {
 }
 
 .rounded-circle {
-  border-radius: 50% !important;
+  border-radius: 80% !important;
 }
 
 .img-fluid,
 .img-thumbnail {
-  max-width: 100%;
-  height: auto;
+  max-width: 80%;
+  max-height: 80%;
+  /* height: auto; */
 }
 
 .title {
@@ -1111,5 +1116,8 @@ footer p a:hover {
 } */
 #artwork {
   padding: 20px;
+}
+#submit-image {
+  margin-top: 90px;
 }
 </style>

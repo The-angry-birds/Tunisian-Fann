@@ -138,27 +138,28 @@ export default {
           });
       }
     },
-  },
-  handleClick() {
-    if (this.email === "" || this.password === "") {
-      swal("Oops!", "Empty fields", "error");
-    } else {
-      axios
-        .post("http://localhost:3000/artist/auth/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(({ data }) => {
-          console.log(data);
-          if (data.message === "success") {
-            localStorage.setItem("token", data.token);
-          } else if (data.message === "wrong password") {
-            swal("Oops!", "Wrong Password!", "error");
-          } else {
-            swal("Oops!", "Wrong Email!", "error");
-          }
-        });
-    }
+    handleClick() {
+      if (this.email === "" || this.password === "") {
+        swal("Oops!", "Empty fields", "error");
+      } else {
+        axios
+          .post("http://localhost:3000/artist/auth/login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then(({ data }) => {
+            console.log(data);
+            if (data.message === "success") {
+              localStorage.setItem("token", data.token);
+              this.$router.push("/Artist-profile");
+            } else if (data.message === "wrong password") {
+              swal("Oops!", "Wrong Password!", "error");
+            } else {
+              swal("Oops!", "Wrong Email!", "error");
+            }
+          });
+      }
+    },
   },
 };
 </script>
