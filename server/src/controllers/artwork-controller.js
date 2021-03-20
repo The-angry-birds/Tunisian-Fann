@@ -22,6 +22,21 @@ module.exports = {
       res.send(err);
     }
   },
+  getAll: async (req, res) => {
+    try {
+      //retrieving the category with name provided by the artist
+
+      //creating the new artwork
+      console.log("===================", req.params.id);
+      const artwork = await Artwork.findAll({
+        where: { category_id: req.params.id },
+      });
+      //sending the artwork as response
+      res.send(artwork);
+    } catch (err) {
+      res.send(err);
+    }
+  },
 };
 
 // "nameArtwork": "CRY BABY",
