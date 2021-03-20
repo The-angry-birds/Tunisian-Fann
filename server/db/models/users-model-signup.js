@@ -14,6 +14,7 @@ const usersSignupschema = (sequelize, type) => {
       lastName: type.STRING,
       email: type.STRING,
       password: type.STRING,
+      imageUrl:type.STRING,
       token: type.STRING,
     
     },

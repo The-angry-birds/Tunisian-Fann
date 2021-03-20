@@ -1,8 +1,9 @@
 const router = require("express").Router();
 
-const adminController = require("../controllers/auth-admin-controller.js");
+const artistController = require("../controllers/auth-artist-controller");
 
-// router.post("/signup", adminController.signup);
-router.post("/login", adminController.login);
-
+router.post("/signup", artistController.signup);
+router.post("/login", artistController.login);
+router.patch("/upload/:id", artistController.upload);
+routerArtist.get("/", artistController.getUserData);
 module.exports = router;

@@ -68,7 +68,7 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
-      firstName: "", 
+      firstName: "",
       lastName: "",
       email: "",
       password: "",
@@ -80,11 +80,11 @@ export default {
   },
 
   methods: {
-    signUp: function() {
+    signUp: function () {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    signIn: function() {
+    signIn: function () {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
@@ -112,7 +112,7 @@ export default {
         );
       } else {
         axios
-          .post("http://localhost:3000/artist/auth/signup", {
+          .post("http://localhost:3000/api/auth/artists/signup", {
             firstName: this.firstName,
             lastName: this.lastName,
             email: this.email,
@@ -121,6 +121,7 @@ export default {
           })
           .then(({ data }) => {
             localStorage.setItem("token", data.token);
+            this.$router.push("/Artist-profile");
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -142,7 +143,7 @@ export default {
         swal("Oops!", "Empty fields", "error");
       } else {
         axios
-          .post("http://localhost:3000/artist/auth/login", {
+          .post("http://localhost:3000/api/auth/artists/login", {
             email: this.email,
             password: this.password,
           })
@@ -150,6 +151,7 @@ export default {
             console.log(data);
             if (data.message === "success") {
               localStorage.setItem("token", data.token);
+              this.$router.push("/Artist-profile");
             } else if (data.message === "wrong password") {
               swal("Oops!", "Wrong Password!", "error");
             } else {
@@ -195,8 +197,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #ad7d52;
-  background-color: #ad7d52;
+  border: 1px solid #3000cf;
+  background-color: #3000cf;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -207,8 +209,8 @@ button {
 }
 
 button:hover {
-  border: 1px solid #c0c0c0;
-  background-color: #c0c0c0;
+  border: 1px solid #3000cf;
+  background-color: #3000cf;
   color: #ffffff;
 }
 
@@ -326,8 +328,8 @@ select {
 
 .overlay {
   background: #0a44ff;
-  background: -webkit-linear-gradient(to right, #ad7d52, #c0c0c0);
-  background: linear-gradient(to right, #ad7d52, #c0c0c0);
+  background: -webkit-linear-gradient(to right, #754fff, #0a002c);
+  background: linear-gradient(to right, #754fff, #0a002c);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;

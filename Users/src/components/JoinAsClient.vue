@@ -88,12 +88,14 @@ export default {
       } else if (this.password !== this.Confirmpassword) {
         swal("Oops!", "password not match", "error");
       } else {
+
         axios
           .get(`http://localhost:3000/api/auth/users/${this.email}`)
           .then((data) => {
             if (data.data.email == this.email) {
               swal("Oops!", "Already exist", "error");
             } else {
+
               axios
                 .post("http://localhost:3000/api/auth/users/signup", {
                   firstName: this.firstName,
@@ -122,7 +124,7 @@ export default {
         swal("Oops!", "Empty fields", "error");
       } else {
         axios
-          .post("http://localhost:3000/users/auth/login", {
+          .post("http://localhost:3000/api/auth/users/login", {
             email: this.email,
             password: this.password,
           })

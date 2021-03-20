@@ -9,17 +9,19 @@ module.exports = {
     try {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
+      var token = jwt.sign({ email: req.body.email }, config.secret, {
+        expiresIn: "4h",
+      });
       const artist = await Artist.create({
+        firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         password: hash,
         category: req.body.category,
       });
       if (artist) {
-        var token = jwt.sign({ email: req.body.email }, config.secret, {
-          expiresIn: 86400, // expires in 24 hours
-        });
         res.send({
+          user: artist,
           message: "congrats you are registred",
           auth: true,
           token: token,
@@ -46,7 +48,7 @@ module.exports = {
         var result = bcrypt.compareSync(password, artist.password);
         if (result) {
           var token = jwt.sign({ email: email }, config.secret, {
-            expiresIn: "10s", // expires in 24 hours
+            expiresIn: "60s",
           });
 
           res.send({ message: "success", auth: true, token: token });
@@ -56,6 +58,33 @@ module.exports = {
       } else {
         res.send({ message: "user not found", auth: false, token: null });
       }
+    } catch (err) {
+      res.send(err);
+    }
+  },
+
+  getUserData: async (req, res) => {
+    try {
+      // console.log("=====>", req.headers);
+      const token = req.headers.authorization.split(" ")[1];
+      const email = jwt.verify(token, config.secret);
+      const user = await Artist.findOne({
+        where: { email: email.email },
+      });
+      res.send(user);
+    } catch (err) {
+      res.send(err);
+    }
+  },
+  upload: async (req, res) => {
+    try {
+      const user = await Artist.update(
+        { imageUrl: req.body.image },
+
+        { returning: true, where: { id: req.params.id } }
+      );
+
+      res.send("ok");
     } catch (err) {
       res.send(err);
     }
