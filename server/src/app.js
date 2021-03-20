@@ -18,10 +18,10 @@ app.use(cors());
 morgan(":method :url :status :res[content-length] - :response-time ms");
 app.use("/api/auth/admin", adminRoutes);
 app.use("/api/categories", router);
-app.use("/artworks", artworkRouter);
+app.use("/api/artworks", artworkRouter);
 
 app.use("/api/auth/users", usersSignupRoutes);
-app.use("/users", usersRoutes);
+app.use("/api/users", usersRoutes);
 
 app.use("/api/auth/artists", artistAuthRoutes);
 app.use("/api/artists", artistRoutes);

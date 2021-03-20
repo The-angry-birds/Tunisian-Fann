@@ -11,7 +11,7 @@
         <el-input v-model="imageUrl" type="textarea" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click.prevent="handleSubmit()">Create</el-button>
+        <el-button type="primary" @click="onSubmit"   @click.prevent="handleSubmit()">Create</el-button>
         <el-button @click="onCancel">Cancel</el-button>
       </el-form-item>
     </el-form>

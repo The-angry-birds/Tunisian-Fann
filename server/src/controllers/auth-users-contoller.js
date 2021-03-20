@@ -10,7 +10,7 @@ module.exports = {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
       var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
-        expiresIn: 86400, // expires in 24 hours
+        expiresIn: 86400, 
       });
       const user = await User.create({
         firstName: req.body.firstName,
@@ -20,9 +20,9 @@ module.exports = {
         token: token,
       });
       if (user) {
-        // var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
-        //   expiresIn: 86400, // expires in 24 hours
-        // });
+        var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
+          expiresIn: 86400,
+        });
         res.send({ auth: true, token: token });
       } else {
         res.send({
