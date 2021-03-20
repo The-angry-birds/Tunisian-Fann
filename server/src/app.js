@@ -22,7 +22,7 @@ app.use("/api/categories", router);
 
 
 app.use("/api/auth/users", usersSignupRoutes);
-app.use("/api/users", usersRoutes);
+app.use("/users", usersRoutes);
 
 app.use("/api/auth/artists", artistAuthRoutes);
 app.use("/api/artists", artistRoutes);
