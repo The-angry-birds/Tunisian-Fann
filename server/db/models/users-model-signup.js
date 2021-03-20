@@ -15,6 +15,7 @@ const usersSignupschema = (sequelize, type) => {
       email: type.STRING,
       password: type.STRING,
       token: type.STRING,
+    
     },
     { timestamps: false }
   );
