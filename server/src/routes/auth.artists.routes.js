@@ -5,5 +5,5 @@ const artistController = require("../controllers/auth-artist-controller");
 router.post("/signup", artistController.signup);
 router.post("/login", artistController.login);
 router.patch("/upload/:id", artistController.upload);
-routerArtist.get("/", artistController.getUserData);
+router.get("/", artistController.getUserData);
 module.exports = router;

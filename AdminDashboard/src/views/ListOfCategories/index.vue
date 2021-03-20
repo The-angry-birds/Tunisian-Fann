@@ -24,6 +24,7 @@
               class="category-btns btn btn-primary"
               data-toggle="modal"
               data-target="#myEditModal"
+              @click.prevent="changeCurrentcategory(category)"
             >
               Edit
             </button>
@@ -46,6 +47,7 @@
                           class="form-control"
                           id="title-category"
                           placeholder="Title"
+                          v-model="currentCategory.name"
                         />
                       </div>
                       <div class="form-group">
@@ -54,6 +56,7 @@
                           class="form-control"
                           id="description-category"
                           placeholder="Description"
+                          v-model="currentCategory.description"
                         />
                       </div>
                       <div class="form-group">
@@ -62,6 +65,7 @@
                           class="form-control"
                           id="imgUrl-category"
                           placeholder="Image URL"
+                           v-model="currentCategory.ImageUrl"
                         />
                       </div>
                     </form>
@@ -71,7 +75,7 @@
                       type="button"
                       class="btn btn-primary"
                       data-dismiss="modal"
-                      @click.prevent="updateCategory(currentId)"
+                      @click.prevent="updateCategory(category)"
                     >
                       Submit
                     </button>
@@ -84,7 +88,7 @@
               class="category-btns btn btn-danger"
               data-toggle="modal"
               data-target="#myDeleteModal"
-              @click="setCurrentId(category.id)"
+            
 
             >
               Delete
@@ -109,7 +113,7 @@
                       class="btn btn-danger"
                       data-dismiss="modal"
 
-                       @click.prevent="deleteCategory(currentId)"
+                       @click.prevent="deleteCategory(category)"
                     >
                       Delete
                     </button>
@@ -139,6 +143,7 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
+      currentCategory: {}
     };
   },
   mounted() {
@@ -146,24 +151,35 @@ export default {
   },
 
   methods: {
+     setCurrentId(category) {
+    
+      this.dataInput=category
+    },
+    changeCurrentcategory(category) {
+      this.currentCategory = category
+    },
+
     displayCategory() {
       axios.get("http://localhost:3000/api/categories").then((data) => {
         console.log("===================", data);
         this.categories = data;
       });
     },
-    updateCategory(id) {
-      console.log("==>", id);
+    updateCategory(id,category) {
+   
       axios
-        .put(`http://localhost:3000/api/categories/${id}`, this.dataInput)
+        .put(`http://localhost:3000/api/categories/${id}`,this.currentCategory)
         .then((updated) => {
+
           console.log(updated);
+            this.displayCategory();
         })
       .catch((err)=>{console.log(err)})
     },
     deleteCategory(id) {
       axios.delete(`http://localhost:3000/api/categories/${id}`).then((res) => {
-       console.log("deleted",res)
+          this.displayCategory();
+       console.log("deleted")
       });
     },
   },

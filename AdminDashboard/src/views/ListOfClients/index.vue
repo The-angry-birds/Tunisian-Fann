@@ -70,7 +70,7 @@ export default {
   methods: {
     getAlluser() {
       axios
-        .get(`http://localhost:3000/api/users`)
+        .get(`http://localhost:3000/users`)
         .then((user) => {
           this.users = user;
 
@@ -99,5 +99,8 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+}
+.ban-btn {
+  width:200px
 }
 </style>

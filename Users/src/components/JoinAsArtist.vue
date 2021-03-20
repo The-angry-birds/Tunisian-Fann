@@ -64,7 +64,6 @@
 import axios from "axios";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
-
 export default {
   data() {
     return {
@@ -78,7 +77,6 @@ export default {
       category: "",
     };
   },
-
   methods: {
     signUp: function () {
       const container = document.getElementById("container");
@@ -129,7 +127,6 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-
             console.log("registred");
           })
           .catch((err) => {
@@ -166,16 +163,13 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
-
 * {
   box-sizing: border-box;
 }
-
 h2 {
   font-weight: bold;
   margin: 0;
 }
-
 p {
   font-size: 14px;
   font-weight: 100;
@@ -183,18 +177,15 @@ p {
   letter-spacing: 0.5px;
   margin: 20px 0 30px;
 }
-
 span {
   font-size: 12px;
 }
-
 a {
   color: #333;
   font-size: 14px;
   text-decoration: none;
   margin: 15px 0;
 }
-
 button {
   border-radius: 20px;
   border: 1px solid #3000cf;
@@ -207,26 +198,21 @@ button {
   text-transform: uppercase;
   transition: transform 80ms ease-in;
 }
-
 button:hover {
   border: 1px solid #3000cf;
   background-color: #3000cf;
   color: #ffffff;
 }
-
 button:active {
   transform: scale(0.95);
 }
-
 button:focus {
   outline: none;
 }
-
 button.ghost {
   background-color: transparent;
   border-color: #ffffff;
 }
-
 form {
   background-color: #ffffff;
   display: flex;
@@ -237,7 +223,6 @@ form {
   height: 100%;
   text-align: center;
 }
-
 input {
   background-color: #eee;
   border: none;
@@ -245,7 +230,6 @@ input {
   margin: 8px 0;
   width: 100%;
 }
-
 select {
   background-color: #eee;
   border: none;
@@ -253,7 +237,6 @@ select {
   margin: 8px 0;
   width: 100%;
 }
-
 .container {
   background-color: #fff;
   border-radius: 10px;
@@ -265,52 +248,44 @@ select {
   min-height: 540px;
   margin-top: 4%;
 }
-
 .form-container {
   position: absolute;
   top: 0;
   height: 100%;
   transition: all 0.6s ease-in-out;
 }
-
 .sign-in-container {
   left: 0;
   width: 50%;
   z-index: 2;
 }
-
 .container.right-panel-active .sign-in-container {
   transform: translateX(100%);
 }
-
 .sign-up-container {
   left: 0;
   width: 50%;
   opacity: 0;
   z-index: 1;
 }
-
 .container.right-panel-active .sign-up-container {
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
   animation: show 0.6s;
 }
-
 @keyframes show {
   0%,
   49.99% {
     opacity: 0;
     z-index: 1;
   }
-
   50%,
   100% {
     opacity: 1;
     z-index: 5;
   }
 }
-
 .overlay-container {
   position: absolute;
   top: 0;
@@ -321,15 +296,13 @@ select {
   transition: transform 0.6s ease-in-out;
   z-index: 100;
 }
-
 .container.right-panel-active .overlay-container {
   transform: translateX(-100%);
 }
-
 .overlay {
   background: #0a44ff;
-  background: -webkit-linear-gradient(to right, #754fff, #0a002c);
-  background: linear-gradient(to right, #754fff, #0a002c);
+  background: -webkit-linear-gradient(to right, #AD7D52, #C0C0C0);
+  background: linear-gradient(to right, #AD7D52, #C0C0C0);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -341,11 +314,9 @@ select {
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
-
 .container.right-panel-active .overlay {
   transform: translateX(50%);
 }
-
 .overlay-panel {
   position: absolute;
   display: flex;
@@ -360,28 +331,22 @@ select {
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
-
 .overlay-left {
   transform: translateX(-20%);
 }
-
 .container.right-panel-active .overlay-left {
   transform: translateX(0);
 }
-
 .overlay-right {
   right: 0;
   transform: translateX(0);
 }
-
 .container.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
-
 .social-container {
   margin: 20px 0;
 }
-
 .social-container a {
   border: 1px solid #dddddd;
   border-radius: 50%;
