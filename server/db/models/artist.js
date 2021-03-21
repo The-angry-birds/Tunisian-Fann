@@ -18,6 +18,14 @@ const artistAuthSchema = (sequelize, type) => {
       category: type.STRING,
       imageUrl: type.STRING,
       token:type.STRING,
+      accept: {
+        type: type.BOOLEAN,
+        defaultValue: false
+      },
+      banned: {
+        type: type.BOOLEAN,
+        defaultValue: false
+      },
  
 
 

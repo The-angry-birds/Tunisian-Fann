@@ -16,6 +16,11 @@ const usersSignupschema = (sequelize, type) => {
       password: type.STRING,
       imageUrl:type.STRING,
       token: type.STRING,
+      banned: {
+        type: type.BOOLEAN,
+        defaultValue: false
+      },
+   
     
     },
     { timestamps: false }

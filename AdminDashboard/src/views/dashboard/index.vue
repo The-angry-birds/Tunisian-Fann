@@ -23,17 +23,12 @@ export default {};
 
 header {
   height: 100vh;
-  background-image: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 0.6),
-      rgba(0, 0, 0, 0.1)
-    ),
-    url(https://www.bensalemwalid.com/wp-content/uploads/2021/02/in-the-garden-artwork-by-bensalem-walid.png);
-  background-size: cover;
+background-color:black
+/* 
   background-position: top;
   clip-path: polygon(topleft, topright, bottomright, bottomleft);
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-  position: relative;
+  position: relative; */
 }
 
 .logo-box {
