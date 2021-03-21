@@ -20,10 +20,11 @@
               class="artist-ban-btn btn btn-danger"
               data-toggle="modal"
               data-target="#myArtistBanModal"
+              @click.prevent="changeCurrentartist(artist)"
             >
               Ban
             </button>
-  
+
             <!-- Ban Modal -->
             <div id="myArtistBanModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
@@ -43,6 +44,8 @@
                       type="button"
                       class="btn btn-danger"
                       data-dismiss="modal"
+                      @click="onSubmit"
+                      @click.prevent="bannedArtist(artist)"
                     >
                       Ban
                     </button>
@@ -70,24 +73,45 @@ export default {
   data() {
     return {
       artists: [],
+      currentArtist: {},
+      dataArtists: {},
     };
   },
   methods: {
+    setCurrentId(artist) {
+      this.dataArtists= artist;
+    },
+    changeCurrentartist(artist) {
+      this.currentArtist = artist;
+    },
+
     getAllartist() {
       axios
         .get(`http://localhost:3000/api/artists`)
         .then((artist) => {
           this.artists = artist;
-          console.log("=================>", artist);
+          console.log(artist);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     onSubmit() {
-      this.$message('Accepted!')
+      this.$message("Artist Banned!");
+    },
+
+    bannedArtist(id) {
+      axios
+        .put(`http://localhost:3000/api/artists/${id}`, this.currentArtist)
+        .then((updated) => {
+          console.log(updated);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
+
   mounted() {
     this.getAllartist();
   },
@@ -113,10 +137,9 @@ th {
 
 .artist-ban-btn {
   width: 80px;
-  margin-right:5px;
-
+  margin-right: 5px;
 }
 .artist-accept-btn {
-width: 80px;
+  width: 80px;
 }
 </style>
