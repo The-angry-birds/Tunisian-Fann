@@ -10,7 +10,7 @@
         <b-card-text class="card-category">Digital Paintings</b-card-text>
         <h3 class="card-title">In The Garden</h3>
         <div class="card-by">
-          by <a class="card-author" title="author">Bensalem Walid</a>
+          by <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
       <b-card
@@ -21,7 +21,7 @@
         <b-card-text class="card-category">Digital Paintings</b-card-text>
         <h3 class="card-title">Kurt</h3>
         <div class="card-by">
-          by <a class="card-author" title="author">Bensalem Walid</a>
+          by <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
       <b-card
@@ -32,7 +32,7 @@
         <b-card-text class="card-category">Digital Paintings</b-card-text>
         <h3 class="card-title">Queen Monroe</h3>
         <div class="card-by">
-          by <a class="card-author" title="author">Bensalem Walid</a>
+          by <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
       <b-card
@@ -43,7 +43,7 @@
         <b-card-text class="card-category">Digital Paintings</b-card-text>
         <h3 class="card-title">In The Garden</h3>
         <div class="card-by">
-          by <a class="card-author" title="author">Bensalem Walid</a>
+          by <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
       <b-card
@@ -54,7 +54,7 @@
         <b-card-text class="card-category">Digital Paintings</b-card-text>
         <h3 class="card-title">Kurt</h3>
         <div class="card-by">
-          by <a class="card-author" title="author">Bensalem Walid</a>
+          by <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
       <b-card
@@ -65,10 +65,10 @@
         <b-card-text class="card-category">Digital Paintings</b-card-text>
         <h3 class="card-title">Queen Monroe</h3>
         <div class="card-by">
-          by <a class="card-author" title="author">Bensalem Walid</a>
+          by <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
-      <button id="loadMore" class="nav-link dropdown-toggle">Load more</button>
+      <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
     </div>
   </div>
 </template>
@@ -101,6 +101,7 @@ export default {};
   border-radius: 0;
   width: 300px;
   height: 385px;
+  cursor: pointer;
 }
 
 .card-category {
@@ -118,12 +119,15 @@ export default {};
 
 .card-by {
   font-size: 12px;
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .card-author {
   font-weight: 600;
   text-decoration: none;
   color: #ad7d52;
+  margin-left:3px;
 }
 
 img:hover {

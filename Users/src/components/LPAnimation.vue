@@ -36,7 +36,7 @@ header {
       rgba(0, 0, 0, 0.6),
       rgba(0, 0, 0, 0.1)
     ),
-    url(https://wallpaperaccess.com/full/1373056.jpg);
+    url(https://wallpaperaccess.com/full/176937.jpg);
   background-size: cover;
   background-position: top;
   clip-path: polygon(topleft, topright, bottomright, bottomleft);
