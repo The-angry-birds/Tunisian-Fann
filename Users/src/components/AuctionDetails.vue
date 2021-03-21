@@ -3,24 +3,52 @@
     <NavBar></NavBar>
     <div class="auction-container">
       <div class="left-container">
-        <div class="auction-header">
-          <h1 class="auction-name">Oh My God</h1>
-          <p class="auction-category">Digital Paintings</p>
-        </div>
-        <div class="auction-by">
-          by
-          <p class="auction-artist">Bensalem Walid</p>
-        </div>
         <img
           class="auction-image"
           src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/oh-my-god-artwork-by-bensalem-walid.png"
         />
       </div>
       <div class="right-container">
-        <h2>Time left:</h2>
-        <p>01 Days : 11 Hrs : 59 Min : 42 Sec</p>
-        <h2>Current winning price:</h2>
-        <p>120.000 Tunisian Dinars</p>
+        <div class="auction-header">
+          <h1 class="auction-name">Oh My God</h1>
+          <p class="auction-category">Digital Paintings</p>
+        </div>
+        <p class="auction-description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et arcu
+          eget eros semper tempus eget ac nisl. Praesent euismod ligula ligula,
+          quis dignissim nunc vestibulum eu.
+        </p>
+        <div class="time-container">
+          <h4 class="time-header">Time left:</h4>
+          <p class="time">01 Days : 11 Hrs : 59 Min</p>
+        </div>
+        <div class="current-price-container">
+          <h4 class="current-price-header">Current winning price:</h4>
+          <h1 class="current-price">120.00 TD</h1>
+        </div>
+        <div>
+          <h4 class="price-input-header">Insert your desired bid: *</h4>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Place bid here..."
+              aria-label="bid"
+              aria-describedby="butn"
+            />
+            <div class="input-group-append">
+              <button class="submit-btn" type="button" id="butn">Submit</button>
+            </div>
+            <p class="price-note">
+              * Please note that you should place a bid higher than the current
+              winning price.
+            </p>
+          </div>
+        </div>
+        <div class="auction-by">
+          by
+          <p class="auction-artist">Bensalem Walid</p>
+        </div>
       </div>
     </div>
   </div>
@@ -50,13 +78,13 @@ export default {
 }
 
 .left-container {
-  width: 50%;
+  width: 60%;
   height: 100%;
   float: left;
 }
 
 .auction-image {
-  height: 350px;
+  height: 100%;
   width: 90%;
   object-fit: cover;
 }
@@ -66,29 +94,60 @@ export default {
   flex-wrap: nowrap;
 }
 
+.auction-name {
+  font-weight: bolder;
+}
+
 .auction-category {
   padding-top: 18px;
   padding-left: 3px;
-  color: #868686;
+  color: grey;
   text-transform: uppercase;
 }
 
+.right-container {
+  width: 40%;
+  height: 100%;
+  float: right;
+}
+
+.time-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.current-price {
+  color: #ad7d52;
+  font-weight: 800;
+}
+.time {
+  padding-top: 3px;
+  padding-left: 15px;
+  font-weight: bold;
+  color: #ad7d52;
+}
+
+.submit-btn {
+  color: #ad7d52;
+}
+
+.submit-btn:hover {
+  color: black;
+  font-weight: bold;
+}
+
+.price-note {
+  color: grey;
+}
+
 .auction-by {
-  font-size: 15px;
   display: flex;
   flex-wrap: nowrap;
 }
 
 .auction-artist {
-  margin-left: 2px;
+  margin-left: 3px;
   font-weight: 600;
   color: #ad7d52;
-}
-
-.right-container {
-  width: 50%;
-  height: 100%;
-  float: right;
 }
 </style>
 
