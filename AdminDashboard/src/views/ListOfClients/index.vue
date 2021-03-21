@@ -17,7 +17,7 @@
           <td>
             <button
               type="button"
-              class="ban-btn btn btn-danger"
+              class="client-ban-btn btn btn-danger"
               data-toggle="modal"
               data-target="#myClientBanModal"
             >
@@ -70,7 +70,7 @@ export default {
   methods: {
     getAlluser() {
       axios
-        .get(`http://localhost:3000/users`)
+        .get(`http://localhost:3000/api/users`)
         .then((user) => {
           this.users = user;
 
@@ -100,7 +100,7 @@ th {
   text-align: left;
   padding: 8px;
 }
-.ban-btn {
+.client-ban-btn {
   width:200px
 }
 </style>

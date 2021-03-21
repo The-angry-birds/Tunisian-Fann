@@ -17,12 +17,13 @@
           <td>
             <button
               type="button"
-              class="ban-btn btn btn-danger"
+              class="artist-ban-btn btn btn-danger"
               data-toggle="modal"
               data-target="#myArtistBanModal"
             >
               Ban
             </button>
+  
             <!-- Ban Modal -->
             <div id="myArtistBanModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
@@ -49,6 +50,13 @@
                 </div>
               </div>
             </div>
+            <button
+              type="button"
+              class="artist-accept-btn btn btn-success"
+              @click="onSubmit"
+            >
+              Accept
+            </button>
           </td>
         </tr>
       </tbody>
@@ -76,6 +84,9 @@ export default {
           console.log(err);
         });
     },
+    onSubmit() {
+      this.$message('Accepted!')
+    },
   },
   mounted() {
     this.getAllartist();
@@ -98,5 +109,14 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+}
+
+.artist-ban-btn {
+  width: 80px;
+  margin-right:5px;
+
+}
+.artist-accept-btn {
+width: 80px;
 }
 </style>
