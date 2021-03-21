@@ -110,6 +110,9 @@ export default {
           console.log(err);
         });
     },
+    acceptArtist(){
+      
+    }
   },
 
   mounted() {
