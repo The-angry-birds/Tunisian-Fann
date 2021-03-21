@@ -78,11 +78,11 @@ export default {
     };
   },
   methods: {
-    signUp: function () {
+    signUp: function() {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    signIn: function () {
+    signIn: function() {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
@@ -154,6 +154,9 @@ export default {
             } else {
               swal("Oops!", "Wrong Email!", "error");
             }
+          })
+          .catch((err) => {
+            console.log(err);
           });
       }
     },
@@ -301,8 +304,8 @@ select {
 }
 .overlay {
   background: #0a44ff;
-  background: -webkit-linear-gradient(to right, #AD7D52, #C0C0C0);
-  background: linear-gradient(to right, #AD7D52, #C0C0C0);
+  background: -webkit-linear-gradient(to right, #ad7d52, #c0c0c0);
+  background: linear-gradient(to right, #ad7d52, #c0c0c0);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;

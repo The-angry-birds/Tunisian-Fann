@@ -1,5 +1,8 @@
 const { Artwork } = require("../../db/models/artwork.js");
 const { category } = require("../../db/models/categories.model.js");
+const { Artist } = require("../../db/models/artist.js");
+const config = require("../../db/configArtist");
+const jwt = require("jsonwebtoken");
 module.exports = {
   create: async (req, res) => {
     try {
@@ -24,12 +27,19 @@ module.exports = {
   },
   getAll: async (req, res) => {
     try {
+      const token = req.headers.authorization.split(" ")[1];
+
+      const email = jwt.verify(token, config.secret);
+      console.log("===============", email);
+      const artist = await Artist.findOne({
+        where: { email: email.email },
+      });
       //retrieving the category with name provided by the artist
 
       //creating the new artwork
 
       const artwork = await Artwork.findAll({
-        where: { category_id: req.params.id },
+        where: { category_id: req.params.id, artist_id: artist.id },
       });
       //sending the artwork as response
       res.send(artwork);
