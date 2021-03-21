@@ -1,21 +1,97 @@
 <template>
   <div>
     <NavBar />
-
+    <!-- <nav
+      class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg "
+      color-on-scroll="100"
+      id="sectionsNav"
+    > -->
     <div class="container">
-      <div class="navbar-translate"></div>
+      <div class="navbar-translate">
+        <!-- <a
+            class="navbar-brand"
+            href="https://demos.creative-tim.com/material-kit/index.html"
+            target="_blank"
+            >Material Kit
+          </a> -->
+        <!-- <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          > -->
+        <!-- <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+          </button> -->
+      </div>
 
-      <div class="collapse navbar-collapse"></div>
+      <div class="collapse navbar-collapse">
+        <!-- <ul class="navbar-nav ml-auto">
+          <li class="dropdown nav-item">
+            <a
+              href="#"
+              class="dropdown-toggle nav-link"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="material-icons">apps</i> Components
+            </a>
+            <div class="dropdown-menu dropdown-with-icons component">
+              <a href="../index.html" class="dropdown-item">
+                <i class="material-icons">layers</i> All Components
+              </a>
+
+              <a
+                href="https://demos.creative-tim.com/material-kit/docs/2.0/getting-started/introduction.html"
+                class="dropdown-item"
+              >
+                <i class="material-icons">content_paste</i> Documentation
+              </a>
+            </div>
+          </li> -->
+        <!-- <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)">
+                <i class="material-icons">cloud_download</i> Download
+              </a>
+            </li> -->
+        <!-- <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://twitter.com/CreativeTim"
+                target="_blank"
+              >
+                <i class="fa fa-twitter"></i>
+              </a>
+            </li> -->
+        <!-- <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://www.facebook.com/CreativeTim"
+                target="_blank"
+              >
+                <i class="fa fa-facebook-square"></i>
+              </a>
+            </li> -->
+        <!-- <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://www.instagram.com/CreativeTimOfficial"
+                target="_blank"
+              >
+                <i class="fa fa-instagram"></i>
+              </a>
+            </li> -->
+        <!-- </ul> -->
+      </div>
     </div>
     <!-- </nav> -->
 
     <div
       class="page-header header-filter"
-
       data-parallax="true"
-      style="
-        background-image: url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');
-      "
+      style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"
     ></div>
     <div class="main main-raised">
       <div class="profile-content">
@@ -30,9 +106,8 @@
                     class="img-raised rounded-circle img-fluid"
                   />
                 </div>
-                <div class="name" >
-               
-                  <h3 class="title">   {{ data.firstName}}</h3>
+                <div class="name">
+                  <h3 class="title">{{ data.firstName.toUpperCase() }}</h3>
                   <input
                     class="ui button"
                     type="file"
@@ -50,6 +125,21 @@
                     </button>
                   </div>
                   <h6>Designer</h6>
+                  <!-- <a
+                    href="#pablo"
+                    class="btn btn-just-icon btn-link btn-dribbble"
+                    ><i class="fa fa-dribbble"></i
+                  ></a>
+                  <a
+                    href="#pablo"
+                    class="btn btn-just-icon btn-link btn-twitter"
+                    ><i class="fa fa-twitter"></i
+                  ></a>
+                  <a
+                    href="#pablo"
+                    class="btn btn-just-icon btn-link btn-pinterest"
+                    ><i class="fa fa-pinterest"></i
+                  ></a> -->
                 </div>
               </div>
             </div>
@@ -145,7 +235,25 @@
                     :src="artworks[i].imageUrl"
                     class="rounded artwork-image"
                   />
+                  <!-- <img
+                    src="https://images.unsplash.com/photo-1494028698538-2cd52a400b17?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83bf0e71786922a80c420c17b664a1f5&auto=format&fit=crop&w=334&q=80"
+                    class="rounded"
+                  /> -->
                 </div>
+                <!-- <div class="col-md-3 mr-auto">
+                  <img
+                    src="https://images.unsplash.com/photo-1505784045224-1247b2b29cf3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ec2bdc92a9687b6af5089b335691830e&auto=format&fit=crop&w=750&q=80"
+                    class="rounded"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83079913579babb9d2c94a5941b2e69d&auto=format&fit=crop&w=751&q=80"
+                    class="rounded"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1506667527953-22eca67dd919?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6326214b7ce18d74dde5e88db4a12dd5&auto=format&fit=crop&w=750&q=80"
+                    class="rounded"
+                  />
+                </div> -->
               </div>
             </div>
           </div>
@@ -189,8 +297,8 @@
             <option value="" selected>Category</option>
 
             <option v-for="category in categories" :key="category.id">
-              {{ category.name }}
-            </option>
+              {{ category.name }}</option
+            >
           </select>
           <div id="create">
             <button
@@ -204,7 +312,7 @@
       </div>
     </div>
 
-    <div class="footer text-center">
+    <div class="footer text-center ">
       <p>Hello there</p>
     </div>
   </div>
@@ -214,7 +322,7 @@ import $ from "jquery";
 import noUiSlider from "nouislider";
 import NavBar from "./NavBar.vue";
 import axios from "axios";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -268,7 +376,8 @@ export default {
       if (this.imageUrl) {
         axios
           .patch(
-            "http://localhost:3000/artist/auth/upload/" + this.$data.data.id,
+            "http://localhost:3000/api/auth/artists/upload/" +
+              this.$data.data.id,
             {
               image: this.$data.imageUrl,
             }
@@ -290,12 +399,24 @@ export default {
         })
         .then(({ data }) => {
           console.log("created", data);
-          
+
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500,
+          }).catch((err) => {
+            console.log(err);
+          });
         });
     },
     getArtworks(id) {
+      const token = localStorage.getItem("token");
       axios
-        .get("http://localhost:3000/api/artworks/" + id)
+        .get("http://localhost:3000/api/artworks/" + id, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then(({ data }) => {
           console.log("this is my dataQQQQQQQQQ", data);
           this.$data.artworks = data;
@@ -311,30 +432,41 @@ export default {
       });
     },
   },
+
   beforeMount() {
     this.getUser();
     this.getCategories();
     this.getArtworks(1);
   },
 };
-$(function ($) {
+$(function($) {
   var big_image;
-  $(document).ready(function () {
+
+  $(document).ready(function() {
     BrowserDetect.init();
+
     // Init Material scripts for buttons ripples, inputs animations etc, more info on the next link https://github.com/FezVrasta/bootstrap-material-design#materialjs
     $("body").bootstrapMaterialDesign();
+
     var window_width = $(window).width();
+
     var $navbar = $(".navbar[color-on-scroll]");
     $navbar.attr("color-on-scroll") || 500;
+
     $(".navbar").find(".navbar-collapse");
+
     //  Activate the Tooltips
     $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip();
+
     // Activate Popovers
     $('[data-toggle="popover"]').popover();
+
     if ($(".navbar-color-on-scroll").length != 0) {
       $(window).on("scroll", materialKit.checkScrollForTransparentNavbar);
     }
+
     materialKit.checkScrollForTransparentNavbar();
+
     if (window_width >= 768) {
       big_image = $('.page-header[data-parallax="true"]');
       if (big_image.length != 0) {
@@ -342,41 +474,49 @@ $(function ($) {
       }
     }
   });
-  $(document).on("click", ".navbar-toggler", function () {
+
+  $(document).on("click", ".navbar-toggler", function() {
     var $toggle = $(this);
+
     if (materialKit.misc.navbar_menu_visible == 1) {
       $("html").removeClass("nav-open");
       materialKit.misc.navbar_menu_visible = 0;
       $("#bodyClick").remove();
-      setTimeout(function () {
+      setTimeout(function() {
         $toggle.removeClass("toggled");
       }, 550);
+
       $("html").removeClass("nav-open-absolute");
     } else {
-      setTimeout(function () {
+      setTimeout(function() {
         $toggle.addClass("toggled");
       }, 580);
+
       var div = '<div id="bodyClick"></div>';
       $(div)
         .appendTo("body")
-        .click(function () {
+        .click(function() {
           $("html").removeClass("nav-open");
+
           if ($("nav").hasClass("navbar-absolute")) {
             $("html").removeClass("nav-open-absolute");
           }
           materialKit.misc.navbar_menu_visible = 0;
           $("#bodyClick").remove();
-          setTimeout(function () {
+          setTimeout(function() {
             $toggle.removeClass("toggled");
           }, 550);
         });
+
       if ($("nav").hasClass("navbar-absolute")) {
         $("html").addClass("nav-open-absolute");
       }
+
       $("html").addClass("nav-open");
       materialKit.misc.navbar_menu_visible = 1;
     }
   });
+
   var materialKit = {
     misc: {
       navbar_menu_visible: 0,
@@ -386,7 +526,8 @@ $(function ($) {
       navbar_initialized: false,
       isWindow: document.documentMode || /Edge/.test(navigator.userAgent),
     },
-    initFormExtendedDatetimepickers: function () {
+
+    initFormExtendedDatetimepickers: function() {
       $(".datetimepicker").datetimepicker({
         icons: {
           time: "fa fa-clock-o",
@@ -401,9 +542,11 @@ $(function ($) {
         },
       });
     },
-    initSliders: function () {
+
+    initSliders: function() {
       // Sliders for demo purpose
       var slider = document.getElementById("sliderRegular");
+
       noUiSlider.create(slider, {
         start: 40,
         connect: [true, false],
@@ -412,7 +555,9 @@ $(function ($) {
           max: 100,
         },
       });
+
       var slider2 = document.getElementById("sliderDouble");
+
       noUiSlider.create(slider2, {
         start: [20, 60],
         connect: true,
@@ -422,7 +567,8 @@ $(function ($) {
         },
       });
     },
-    checkScrollForParallax: function () {
+
+    checkScrollForParallax: function() {
       var oVal = $(window).scrollTop() / 3;
       big_image.css({
         transform: "translate3d(0," + oVal + "px,0)",
@@ -431,7 +577,8 @@ $(function ($) {
         "-o-transform": "translate3d(0," + oVal + "px,0)",
       });
     },
-    checkScrollForTransparentNavbar: debounce(function () {
+
+    checkScrollForTransparentNavbar: debounce(function() {
       var scroll_distance = 10;
       if ($(document).scrollTop() > scroll_distance) {
         if (materialKit.misc.transparent) {
@@ -446,45 +593,50 @@ $(function ($) {
       }
     }, 17),
   };
+
   // Returns a function, that, as long as it continues to be invoked, will not
   // be triggered. The function will be called after it stops being called for
   // N milliseconds. If `immediate` is passed, trigger the function on the
   // leading edge, instead of the trailing.
+
   function debounce(func, wait, immediate) {
     var timeout;
-    return function () {
+    return function() {
       var context = this,
         args = arguments;
       clearTimeout(timeout);
-      timeout = setTimeout(function () {
+      timeout = setTimeout(function() {
         timeout = null;
         if (!immediate) func.apply(context, args);
       }, wait);
       if (immediate && !timeout) func.apply(context, args);
     };
   }
+
   var BrowserDetect = {
-    init: function () {
+    init: function() {
       this.browser = this.searchString(this.dataBrowser) || "Other";
       this.version =
         this.searchVersion(navigator.userAgent) ||
         this.searchVersion(navigator.appVersion) ||
         "Unknown";
     },
-    searchString: function (data) {
+    searchString: function(data) {
       for (var i = 0; i < data.length; i++) {
         var dataString = data[i].string;
         this.versionSearchString = data[i].subString;
+
         if (dataString.indexOf(data[i].subString) !== -1) {
           return data[i].identity;
         }
       }
     },
-    searchVersion: function (dataString) {
+    searchVersion: function(dataString) {
       var index = dataString.indexOf(this.versionSearchString);
       if (index === -1) {
         return;
       }
+
       var rv = dataString.indexOf("rv:");
       if (this.versionSearchString === "Trident" && rv !== -1) {
         return parseFloat(dataString.substring(rv + 3));
@@ -494,6 +646,7 @@ $(function ($) {
         );
       }
     },
+
     dataBrowser: [
       {
         string: navigator.userAgent,
@@ -534,6 +687,7 @@ $(function ($) {
 html * {
   -webkit-font-smoothing: antialiased;
 }
+
 .h6,
 h6 {
   font-size: 0.75rem !important;
@@ -542,10 +696,12 @@ h6 {
   line-height: 1.5em;
   text-transform: uppercase;
 }
+
 .name h6 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 .navbar {
   border: 0;
   border-radius: 3px;
@@ -558,6 +714,7 @@ h6 {
   z-index: 1000 !important;
   transition: all 150ms ease 0s;
 }
+
 .navbar.navbar-transparent {
   z-index: 1030;
   background-color: transparent !important;
@@ -565,6 +722,7 @@ h6 {
   padding-top: 25px;
   color: #fff;
 }
+
 .navbar .navbar-brand {
   position: relative;
   color: inherit;
@@ -575,23 +733,27 @@ h6 {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
 }
+
 .navbar .navbar-nav .nav-item .nav-link:not(.btn) .material-icons {
   margin-top: -7px;
   top: 3px;
   position: relative;
   margin-right: 3px;
 }
+
 .navbar .navbar-nav .nav-item .nav-link .material-icons {
   font-size: 1.25rem;
   max-width: 24px;
   margin-top: -1.1em;
 }
+
 .navbar .navbar-nav .nav-item .nav-link .fa,
 .navbar .navbar-nav .nav-item .nav-link .material-icons {
   font-size: 1.25rem;
   max-width: 24px;
   margin-top: 0px;
 }
+
 .navbar .navbar-nav .nav-item .nav-link {
   position: relative;
   color: inherit;
@@ -601,19 +763,23 @@ h6 {
   border-radius: 3px;
   line-height: 20px;
 }
+
 a .material-icons {
   vertical-align: middle;
 }
+
 .fixed-top {
   position: fixed;
   z-index: 1030;
   left: 0;
   right: 0;
 }
+
 .profile-page .page-header {
   height: 380px;
   background-position: center;
 }
+
 .page-header {
   height: 100vh;
   background-size: cover;
@@ -623,6 +789,7 @@ a .material-icons {
   display: flex;
   align-items: center;
 }
+
 .header-filter:after,
 .header-filter:before {
   position: absolute;
@@ -634,24 +801,29 @@ a .material-icons {
   top: 0;
   content: "";
 }
+
 .header-filter::before {
   background: rgb(56, 56, 146);
   margin-top: 10%;
 }
+
 .main-raised {
   margin: -60px 30px 0;
   border-radius: 6px;
   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
     0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
+
 .main {
   background: #fff;
   position: relative;
   z-index: 3;
 }
+
 .profile-page .profile {
   text-align: center;
 }
+
 .profile-page .profile img {
   /* max-width: 160px; */
   width: 100%;
@@ -662,19 +834,23 @@ a .material-icons {
   -ms-transform: translate3d(0, -50%, 0);
   transform: translate3d(0, -50%, 0);
 }
+
 .img-raised {
   box-shadow: 0 5px 15px -8px rgba(0, 0, 0, 0.24),
     0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
+
 .rounded-circle {
   border-radius: 80% !important;
 }
+
 .img-fluid,
 .img-thumbnail {
   max-width: 80%;
   max-height: 80%;
   /* height: auto; */
 }
+
 .title {
   margin-top: 10px;
   margin-bottom: 40px;
@@ -684,38 +860,46 @@ a .material-icons {
   font-size: 50px;
   font-family: "Roboto Slab", "Times New Roman", serif;
 }
+
 .profile-page .description {
   margin: 1.071rem auto 0;
   max-width: 600px;
   color: #999;
   font-weight: 300;
 }
+
 p {
   font-size: 14px;
   margin: 0 0 10px;
 }
+
 .profile-page .profile-tabs {
   margin-top: 4.284rem;
 }
+
 .nav-pills,
 .nav-tabs {
   border: 0;
   border-radius: 3px;
   padding: 0 15px;
 }
+
 .nav .nav-item {
   position: relative;
   margin: 0 2px;
 }
+
 .nav-pills.nav-pills-icons .nav-item .nav-link {
   border-radius: 4px;
 }
+
 .nav-pills .nav-item .nav-link.active {
   color: #fff;
   background-color: rgb(56, 56, 146);
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2),
     0 13px 24px -11px rgb(56, 56, 146);
 }
+
 .nav-pills .nav-item .nav-link {
   line-height: 24px;
   font-size: 12px;
@@ -727,34 +911,43 @@ p {
   padding: 10px 15px;
   text-align: center;
 }
+
 .nav-pills .nav-item .nav-link:not(.active):hover {
   background-color: rgba(200, 200, 200, 0.2);
 }
+
 .nav-pills .nav-item i {
   display: block;
   font-size: 30px;
   padding: 15px 0;
 }
+
 .tab-space {
   padding: 20px 0 50px;
 }
+
 .profile-page .gallery {
   margin-top: 3.213rem;
   padding-bottom: 50px;
 }
+
 .profile-page .gallery img {
   width: 100%;
   margin-bottom: 2.142rem;
 }
+
 .profile-page .profile .name {
   margin-top: -80px;
 }
+
 img.rounded {
   border-radius: 6px !important;
 }
+
 .tab-content > .active {
   display: block;
 }
+
 /*buttons*/
 .btn {
   position: relative;
@@ -773,6 +966,7 @@ img.rounded {
     background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: box-shadow, transform;
 }
+
 .btn.btn-just-icon {
   font-size: 20px;
   height: 41px;
@@ -783,6 +977,7 @@ img.rounded {
   position: relative;
   line-height: 41px;
 }
+
 .btn.btn-just-icon fa {
   margin-top: 0;
   position: absolute;
@@ -798,7 +993,9 @@ img.rounded {
   background-color: transparent;
   color: #999;
 }
+
 /* dropdown */
+
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -816,10 +1013,12 @@ img.rounded {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .dropdown-menu.show {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .dropdown-menu .dropdown-item:focus,
 .dropdown-menu .dropdown-item:hover,
 .dropdown-menu a:active,
@@ -833,10 +1032,12 @@ img.rounded {
 .show .dropdown-toggle:after {
   transform: rotate(180deg);
 }
+
 .dropdown-toggle:after {
   will-change: transform;
   transition: transform 0.15s linear;
 }
+
 .dropdown-menu .dropdown-item,
 .dropdown-menu li > a {
   position: relative;
@@ -859,9 +1060,11 @@ img.rounded {
   text-overflow: ellipsis;
   word-wrap: break-word;
 }
+
 .dropdown-menu.dropdown-with-icons .dropdown-item {
   padding: 0.75rem 1.25rem 0.75rem 0.75rem;
 }
+
 .dropdown-menu.dropdown-with-icons .dropdown-item .material-icons {
   vertical-align: middle;
   font-size: 24px;
@@ -871,7 +1074,9 @@ img.rounded {
   margin-right: 12px;
   opacity: 0.5;
 }
+
 /* footer */
+
 footer {
   margin-top: 10px;
   color: rgb(85, 85, 85);
@@ -888,6 +1093,7 @@ footer p a {
   color: #555;
   font-weight: 400;
 }
+
 footer p a:hover {
   color: #9f26aa;
   text-decoration: none;
@@ -909,6 +1115,9 @@ footer p a:hover {
 #create {
   margin-top: 20px;
 }
+/* .name {
+  margin-bottom: 100px;
+} */
 #artwork {
   padding: 20px;
 }

@@ -48,7 +48,7 @@ module.exports = {
         var result = bcrypt.compareSync(password, artist.password);
         if (result) {
           var token = jwt.sign({ email: email }, config.secret, {
-            expiresIn: "60s",
+            expiresIn: "4h",
           });
 
           res.send({ message: "success", auth: true, token: token });
