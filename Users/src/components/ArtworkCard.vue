@@ -3,78 +3,50 @@
     <h1 class="artworks-header">or buy one of our artworks</h1>
     <div class="container">
       <b-card
-        img-src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/in-the-garden-artwork-by-bensalem-walid.png"
+        v-for="(artwork, i) in artworks"
+        :key="i"
+        v-bind:img-src="artwork.imageUrl"
         img-top
         class="mb-2"
       >
         <b-card-text class="card-category">Digital Paintings</b-card-text>
-        <h3 class="card-title">In The Garden</h3>
+        <h3 class="card-title">{{ artwork.nameArtwork }}</h3>
         <div class="card-by">
-          by <p class="card-author">Bensalem Walid</p>
+          by
+          <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
-      <b-card
-        img-src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/Kurt-artwork-by-bensalem-walid.png"
-        img-top
-        class="mb-2"
-      >
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
-        <h3 class="card-title">Kurt</h3>
-        <div class="card-by">
-          by <p class="card-author">Bensalem Walid</p>
-        </div>
-      </b-card>
-      <b-card
-        img-src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/queen-monroe-artwork-by-bensalem-walid-rect.png"
-        img-top
-        class="mb-2"
-      >
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
-        <h3 class="card-title">Queen Monroe</h3>
-        <div class="card-by">
-          by <p class="card-author">Bensalem Walid</p>
-        </div>
-      </b-card>
-      <b-card
-        img-src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/in-the-garden-artwork-by-bensalem-walid.png"
-        img-top
-        class="mb-2"
-      >
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
-        <h3 class="card-title">In The Garden</h3>
-        <div class="card-by">
-          by <p class="card-author">Bensalem Walid</p>
-        </div>
-      </b-card>
-      <b-card
-        img-src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/Kurt-artwork-by-bensalem-walid.png"
-        img-top
-        class="mb-2"
-      >
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
-        <h3 class="card-title">Kurt</h3>
-        <div class="card-by">
-          by <p class="card-author">Bensalem Walid</p>
-        </div>
-      </b-card>
-      <b-card
-        img-src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/queen-monroe-artwork-by-bensalem-walid-rect.png"
-        img-top
-        class="mb-2"
-      >
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
-        <h3 class="card-title">Queen Monroe</h3>
-        <div class="card-by">
-          by <p class="card-author">Bensalem Walid</p>
-        </div>
-      </b-card>
+
       <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      artworks: [],
+    };
+  },
+  methods: {
+    getArtworks() {
+      axios
+        .get(`http://localhost:3000/api/artworks`)
+        .then((artworks) => {
+          this.artworks = artworks.data;
+          console.log(artworks.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted() {
+    this.getArtworks();
+  },
+};
 </script>
 
 <style scoped>
@@ -127,7 +99,7 @@ export default {};
   font-weight: 600;
   text-decoration: none;
   color: #ad7d52;
-  margin-left:3px;
+  margin-left: 3px;
 }
 
 img:hover {
