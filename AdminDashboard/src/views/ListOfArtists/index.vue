@@ -45,7 +45,7 @@
                       class="btn btn-danger"
                       data-dismiss="modal"
                       @click="onSubmit"
-                      @click.prevent="bannedArtist(artist)"
+                      @click.prevent="banned(artist)"
                     >
                       Ban
                     </button>
@@ -56,7 +56,8 @@
             <button
               type="button"
               class="artist-accept-btn btn btn-success"
-              @click="onSubmit"
+               @click="accepted"
+               @click.prevent="acceptArtist(artist)"
             >
               Accept
             </button>
@@ -75,6 +76,8 @@ export default {
       artists: [],
       currentArtist: {},
       dataArtists: {},
+      banned:false,
+      aceept:false
     };
   },
   methods: {
@@ -83,6 +86,8 @@ export default {
     },
     changeCurrentartist(artist) {
       this.currentArtist = artist;
+       this.banned=true;
+      this.aceept=true;
     },
 
     getAllartist() {
@@ -96,8 +101,11 @@ export default {
           console.log(err);
         });
     },
-    onSubmit() {
+    banned() {
       this.$message("Artist Banned!");
+    },
+    accepted(){
+       this.$message("Accepted!");
     },
 
     bannedArtist(id) {
@@ -110,8 +118,16 @@ export default {
           console.log(err);
         });
     },
-    acceptArtist(){
-      
+    acceptArtist(id){
+     axios .put(`http://localhost:3000/api/artists/accept/${id}`, )
+        .then((accepted) => {
+          console.log(accepted);
+ 
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
     }
   },
 
