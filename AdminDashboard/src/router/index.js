@@ -43,6 +43,7 @@ export const constantRoutes = [
         component: () => import('@/views/ListOfClients/index'),
         meta: { title: 'List Of Clients', icon: 'table' }
       },
+
       {
         path: 'listArtists',
         name: 'List Of Artists',
@@ -72,13 +73,14 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: 'external-link',
+{
+    path: 'Auctions',
     component: Layout,
     children: [
       {
-        path: 'https://github.com/The-angry-birds',
-        meta: { title: 'External Link', icon: 'link' }
+        path: '/Auctions',
+        component: () => import('@/views/ListAuctions/index'),
+        meta: { title: 'Auctions', icon: 'table' }
       }
     ]
   },
