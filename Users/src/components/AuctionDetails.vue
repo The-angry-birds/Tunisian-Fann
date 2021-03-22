@@ -13,19 +13,22 @@
           <h1 class="auction-name">Oh My God</h1>
           <p class="auction-category">Digital Paintings</p>
         </div>
+        <hr>
         <p class="auction-description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et arcu
-          eget eros semper tempus eget ac nisl. Praesent euismod ligula ligula,
-          quis dignissim nunc vestibulum eu.
+          eget eros semper tempus eget ac nisl.
         </p>
+        <hr>
         <div class="time-container">
           <h4 class="time-header">Time left:</h4>
           <p class="time">01 Days : 11 Hrs : 59 Min</p>
         </div>
+        <hr>
         <div class="current-price-container">
           <h4 class="current-price-header">Current winning price:</h4>
           <h1 class="current-price">120.00 TD</h1>
         </div>
+        <hr>
         <div>
           <h4 class="price-input-header">Insert your desired bid: *</h4>
           <div class="input-group mb-3">
@@ -96,6 +99,7 @@ export default {
 
 .auction-name {
   font-weight: bolder;
+  color: #ad7d52;
 }
 
 .auction-category {

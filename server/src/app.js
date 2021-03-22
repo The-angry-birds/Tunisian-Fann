@@ -12,7 +12,7 @@ const usersSignupRoutes = require("./routes/auth.users.routes.js");
 const artistAuthRoutes = require("./routes/auth.artists.routes.js");
 const artistRoutes = require("./routes/artists.routes");
 const artworkRouter = require("./routes/artwork-routes");
-
+ 
 const app = express();
 
 app.use(morgan("combined"));
@@ -29,17 +29,21 @@ app.use("/api/users", usersRoutes);
 app.use("/api/auth/artists", artistAuthRoutes);
 app.use("/api/artists", artistRoutes);
 
-// const accountSid = process.env.TWILIO_ACCOUNT_SID;
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const client = require("twilio")(accountSid, authToken);
+app.post("/sendmessage", (req, res) => {
+  console.log(req.body);
 
-// client.messages
-//   .create({
-//     body: "Welcome to ou platforme",
-//     from: "+15034063023",
-//     to: "+21622292162",
-//   })
-//   .then((message) => console.log(message));
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const client = require("twilio")(accountSid, authToken);
+
+  client.messages
+    .create({
+      body: "Welcome to our platforme",
+      from: "+15034063023",
+      to: "+2162292162",
+    })
+    .then((message) => res.send(message));
+});
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("listening on port 3000");
