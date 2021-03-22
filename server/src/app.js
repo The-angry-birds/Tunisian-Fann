@@ -40,7 +40,7 @@ app.post("/sendmessage", (req, res) => {
     .create({
       body: "Welcome to our platforme",
       from: "+15034063023",
-      to: "+2162292162",
+      to: "+21622292162",
     })
     .then((message) => res.send(message));
 });
