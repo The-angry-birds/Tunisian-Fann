@@ -56,6 +56,7 @@
             <button
               type="button"
               class="artist-accept-btn btn btn-success"
+               v-on:click="messageArtist()"
                @click="accepted"
                @click.prevent="acceptArtist(artist)"
             >
@@ -125,7 +126,12 @@ export default {
           console.log(err);
         });
 
-    }
+    },
+    messageArtist(){
+   axios.post("http://localhost:3000/sendmessage")
+   .then((response) => {console.log(response)})
+   .catch((err) => {console.log(err)})
+    },
   },
 
   mounted() {
