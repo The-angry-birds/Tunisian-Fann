@@ -17,12 +17,14 @@
           <td>
             <button
               type="button"
-              class="ban-btn btn btn-danger"
+              class="artist-ban-btn btn btn-danger"
               data-toggle="modal"
               data-target="#myArtistBanModal"
+              @click.prevent="changeCurrentartist(artist)"
             >
               Ban
             </button>
+
             <!-- Ban Modal -->
             <div id="myArtistBanModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
@@ -42,6 +44,8 @@
                       type="button"
                       class="btn btn-danger"
                       data-dismiss="modal"
+                      @click="onSubmit"
+                      @click.prevent="bannedArtist(artist)"
                     >
                       Ban
                     </button>
@@ -49,6 +53,13 @@
                 </div>
               </div>
             </div>
+            <button
+              type="button"
+              class="artist-accept-btn btn btn-success"
+              @click="onSubmit"
+            >
+              Accept
+            </button>
           </td>
         </tr>
       </tbody>
@@ -62,21 +73,48 @@ export default {
   data() {
     return {
       artists: [],
+      currentArtist: {},
+      dataArtists: {},
     };
   },
   methods: {
+    setCurrentId(artist) {
+      this.dataArtists= artist;
+    },
+    changeCurrentartist(artist) {
+      this.currentArtist = artist;
+    },
+
     getAllartist() {
       axios
         .get(`http://localhost:3000/api/artists`)
         .then((artist) => {
           this.artists = artist;
-          console.log("=================>", artist);
+          console.log(artist);
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    onSubmit() {
+      this.$message("Artist Banned!");
+    },
+
+    bannedArtist(id) {
+      axios
+        .put(`http://localhost:3000/api/artists/${id}`, this.currentArtist)
+        .then((updated) => {
+          console.log(updated);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    acceptArtist(){
+      
+    }
   },
+
   mounted() {
     this.getAllartist();
   },
@@ -98,5 +136,13 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+}
+
+.artist-ban-btn {
+  width: 80px;
+  margin-right: 5px;
+}
+.artist-accept-btn {
+  width: 80px;
 }
 </style>

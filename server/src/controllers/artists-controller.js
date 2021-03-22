@@ -8,11 +8,29 @@ exports.getArtist = async function (req, res) {
     console.log(err);
   }
 };
-exports.deleteArtist = async function (req, res) {
+exports.getbanned = async function (req, res) {
   try {
-    const delet = await Artist.destroy({ where: { id: req.params.id } });
-    console.log(delet);
-    res.send("deleted");
+    const getArtist = await Artist.findOne({where: { id: req.params.id } })
+
+
+    res.send(getArtist);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+exports.bannedArtist = async function (req, res) {
+  try {
+
+    const bannedArtist = await Artist.update(
+      {
+        banned:true
+      
+      },
+      { where: { id: req.params.id } }
+    );
+    res.send(bannedArtist);
   } catch (err) {
     console.log(err);
   }
