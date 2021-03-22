@@ -5,8 +5,9 @@
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
   <h3>Auction</h3> 
 <span class="card__time">01 Days : 11 Hrs : 59 Min</span>
+<h3>
    <span class="card__category">Digital Paintings</span>
- 
+ </h3>
 
  <h2>  <span class="card__by"
             >by
