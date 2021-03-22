@@ -17,8 +17,9 @@
         </div>
       </b-card>
 
-      <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
     </div>
+          <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
+
   </div>
 </template>
 
@@ -118,6 +119,7 @@ img {
   text-align: center;
   margin-top: 25px;
   color: #ad7d52;
+  margin-left: 46%;
 }
 
 #loadMore:hover {
