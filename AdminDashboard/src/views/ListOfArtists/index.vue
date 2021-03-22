@@ -44,8 +44,8 @@
                       type="button"
                       class="btn btn-danger"
                       data-dismiss="modal"
-                      @click="onSubmit"
-                      @click.prevent="banned(artist)"
+                   
+                      @click.prevent="bannedArtist(artist)"
                     >
                       Ban
                     </button>
@@ -76,8 +76,6 @@ export default {
       artists: [],
       currentArtist: {},
       dataArtists: {},
-      banned:false,
-      aceept:false
     };
   },
   methods: {
@@ -86,8 +84,7 @@ export default {
     },
     changeCurrentartist(artist) {
       this.currentArtist = artist;
-       this.banned=true;
-      this.aceept=true;
+  
     },
 
     getAllartist() {
