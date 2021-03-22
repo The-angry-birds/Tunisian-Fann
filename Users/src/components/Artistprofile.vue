@@ -803,7 +803,8 @@ a .material-icons {
 }
 
 .header-filter::before {
-  background: rgb(56, 56, 146);
+  background: rgba(211, 177, 68, 0.582);
+
   margin-top: 10%;
 }
 

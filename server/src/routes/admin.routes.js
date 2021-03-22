@@ -7,5 +7,4 @@ Router.post("/", controller.storeCategory);
 Router.delete("/:id", controller.deleteCategory);
 Router.put("/:id", controller.updateCategory);
 
-
 module.exports = Router;
