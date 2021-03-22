@@ -35,3 +35,19 @@ exports.bannedArtist = async function (req, res) {
     console.log(err);
   }
 };
+
+exports.acceptArtist = async function (req, res) {
+  try {
+
+    const acceptArtist = await Artist.update(
+      {
+        accept:true
+      
+      },
+      { where: { id: req.params.id } }
+    );
+    res.send(acceptArtist);
+  } catch (err) {
+    console.log(err);
+  }
+};
