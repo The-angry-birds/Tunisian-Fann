@@ -18,14 +18,8 @@
           type="password"
           placeholder="Confirm Password"
         />
-        <select v-model="category" id="categories" name="categories">
-          <option selected="selected">Choose your category</option>
-          <option value="paintings">Paintings</option>
-          <option value="digitalpaintings">Digital Paintings</option>
-          <option value="sculptures">Sculptures</option>
-        </select>
 
-        <button @click.prevent="handleSubmit()">Sign Up</button>
+        <button @click.prevent="register()">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">
@@ -74,7 +68,6 @@ export default {
       confirmPassword: "",
       has_special: false,
       has_number: false,
-      category: "",
     };
   },
   methods: {
@@ -86,7 +79,13 @@ export default {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
-    handleSubmit() {
+    register() {
+      let data = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        password: this.password,
+      };
       this.has_special = /[!@#%*+=._-]/.test(this.password);
       this.has_number = /\d/.test(this.password);
       if (
@@ -94,8 +93,7 @@ export default {
         this.lastName === "" ||
         this.email === "" ||
         this.password === "" ||
-        this.confirmPassword === "" ||
-        this.category === ""
+        this.confirmPassword === ""
       ) {
         swal("Oops!", "Empty fields", "error");
       } else if (!this.email.includes("@")) {
@@ -109,16 +107,10 @@ export default {
           "error"
         );
       } else {
-        axios
-          .post("http://localhost:3000/api/auth/artists/signup", {
-            firstName: this.firstName,
-            lastName: this.lastName,
-            email: this.email,
-            password: this.password,
-            category: this.category,
-          })
-          .then(({ data }) => {
-            localStorage.setItem("token", data.token);
+       //TODO: mapDispatch()
+        this.$store
+          .dispatch("register", data)
+          .then(() => {
             this.$router.push("/Artist-profile");
             Swal.fire({
               position: "top-end",
@@ -127,6 +119,8 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
+
+
             console.log("registred");
           })
           .catch((err) => {
@@ -154,6 +148,7 @@ export default {
             } else {
               swal("Oops!", "Wrong Email!", "error");
             }
+
           })
           .catch((err) => {
             console.log(err);
@@ -161,6 +156,7 @@ export default {
       }
     },
   },
+ 
 };
 </script>
 

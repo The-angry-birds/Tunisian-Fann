@@ -4,8 +4,6 @@ module.exports = {
 
   PASSWORD: "root",
 
-
-
   HOST: "localhost",
   DIALECT: "mysql",
 };
