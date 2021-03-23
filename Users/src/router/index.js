@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from '../store'
+import store from "../store";
 Vue.use(Router);
 
-const router= new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -36,14 +36,14 @@ const router= new Router({
     },
     {
       path: "/artwork-details",
-      name: "artwork-details",
+      name: "artworkDetails",
       component: () => import("@/components/ArtworkDetails.vue"),
-      props:true
     },
     {
-      path: "/napil",
+      path: "/artistProfil",
       name: "ArtistProfileX",
       component: () => import("@/components/ArtistProfileX.vue"),
+      props: { artworks: true },
     },
   ],
 });

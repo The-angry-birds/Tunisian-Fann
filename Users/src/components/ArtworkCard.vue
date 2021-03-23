@@ -10,9 +10,9 @@
         class="mb-2"
       >
         <b-card-text class="card-category">Digital Paintings</b-card-text>
-      <router-link to="/artwork-details" >
-        <h3 class="card-title">{{ artwork.nameArtwork }}</h3>
-      </router-link>
+     
+        <h3 class="card-title" @click="sharedData(artwork)">{{ artwork.nameArtwork }}</h3>
+    
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
@@ -26,33 +26,32 @@
 
 <script>
 import axios from "axios";
+
 export default {
+    
   data() {
     return {
       artworks: [],
-      currentArtwork:{},
-    dataInput: {},
     };
   },
   methods: {
     getArtworks() {
       axios
         .get(`http://localhost:3000/api/artworks`)
-        .then((artworks) => {
-          this.artworks = artworks.data;
-          // console.log(artworks.data);
+        .then((res) => {
+          this.artworks = res.data;
+          console.log("=============", this.artworks);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    setCurrentId(artwork) {
-     this.currentArtwork=artwork
+    sharedData(a){
+
+      this.$router.push({name:"artworkDetails" , params: a})
+  
+    },
     
-    },
-    changeCurrentcategory(category) {
-      this.dataInput = category
-    },
   },
   mounted() {
     this.getArtworks();

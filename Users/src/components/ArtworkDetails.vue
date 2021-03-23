@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <ArtworkCard  />
+    <ArtworkCard />
     <div class="artwork-container">
       <div class="left-container">
         <img
@@ -11,22 +11,21 @@
       </div>
       <div class="right-container">
         <div class="artwork-header">
-          <h1 class="artwork-name">Oh My God</h1>
-          <p class="artwork-category">Digital Paintings</p>
+          <h1 class="artwork-name">{{ oneArt.nameArtwork }}</h1>
+          <p class="artwork-category">{{ oneArt.categories }}</p>
         </div>
-        <hr>
+        <hr />
         <p class="artwork-description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et arcu
-          eget eros semper tempus eget ac nisl.
+          {{ oneArt.description }}
         </p>
-        <hr>
+        <hr />
         <div class="price-container">
           <h4 class="price-header">Price:</h4>
-          <h1 class="price">120.00 TD</h1>
+          <h1 class="price">{{ oneArt.price }}</h1>
         </div>
-        <hr>
+        <hr />
         <button class="buy-btn">BUY NOW</button>
-        <hr>
+        <hr />
         <div class="artwork-by">
           by
           <p class="artwork-artist">Bensalem Walid</p>
@@ -38,32 +37,20 @@
 
 <script>
 import NavBar from "./NavBar.vue";
-import axios from "axios";
 export default {
   data() {
     return {
-      artworks: [],
+      oneArt: {},
     };
   },
-  methods: {
-    getArtwork() {
-      axios
-        .get(`http://localhost:3000/api/artworks/`)
-        .then((artworks) => {
-          this.artworks = artworks;
-          console.log(artworks.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
+
   mounted() {
-    this.getArtwork();
+    this.oneArt = this.$route.params;
   },
+
   components: {
     NavBar,
-  }
+  },
 };
 </script>
 
@@ -125,22 +112,20 @@ export default {
   font-weight: 800;
 }
 
-
 .buy-btn {
   color: #ffffff;
   width: 100%;
   height: 50px;
-  background-color:rgb(192, 192, 192);
-   font-weight: bold;
-   font-size: 20px;
-   border-radius: 4px;
+  background-color: rgb(192, 192, 192);
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 4px;
 }
 
 .buy-btn:hover {
   color: black;
   font-weight: bold;
 }
-
 
 .artwork-by {
   display: flex;
@@ -153,4 +138,3 @@ export default {
   color: #ad7d52;
 }
 </style>
-
