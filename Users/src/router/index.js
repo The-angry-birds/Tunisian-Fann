@@ -50,17 +50,20 @@ const router= new Router({
 
 router.beforeEach((to, from, next) => {
   if (store.state.isLoggedIn) {
-    next();
+
+    next()
   } else {
     // check if there's a token
-    const token = window.localStorage.getItem("token");
-    console.log(token);
+    const token = window.localStorage.getItem('token')
+    console.log(token)
     if (token) {
       // send a request to /verify => user
-      store.state.currentUser = { name: "zineb" };
-      next();
+      store.state.currentUser = {name: "heni"}
+      next()
     } else {
-      next();
+      next()
+
+   
     }
   }
   next();
