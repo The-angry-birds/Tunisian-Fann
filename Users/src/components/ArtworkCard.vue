@@ -27,6 +27,7 @@
 <script>
 import axios from "axios";
 export default {
+  props: ["artwork"],
   data() {
     return {
       artworks: [],
@@ -38,7 +39,7 @@ export default {
         .get(`http://localhost:3000/api/artworks`)
         .then((artworks) => {
           this.artworks = artworks.data;
-          // console.log(artworks.data);
+          console.log(artworks.data);
         })
         .catch((err) => {
           console.log(err);

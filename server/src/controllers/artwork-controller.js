@@ -21,6 +21,8 @@ module.exports = {
       });
       //sending the artwork as response
       res.send(artwork);
+      console.log("==================",artwork)
+
     } catch (err) {
       res.send(err);
     }

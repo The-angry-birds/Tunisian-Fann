@@ -1,8 +1,8 @@
 module.exports = {
-  DATABASE_NAME: "admin",
+  DATABASE_NAME: "Admin",
   USERNAME: "root",
 
-  PASSWORD: "cohortx",
+  PASSWORD: "root",
 
   HOST: "localhost",
   DIALECT: "mysql",

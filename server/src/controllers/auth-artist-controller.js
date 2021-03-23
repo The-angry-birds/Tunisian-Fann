@@ -6,6 +6,7 @@ const config = require("../../db/configArtist");
 
 module.exports = {
   signup: async (req, res) => {
+    console.log("jhjkjkeee")
     try {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
