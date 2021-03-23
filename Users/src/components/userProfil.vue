@@ -1,7 +1,7 @@
 <template>
   <div>
-    <NavBar></NavBar>
 
+     
     <div class="container bootstrap snippets bootdey">
       <div class="row">
         <div class="profile-nav col-md-3">
@@ -11,7 +11,7 @@
  
       <b-card :img-src="data.imageUrl" img-alt="Card image" img-top>
         <b-card-text>
-         <h3>welcome to tunisian fann {{data.firstName}}!</h3>
+         <h3 class="welcome">welcome to tunisian fann {{data.firstName}}!</h3>
         </b-card-text>
       </b-card>
       </div>
@@ -163,7 +163,7 @@
 </template>
 
 <script>
-import NavBar from "./NavBar.vue";
+
 import axios from "axios";
 export default {
   data() {
@@ -173,9 +173,7 @@ export default {
      
     };
   },
-  components: {
-    NavBar,
-  },
+
   methods: {
     showelement() {
       var h = this.show;
@@ -206,20 +204,10 @@ export default {
         .catch((err) => console.log(err));
     },
     displayUser() {
-      const token = localStorage.getItem("token");
-      axios
-        .get("http://localhost:3000/api/users/getUserByToken", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then(({ data }) => {
-          this.data = data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    
     },
     handleClick() {
-      localStorage.removeItem("token");
+    this.$store.dispatch('logout')
       this.$router.push("/");
     },
   },
@@ -231,6 +219,7 @@ export default {
 
 <style scoped>
 body {
+
   color: #797979;
   background: #f1f2f7;
   font-family: "Spectral", "serif";
@@ -241,6 +230,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
 }
+.welcome{
+      color: #ad7d52;
+    font-family: "Spectral", serif;
+} 
 .profile-nav,
 .profile-info {
   margin-top: 84px;
@@ -252,6 +245,10 @@ body {
   -webkit-border-radius: 4px 4px 0 0;
   padding: 30px;
   text-align: center;
+}
+.category-btns.btn.btn-primary{
+  color:#ad7d52;
+    text-transform:none;
 }
 #btn-file {
   border-radius: 0;
@@ -436,6 +433,13 @@ ul.summary-list > li {
 ul.summary-list > li:last-child {
   border-right: none;
 }
+.btn.btn-warning.pull-right{
+  color:#ad7d52;
+  text-transform:none;
+   font-family: "Spectral", serif;
+
+}
+
 .activity {
   width: 100%;
   float: left;

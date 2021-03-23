@@ -33,7 +33,7 @@
         <input type="email" v-model="email" placeholder="Email" />
         <input type="password" v-model="password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button @click.prevent="handleClick()" >Login</button>
+        <button @click.prevent="handleClick()">Login</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -51,8 +51,6 @@
           <button class="ghost" id="signUp" @click="movingsignUp()">
             Sign Up
           </button>
-          
-          
         </div>
       </div>
     </div>
@@ -91,64 +89,46 @@ export default {
         axios
           .get(`http://localhost:3000/api/auth/users/${this.email}`)
           .then((data) => {
-            console.log("3lllllllllllllllllllllllllllllllllllllllllllllh",this.email)
             if (data.data.email) {
               swal("Oops!", "Already exist", "error");
             } else {
-              axios
-                .post("http://localhost:3000/api/auth/users/signup",{
-                  firstName: this.firstName,
-                  lastName: this.lastName,
-                  email: this.email,
-                  password: this.password,
-                })
-                .then((res) => {
-                   localStorage.setItem("token",res.data.token) 
-                   this.$router.push("/userProfil");
-                   swal("Good job!", "Welcome", "success");
-                })
-                .catch((err) => {
-                  console.log(err);
+              let data = {
+                email: this.email,
+                firstName: this.firstName,
+                lastName: this.lastName,
+                password: this.password,
+              };
+              this.$store
+                .dispatch("signup", data)
+
+                .then(() => {
+                  swal("Good job!", "Welcome", "success");
+                  this.$router.push("/userProfil");
                 });
             }
-          })
-          .catch((err) => {
-            console.log(err);
           });
       }
-    
     },
-    handleClick(){
-            if (this.email === "" || this.password === "") {
+    handleClick() {
+      if (this.email === "" || this.password === "") {
         swal("Oops!", "Empty fields", "error");
       } else {
-        axios
-          .post("http://localhost:3000/api/auth/users/login", {
-            email: this.email,
-            password: this.password,
-          })
-          .then((res) => {
-            console.log("=====================",res.token)
-         if (res.data.message === "success") {
-              localStorage.setItem("token",res.data.token);
-           
-              this.$router.push("/userProfil");
-            } else if (res.data.message === "wrong password") {
-              swal("Oops!", "Wrong Password!", "error");
-            } else {
-              swal("Oops!", "Wrong Email!", "error");
-            }
-          });
+        let data = {
+          email: this.email,
+          password: this.password,
+        };
+        this.$store.dispatch("login", data).then(() => {
+          swal("Good job!", "Welcome", "success");
+          this.$router.push("/userProfil");
+        });
       }
     },
-    
 
-
-    movingsignUp: function () {
+    movingsignUp: function() {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    movingsignIn: function () {
+    movingsignIn: function() {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },

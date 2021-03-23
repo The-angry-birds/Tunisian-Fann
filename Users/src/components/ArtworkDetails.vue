@@ -46,6 +46,7 @@ export default {
   mounted() {
     this.oneArt = this.$route.params;
   },
+
   components: {
     NavBar,
   },

@@ -4,8 +4,6 @@ module.exports = {
 
   PASSWORD: "student",
 
-
-
   HOST: "localhost",
   DIALECT: "mysql",
 };

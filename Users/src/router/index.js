@@ -1,7 +1,13 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from '../store'
+
+
+
+
+// import store from "../store";
 Vue.use(Router);
+
+
 
 const router= new Router({
   routes: [
@@ -36,14 +42,18 @@ const router= new Router({
     },
     {
       path: "/artwork-details",
-      name: "artwork-details",
+      name: "artworkDetails",
       component: () => import("@/components/ArtworkDetails.vue"),
-      props:true
+
+      props: true,
+
+
     },
     {
-      path: "/napil",
+      path: "/artistProfil",
       name: "ArtistProfileX",
       component: () => import("@/components/ArtistProfileX.vue"),
+      props: { artworks: true },
     },
     {
       path: "/jdidi",
@@ -53,22 +63,24 @@ const router= new Router({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  if (store.state.isLoggedIn) {
-    next();
-  } else {
-    // check if there's a token
-    const token = window.localStorage.getItem("token");
-    console.log(token);
-    if (token) {
-      // send a request to /verify => user
-      store.state.currentUser = { name: "zineb" };
-      next();
-    } else {
-      next();
-    }
-  }
-  next();
-});
+
+// router.beforeEach((to, from, next) => {
+//   console.log("+++", store);
+//   if (store.state.isLoggedIn) {
+//     next();
+//   } else {
+//     // check if there's a token
+//     const token = window.localStorage.getItem("token");
+//     console.log(token);
+//     if (token) {
+//       // send a request to /verify => user
+//       store.state.currentUser = { name: "zineb" };
+//       next();
+//     } else {
+//       next();
+//     }
+//   }
+//   next();
+// });
 
 export default router;
