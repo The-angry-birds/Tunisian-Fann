@@ -107,14 +107,12 @@ export default {
 #info-card {
   background-color: #fdf5e6;
 }
-
 #artworks-cards {
   background-color: #fdf5e6;
   display: flex;
   flex-wrap: wrap;
   /* justify-content: center; */
 }
-
 .artwork-card {
   width: 300px;
   max-height: 380px;
@@ -129,7 +127,6 @@ export default {
 .artwork-card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
-
 .card-img {
   width: 100%;
   max-height: 240px;
@@ -138,4 +135,4 @@ export default {
   border-radius: 5px 5px 0px 0px;
   margin-bottom: 15px;
 }
-</style>
+</style> 

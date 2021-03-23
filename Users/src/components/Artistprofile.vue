@@ -1,98 +1,8 @@
 <template>
   <div>
     <NavBar />
-    <!-- <nav
-      class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg "
-      color-on-scroll="100"
-      id="sectionsNav"
-    > -->
-    <div class="container">
-      <div class="navbar-translate">
-        <!-- <a
-            class="navbar-brand"
-            href="https://demos.creative-tim.com/material-kit/index.html"
-            target="_blank"
-            >Material Kit
-          </a> -->
-        <!-- <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          > -->
-        <!-- <span class="navbar-toggler-icon"></span>
-            <span class="navbar-toggler-icon"></span>
-            <span class="navbar-toggler-icon"></span>
-          </button> -->
-      </div>
 
-      <div class="collapse navbar-collapse">
-        <!-- <ul class="navbar-nav ml-auto">
-          <li class="dropdown nav-item">
-            <a
-              href="#"
-              class="dropdown-toggle nav-link"
-              data-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="material-icons">apps</i> Components
-            </a>
-            <div class="dropdown-menu dropdown-with-icons component">
-              <a href="../index.html" class="dropdown-item">
-                <i class="material-icons">layers</i> All Components
-              </a>
-
-              <a
-                href="https://demos.creative-tim.com/material-kit/docs/2.0/getting-started/introduction.html"
-                class="dropdown-item"
-              >
-                <i class="material-icons">content_paste</i> Documentation
-              </a>
-            </div>
-          </li> -->
-        <!-- <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)">
-                <i class="material-icons">cloud_download</i> Download
-              </a>
-            </li> -->
-        <!-- <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://twitter.com/CreativeTim"
-                target="_blank"
-              >
-                <i class="fa fa-twitter"></i>
-              </a>
-            </li> -->
-        <!-- <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://www.facebook.com/CreativeTim"
-                target="_blank"
-              >
-                <i class="fa fa-facebook-square"></i>
-              </a>
-            </li> -->
-        <!-- <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://www.instagram.com/CreativeTimOfficial"
-                target="_blank"
-              >
-                <i class="fa fa-instagram"></i>
-              </a>
-            </li> -->
-        <!-- </ul> -->
-      </div>
-    </div>
-    <!-- </nav> -->
-
-    <div
-      class="page-header header-filter"
-      data-parallax="true"
-      style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"
-    ></div>
+    <div class="page-header header-filter"></div>
     <div class="main main-raised">
       <div class="profile-content">
         <div class="container">
@@ -107,7 +17,48 @@
                   />
                 </div>
                 <div class="name">
-                  <h3 class="title">{{ data.firstName.toUpperCase() }}</h3>
+                  <h3 class="title">
+                    <span class="particular">{{ data.firstName }}</span>
+
+                    {{ data.lastName.toUpperCase() }}
+                  </h3>
+                  <div class="description text-center " v-if="data.description">
+                    <p><!-- {{ data.description }} -->dkhsfhfshfhsdjh</p>
+                  </div>
+                  <form class="ui form  " id="artwork">
+                    <h4 class="ui dividing header labels">
+                      Update your information
+                    </h4>
+                    <div class="field">
+                      <label class="labels">First name</label>
+                      <input
+                        type="text"
+                        name="first-name"
+                        placeholder="First name"
+                        v-model="title"
+                      />
+                    </div>
+                    <div class="field">
+                      <label class="labels">Last name</label>
+                      <input
+                        type="text"
+                        name="last-name"
+                        placeholder="Last Name"
+                        v-model="url"
+                      />
+                    </div>
+
+                    <div class="field">
+                      <label class="labels">Biography</label>
+                      <textarea v-model="description"></textarea>
+                    </div>
+
+                    <div id="create">
+                      <button class="ui grey basic button">
+                        SUBMIT
+                      </button>
+                    </div>
+                  </form>
                   <input
                     class="ui button"
                     type="file"
@@ -124,31 +75,11 @@
                       SUBMIT
                     </button>
                   </div>
-                  <h6>Designer</h6>
-                  <!-- <a
-                    href="#pablo"
-                    class="btn btn-just-icon btn-link btn-dribbble"
-                    ><i class="fa fa-dribbble"></i
-                  ></a>
-                  <a
-                    href="#pablo"
-                    class="btn btn-just-icon btn-link btn-twitter"
-                    ><i class="fa fa-twitter"></i
-                  ></a>
-                  <a
-                    href="#pablo"
-                    class="btn btn-just-icon btn-link btn-pinterest"
-                    ><i class="fa fa-pinterest"></i
-                  ></a> -->
                 </div>
               </div>
             </div>
           </div>
-          <div class="description text-center" v-if="data.description">
-            <p>
-              {{ data.description }}
-            </p>
-          </div>
+
           <div class="row">
             <div class="col-md-6 ml-auto mr-auto">
               <div class="profile-tabs">
@@ -193,21 +124,19 @@
               </div>
             </div>
           </div>
-
+        </div>
+        <div class="displayed">
           <div class="tab-content tab-space">
             <div class="tab-pane active text-center gallery" id="studio">
               <div class="row">
                 <div
-                  class="col-md-3 ml-auto"
+                  class="col-md-3 ml-auto displayed"
                   v-for="(element, i) in artworks"
                   :key="i"
                 >
-                  <img
-                    :src="artworks[i].imageUrl"
-                    class="rounded artwork-image"
-                  />
+                  <img :src="element.imageUrl" class="rounded artwork-image" />
+                  <div class="centered">{{ element.nameArtwork }}</div>
                 </div>
-                <!-- <div class="centered">Centered gfhggkhlh</div> -->
               </div>
             </div>
             <div class="tab-pane text-center gallery" id="works">
@@ -235,25 +164,7 @@
                     :src="artworks[i].imageUrl"
                     class="rounded artwork-image"
                   />
-                  <!-- <img
-                    src="https://images.unsplash.com/photo-1494028698538-2cd52a400b17?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83bf0e71786922a80c420c17b664a1f5&auto=format&fit=crop&w=334&q=80"
-                    class="rounded"
-                  /> -->
                 </div>
-                <!-- <div class="col-md-3 mr-auto">
-                  <img
-                    src="https://images.unsplash.com/photo-1505784045224-1247b2b29cf3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ec2bdc92a9687b6af5089b335691830e&auto=format&fit=crop&w=750&q=80"
-                    class="rounded"
-                  />
-                  <img
-                    src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83079913579babb9d2c94a5941b2e69d&auto=format&fit=crop&w=751&q=80"
-                    class="rounded"
-                  />
-                  <img
-                    src="https://images.unsplash.com/photo-1506667527953-22eca67dd919?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6326214b7ce18d74dde5e88db4a12dd5&auto=format&fit=crop&w=750&q=80"
-                    class="rounded"
-                  />
-                </div> -->
               </div>
             </div>
           </div>
@@ -419,7 +330,8 @@ export default {
         })
         .then(({ data }) => {
           console.log("this is my dataQQQQQQQQQ", data);
-          this.$data.artworks = data;
+          this.artworks = data;
+          console.log("======", this.artworks);
         })
         .catch((err) => {
           console.log(err);
@@ -684,84 +596,12 @@ $(function($) {
 </script>
 
 <style scoped>
+.col-md-3 {
+  margin: 0 !important;
+}
+
 html * {
   -webkit-font-smoothing: antialiased;
-}
-
-.h6,
-h6 {
-  font-size: 0.75rem !important;
-  font-weight: 500;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.5em;
-  text-transform: uppercase;
-}
-
-.name h6 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.navbar {
-  border: 0;
-  border-radius: 3px;
-  padding: 0.625rem 0;
-  margin-bottom: 20px;
-  color: #555;
-  background-color: #fff !important;
-  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.12),
-    0 7px 10px -5px rgba(0, 0, 0, 0.15) !important;
-  z-index: 1000 !important;
-  transition: all 150ms ease 0s;
-}
-
-.navbar.navbar-transparent {
-  z-index: 1030;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  padding-top: 25px;
-  color: #fff;
-}
-
-.navbar .navbar-brand {
-  position: relative;
-  color: inherit;
-  height: 50px;
-  font-size: 1.125rem;
-  line-height: 30px;
-  padding: 0.625rem 0;
-  font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-}
-
-.navbar .navbar-nav .nav-item .nav-link:not(.btn) .material-icons {
-  margin-top: -7px;
-  top: 3px;
-  position: relative;
-  margin-right: 3px;
-}
-
-.navbar .navbar-nav .nav-item .nav-link .material-icons {
-  font-size: 1.25rem;
-  max-width: 24px;
-  margin-top: -1.1em;
-}
-
-.navbar .navbar-nav .nav-item .nav-link .fa,
-.navbar .navbar-nav .nav-item .nav-link .material-icons {
-  font-size: 1.25rem;
-  max-width: 24px;
-  margin-top: 0px;
-}
-
-.navbar .navbar-nav .nav-item .nav-link {
-  position: relative;
-  color: inherit;
-  padding: 0.9375rem;
-  font-weight: 400;
-  font-size: 12px;
-  border-radius: 3px;
-  line-height: 20px;
 }
 
 a .material-icons {
@@ -781,7 +621,7 @@ a .material-icons {
 }
 
 .page-header {
-  height: 100vh;
+  height: 10vh;
   background-size: cover;
   margin: 0;
   padding: 0;
@@ -803,9 +643,9 @@ a .material-icons {
 }
 
 .header-filter::before {
-  background: rgba(211, 177, 68, 0.582);
+  background: #ffebcd;
 
-  margin-top: 10%;
+  /* margin-top: 10%; */
 }
 
 .main-raised {
@@ -842,18 +682,21 @@ a .material-icons {
 }
 
 .rounded-circle {
-  border-radius: 80% !important;
+  border-radius: 50% !important;
 }
 
 .img-fluid,
 .img-thumbnail {
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 250px;
+  max-height: 250px;
+  margin-left: 30px;
+  padding: 30px;
+
   /* height: auto; */
 }
 
 .title {
-  margin-top: 10px;
+  margin-top: 0.5px;
   margin-bottom: 40px;
   min-height: 32px;
   color: black;
@@ -861,35 +704,7 @@ a .material-icons {
   font-size: 50px;
   font-family: "Roboto Slab", "Times New Roman", serif;
 }
-
-.profile-page .description {
-  margin: 1.071rem auto 0;
-  max-width: 600px;
-  color: #999;
-  font-weight: 300;
-}
-
-p {
-  font-size: 14px;
-  margin: 0 0 10px;
-}
-
-.profile-page .profile-tabs {
-  margin-top: 4.284rem;
-}
-
-.nav-pills,
-.nav-tabs {
-  border: 0;
-  border-radius: 3px;
-  padding: 0 15px;
-}
-
-.nav .nav-item {
-  position: relative;
-  margin: 0 2px;
-}
-
+  
 .nav-pills.nav-pills-icons .nav-item .nav-link {
   border-radius: 4px;
 }
@@ -923,10 +738,6 @@ p {
   padding: 15px 0;
 }
 
-.tab-space {
-  padding: 20px 0 50px;
-}
-
 .profile-page .gallery {
   margin-top: 3.213rem;
   padding-bottom: 50px;
@@ -937,168 +748,6 @@ p {
   margin-bottom: 2.142rem;
 }
 
-.profile-page .profile .name {
-  margin-top: -80px;
-}
-
-img.rounded {
-  border-radius: 6px !important;
-}
-
-.tab-content > .active {
-  display: block;
-}
-
-/*buttons*/
-.btn {
-  position: relative;
-  padding: 12px 30px;
-  margin: 0.3125rem 1px;
-  font-size: 0.75rem;
-  font-weight: 400;
-  line-height: 1.428571;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0;
-  border: 0;
-  border-radius: 0.2rem;
-  outline: 0;
-  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1),
-    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: box-shadow, transform;
-}
-
-.btn.btn-just-icon {
-  font-size: 20px;
-  height: 41px;
-  min-width: 41px;
-  width: 41px;
-  padding: 0;
-  overflow: hidden;
-  position: relative;
-  line-height: 41px;
-}
-
-.btn.btn-just-icon fa {
-  margin-top: 0;
-  position: absolute;
-  width: 100%;
-  transform: none;
-  left: 0;
-  top: 0;
-  height: 100%;
-  line-height: 41px;
-  font-size: 20px;
-}
-.btn.btn-link {
-  background-color: transparent;
-  color: #999;
-}
-
-/* dropdown */
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  float: left;
-  min-width: 11rem !important;
-  margin: 0.125rem 0 0;
-  font-size: 1rem;
-  color: #212529;
-  text-align: left;
-  background-color: #fff;
-  background-clip: padding-box;
-  border-radius: 0.25rem;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dropdown-menu.show {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dropdown-menu .dropdown-item:focus,
-.dropdown-menu .dropdown-item:hover,
-.dropdown-menu a:active,
-.dropdown-menu a:focus,
-.dropdown-menu a:hover {
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
-    0 7px 10px -5px rgba(156, 39, 176, 0.4);
-  background-color: #9c27b0;
-  color: #fff;
-}
-.show .dropdown-toggle:after {
-  transform: rotate(180deg);
-}
-
-.dropdown-toggle:after {
-  will-change: transform;
-  transition: transform 0.15s linear;
-}
-
-.dropdown-menu .dropdown-item,
-.dropdown-menu li > a {
-  position: relative;
-  width: auto;
-  display: flex;
-  flex-flow: nowrap;
-  align-items: center;
-  color: #333;
-  font-weight: 400;
-  text-decoration: none;
-  font-size: 0.8125rem;
-  border-radius: 0.125rem;
-  margin: 0 0.3125rem;
-  transition: all 0.15s linear;
-  min-width: 7rem;
-  padding: 0.625rem 1.25rem;
-  min-height: 1rem !important;
-  overflow: hidden;
-  line-height: 1.428571;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-}
-
-.dropdown-menu.dropdown-with-icons .dropdown-item {
-  padding: 0.75rem 1.25rem 0.75rem 0.75rem;
-}
-
-.dropdown-menu.dropdown-with-icons .dropdown-item .material-icons {
-  vertical-align: middle;
-  font-size: 24px;
-  position: relative;
-  margin-top: -4px;
-  top: 1px;
-  margin-right: 12px;
-  opacity: 0.5;
-}
-
-/* footer */
-
-footer {
-  margin-top: 10px;
-  color: rgb(85, 85, 85);
-  padding: 25px;
-  font-weight: 300;
-}
-.footer p {
-  margin-bottom: 0;
-  font-size: 14px;
-  margin: 0 0 10px;
-  font-weight: 300;
-}
-footer p a {
-  color: #555;
-  font-weight: 400;
-}
-
-footer p a:hover {
-  color: #9f26aa;
-  text-decoration: none;
-}
 .centered {
   position: absolute;
   top: 50%;
@@ -1116,13 +765,32 @@ footer p a:hover {
 #create {
   margin-top: 20px;
 }
-/* .name {
-  margin-bottom: 100px;
-} */
+
 #artwork {
   padding: 20px;
 }
 #submit-image {
   margin-top: 20px;
+}
+.displayed {
+  display: block;
+  align-items: center;
+}
+.particular {
+  text-transform: capitalize;
+}
+p {
+  font-size: 14px;
+  margin: 0 0 10px;
+  color: black;
+}
+.profile-page .description {
+  margin: 1.071rem auto 0;
+  max-width: 600px;
+  color: #999;
+  font-weight: 300;
+}
+.labels {
+  float: left;
 }
 </style>
