@@ -2,6 +2,7 @@
   <div>
     <h1 class="artworks-header">or buy one of our artworks</h1>
     <div class="card-container">
+      <router-link to="/artwork-details" style="text-decoration: none; color: inherit;">
       <b-card
         v-for="(artwork, i) in artworks"
         :key="i"
@@ -10,14 +11,17 @@
         class="mb-2"
       >
         <b-card-text class="card-category">Digital Paintings</b-card-text>
+
      
         <h3 class="card-title" @click="sharedData(artwork)">{{ artwork.nameArtwork }}</h3>
     
+
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
+      </router-link>
     </div>
           <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
 

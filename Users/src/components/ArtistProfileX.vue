@@ -66,6 +66,7 @@ export default {
       artworks: [],
     };
   },
+
   components: {
     NavBar,
   },

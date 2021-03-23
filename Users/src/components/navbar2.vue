@@ -13,34 +13,25 @@
         <li>
           <button>
             <router-link class="as-btns" to="/join-as-artist"
-              >As an artist</router-link
+              >Profile</router-link
             >
           </button>
         </li>
         <li>
           <button>
             <router-link class="as-btns" to="/join-as-client"
-              >As a client</router-link
+              >Logout</router-link
             >
           </button>
         </li>
       </ul>
     </div>
   </nav>
-   
 
 </template>
 
 <script>
-export default {
-  data() {
-    return {   
-      show:false
-      }
-
-},
-
-}
+export default {};
 </script>
 
 <style scoped>
