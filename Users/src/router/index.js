@@ -45,6 +45,11 @@ const router= new Router({
       name: "ArtistProfileX",
       component: () => import("@/components/ArtistProfileX.vue"),
     },
+    {
+      path: "/jdidi",
+      name: "UserProfileX",
+      component: () => import("@/components/UserProfileX.vue"),
+    },
   ],
 });
 
