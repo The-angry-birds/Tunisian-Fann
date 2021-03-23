@@ -21,6 +21,8 @@ module.exports = {
       });
       //sending the artwork as response
       res.send(artwork);
+      console.log("==================",artwork)
+
     } catch (err) {
       res.send(err);
     }
@@ -43,6 +45,40 @@ module.exports = {
       });
       //sending the artwork as response
       res.send(artwork);
+    } catch (err) {
+      res.send(err);
+    }
+  },
+  deleteOne: async (req, res) => {
+    try {
+      const toDelete = await Artwork.destroy({ where: { id: req.params.id } });
+
+      res.send("deleted");
+    } catch (err) {
+      res.send(err);
+    }
+  },
+  updateArtwork: async (req, res) => {
+    try {
+      const categoryData = await category.findOne({
+        where: { name: req.body.categoryName },
+      });
+      //creating the new artwork
+
+      const artwork = await Artwork.update(
+        {
+          artist_id: req.body.artist_id,
+          category_id: categoryData.id,
+          nameArtwork: req.body.nameArtwork,
+          description: req.body.description,
+          imageUrl: req.body.imageUrl,
+          price: req.body.price,
+        },
+        { where: { id: req.params.id } }
+      );
+
+      res.send("updated");
+      console.log("============== work", artwork);
     } catch (err) {
       res.send(err);
     }

@@ -95,3 +95,4 @@ const user = new Vuex.Store({
   },
 });
 export default user;
+

@@ -12,7 +12,7 @@ const usersSignupRoutes = require("./routes/auth.users.routes.js");
 const artistAuthRoutes = require("./routes/auth.artists.routes.js");
 const artistRoutes = require("./routes/artists.routes");
 const artworkRouter = require("./routes/artwork-routes");
- 
+ const auctionsRouter =require("./routes/auctions.routes")
 const app = express();
 
 app.use(morgan("combined"));
@@ -28,6 +28,7 @@ app.use("/api/users", usersRoutes);
 
 app.use("/api/auth/artists", artistAuthRoutes);
 app.use("/api/artists", artistRoutes);
+app.use("/api/auctions",auctionsRouter)
 
 app.post("/sendmessage", (req, res) => {
   console.log(req.body);

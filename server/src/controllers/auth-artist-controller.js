@@ -6,6 +6,7 @@ const config = require("../../db/configArtist");
 
 module.exports = {
   signup: async (req, res) => {
+    console.log("jhjkjkeee")
     try {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
@@ -65,7 +66,6 @@ module.exports = {
 
   getUserData: async (req, res) => {
     try {
-      // console.log("=====>", req.headers);
       const token = req.headers.authorization.split(" ")[1];
       const email = jwt.verify(token, config.secret);
       const user = await Artist.findOne({
@@ -85,6 +85,22 @@ module.exports = {
       );
 
       res.send("ok");
+    } catch (err) {
+      res.send(err);
+    }
+  },
+  updateInfo: async (req, res) => {
+    try {
+      const update = await Artist.update(
+        {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          description: req.body.description,
+        },
+        { where: { id: req.params.id } }
+      );
+      console.log("====", update);
+      res.send("changed");
     } catch (err) {
       res.send(err);
     }

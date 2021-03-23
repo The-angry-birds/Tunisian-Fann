@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="artworks-header">or buy one of our artworks</h1>
-    <div class="container">
+    <div class="card-container">
       <b-card
         v-for="(artwork, i) in artworks"
         :key="i"
@@ -10,13 +10,14 @@
         class="mb-2"
       >
         <b-card-text class="card-category">Digital Paintings</b-card-text>
+      <router-link to="/artwork-details" >
         <h3 class="card-title">{{ artwork.nameArtwork }}</h3>
+      </router-link>
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
-
     </div>
           <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
 
@@ -29,6 +30,8 @@ export default {
   data() {
     return {
       artworks: [],
+      currentArtwork:{},
+    dataInput: {},
     };
   },
   methods: {
@@ -37,15 +40,23 @@ export default {
         .get(`http://localhost:3000/api/artworks`)
         .then((artworks) => {
           this.artworks = artworks.data;
-          console.log(artworks.data);
+          // console.log(artworks.data);
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    setCurrentId(artwork) {
+     this.currentArtwork=artwork
+    
+    },
+    changeCurrentcategory(category) {
+      this.dataInput = category
+    },
   },
   mounted() {
     this.getArtworks();
+    this.setCurrentId()
   },
 };
 </script>
@@ -58,7 +69,7 @@ export default {
   color: #ad7d52;
 }
 
-.container {
+.card-container {
   display: flex;
   flex-wrap: wrap;
   border-radius: 0;
@@ -74,8 +85,10 @@ export default {
   border-radius: 0;
   width: 300px;
   height: 385px;
-  cursor: pointer;
 }
+
+
+
 
 .card-category {
   text-transform: uppercase;
