@@ -2,8 +2,9 @@
   <div>
     <h1 class="artworks-header">or buy one of our artworks</h1>
     <div class="card-container">
-      <router-link to="/artwork-details" style="text-decoration: none; color: inherit;">
+   
       <b-card
+      @click="sharedData(artwork)"
         v-for="(artwork, i) in artworks"
         :key="i"
         v-bind:img-src="artwork.imageUrl"
@@ -21,7 +22,7 @@
           <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
-      </router-link>
+      
     </div>
           <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
 

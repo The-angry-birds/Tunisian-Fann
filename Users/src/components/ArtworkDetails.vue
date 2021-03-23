@@ -6,7 +6,7 @@
       <div class="left-container">
         <img
           class="artwork-image"
-          src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/oh-my-god-artwork-by-bensalem-walid.png"
+         v-bind:src="oneArt.imageUrl"
         />
       </div>
       <div class="right-container">
