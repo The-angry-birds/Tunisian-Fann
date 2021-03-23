@@ -34,5 +34,15 @@ export default new Router({
       name: "auction-details",
       component: () => import("@/components/AuctionDetails.vue"),
     },
+    {
+      path: "/artwork-details",
+      name: "artwork-details",
+      component: () => import("@/components/ArtworkDetails.vue"),
+    },
+    {
+      path: "/napil",
+      name: "ArtistProfilX",
+      component: () => import("@/components/ArtistProfileX.vue"),
+    },
   ],
 });
