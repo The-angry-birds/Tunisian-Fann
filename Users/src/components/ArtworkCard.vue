@@ -27,10 +27,11 @@
 <script>
 import axios from "axios";
 export default {
-  props: ["artwork"],
   data() {
     return {
       artworks: [],
+      currentArtwork:{},
+    dataInput: {},
     };
   },
   methods: {
@@ -39,15 +40,23 @@ export default {
         .get(`http://localhost:3000/api/artworks`)
         .then((artworks) => {
           this.artworks = artworks.data;
-          console.log(artworks.data);
+          // console.log(artworks.data);
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    setCurrentId(artwork) {
+     this.currentArtwork=artwork
+    
+    },
+    changeCurrentcategory(category) {
+      this.dataInput = category
+    },
   },
   mounted() {
     this.getArtworks();
+    this.setCurrentId()
   },
 };
 </script>
