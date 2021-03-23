@@ -52,7 +52,7 @@ module.exports = {
           res.send({ message: "wrong password", auth: false, token: null });
         }
       } else {
-        res.send({ message: "user not found", auth: false, token: null });
+        r 
       }
     } catch (err) {
       res.send(err);
