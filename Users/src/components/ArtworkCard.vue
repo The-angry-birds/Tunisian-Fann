@@ -30,6 +30,8 @@ export default {
   data() {
     return {
       artworks: [],
+      currentArtwork:{},
+    dataInput: {},
     };
   },
   methods: {
@@ -44,9 +46,17 @@ export default {
           console.log(err);
         });
     },
+    setCurrentId(artwork) {
+     this.currentArtwork=artwork
+    
+    },
+    changeCurrentcategory(category) {
+      this.dataInput = category
+    },
   },
   mounted() {
     this.getArtworks();
+    this.setCurrentId()
   },
 };
 </script>

@@ -38,6 +38,7 @@ const router= new Router({
       path: "/artwork-details",
       name: "artwork-details",
       component: () => import("@/components/ArtworkDetails.vue"),
+      props:true
     },
     {
       path: "/napil",
