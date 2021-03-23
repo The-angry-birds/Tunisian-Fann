@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <ArtworkCard />
+    <ArtworkCard/>
     <div class="artwork-container">
       <div class="left-container">
         <img
@@ -37,7 +37,10 @@
 
 <script>
 import NavBar from "./NavBar.vue";
+// import ArtworkCard from "./ArtworkCard.vue";
+
 export default {
+  props: Object,
   data() {
     return {
       oneArt: {},
@@ -45,11 +48,15 @@ export default {
   },
 
   mounted() {
+    console.log("==========",this.$route.params)
     this.oneArt = this.$route.params;
+    console.log("ghjkl",this.oneArt)
   },
 
   components: {
     NavBar,
+
+ 
   },
 };
 </script>

@@ -32,10 +32,11 @@
 import axios from "axios";
 
 export default {
-    
+    props: Object,
   data() {
     return {
       artworks: [],
+      oneArt:{}
     };
   },
   methods: {
@@ -59,7 +60,8 @@ export default {
   },
   mounted() {
     this.getArtworks();
-    this.setCurrentId()
+      this.oneArt = this.$route.params;
+  
   },
 };
 </script>
