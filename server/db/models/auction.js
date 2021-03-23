@@ -3,8 +3,8 @@ const { sequelize } = require("../index");
 const { Artwork } = require("./artwork");
 
 const differenceInSeconds = require("date-fns");
-// var uuid = require("uuid");
-const { category } = require("./categories.model");
+
+
 
 const auction = (sequelize, type) => {
   const auctions = sequelize.define(
@@ -62,6 +62,7 @@ const auction = (sequelize, type) => {
 };
 const Auction = auction(sequelize, Sequelize);
 Artwork.hasMany(Auction, { foreignKey: "artWork_id", as: "artwork" });
+module.exports = { Auction }
 
 // category.belongsToMany(Auction, {
 //   foreignKey: "auction_id",
