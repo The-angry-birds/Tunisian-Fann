@@ -18,6 +18,7 @@ const artistAuthSchema = (sequelize, type) => {
       category: type.STRING,
       imageUrl: type.STRING,
       token:type.STRING,
+      telNumber:type.INTEGER,
       accept: {
         type: type.BOOLEAN,
         defaultValue: false

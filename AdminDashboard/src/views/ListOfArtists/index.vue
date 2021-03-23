@@ -44,8 +44,8 @@
                       type="button"
                       class="btn btn-danger"
                       data-dismiss="modal"
-                      @click="onSubmit"
-                      @click.prevent="banned(artist)"
+                   
+                      @click.prevent="bannedArtist(artist)"
                     >
                       Ban
                     </button>
@@ -56,6 +56,7 @@
             <button
               type="button"
               class="artist-accept-btn btn btn-success"
+               v-on:click="messageArtist()"
                @click="accepted"
                @click.prevent="acceptArtist(artist)"
             >
@@ -76,8 +77,6 @@ export default {
       artists: [],
       currentArtist: {},
       dataArtists: {},
-      banned:false,
-      aceept:false
     };
   },
   methods: {
@@ -86,8 +85,7 @@ export default {
     },
     changeCurrentartist(artist) {
       this.currentArtist = artist;
-       this.banned=true;
-      this.aceept=true;
+  
     },
 
     getAllartist() {
@@ -128,7 +126,12 @@ export default {
           console.log(err);
         });
 
-    }
+    },
+    messageArtist(){
+   axios.post("http://localhost:3000/sendmessage")
+   .then((response) => {console.log(response)})
+   .catch((err) => {console.log(err)})
+    },
   },
 
   mounted() {
