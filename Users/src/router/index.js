@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
-
+import store from '../store'
 Vue.use(Router);
 
-export default new Router({
+const router= new Router({
   routes: [
     {
       path: "/",
@@ -19,11 +19,11 @@ export default new Router({
       name: "join_Artist",
       component: () => import("@/components/JoinAsArtist.vue"),
     },
-    // {
-    //   path: "/Artist-profile",
-    //   name: "Artist",
-    //   component: () => import("@/components/Artistprofile.vue"),
-    // },
+    {
+      path: "/Artist-profile",
+      name: "Artist",
+      component: () => import("@/components/Artistprofile.vue"),
+    },
     {
       path: "/userProfil",
       name: "user",
@@ -41,7 +41,7 @@ export default new Router({
     },
     {
       path: "/napil",
-      name: "ArtistProfilX",
+      name: "ArtistProfileX",
       component: () => import("@/components/ArtistProfileX.vue"),
     },
   ],
