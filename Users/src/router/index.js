@@ -38,27 +38,26 @@ const router = new Router({
       path: "/artwork-details",
       name: "artwork-details",
       component: () => import("@/components/ArtworkDetails.vue"),
+      props: true,
     },
     {
       path: "/napil",
-      name: "ArtistProfilX",
+      name: "ArtistProfileX",
       component: () => import("@/components/ArtistProfileX.vue"),
     },
   ],
 });
 
 router.beforeEach((to, from, next) => {
-  console.log("+++", store);
-  if (store.getters.isLoggedIn) {
+  if (store.state.isLoggedIn) {
     next();
-    return;
   } else {
     // check if there's a token
     const token = window.localStorage.getItem("token");
     console.log(token);
     if (token) {
       // send a request to /verify => user
-      store.state.currentUser = user.firstName;
+      store.state.currentUser = { name: "heni" };
       next();
     } else {
       next();

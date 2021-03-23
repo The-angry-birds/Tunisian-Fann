@@ -1,6 +1,7 @@
 <template>
   <div>
     <NavBar></NavBar>
+    <ArtworkCard  />
     <div class="artwork-container">
       <div class="left-container">
         <img
