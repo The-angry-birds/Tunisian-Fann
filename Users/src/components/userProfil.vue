@@ -203,7 +203,17 @@ export default {
         .catch((err) => console.log(err));
     },
     displayUser() {
-    
+      const token = localStorage.getItem("token");
+      axios
+        .get("http://localhost:3000/api/users/getUserByToken", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(({ data }) => {
+          this.data = data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     handleClick() {
     this.$store.dispatch('logout')

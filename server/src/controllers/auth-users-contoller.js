@@ -23,7 +23,7 @@ module.exports = {
         var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
           expiresIn: 86400,
         });
-        res.send({ auth: true, token: token });
+        res.send({ user:user, auth: true, token: token });
       } else {
         res.send({
           message: "There was a problem registering the user",
@@ -47,7 +47,7 @@ module.exports = {
           var token = jwt.sign({ email }, configUsers.secret, {
             expiresIn: "1h",
           });
-          res.send({ message: "success", auth: true, token: token });
+          res.send({  user:user,message: "success", auth: true, token: token });
         } else {
           res.send({ message: "wrong password", auth: false, token: null });
         }

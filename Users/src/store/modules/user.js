@@ -1,8 +1,14 @@
+import axios from "axios"
+
+
 export default {
+
+
   state: {
     userStatus: "",
     token: localStorage.getItem("token") || "",
     user: {},
+    userinfo:{}
   },
 
   mutations: {
@@ -22,26 +28,33 @@ export default {
       state.token = "";
     },
   },
-  getters: {
-    isLoggedIn: (state) => !!state.token,
-    authStatus: (state) => state.userStatus,
-  },
+  // getters: {
+  //   isLoggedIn: (state) => !!state.token,
+  //   authStatus: (state) => state.userStatus,
+  // },
   actions: {
+
+
+
+
+
+
     signup({ commit }, User) {
       return new Promise((resolve, reject) => {
         commit("auth_request_user");
         axios
           .post("http://localhost:3000/api/auth/users/signup", User)
-          .then((resp) => {
-            console.log("hhhhh", resp);
-            const token = resp.data.token;
-            console.log("hhhhh", token);
-            const user = resp.data.user;
+          .then((data) => {
+            console.log("hhhhh", data);
+            const token = data.data.token;
+           
+            const user = data.data.user;
+            console.log("hahaha",user)
 
             localStorage.setItem("token", token);
 
             commit("auth_success", token, user);
-            resolve(resp);
+            resolve(data);
           })
           .catch((err) => {
             commit("auth_error");
@@ -56,17 +69,13 @@ export default {
         commit("auth_request_user");
         axios
           .post("http://localhost:3000/api/auth/users/login", user)
-          .then(({ data }) => {
-            const token = data.token;
-            const user = data.user;
-            if (data.message === "wrong password") {
-              swal("Oops!", "Wrong Password!", "error");
-            } else if (data.message === "user not found") {
-              swal("Oops!", "Wrong Email!", "error");
-            } else {
+          .then((data) => {
+            const token = data.data.token;
+            const user = data.data.user;
+             console.log("hahhahahahahahah",user)
               localStorage.setItem("token", token);
               commit("auth_success", token, user);
-            }
+            
             resolve(data);
           })
           .catch((err) => {
