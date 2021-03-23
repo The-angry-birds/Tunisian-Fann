@@ -6,32 +6,26 @@
       <div class="row">
         <div class="profile-nav col-md-3">
           <div class="panel">
-            <div class="user-heading round">
-              <a>
-                <img
-                  src="https://meetanentrepreneur.lu/wp-content/uploads/2019/08/profil-linkedin.jpg"
-                  alt=""
-                />
-              </a>
-              <input type="file" name="file" id="file" multiple /><br />
-              <h1>{{ data.firstName }}</h1>
-              <p>{{ data.email }}</p>
-            </div>
+            <div>
+ 
+ 
+      <b-card :img-src="data.imageUrl" img-alt="Card image" img-top>
+        <b-card-text>
+         <h3>welcome to tunisian fann {{data.firstName}}!</h3>
+        </b-card-text>
+      </b-card>
+      </div>
 
             <ul class="nav nav-pills nav-stacked">
               <li class="active">
-                <a> <i class="fa fa-user"></i> Profile</a>
+                <i></i>
+                <a>
+                  Profil
+                </a>
               </li>
+
               <li>
-                <a @click="renderInput()">
-                  <i class="fa fa-calendar"></i>your product<span
-                    class="label label-warning pull-right r-activity"
-                    >9</span
-                  ></a
-                >
-              </li>
-              <li>
-                <a> <i class="fa fa-edit"></i>recent bidding</a>
+                <a @click="showelement()">recent bidding</a>
               </li>
             </ul>
           </div>
@@ -49,9 +43,7 @@
                 <li>
                   <a><i class="fa fa-map-marker"></i></a>
                 </li>
-                <li>
-                  <a><i class="fa fa-camera"></i></a>
-                </li>
+
                 <li>
                   <a><i class=" fa fa-film"></i></a>
                 </li>
@@ -73,34 +65,96 @@
                 <div class="bio-row">
                   <p><span>Last Name </span>{{ data.lastName }}</p>
                 </div>
-                <div class="bio-row">
-                  <p><span>Country </span>{{ data.lastName }}</p>
-                </div>
+
                 <div class="bio-row">
                   <p><span>Email</span>{{ data.email }}</p>
+                  <button
+                    class="category-btns btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#myEditModal"
+                  >
+                    Edit
+                  </button>
+                  <div>
+                    <h1 v-if="show === true">hello</h1>
+                  </div>
+                  <div id="myEditModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Edit Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                          >
+                            &times;
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="form-group">
+                              <label for="title-category">Firstname</label>
+                              <input
+                                class="form-control"
+                                id="title-category"
+                                placeholder="first name"
+                                v-model="data.firstName"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="description-category">Lastname</label>
+                              <input
+                                v-model="data.lastName"
+                                class="form-control"
+                                id="description-category"
+                                placeholder="last name"
+                              />
+                            </div>
+
+                            <div class="file-field">
+                              <div class="mb-4">
+                                <img
+                                  id="btn-file"
+                                  :src="data.imageUrl"
+                                  class="rounded-circle z-depth-1-half avatar-pic"
+                                  alt="example placeholder avatar"
+                                />
+                              </div>
+                              <div class="d-flex justify-content-center">
+                                <div
+                                  class="btn btn-mdb-color btn-rounded float-left"
+                                >
+                                  <span>Add photo</span>
+                                  <input
+                                    v-on:change="handleFileUpload()"
+                                    type="file"
+                                    id="file"
+                                    ref="file"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-dismiss="modal"
+                            @click.prevent="handleEdit()"
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div>
-      
-       
-            <div class="row">
-              <b-card
-                img-src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/Kurt-artwork-by-bensalem-walid.png"
-                img-top
-                class="mb-2"
-              >
-                <b-card-text class="card-category"
-                  >Digital Paintings</b-card-text
-                >
-                <h3 class="card-title">Kurt</h3>
-                <div class="card-by">
-                  by <a class="card-author" title="author">Bensalem Walid</a>
-                </div>
-              </b-card>
-            </div>
-          </div>
+          <div></div>
         </div>
       </div>
     </div>
@@ -113,30 +167,51 @@ import axios from "axios";
 export default {
   data() {
     return {
-      data: [],
-      imageURL: "",
+      data: {},
       show: false,
+     
     };
   },
   components: {
     NavBar,
   },
   methods: {
-    renderInput() {
-      this.show = !this.show;
-      console.log(this.show);
+    showelement() {
+      var h = this.show;
+      this.show = !h;
+    },
+    handleEdit() {
+      axios
+        .patch(`http://localhost:3000/api/users/${this.data.id}`, this.data)
+        .then(() => {
+          console.log("sent");
+          this.displayUser();
+        })
+        .catch((err) => console.log(err));
+    },
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+      console.log("ahahaha", this.file);
+      const image = new FormData();
+      image.append("file", this.file);
+      image.append("upload_preset", "fvzq7qqo");
+      axios
+        .post("https://api.cloudinary.com/v1_1/dkcwqbl9d/image/upload", image)
+        .then(({ data }) => {
+          console.log("imageId", data.url);
+          this.data.imageUrl = data.url;
+          console.log("===>", this.data.imageUrl);
+        })
+        .catch((err) => console.log(err));
     },
     displayUser() {
       const token = localStorage.getItem("token");
       axios
-
-        .get("http://localhost:3000/api/users/", {
-
+        .get("http://localhost:3000/api/users/getUserByToken", {
           headers: { Authorization: `Bearer ${token}` },
         })
-        .then((res) => {
-          this.$data.data = res.data;
-          console.log("iiiiiii", res.data);
+        .then(({ data }) => {
+          this.data = data;
         })
         .catch((err) => {
           console.log(err);
@@ -147,7 +222,7 @@ export default {
       this.$router.push("/");
     },
   },
-  beforeMount() {
+  mounted() {
     this.displayUser();
   },
 };
@@ -167,15 +242,23 @@ body {
 }
 .profile-nav,
 .profile-info {
-  margin-top: 30px;
+  margin-top: 84px;
 }
 .profile-nav .user-heading {
-  background: #ad7d52;
+  background: white;
   color: #fff;
   border-radius: 4px 4px 0 0;
   -webkit-border-radius: 4px 4px 0 0;
   padding: 30px;
   text-align: center;
+}
+#btn-file {
+  border-radius: 0;
+  width: 50%;
+  height: 208px;
+  margin-left: 7rem;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 .profile-nav .user-heading.round a {
   border-radius: 50%;
@@ -231,6 +314,7 @@ li {
   background: #f8f7f5 !important;
   border-left: 5px solid #fbc02d;
   color: #89817f !important;
+  width: 100% !important;
 }
 .profile-nav ul > li:last-child > a:last-child {
   border-radius: 0 0 4px 4px;
@@ -323,20 +407,6 @@ li {
   font-weight: 300;
   margin-top: 0;
   color: #c3c3c3;
-}
-.summary-head {
-  background: #ee7272;
-  color: #fff;
-  text-align: center;
-  border-bottom: 1px solid #ee7272;
-}
-.summary-head h4 {
-  font-weight: 300;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-}
-.summary-head p {
-  color: rgba(255, 255, 255, 0.6);
 }
 ul.summary-list {
   display: inline-block;

@@ -48,8 +48,9 @@ module.exports = {
             expiresIn: "1h",
           });
           res.send({ message: "success", auth: true, token: token });
+        } else {
+          res.send({ message: "wrong password", auth: false, token: null });
         }
-        res.send({ message: "wrong password", auth: false, token: null });
       } else {
         res.send({ message: "user not found", auth: false, token: null });
       }
