@@ -117,7 +117,7 @@ export default {
           email: this.email,
           password: this.password,
         };
-        this.$store.dispatch("login", data).then((data) => {
+        this.$store.dispatch("login", data).then(() => {
           swal("Good job!", "Welcome", "success");
           this.$router.push("/userProfil");
         });

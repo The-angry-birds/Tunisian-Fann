@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
+// import axios from "axios";
 import artist from "./modules/artist.js";
 import user from "./modules/user.js";
 
