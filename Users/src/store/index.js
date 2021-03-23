@@ -1,12 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
+
 import axios from "axios";
 import swal from "sweetalert";
+
 
 Vue.use(Vuex);
 
 const user = new Vuex.Store({
   state: {
+
     userStatus: "",
     token: localStorage.getItem("token") || "",
     user: {},

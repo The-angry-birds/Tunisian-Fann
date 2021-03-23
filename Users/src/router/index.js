@@ -50,6 +50,7 @@ const router= new Router({
 
 router.beforeEach((to, from, next) => {
   if (store.state.isLoggedIn) {
+
     next()
   } else {
     // check if there's a token
@@ -61,6 +62,8 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next()
+
+   
     }
   }
   next();
