@@ -29,9 +29,8 @@ const bid = (sequelize, type) => {
 
 let Bid = bid(sequelize, Sequelize);
 
+// usersLogin.hasMany(Bid, { foreignKey: "user_id", as: "userBid" });
 
-usersLogin.hasMany(Bid, { foreignKey: "user_id", as: "userBid" });
-
-Auction.hasMany(Bid, { foreignKey: "auction_id", as: "bidauction" });
+// Auction.hasMany(Bid, { foreignKey: "auction_id", as: "bidauction" });
 
 module.exports = { Bid };
