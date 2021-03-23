@@ -1,9 +1,13 @@
 import Vue from "vue";
 import Router from "vue-router";
+
 import store from "../store";
 Vue.use(Router);
 
-const router = new Router({
+
+
+const router= new Router({
+
   routes: [
     {
       path: "/",
@@ -38,7 +42,11 @@ const router = new Router({
       path: "/artwork-details",
       name: "artwork-details",
       component: () => import("@/components/ArtworkDetails.vue"),
+
       props: true,
+
+
+
     },
     {
       path: "/napil",
@@ -48,23 +56,6 @@ const router = new Router({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  if (store.state.isLoggedIn) {
-    next();
-  } else {
-    // check if there's a token
-    const token = window.localStorage.getItem("token");
-    console.log(token);
-    if (token) {
-      // send a request to /verify => user
-      store.state.currentUser = { name: "heni" };
-      next();
-    } else {
-      next();
-    }
-  }
-  next();
-});
 
 // router.beforeEach((to, from, next) => {
 //   console.log("+++", store);

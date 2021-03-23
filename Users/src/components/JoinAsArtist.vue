@@ -119,6 +119,36 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
+
+
+            console.log("registred");
+          })
+          .catch((err) => {
+            console.log(err);
+            swal("oops", "Something went wrong");
+          });
+      }
+    },
+    handleClick() {
+      if (this.email === "" || this.password === "") {
+        swal("Oops!", "Empty fields", "error");
+      } else {
+        axios
+          .post("http://localhost:3000/api/auth/artists/login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then(({ data }) => {
+            console.log(data);
+            if (data.message === "success") {
+              localStorage.setItem("token", data.token);
+              this.$router.push("/Artist-profile");
+            } else if (data.message === "wrong password") {
+              swal("Oops!", "Wrong Password!", "error");
+            } else {
+              swal("Oops!", "Wrong Email!", "error");
+            }
+
           })
           .catch((err) => {
             console.log(err);
@@ -126,31 +156,7 @@ export default {
       }
     },
   },
-  handleClick() {
-    if (this.email === "" || this.password === "") {
-      swal("Oops!", "Empty fields", "error");
-    } else {
-      axios
-        .post("http://localhost:3000/api/auth/artists/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(({ data }) => {
-          console.log(data);
-          if (data.message === "success") {
-            localStorage.setItem("token", data.token);
-            this.$router.push("/artist-profile");
-          } else if (data.message === "wrong password") {
-            swal("Oops!", "Wrong Password!", "error");
-          } else {
-            swal("Oops!", "Wrong Email!", "error");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  },
+ 
 };
 </script>
 
