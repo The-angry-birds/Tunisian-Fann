@@ -148,7 +148,7 @@ export default {
             console.log(data);
             if (data.message === "success") {
               localStorage.setItem("token", data.token);
-              this.$router.push("/Artist-profile");
+              this.$router.push("/artist-profile");
             } else if (data.message === "wrong password") {
               swal("Oops!", "Wrong Password!", "error");
             } else {

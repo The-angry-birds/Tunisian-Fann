@@ -6,4 +6,5 @@ router.post("/signup", artistController.signup);
 router.post("/login", artistController.login);
 router.patch("/upload/:id", artistController.upload);
 router.get("/", artistController.getUserData);
+router.put("/:id", artistController.updateInfo);
 module.exports = router;
