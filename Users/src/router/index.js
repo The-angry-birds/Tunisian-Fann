@@ -26,6 +26,11 @@ const router = new Router({
       component: () => import("@/components/Artworks.vue"),
     },
     {
+      path: "/artists",
+      name: "artists",
+      component: () => import("@/components/Artists.vue"),
+    },
+    {
       path: "/join-as-artist",
       name: "join_Artist",
       component: () => import("@/components/JoinAsArtist.vue"),
@@ -33,7 +38,7 @@ const router = new Router({
     {
       path: "/Artist-profile",
       name: "Artist",
-      component: () => import("@/components/ArtistProfile.vue"),
+      component: () => import("@/components/Artistprofile.vue"),
     },
     {
       path: "/artist-profile-view",
