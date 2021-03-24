@@ -1,12 +1,12 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <ArtworkCard />
+    <ArtworkCard/>
     <div class="artwork-container">
       <div class="left-container">
         <img
           class="artwork-image"
-          src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/oh-my-god-artwork-by-bensalem-walid.png"
+         v-bind:src="oneArt.imageUrl"
         />
       </div>
       <div class="right-container">
@@ -37,18 +37,25 @@
 
 <script>
 import NavBar from "./NavBar.vue";
+// import ArtworkCard from "./ArtworkCard.vue";
+
 export default {
+  props: Object,
   data() {
     return {
       oneArt: {},
     };
   },
   mounted() {
+    console.log("==========",this.$route.params)
     this.oneArt = this.$route.params;
+    console.log("ghjkl",this.oneArt)
   },
 
   components: {
     NavBar,
+
+ 
   },
 };
 </script>
