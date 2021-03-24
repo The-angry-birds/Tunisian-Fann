@@ -1,7 +1,6 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <ArtworkCard/>
     <div class="artwork-container">
       <div class="left-container">
         <img
@@ -37,10 +36,10 @@
 
 <script>
 import NavBar from "./NavBar.vue";
-// import ArtworkCard from "./ArtworkCard.vue";
+
 
 export default {
-  props: Object,
+  
   data() {
     return {
       oneArt: {},
@@ -55,9 +54,13 @@ export default {
 
   components: {
     NavBar,
-
- 
-  },
+},
+methods:{
+  // Userbuy(){
+    
+  //   }
+  // }
+}
 };
 </script>
 
