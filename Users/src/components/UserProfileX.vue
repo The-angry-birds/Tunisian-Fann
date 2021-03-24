@@ -149,6 +149,7 @@ export default {
   padding: 30px !important;
   background-color: #fdf5e6;
 }
+
 #recent-bidding {
   background-color: #fdf5e6;
 }
@@ -168,4 +169,5 @@ export default {
   padding: 10px;
   color: black;
 }
+
 </style> 
