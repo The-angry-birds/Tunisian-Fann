@@ -16,14 +16,19 @@ const router = new Router({
       component: () => import("@/components/JoinAsClient.vue"),
     },
     {
+      path: "/informationCard",
+      name: "informationCard",
+      component: () => import("@/components/CardInformation.vue"),
+    },
+    {
       path: "/join-as-artist",
       name: "join_Artist",
       component: () => import("@/components/JoinAsArtist.vue"),
     },
     {
-      path: "/artist-profile",
+      path: "/Artist-profile",
       name: "Artist",
-      component: () => import("@/components/ArtistProfile.vue"),
+      component: () => import("@/components/Artistprofile.vue"),
     },
     {
       path: "/artist-profile-view",
