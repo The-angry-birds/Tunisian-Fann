@@ -21,7 +21,7 @@
         <hr />
         <div class="price-container">
           <h4 class="price-header">Price:</h4>
-          <h1 class="price">{{ oneArt.price }}</h1>
+          <h1 class="price">{{ oneArt.price }} DT</h1>
         </div>
         <hr />
         <button class="buy-btn">BUY NOW</button>
@@ -46,7 +46,6 @@ export default {
       oneArt: {},
     };
   },
-
   mounted() {
     console.log("==========",this.$route.params)
     this.oneArt = this.$route.params;
@@ -65,7 +64,6 @@ export default {
 * {
   font-family: "Spectral", serif;
 }
-
 .artwork-container {
   padding-top: 70px;
   padding-bottom: 20px;
@@ -74,42 +72,35 @@ export default {
   width: 100vw;
   height: 100vh;
 }
-
 .left-container {
   width: 60%;
   height: 100%;
   float: left;
 }
-
 .artwork-image {
   height: 100%;
   width: 90%;
   object-fit: cover;
 }
-
 .artwork-header {
   display: flex;
   flex-wrap: nowrap;
 }
-
 .artwork-name {
   font-weight: bolder;
   color: #ad7d52;
 }
-
 .artwork-category {
   padding-top: 18px;
   padding-left: 3px;
   color: grey;
   text-transform: uppercase;
 }
-
 .right-container {
   width: 40%;
   height: 100%;
   float: right;
 }
-
 .time-container {
   display: flex;
   flex-wrap: nowrap;
@@ -118,7 +109,6 @@ export default {
   color: #ad7d52;
   font-weight: 800;
 }
-
 .buy-btn {
   color: #ffffff;
   width: 100%;
@@ -128,17 +118,14 @@ export default {
   font-size: 20px;
   border-radius: 4px;
 }
-
 .buy-btn:hover {
   color: black;
   font-weight: bold;
 }
-
 .artwork-by {
   display: flex;
   flex-wrap: nowrap;
 }
-
 .artwork-artist {
   margin-left: 3px;
   font-weight: 600;

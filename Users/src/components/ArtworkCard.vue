@@ -53,7 +53,6 @@ export default {
         });
     },
     sharedData(a){
-
       this.$router.push({name:"artworkDetails" , params: a})
   
     },
@@ -74,7 +73,6 @@ export default {
   margin-top: 25px;
   color: #ad7d52;
 }
-
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -84,7 +82,6 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
 .mb-2 {
   margin: 22px;
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
@@ -92,10 +89,6 @@ export default {
   width: 300px;
   height: 385px;
 }
-
-
-
-
 .card-category {
   text-transform: uppercase;
   font-size: 13px;
@@ -103,36 +96,30 @@ export default {
   font-weight: 500;
   color: #868686;
 }
-
 .card-title {
   margin-top: 5px;
   margin-bottom: 10px;
 }
-
 .card-by {
   font-size: 12px;
   display: flex;
   flex-wrap: nowrap;
 }
-
 .card-author {
   font-weight: 600;
   text-decoration: none;
   color: #ad7d52;
   margin-left: 3px;
 }
-
 img:hover {
   opacity: 0.5;
 }
-
 img {
   border-radius: 0;
   width: 100%;
   height: 250px;
   object-fit: cover;
 }
-
 #loadMore {
   font-size: 15px;
   text-align: center;
@@ -140,9 +127,7 @@ img {
   color: #ad7d52;
   margin-left: 46%;
 }
-
 #loadMore:hover {
   color: #000000;
 }
 </style>
-
