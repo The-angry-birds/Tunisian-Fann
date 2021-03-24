@@ -8,7 +8,8 @@ export default {
     userStatus: "",
     token: localStorage.getItem("token") || "",
     user: {},
-    userinfo:{}
+  
+
   },
 
   mutations: {
@@ -19,6 +20,7 @@ export default {
       state.userStatus = "success";
       state.token = token;
       state.user = user;
+  
     },
     auth_error(state) {
       state.userStatus = "error";
@@ -28,10 +30,11 @@ export default {
       state.token = "";
     },
   },
-  // getters: {
-  //   isLoggedIn: (state) => !!state.token,
-  //   authStatus: (state) => state.userStatus,
-  // },
+   getters: {
+     isLoggedInuser: (state) => !!state.token,
+    authStatususer: (state) => state.userStatus,
+    getuser: (state) => state.user
+  }, 
   actions: {
 
 
@@ -53,7 +56,7 @@ export default {
 
             localStorage.setItem("token", token);
 
-            commit("auth_success", token, user);
+            commit("auth_success", token, user);  
             resolve(data);
           })
           .catch((err) => {
