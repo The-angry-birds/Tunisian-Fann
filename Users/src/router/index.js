@@ -26,6 +26,11 @@ const router = new Router({
       component: () => import("@/components/Artworks.vue"),
     },
     {
+      path: "/artists",
+      name: "artists",
+      component: () => import("@/components/Artists.vue"),
+    },
+    {
       path: "/join-as-artist",
       name: "join_Artist",
       component: () => import("@/components/JoinAsArtist.vue"),
