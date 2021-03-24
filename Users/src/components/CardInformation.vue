@@ -87,6 +87,7 @@ body {
   font-family: Arial;
   font-size: 17px;
   padding: 8px;
+ 
 }
 
 * {
@@ -123,7 +124,8 @@ body {
 }
 
 .container {
-  background-color: #f2f2f2;
+  background-color:white;
+  box-shadow:10px 10px 10px ;
   padding: 5px 20px 15px 20px;
   border: 1px solid lightgrey;
   border-radius: 3px;
