@@ -72,11 +72,12 @@ export default {
   },
   methods: {
     getArtworks() {
+      
       axios
         .get(`http://localhost:3000/api/artworks`)
-        .then((artworks) => {
-          this.artworks = artworks.data;
-          console.log(artworks.data);
+        .then((res) => {
+          this.artworks = res.data;
+          console.log(res);
         })
         .catch((err) => {
           console.log(err);
