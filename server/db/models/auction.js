@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const { sequelize } = require("../index");
 const { Artwork } = require("./artwork");
 
-const differenceInSeconds = require("date-fns");
+
 
 const auction = (sequelize, type) => {
   const auctions = sequelize.define(

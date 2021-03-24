@@ -5,7 +5,7 @@
       src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
     />
 
-    <div class="dropdown" id="nav-join">
+    <div v-if="status()===''" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
         Join us
       </button>
@@ -26,21 +26,48 @@
         </li>
       </ul>
     </div>
-  </nav>
    
 
+      <div v-if="status()==='success'"  class="dropdown" id="nav-join">
+      <h3>Artworks</h3>
+        <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+      
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <button>
+              account
+            </button>
+          </li>
+          <li>
+            <button>
+              logout
+            </button>
+          </li>
+        </ul>
+      </div>
+ 
+  </nav>
 </template>
 
 <script>
 export default {
-  data() {
-    return {   
-      show:false
-      }
+  methods: {
+    status() {
+      console.log("ahahahahah",this.$store.getters.authStatususer)
+       return this.$store.getters.authStatususer;
+    },
+  },
 
-},
-
-}
+  computed: {
+    info() {
+      return this.$store.getters.getuser;
+    },
+  },
+  mounted(){
+     console.log("ahahahahah",this.status())
+  }
+};
 </script>
 
 <style scoped>
@@ -103,4 +130,3 @@ export default {
   padding-bottom: 10px;
 }
 </style>
-
