@@ -14,7 +14,16 @@
                     width="130"
                     class="rounded mb-2 img-thumbnail"
                   />
+                  <button
+                    href="#"
+                    class="btn btn-outline btn-sm btn-block"
+                    data-toggle="modal"
+                    data-target="#Modal"
+                  >
+                    Edit profile
+                  </button>
                 </div>
+
                 <div class="media-body mb-5 text-black">
                   <h4 class="mt-0 mb-0">Nabil Elbir</h4>
                   <p class="small mb-4">
@@ -27,7 +36,88 @@
               class="p-4 d-flex justify-content-end text-center"
               id="heading"
             ></div>
-            
+            <div class="px-3 py-3">
+              <h5 class="mb-3">Recent Bidding</h5>
+              <div class="p-4 rounded shadow-sm" id="recent-bidding">
+                <p class="font-italic mb-0">Bidding Example</p>
+                <p class="font-italic mb-0">Bidding Example</p>
+                <p class="font-italic mb-0">Bidding Example</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- MODAL CONTENT -->
+
+    <div
+      class="modal fade"
+      id="Modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="ModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Edit Profile</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label class="labels" for="Firstname">Firstname</label>
+                <input
+                  type="firstname"
+                  class="form-control"
+                  id="Firstname"
+                  aria-describedby="firstname"
+                  placeholder="Firstname"
+                />
+                <label class="labels" for="Lastname">Lastname</label>
+                <input
+                  type="lastname"
+                  class="form-control"
+                  id="Lastname"
+                  aria-describedby="lastname"
+                  placeholder="Lastname"
+                />
+                <label class="labels" for="InputEmail1">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="InputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="Email"
+                />
+                <small id="emailHelp" class="form-text text-muted"
+                  >We'll never share your email with anyone else.</small
+                >
+              </div>
+              <div class="form-group">
+                <label class="labels" for="InputPassword1">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="InputPassword1"
+                  placeholder="Password"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-save" data-dismiss="modal">
+              Submit
+            </button>
           </div>
         </div>
       </div>
@@ -59,4 +149,25 @@ export default {
   padding: 30px !important;
   background-color: #fdf5e6;
 }
+
+#recent-bidding {
+  background-color: #fdf5e6;
+}
+#Modal {
+  margin-top: 60px;
+  margin-left: 25%;
+}
+.labels {
+  margin-top: 20px;
+}
+
+.btn-save {
+  padding: 10px;
+  color: grey;
+}
+.btn-save:hover {
+  padding: 10px;
+  color: black;
+}
+
 </style> 
