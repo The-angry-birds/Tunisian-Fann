@@ -204,6 +204,7 @@ export default {
         .catch((err) => console.log(err));
     },
     displayUser() {
+
       const token = localStorage.getItem("token");
       axios
         .get("http://localhost:3000/api/users/getUserByToken", {

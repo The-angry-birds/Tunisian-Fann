@@ -117,9 +117,11 @@ export default {
           email: this.email,
           password: this.password,
         };
+
         this.$store.dispatch("login", data).then((res) => {
           if(res.data.message==="success")
           {swal("Good job!", "Welcome", "success");
+
           this.$router.push("/userProfil");
           }
           else if (res.data.message==="wrong password")

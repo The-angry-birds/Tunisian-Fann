@@ -1,3 +1,4 @@
+
 import axios from "axios"
 
 
@@ -44,15 +45,15 @@ export default {
 
     signup({ commit }, User) {
       return new Promise((resolve, reject) => {
-        commit("auth_request_user");
+      commit("auth_request_user");
         axios
           .post("http://localhost:3000/api/auth/users/signup", User)
           .then((data) => {
-            console.log("hhhhh", data);
+            console.log("===>", data);
             const token = data.data.token;
            
             const user = data.data.user;
-            console.log("hahaha",user)
+            console.log("===>",user)
 
 //             localStorage.setItem("token", token);
 
@@ -75,7 +76,7 @@ export default {
           .then((data) => {
             const token = data.data.token;
             const user = data.data.user;
-             console.log("hahhahahahahahah",user)
+             console.log("=====>",user)
               localStorage.setItem("token", token);
               commit("auth_success", token, user);
             
@@ -89,13 +90,15 @@ export default {
       });
     },
 
-    logout({ commit }) {
-      return new Promise((resolve) => {
-        commit("logout");
-        localStorage.removeItem("token");
 
-        resolve();
-      });
-    },
+
+ logout({ commit }) {
+       return new Promise((resolve) => {
+         commit("logout");
+         localStorage.removeItem("token");
+
+         resolve();
+       });
+     },
   },
-};
+ };

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 
+
 Vue.use(Router);
 
 const router = new Router({
@@ -20,9 +21,9 @@ const router = new Router({
       component: () => import("@/components/JoinAsArtist.vue"),
     },
     {
-      path: "/Artist-profile",
+      path: "/artist-profile",
       name: "Artist",
-      component: () => import("@/components/Artistprofile.vue"),
+      component: () => import("@/components/ArtistProfile.vue"),
     },
     {
       path: "/artist-profile-view",
