@@ -54,7 +54,7 @@ export default {
             const user = data.data.user;
             console.log("hahaha",user)
 
-            localStorage.setItem("token", token);
+//             localStorage.setItem("token", token);
 
             commit("auth_success", token, user);  
             resolve(data);

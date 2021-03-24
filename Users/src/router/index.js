@@ -1,13 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-
 Vue.use(Router);
 
-
-
-const router= new Router({
-
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -29,9 +25,20 @@ const router= new Router({
       component: () => import("@/components/Artistprofile.vue"),
     },
     {
-      path: "/userProfil",
+      path: "/artist-profile-view",
+      name: "ArtistProfileView",
+      component: () => import("@/components/ArtistProfileView.vue"),
+      props: { artworks: true },
+    },
+    {
+      path: "/user-profile",
       name: "user",
-      component: () => import("@/components/userProfil.vue"),
+      component: () => import("@/components/UserProfile.vue"),
+    },
+    {
+      path: "/jdidi",
+      name: "UserProfile",
+      component: () => import("@/components/UserProfileX.vue"),
     },
     {
       path: "/auction-details",
@@ -40,22 +47,12 @@ const router= new Router({
     },
     {
       path: "/artwork-details",
-      name: "artwork-details",
+      name: "artworkDetails",
       component: () => import("@/components/ArtworkDetails.vue"),
-
       props: true,
-
-
-
-    },
-    {
-      path: "/napil",
-      name: "ArtistProfileX",
-      component: () => import("@/components/ArtistProfileX.vue"),
     },
   ],
 });
-
 
 // router.beforeEach((to, from, next) => {
 //   console.log("+++", store);

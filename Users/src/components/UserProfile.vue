@@ -111,7 +111,7 @@
                                 placeholder="last name"
                               />
                             </div>
-
+                                  <!-- ----- -->
                             <div class="file-field">
                               <div class="mb-4">
                                 <img
@@ -135,6 +135,7 @@
                                 </div>
                               </div>
                             </div>
+                               <!-- ----- -->
                           </form>
                         </div>
                         <div class="modal-footer">

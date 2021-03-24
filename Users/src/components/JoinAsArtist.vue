@@ -179,7 +179,7 @@ p {
 span {
   font-size: 12px;
 }
-a {
+a {   
   color: #333;
   font-size: 14px;
   text-decoration: none;
@@ -187,8 +187,8 @@ a {
 }
 button {
   border-radius: 20px;
-  border: 1px solid #3000cf;
-  background-color: #3000cf;
+  border: 1px solid #ad7d52;
+  background-color: #ad7d52;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -198,8 +198,8 @@ button {
   transition: transform 80ms ease-in;
 }
 button:hover {
-  border: 1px solid #3000cf;
-  background-color: #3000cf;
+   border: 1px solid #c0c0c0;
+  background-color: #c0c0c0;
   color: #ffffff;
 }
 button:active {
