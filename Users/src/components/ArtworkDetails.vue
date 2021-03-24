@@ -21,7 +21,7 @@
         <hr />
         <div class="price-container">
           <h4 class="price-header">Price:</h4>
-          <h1 class="price">{{ oneArt.price }}</h1>
+          <h1 class="price">{{ oneArt.price }} DT</h1>
         </div>
         <hr />
         <button class="buy-btn">BUY NOW</button>
