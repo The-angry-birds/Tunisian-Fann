@@ -28,7 +28,7 @@ const router = new Router({
     {
       path: "/Artist-profile",
       name: "Artist",
-      component: () => import("@/components/Artistprofile.vue"),
+      component: () => import("@/components/ArtistProfile.vue"),
     },
     {
       path: "/artist-profile-view",
