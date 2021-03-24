@@ -30,6 +30,9 @@ app.use("/api/auth/artists", artistAuthRoutes);
 app.use("/api/artists", artistRoutes);
 app.use("/api/auctions",auctionsRouter)
 
+const stripeSecretkey= process.env.STRIPE_SECRET_KEY
+const stripePublickey= process.env.STRIPE_PUBLIC_KEY
+
 app.post("/sendmessage", (req, res) => {
   console.log(req.body);
 
