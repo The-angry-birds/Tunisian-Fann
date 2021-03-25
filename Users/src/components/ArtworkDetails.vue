@@ -1,6 +1,7 @@
 <template>
   <div>
-    <NavBar></NavBar>
+
+    <ArtworkCard/>
     <div class="artwork-container">
       <div class="left-container">
         <img class="artwork-image" v-bind:src="oneArt.imageUrl" />
@@ -32,7 +33,11 @@
 </template>
 
 <script>
-import NavBar from "./NavBar.vue";
+
+
+// import ArtworkCard from "./ArtworkCard.vue";
+
+
 
 export default {
   data() {
@@ -47,9 +52,6 @@ export default {
     console.log("ghjkl", this.oneArt);
   },
 
-  components: {
-    NavBar,
-  },
   methods: {
     cardInformation() {
       this.$router.push("/informationCard");

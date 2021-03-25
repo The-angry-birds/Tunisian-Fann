@@ -33,7 +33,7 @@
 import axios from "axios";
 
 export default {
-    props: Object,
+   
   data() {
     return {
       artworks: [],

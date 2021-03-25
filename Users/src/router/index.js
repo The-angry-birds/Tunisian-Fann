@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-
+  
 
 Vue.use(Router);
 
@@ -46,13 +46,13 @@ const router = new Router({
       component: () => import("@/components/ArtistProfileView.vue"),
       props: { artworks: true },
     },
+    // {
+    //   path: "/userprofile",
+    //   name: "user",
+    //   component: () => import("@/components/UserProfile.vue"),
+    // },
     {
       path: "/user-profile",
-      name: "user",
-      component: () => import("@/components/UserProfile.vue"),
-    },
-    {
-      path: "/jdidi",
       name: "UserProfile",
       component: () => import("@/components/UserProfileX.vue"),
     },

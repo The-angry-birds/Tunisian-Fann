@@ -5,7 +5,22 @@
       src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
     />
 
-    <div v-if="status()===''" class="dropdown" id="nav-join">
+
+    <button>
+            <router-link class="as-btns" to="/artists"
+              >Artists</router-link
+            >
+          </button>
+
+          <button>
+            <router-link class="as-btns" to="/artworks"
+              >Artworks</router-link
+            >
+          </button>
+
+    
+
+    <div v-if="status() === ''" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
         Join us
       </button>
@@ -26,27 +41,34 @@
         </li>
       </ul>
     </div>
-   
 
-      <div v-if="status()==='success'"  class="dropdown" id="nav-join">
-      <h3>Artworks</h3>
-        <button class="dropdown-toggle" type="button" data-toggle="dropdown">
-      
-        </button>
-        <ul class="dropdown-menu">
-          <li>
-            <button>
-              account
-            </button>
-          </li>
-          <li>
-            <button>
-              logout
-            </button>
-          </li>
-        </ul>
-      </div>
- 
+    <div v-if="status() === 'success'" class="dropdown" id="nav-join">
+      Profile
+      <button
+        class="dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+      ></button>
+      <ul class="dropdown-menu">
+        <li>
+          <button>
+            <router-link class="as-btns" to="/user-profile"
+              >Account</router-link
+            >
+          </button>
+        </li>
+        <li>
+          <button>
+            <router-link
+              class="as-btns"
+              to="/join-as-client"
+              @click="handleClick()"
+              >Logout</router-link
+            >
+          </button>
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>
 
@@ -54,8 +76,12 @@
 export default {
   methods: {
     status() {
-      console.log("ahahahahah",this.$store.getters.authStatususer)
-       return this.$store.getters.authStatususer;
+      console.log("ahahahahah", this.$store.getters.authStatususer);
+      return this.$store.getters.authStatususer;
+    },
+    handleClick() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
     },
   },
 
@@ -64,9 +90,10 @@ export default {
       return this.$store.getters.getuser;
     },
   },
-  mounted(){
-     console.log("ahahahahah",this.status())
-  }
+
+  mounted() {
+    this.status();
+  },
 };
 </script>
 

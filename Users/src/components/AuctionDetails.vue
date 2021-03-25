@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar></NavBar>
+  
     <div class="auction-container">
       <div class="left-container">
         <img
@@ -58,11 +58,9 @@
 </template>
 
 <script>
-import NavBar from "./NavBar.vue";
+
 export default {
-  components: {
-    NavBar,
-  },
+ 
 };
 </script>
 
