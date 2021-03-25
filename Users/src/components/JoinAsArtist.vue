@@ -141,7 +141,7 @@ export default {
             } else if (resp.message === "user not found") {
               swal("Oops!", "Wrong Email!", "error");
             } else {
-              this.$router.push("/Artist-profile");
+              this.$router.push("/artist-profile");
             }
           })
           .catch((err) => console.log(err));
@@ -170,7 +170,7 @@ p {
 span {
   font-size: 12px;
 }
-a {   
+a {
   color: #333;
   font-size: 14px;
   text-decoration: none;
@@ -189,7 +189,7 @@ button {
   transition: transform 80ms ease-in;
 }
 button:hover {
-   border: 1px solid #c0c0c0;
+  border: 1px solid #c0c0c0;
   background-color: #c0c0c0;
   color: #ffffff;
 }

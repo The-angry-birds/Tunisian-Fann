@@ -5,12 +5,12 @@
       src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
     />
 
-
     <button>
-            <router-link class="nav-btns" to="/artists"
-              >Artists</router-link
-            >
-          </button>
+
+      <router-link class="nav-btns" to="/artists">Artists</router-link>
+    </button>
+
+         
 
           <button>
             <router-link class="nav-btns" to="/artworks"
@@ -18,9 +18,8 @@
             >
           </button>
 
-    
 
-    <div v-if="status() === ''" class="dropdown" id="nav-join">
+    <div v-if="!authGuest" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
         Join us
       </button>
@@ -42,7 +41,7 @@
       </ul>
     </div>
 
-    <div v-if="status() === 'success'" class="dropdown" id="nav-join">
+    <div v-else class="dropdown" id="nav-join">
       Profile
       <button
         class="dropdown-toggle"
@@ -59,10 +58,7 @@
         </li>
         <li>
           <button>
-            <router-link
-              class="as-btns"
-              to="/join-as-client"
-              @click="handleClick()"
+            <router-link is="a" class="as-btns" @click="handleClick()"
               >Logout</router-link
             >
           </button>
@@ -74,24 +70,20 @@
 
 <script>
 export default {
-  methods: {
-    status() {
-      console.log("ahahahahah", this.$store.getters.authStatususer);
-      return this.$store.getters.authStatususer;
+  computed: {
+    authGuest() {
+      console.log("logged: s", this.$store.getters.logged);
+      return this.$store.getters.logged;
     },
+  },
+  methods: {
+   
     handleClick() {
+      console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
-  },
-  computed: {
-    info() {
-      return this.$store.getters.getuser;
-    },
-  },
-  mounted() {
-    this.status();
-  },
+  
 };
 </script>
 
@@ -125,7 +117,6 @@ export default {
   color: #000000;
 }
 .nav-btns {
-  
   align-items: center;
   color: #ad7d52;
   display: flex;
@@ -142,7 +133,7 @@ export default {
   color: #000000;
 }
 .as-btns {
-  margin-top:10px;
+  margin-top: 10px;
   align-items: center;
   color: #ad7d52;
   display: flex;
