@@ -20,8 +20,8 @@
         img-top
         class="mb-2"
       >
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
         <h3>{{ artwork.likes }} </h3>
+        <b-card-text class="card-category">Digital Paintings</b-card-text>
 
         <h3 class="card-title" @click="sharedData(artwork)">
           {{ artwork.nameArtwork }}          
