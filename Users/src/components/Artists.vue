@@ -10,8 +10,8 @@
         placeholder="Search..."
       />
     </div>
-    <div class="cards-container" v-for="(artist, i) in filteredList" :key="i">
-      <div class="card-container">
+    <div class="cards-container">
+      <div class="card-container"  v-for="(artist, i) in filteredList" :key="i">
         <img class="round" v-bind:src="artist.imageUrl" />
         <h3>{{ artist.firstName }} {{ artist.lastName }}</h3>
         <h6>Location</h6>
