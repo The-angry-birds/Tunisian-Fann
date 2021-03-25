@@ -46,11 +46,7 @@ const router = new Router({
       component: () => import("@/components/ArtistProfileView.vue"),
       props: { artworks: true },
     },
-    // {
-    //   path: "/userprofile",
-    //   name: "user",
-    //   component: () => import("@/components/UserProfile.vue"),
-    // },
+
     {
       path: "/user-profile",
       name: "UserProfile",

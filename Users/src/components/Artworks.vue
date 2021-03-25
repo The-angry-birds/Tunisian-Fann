@@ -29,6 +29,7 @@
           by
           <p class="card-author">Bensalem Walid</p>
         </div>
+        <i class="fa fa-heart" ></i>
       </b-card>
     </div>
   </div>
@@ -44,8 +45,12 @@ export default {
       search: "",
     };
   },
+  
   methods: {
-    getArtworks() {
+  like(id1,id2) {
+     axios.post(`http://localhost:3000/api/like/${id1}/${id2}`).then(console.log('done') ).catch(err=> console.log((err)) )
+  },
+  getArtworks() {
       axios
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {

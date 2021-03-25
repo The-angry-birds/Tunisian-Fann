@@ -10,7 +10,7 @@ const likesSchema = (sequelize, type) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      username_id: type.STRING,
+     userId:type.INTEGER,
       artwork_id: type.STRING,
     },
     { timestamps: false }
@@ -18,6 +18,6 @@ const likesSchema = (sequelize, type) => {
   return mylikes;
 };
 
-let likes = likesSchema(sequelize, Sequelize);
+let Likes = likesSchema(sequelize, Sequelize);
 
-module.exports = { likes };
+module.exports = { Likes };
