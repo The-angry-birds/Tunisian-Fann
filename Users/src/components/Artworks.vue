@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="artworks-header">Artworks</h1>
+    <div class="artworks-header"></div>
     <div class="search">
       <label class="search-label">Search for an artwork:</label>
       <input
@@ -36,7 +36,6 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
     return {
@@ -84,10 +83,7 @@ export default {
   font-family: "Spectral", serif;
 }
 .artworks-header {
-  font-size: 25px;
-  text-align: center;
-  margin-top: 100px;
-  color: #ad7d52;
+  margin-top: 120px;
 }
 .card-container {
   display: flex;
@@ -100,8 +96,8 @@ export default {
 }
 .mb-2 {
   margin: 22px;
-  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
-  border-radius: 0;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
   width: 300px;
   height: 385px;
 }
@@ -131,7 +127,7 @@ img:hover {
   opacity: 0.5;
 }
 img {
-  border-radius: 0;
+  border-radius: 5px 5px 0px 0px;
   width: 100%;
   height: 250px;
   object-fit: cover;

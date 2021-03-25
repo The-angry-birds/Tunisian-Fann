@@ -1,7 +1,6 @@
 <template>
   <div>
-
-    <ArtworkCard/>
+    <ArtworkCard />
     <div class="artwork-container">
       <div class="left-container">
         <img class="artwork-image" v-bind:src="oneArt.imageUrl" />
@@ -33,11 +32,7 @@
 </template>
 
 <script>
-
-
 // import ArtworkCard from "./ArtworkCard.vue";
-
-
 
 export default {
   data() {
@@ -65,7 +60,7 @@ export default {
   font-family: "Spectral", serif;
 }
 .artwork-container {
-  padding-top: 70px;
+  padding-top: 120px;
   padding-bottom: 20px;
   padding-right: 10%;
   padding-left: 12%;
