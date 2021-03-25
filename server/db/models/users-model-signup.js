@@ -19,7 +19,7 @@ const usersSignupschema = (sequelize, type) => {
         type: type.BOOLEAN,
         defaultValue: false
       },
-   
+     
     
     },
     { timestamps: false }

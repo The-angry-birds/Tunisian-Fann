@@ -83,16 +83,17 @@ module.exports = {
       res.send(err);
     }
   },
-};
 
-module.exports.getAllartworks = async function (req, res) {
-  try {
-    const artworks = await Artwork.findAll({});
-    res.send(artworks);
-  } catch (err) {
-    console.log(err);
+  getAllartworks: async (req, res) => {
+    try {
+      const artworks = await Artwork.findAll({});
+      res.send(artworks);
+    } catch (err) {
+      console.log(err);
+    }
   }
-};
+
+}
 
 
 
