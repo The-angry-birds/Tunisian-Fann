@@ -54,7 +54,7 @@
           <div class="card__img--hover"></div>
         </a>
         <div class="card__info">
-         <!-- <ArtworkCard/> -->
+          <span class="card__category">Digital Paintings</span>
           <h3 class="card__title">Before Lights Out</h3>
           <span class="card__by"
             >by

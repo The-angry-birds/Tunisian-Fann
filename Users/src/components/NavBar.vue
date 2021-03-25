@@ -5,7 +5,22 @@
       src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
     />
 
-    <div v-if="status() ===''" class="dropdown" id="nav-join">
+
+    <button>
+            <router-link class="as-btns" to="/artists"
+              >Artists</router-link
+            >
+          </button>
+
+          <button>
+            <router-link class="as-btns" to="/artworks"
+              >Artworks</router-link
+            >
+          </button>
+
+    
+
+    <div v-if="status() === ''" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
         Join us
       </button>
@@ -26,9 +41,9 @@
         </li>
       </ul>
     </div>
- 
-    <div v-if="status()==='success'" class="dropdown" id="nav-join">
-     Profile
+
+    <div v-if="status() === 'success'" class="dropdown" id="nav-join">
+      Profile
       <button
         class="dropdown-toggle"
         type="button"
@@ -36,22 +51,24 @@
       ></button>
       <ul class="dropdown-menu">
         <li>
-          <router-link  to="/user-profile"
-            ><button class="as-btns">
-              Account
-            </button>
-          </router-link>
+          <button>
+            <router-link class="as-btns" to="/user-profile"
+              >Account</router-link
+            >
+          </button>
         </li>
         <li>
-          <router-link  to="/join-as-client">
-            <button  @click="handleClick()"   class="as-btns">
-              Logout 
-            </button>
-          </router-link>
+          <button>
+            <router-link
+              class="as-btns"
+              to="/join-as-client"
+              @click="handleClick()"
+              >Logout</router-link
+            >
+          </button>
         </li>
       </ul>
     </div>
-   
   </nav>
 </template>
 
@@ -62,8 +79,8 @@ export default {
       console.log("ahahahahah", this.$store.getters.authStatususer);
       return this.$store.getters.authStatususer;
     },
-           handleClick() {
-    this.$store.dispatch('logout')
+    handleClick() {
+      this.$store.dispatch("logout");
       this.$router.push("/");
     },
   },
@@ -71,14 +88,13 @@ export default {
   computed: {
     info() {
       return this.$store.getters.getuser;
-    }
- 
+    },
   },
 
   mounted() {
-    this.status()
+    this.status();
   },
-  }
+};
 </script>
 
 <style scoped>
