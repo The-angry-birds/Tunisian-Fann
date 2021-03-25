@@ -1,5 +1,5 @@
 const { User } = require("../../db/models/users-model-signup");
-const configUsers = require("../../db/configUsers.js");
+const config = require("../../db/configArtist");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -9,7 +9,7 @@ module.exports = {
     try {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
-      var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
+      var token = jwt.sign({ email: req.body.email }, config.secret, {
         expiresIn: 86400, 
       });
       const user = await User.create({
@@ -20,7 +20,7 @@ module.exports = {
         token: token,
       });
       if (user) {
-        var token = jwt.sign({ email: req.body.email }, configUsers.secret, {
+        var token = jwt.sign({ email: req.body.email }, config.secret, {
           expiresIn: 86400,
         });
         res.send({ auth: true, token: token });
@@ -44,7 +44,7 @@ module.exports = {
       if (user) {
         var result = await bcrypt.compareSync(password, user.password);
         if (result) {
-          var token = jwt.sign({ email }, configUsers.secret, {
+          var token = jwt.sign({ email }, config.secret, {
             expiresIn: "1h",
           });
           res.send({ message: "success", auth: true, token: token });

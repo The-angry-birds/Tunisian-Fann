@@ -18,9 +18,9 @@
                 </div>
                 <div class="name">
                   <h3 class="title">
-                    <span class="particular">{{ data.firstName }}</span>
+                    <span class="particular">{{ getUser.firstName }}</span>
 
-                    {{ data.lastName.toUpperCase() }}
+                    {{ getUser.lastName }}
                   </h3>
                   <div class="description text-center " v-if="data.description">
                     <p><!-- {{ data.description }} -->dkhsfhfshfhsdjh</p>
@@ -253,20 +253,20 @@ export default {
     NavBar,
   },
   methods: {
-    getUser() {
-      const token = localStorage.getItem("token");
-      axios
-        .get("http://localhost:3000/api/auth/artists", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then(({ data }) => {
-          this.$data.data = data;
-          console.log("iiiiiii", data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // getUser() {
+    //   const token = localStorage.getItem("token");
+    //   axios
+    //     .get("http://localhost:3000/api/auth/artists", {
+    //       headers: { Authorization: `Bearer ${token}` },
+    //     })
+    //     .then(({ data }) => {
+    //       this.$data.data = data;
+    //       console.log("iiiiiii", data);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
       console.log(this.file);
@@ -344,13 +344,17 @@ export default {
       });
     },
   },
-
-  beforeMount() {
-    this.getUser();
-    this.getCategories();
-    this.getArtworks(1);
-  },
-};
+computed:{
+  getUser(){
+     return this.$store.getters.getArist
+  }
+}
+//   beforeMount() {
+//     // this.getUser();
+//     this.getCategories();
+//     this.getArtworks(1);
+//   },
+// };
 $(function($) {
   var big_image;
 

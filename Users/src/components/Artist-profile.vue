@@ -19,9 +19,9 @@
                   >
                 </div>
                 <div class="media-body mb-5 text-black">
-                  <h4 class="mt-0 mb-0">Mark Williams</h4>
+                  <h4 class="mt-0 mb-0">{{ getArtist.firstName }}</h4>
                   <p class="small mb-4">
-                    <i class="fas fa-map-marker-alt mr-2"></i>New York
+                    {{ getArtist.lastName }}
                   </p>
                 </div>
               </div>
@@ -46,24 +46,24 @@
                 <a href="#" class="btn btn-link text-muted">submit</a>
               </div>
               <!-- <div class="row"> -->
-                <form>
-                  <div class="row">
-                    <div class="col">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="First name"
-                      />
-                    </div>
-                    <div class="col">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Last name"
-                      />
-                    </div>
+              <form>
+                <div class="row">
+                  <div class="col">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="First name"
+                    />
                   </div>
-                </form>
+                  <div class="col">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Last name"
+                    />
+                  </div>
+                </div>
+              </form>
               <!-- </div> -->
             </div>
           </div>
@@ -75,16 +75,21 @@
 
 <script>
 import NavBar from "./NavBar.vue";
+
 export default {
   data() {
-    return {
-      data: [],
-    };
+    return {};
   },
   components: {
     NavBar,
   },
   methods: {},
+  computed: {
+    getArtist() {
+      console.log(this.$store.state.artist);
+      return this.$store.state.artist.artist;
+    },
+  },
 };
 </script>
 

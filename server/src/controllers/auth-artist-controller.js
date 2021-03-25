@@ -52,12 +52,12 @@ module.exports = {
             expiresIn: "4h",
           });
 
-          res.send({ message: "success", auth: true, token: token });
+          res.send({ message: "success", auth: true, token: token,user:artist });
         } else {
-          res.send({ message: "wrong password", auth: false, token: null });
+          res.send({ message: "wrong password", auth: false, token: null,user:null });
         }
       } else {
-        res.send({ message: "user not found", auth: false, token: null });
+        res.send({ message: "user not found", auth: false, token: null,user :null});
       }
     } catch (err) {
       res.send(err);
@@ -105,4 +105,19 @@ module.exports = {
       res.send(err);
     }
   },
+  verifyToken: async (req, res) => {
+    try {
+
+      const token = req.body.token
+      console.log("============",token, config.secret);
+      const {email} = jwt.verify(token, config.secret);
+      console.log(email);
+      const {dataValues} = await Artist.findOne({
+        where: { email },
+      });
+      res.json({auth: true, artist: dataValues})
+    } catch (e) {
+      res.send(e);
+    }
+  }
 };

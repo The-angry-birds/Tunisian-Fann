@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+
 import store from "../store";
 Vue.use(Router);
 
@@ -20,9 +21,9 @@ const router = new Router({
       component: () => import("@/components/JoinAsArtist.vue"),
     },
     {
-      path: "/Artist-profile",
+      path: "/artist-profile",
       name: "Artist",
-      component: () => import("@/components/Artistprofile.vue"),
+      component: () => import("@/components/artist-profile.vue"),
     },
     {
       path: "/userProfil",
@@ -38,6 +39,7 @@ const router = new Router({
       path: "/artwork-details",
       name: "artwork-details",
       component: () => import("@/components/ArtworkDetails.vue"),
+
       props: true,
     },
     {
@@ -48,41 +50,60 @@ const router = new Router({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  if (store.state.isLoggedIn) {
-    next();
-  } else {
-    // check if there's a token
-    const token = window.localStorage.getItem("token");
-    console.log(token);
-    if (token) {
-      // send a request to /verify => user
-      store.state.currentUser = { name: "heni" };
-      next();
-    } else {
-      next();
-    }
-  }
-  next();
-});
+// router.beforeEach(async (to, from, next) => {
+//   const token = window.localStorage.getItem('token');
+//   if (to.name !== 'join_Artist' && store.getters.isLogged && token){
+//     next()
+//   }else if (to.name !== 'join_Artist' && !store.getters.isLogged && !token){
+//     next({ name: 'join_Artist' })
+//   }else {
+//     if(token){
+//       await store.dispatch('verifyToken', token)
+//     } else{
+//       next()
+//     }
+//   }
+// })
 
-// router.beforeEach((to, from, next) => {
+// router.beforeEach(async (to, from, next) => {
 //   console.log("+++", store);
-//   if (store.state.isLoggedIn) {
+//   console.log(store.state.user.token)
+//   if (!store.state.user.token) {
+//     console.log('No token here')
 //     next();
 //   } else {
-//     // check if there's a token
-//     const token = window.localStorage.getItem("token");
-//     console.log(token);
-//     if (token) {
-//       // send a request to /verify => user
-//       store.state.currentUser = { name: "zineb" };
-//       next();
+//     console.log(store.state.user.user)
+//     if (Object.keys(store.state.user.user).length) {
+//       console.log('and user logged in')
+//       next()
 //     } else {
-//       next();
+//       console.log('but user not logged in')
+//       const token = window.localStorage.getItem("token");
+//       const artist = await store.dispatch('verify_token', token)
+//       console.log(artist)
 //     }
 //   }
 //   next();
 // });
 
+router.beforeEach(async (to, from, next) => {
+  console.log("+++", store);
+  console.log(store.state.auth.token);
+  if (!store.state.auth.token) {
+    console.log("No token here");
+    next();
+  } else {
+    console.log(store.state.auth.user);
+    if (Object.keys(store.state.user.user).length) {
+      console.log("and user logged in");
+      next();
+    } else {
+      console.log("but user not logged in");
+      const token = window.localStorage.getItem("token");
+      const artist = await store.dispatch("verify_token", token);
+      console.log(artist);
+    }
+  }
+  next();
+});
 export default router;

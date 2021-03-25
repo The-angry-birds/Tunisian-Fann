@@ -1,7 +1,9 @@
+import axios from "axios";
+import swal from "sweetalert";
 export default {
   state: {
     userStatus: "",
-    token: localStorage.getItem("token") || "",
+    token: window.localStorage.getItem("token") || "",
     user: {},
   },
 
@@ -9,9 +11,8 @@ export default {
     auth_request_user(state) {
       state.userStatus = "loading";
     },
-    auth_success(state, token, user) {
+    auth_success(state, user) {
       state.userStatus = "success";
-      state.token = token;
       state.user = user;
     },
     auth_error(state) {
@@ -23,10 +24,30 @@ export default {
     },
   },
   getters: {
-    isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.userStatus,
+    isLoggedIn: (state) => !!Object.keys(state.user).length
   },
   actions: {
+
+    verify_token({ commit }, token) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post("http://localhost:3000/api/auth/artists/verify", {token})
+          .then(({data}) => {
+            const {artist} = data
+            console.log("hhhhh", data);
+
+            commit("auth_success", artist);
+            resolve(artist);
+          })
+          .catch((err) => {
+            commit("auth_error");
+            localStorage.removeItem("token");
+            reject(err);
+          });
+      });
+    },
+
     signup({ commit }, User) {
       return new Promise((resolve, reject) => {
         commit("auth_request_user");

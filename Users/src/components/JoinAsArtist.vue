@@ -34,7 +34,7 @@
         <input v-model="email" type="email" placeholder="Email" />
         <input v-model="password" type="password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button @click.prevent="handleClick()">Sign In</button>
+        <button @click.prevent="access()">Sign In</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
 export default {
@@ -80,12 +79,6 @@ export default {
       container.classList.remove("right-panel-active");
     },
     register() {
-      let data = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        password: this.password,
-      };
       this.has_special = /[!@#%*+=._-]/.test(this.password);
       this.has_number = /\d/.test(this.password);
       if (
@@ -107,11 +100,18 @@ export default {
           "error"
         );
       } else {
-       //TODO: mapDispatch()
+        let data = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password,
+        };
+        //TODO: mapDispatch()
         this.$store
           .dispatch("register", data)
           .then(() => {
-            this.$router.push("/Artist-profile");
+            console.log("mydata=====", data);
+            this.$router.push("/artist-profile");
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -119,37 +119,34 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
+            console.log("registred");
           })
           .catch((err) => {
             console.log(err);
+            swal("oops", "Something went wrong");
           });
       }
     },
-  },
-  handleClick() {
-    if (this.email === "" || this.password === "") {
-      swal("Oops!", "Empty fields", "error");
-    } else {
-      axios
-        .post("http://localhost:3000/api/auth/artists/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(({ data }) => {
-          console.log(data);
-          if (data.message === "success") {
-            localStorage.setItem("token", data.token);
-            this.$router.push("/artist-profile");
-          } else if (data.message === "wrong password") {
-            swal("Oops!", "Wrong Password!", "error");
-          } else {
-            swal("Oops!", "Wrong Email!", "error");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    access() {
+      if (this.email === "" || this.password === "") {
+        swal("Oops!", "Empty fields", "error");
+      } else {
+        let email = this.email;
+        let password = this.password;
+        this.$store
+          .dispatch("access", { email, password })
+          .then((resp) => {
+            if (resp.message === "wrong password") {
+              swal("Oops!", "Wrong Password!", "error");
+            } else if (resp.message === "user not found") {
+              swal("Oops!", "Wrong Email!", "error");
+            } else {
+              this.$router.push("/Artist-profile");
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    },
   },
 };
 </script>
