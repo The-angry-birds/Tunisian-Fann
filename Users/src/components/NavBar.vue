@@ -5,22 +5,15 @@
       src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
     />
 
+    <button>
+      <router-link class="nav-btns" to="/artists">Artists</router-link>
+    </button>
 
     <button>
-            <router-link class="as-btns" to="/artists"
-              >Artists</router-link
-            >
-          </button>
+      <router-link class="nav-btns" to="/artworks">Artworks</router-link>
+    </button>
 
-          <button>
-            <router-link class="as-btns" to="/artworks"
-              >Artworks</router-link
-            >
-          </button>
-
-    
-
-    <div v-if="status() === ''" class="dropdown" id="nav-join">
+    <div v-if="!authGuest" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
         Join us
       </button>
@@ -42,7 +35,7 @@
       </ul>
     </div>
 
-    <div v-if="status() === 'success'" class="dropdown" id="nav-join">
+    <div v-else class="dropdown" id="nav-join">
       Profile
       <button
         class="dropdown-toggle"
@@ -59,10 +52,7 @@
         </li>
         <li>
           <button>
-            <router-link
-              class="as-btns"
-              to="/join-as-client"
-              @click="handleClick()"
+            <router-link is="a" class="as-btns" @click="handleClick()"
               >Logout</router-link
             >
           </button>
@@ -74,23 +64,28 @@
 
 <script>
 export default {
-  methods: {
-    status() {
-      console.log("ahahahahah", this.$store.getters.authStatususer);
-      return this.$store.getters.authStatususer;
+  computed: {
+    authGuest() {
+      console.log("logged: s", this.$store.getters.logged);
+      return this.$store.getters.logged;
     },
+  },
+  methods: {
+    // auth() {
+    //   return this.$store.getters.authStatus;
+    // },
+    // authArtist() {
+    //   return this.$store.getters.artistStatus;
+    // },
     handleClick() {
+      console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
-  },
-  computed: {
-    info() {
-      return this.$store.getters.getuser;
-    },
-  },
-  mounted() {
-    this.status();
+    // handleClickArtist() {
+    //   this.$store.artist.dispatch("logout");
+    //   this.$router.push("/");
+    // },
   },
 };
 </script>
@@ -124,7 +119,24 @@ export default {
 #nav-join:hover {
   color: #000000;
 }
+.nav-btns {
+  align-items: center;
+  color: #ad7d52;
+  display: flex;
+  float: left;
+  font-family: "Spectral", serif;
+  font-size: 16px;
+  height: 100%;
+  margin-left: 20px;
+  top: 2px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.nav-btns:hover {
+  color: #000000;
+}
 .as-btns {
+  margin-top: 10px;
   align-items: center;
   color: #ad7d52;
   display: flex;
