@@ -1,18 +1,17 @@
 <template>
   <header class="header">
-    <div class="logo-box">
-      <img
-        class="logo"
-        src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
-        alt="Logo"
-      />
-    </div>
     <div class="text-box">
       <h1 class="heading-primary">
-        <span class="heading-primary-main">ART</span>
-        <span class="heading-primary-sub">for a special experience</span>
+        <img
+          class="logo"
+          src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
+          alt="Logo"
+        />
+
+        <span class="heading-primary-sub">Where we value ART</span>
+        <hr />
       </h1>
-      <a href="#" class="btn btn-white">Discover our auctions</a>
+      <a href="#" class="btn btn-header"><span>Discover our auctions </span></a>
     </div>
   </header>
 </template>
@@ -22,6 +21,8 @@ export default {};
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -30,54 +31,41 @@ export default {};
 }
 
 header {
-  height: 90vh;
+  height: 100vh;
   background-image: linear-gradient(
       to left,
-      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.1),
       rgba(0, 0, 0, 0.1)
     ),
-    url(https://wallpaperaccess.com/full/176937.jpg);
+    url("../assets/header-bg.jpg");
   background-size: cover;
-  background-position: top;
+  background-position: bottom left;
   clip-path: polygon(topleft, topright, bottomright, bottomleft);
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  /* clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); */
   position: relative;
-  margin-top: 50px;
-}
-
-.logo-box {
-  position: absolute;
-  top: 4rem;
-  left: 4rem;
+  padding-top: 50px;
+  padding-bottom: 10em;
 }
 
 .logo {
   height: 3.5rem;
-  animation: moveInRight 1s ease-out;
+  animation: moveInLeft 1s ease-out;
 }
 
 .heading-primary {
   color: #ececec;
   text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.heading-primary-main {
-  display: block;
-  font-size: 6rem;
-  font-weight: 400;
-  letter-spacing: 3.5rem;
-  animation-name: moveInLeft;
-  animation-duration: 1s;
-  animation-timing-function: ease-in;
+  text-align: right;
+  margin-bottom: 5rem;
 }
 
 .heading-primary-sub {
+  font-family: "Lexend", sans-serif;
+  margin-top: 2em;
   display: block;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 1.75rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.7rem;
   animation-name: moveInRight;
   animation-duration: 1s;
   animation-timing-function: ease-in;
@@ -85,11 +73,10 @@ header {
 }
 
 .text-box {
-  position: absolute;
-  top: 40%;
-  left: 50%;
+  margin-top: 250px;
+  margin-left: 900px;
   transform: translate(-50%, -50%);
-  text-align: center;
+  text-align: right;
 }
 
 @keyframes moveInLeft {
@@ -114,36 +101,33 @@ header {
   }
 }
 
-.btn {
+/** 
+ * Button Styling
+ */
+
+.btn-header {
   display: inline-block;
-  padding: 0.4rem 2rem;
+  padding: 0.2em 0.5em;
   text-decoration: none;
   text-transform: uppercase;
-  border-radius: 5px;
   transition: all 0.2s;
   position: relative;
   font-size: 1.2rem;
-  text-shadow: 0px 1px 1px #808080;
+  transition: 0.1s;
+  /* text-shadow: 0px 1px 1px #808080; */
+  color: #a08018;
 }
 
-.btn-white {
-  background-color: #fff;
-  color: #000000;
-}
-
-.btn-ani {
+/* .btn-ani {
   animation: moveInBottom 1.5s ease-in 0.5s;
   animation-fill-mode: backwards;
-}
+} */
 
-.btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
-}
-
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.5);
+.btn-header:hover {
+  /* transform: translateY(-2px); */
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.5); */
+  background-color: transparent;
+  transition: 0.1s;
 }
 
 .btn:after {
@@ -156,16 +140,7 @@ header {
   left: 0;
   z-index: -1;
   border-radius: 5px;
-  transition: all 0.7s;
-}
-
-.btn-white:after {
-  background-color: #fff;
-}
-
-.btn:hover::after {
-  transform: scaleX(1.5) scaleY(1.5);
-  opacity: 0;
+  /* transition: all 0.7s; */
 }
 
 @keyframes moveInBottom {
@@ -178,6 +153,35 @@ header {
     opacity: 1;
   }
 }
+
+.btn-header span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.btn-header span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.btn-header:hover span {
+  padding-right: 25px;
+}
+
+.btn-header:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+/** 
+ * Button Styling
+ */
 </style>
 
 

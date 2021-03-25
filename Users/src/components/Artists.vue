@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="artworks-header">Artists</h1>
+    <div class="artists-header"></div>
     <div class="search">
       <label class="search-label">Search for an artist:</label>
       <input
@@ -70,20 +70,17 @@ export default {
   box-sizing: border-box;
   font-family: "Spectral", serif;
 }
-.artworks-header {
-  font-size: 25px;
-  text-align: center;
-  margin-top: 100px;
-  color: #ad7d52;
-}
-.cards-container {
 
+.artists-header {
+  margin-top: 120px;
+}
+
+.cards-container {
   flex-wrap: wrap;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  
-  
 }
 img {
   width: 50%;
@@ -107,21 +104,19 @@ p {
   padding-top: 30px;
   padding-bottom: 30px;
   /* position: relative; */
-  width: 350px;
-  max-width: 100%;
   text-align: center;
   margin: 20px;
   width: 300px;
-  height: 370px;
+  height: 385px;
 }
 .card-container .round {
   border: 1px solid black;
   width: 50%;
   height: 50%;
   border-radius: 50%;
-  padding: 7px;
+  padding: 4px;
 }
-button.primary {
+.primary {
   background-color: black;
   border: 1px solid black;
   border-radius: 3px;
@@ -132,6 +127,12 @@ button.primary {
   background-color: transparent;
   color: black;
   margin-left: 10px;
+  transition: 0.5s;
+}
+
+.primary:hover {
+  color: white;
+  background-color: black;
 }
 .search {
   text-align: right;
