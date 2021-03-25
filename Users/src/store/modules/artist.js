@@ -11,11 +11,7 @@ export default {
     auth_request(state) {
       state.status = "loading";
     },
-    // auth_success(state, payload) {
-    //   state.status = "success";
-    //   state.token = payload.token;
-    //   state.artist = payload.artist;
-    // },
+
     auth_success(state, { token, artist }) {
       state.status = "success";
       state.token = token;

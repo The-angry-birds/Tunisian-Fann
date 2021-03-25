@@ -87,7 +87,7 @@ export default {
   computed: {
     getArtist() {
       console.log(this.$store.state.artist);
-      return this.$store.state.artist.artist;
+      return this.$store.state.auth.user;
     },
   },
 };

@@ -16,6 +16,21 @@ const router = new Router({
       component: () => import("@/components/JoinAsClient.vue"),
     },
     {
+      path: "/informationCard",
+      name: "informationCard",
+      component: () => import("@/components/CardInformation.vue"),
+    },
+    {
+      path: "/artworks",
+      name: "artworks",
+      component: () => import("@/components/Artworks.vue"),
+    },
+    {
+      path: "/artists",
+      name: "artists",
+      component: () => import("@/components/Artists.vue"),
+    },
+    {
       path: "/join-as-artist",
       name: "join_Artist",
       component: () => import("@/components/JoinAsArtist.vue"),
@@ -26,9 +41,20 @@ const router = new Router({
       component: () => import("@/components/artist-profile.vue"),
     },
     {
-      path: "/userProfil",
-      name: "user",
-      component: () => import("@/components/userProfil.vue"),
+      path: "/artist-profile-view",
+      name: "ArtistProfileView",
+      component: () => import("@/components/ArtistProfileView.vue"),
+      props: { artworks: true },
+    },
+    // {
+    //   path: "/userprofile",
+    //   name: "user",
+    //   component: () => import("@/components/UserProfile.vue"),
+    // },
+    {
+      path: "/user-profile",
+      name: "UserProfile",
+      component: () => import("@/components/UserProfileX.vue"),
     },
     {
       path: "/auction-details",
@@ -37,54 +63,12 @@ const router = new Router({
     },
     {
       path: "/artwork-details",
-      name: "artwork-details",
+      name: "artworkDetails",
       component: () => import("@/components/ArtworkDetails.vue"),
-
       props: true,
-    },
-    {
-      path: "/napil",
-      name: "ArtistProfileX",
-      component: () => import("@/components/ArtistProfileX.vue"),
     },
   ],
 });
-
-// router.beforeEach(async (to, from, next) => {
-//   const token = window.localStorage.getItem('token');
-//   if (to.name !== 'join_Artist' && store.getters.isLogged && token){
-//     next()
-//   }else if (to.name !== 'join_Artist' && !store.getters.isLogged && !token){
-//     next({ name: 'join_Artist' })
-//   }else {
-//     if(token){
-//       await store.dispatch('verifyToken', token)
-//     } else{
-//       next()
-//     }
-//   }
-// })
-
-// router.beforeEach(async (to, from, next) => {
-//   console.log("+++", store);
-//   console.log(store.state.user.token)
-//   if (!store.state.user.token) {
-//     console.log('No token here')
-//     next();
-//   } else {
-//     console.log(store.state.user.user)
-//     if (Object.keys(store.state.user.user).length) {
-//       console.log('and user logged in')
-//       next()
-//     } else {
-//       console.log('but user not logged in')
-//       const token = window.localStorage.getItem("token");
-//       const artist = await store.dispatch('verify_token', token)
-//       console.log(artist)
-//     }
-//   }
-//   next();
-// });
 
 router.beforeEach(async (to, from, next) => {
   console.log("+++", store);
