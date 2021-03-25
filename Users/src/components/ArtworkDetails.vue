@@ -4,10 +4,7 @@
     <ArtworkCard/>
     <div class="artwork-container">
       <div class="left-container">
-        <img
-          class="artwork-image"
-         v-bind:src="oneArt.imageUrl"
-        />
+        <img class="artwork-image" v-bind:src="oneArt.imageUrl" />
       </div>
       <div class="right-container">
         <div class="artwork-header">
@@ -24,7 +21,7 @@
           <h1 class="price">{{ oneArt.price }} DT</h1>
         </div>
         <hr />
-        <button class="buy-btn">BUY NOW</button>
+        <button class="buy-btn" @click="cardInformation">BUY NOW</button>
         <hr />
         <div class="artwork-by">
           by
@@ -37,21 +34,29 @@
 
 <script>
 
+
 // import ArtworkCard from "./ArtworkCard.vue";
 
-export default {
 
+
+export default {
   data() {
     return {
       oneArt: {},
     };
   },
   mounted() {
-    console.log("==========",this.$route.params)
+    console.log("==========", this.$route.params);
     this.oneArt = this.$route.params;
-    console.log("ghjkl",this.oneArt)
+
+    console.log("ghjkl", this.oneArt);
   },
 
+  methods: {
+    cardInformation() {
+      this.$router.push("/informationCard");
+    },
+  },
 };
 </script>
 
