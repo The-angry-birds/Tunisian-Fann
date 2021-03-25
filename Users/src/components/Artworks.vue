@@ -9,6 +9,7 @@
         v-model="search"
         placeholder="Search..."
       />
+       
     </div>
     <div class="card-container">
       <b-card
@@ -24,14 +25,18 @@
         <h3 class="card-title" @click="sharedData(artwork)">
           {{ artwork.nameArtwork }}
         </h3>
+            
 
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
         </div>
-        <i class="fa fa-heart" ></i>
+        <div>
+        </div>
       </b-card>
+      <i class="fas fa-heart" @click.prevent="like()"></i>
     </div>
+      
   </div>
 </template>
 
@@ -43,19 +48,39 @@ export default {
     return {
       artworks: [],
       search: "",
+      artwork_id:"",
+      user_id :""
+
     };
   },
   
   methods: {
-  like(id1,id2) {
-     axios.post(`http://localhost:3000/api/like/${id1}/${id2}`).then(console.log('done') ).catch(err=> console.log((err)) )
-  },
+  like(){
+    const create = {
+        artwork_id: this.artwork_id,
+        user_id : this.user_id ,
+     
+      }
+    axios.post("http://localhost:3000/api/likes",create)
+    .then((res) =>{console.log("====================>",res)})
+    .catch(err =>{console.log(err)})
+
+    },
+
+    getlikes(){
+      axios.get(`http://localhost:3000/api/likes/1`)
+      .then((res) =>{
+        console.log(res)
+        })
+      .catch(err =>{console.log(err)})
+
+    },
+
   getArtworks() {
       axios
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
-          this.artworks = res.data;
-          // console.log("=============", this.artworks);
+          this.artworks = res.data
         })
         .catch((err) => {
           console.log(err);
@@ -67,7 +92,6 @@ export default {
   },
   computed: {
     filteredList() {
-      console.log("yuihuin");
       return this.artworks.filter((artwork) => {
         return artwork.nameArtwork
           .toLowerCase()
@@ -77,8 +101,8 @@ export default {
   },
 
   mounted() {
+    
     this.getArtworks();
-    this.oneArt = this.$route.params;
   },
 };
 </script>
@@ -88,6 +112,7 @@ export default {
   box-sizing: border-box;
   font-family: "Spectral", serif;
 }
+
 .artworks-header {
   font-size: 25px;
   text-align: center;

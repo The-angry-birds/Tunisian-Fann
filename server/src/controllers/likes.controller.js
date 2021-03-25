@@ -4,24 +4,32 @@ module.exports = {
   setlike: async (req, res) => {
     try {
       const existingLike = await Likes.findOne({
-        where: { artwork_id: req.body.artwork_id, userId: req.body.userId },
+        where: { artwork_id: req.body.artwork_id, user_id: req.body.user_id },
       });
-      console.log(
-        "🚀 ~ file: likes.controller.js ~ line 11 ~ setlike: ~ existingLike",
-        existingLike
-      );
       if (existingLike) {
-        res.send("Noop");
+        res.send("Already liked!");
       } else {
         const newLike = await Likes.create({
           artwork_id: req.body.artwork_id,
-          userId: req.body.userId,
+          user_id: req.body.user_id,
         });
-        console.log("🚀 newLike", newLike);
-        res.send("yaaaaas!!!");
+        res.send("Liked!");
       }
     } catch (err) {
       console.log(err);
+      res.send(err);
     }
   },
+    getlikes: async (req, res) => {
+    try {
+      const findLikes = await Likes.findOne({ where: { id: req.params.id } });
+      res.send(findLikes);
+    } catch (err) {
+      res.send(err);
+    }
+  }
 };
+
+
+
+
