@@ -20,16 +20,14 @@ module.exports = {
       res.send(err);
     }
   },
-    getlikes: async (req, res) => {
+  getlikes: async (req, res) => {
     try {
-      const findLikes = await Likes.findOne({ where: { id: req.params.id } });
+      const findLikes = await Likes.findAll({
+        where: { artwork_id: req.params.id },
+      });
       res.send(findLikes);
     } catch (err) {
       res.send(err);
     }
-  }
+  },
 };
-
-
-
-
