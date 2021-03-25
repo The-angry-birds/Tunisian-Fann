@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+  
 
 Vue.use(Router);
 
@@ -13,6 +14,11 @@ const router = new Router({
       path: "/join-as-client",
       name: "join_Client",
       component: () => import("@/components/JoinAsClient.vue"),
+    },
+    {
+      path: "/informationCard",
+      name: "informationCard",
+      component: () => import("@/components/CardInformation.vue"),
     },
     {
       path: "/join-as-artist",
@@ -30,13 +36,13 @@ const router = new Router({
       component: () => import("@/components/ArtistProfileView.vue"),
       props: { artworks: true },
     },
+    // {
+    //   path: "/userprofile",
+    //   name: "user",
+    //   component: () => import("@/components/UserProfile.vue"),
+    // },
     {
       path: "/user-profile",
-      name: "user",
-      component: () => import("@/components/UserProfile.vue"),
-    },
-    {
-      path: "/jdidi",
       name: "UserProfile",
       component: () => import("@/components/UserProfileX.vue"),
     },
