@@ -6,12 +6,18 @@
     />
 
     <button>
+
       <router-link class="nav-btns" to="/artists">Artists</router-link>
     </button>
 
-    <button>
-      <router-link class="nav-btns" to="/artworks">Artworks</router-link>
-    </button>
+         
+
+          <button>
+            <router-link class="nav-btns" to="/artworks"
+              >Artworks</router-link
+            >
+          </button>
+
 
     <div v-if="!authGuest" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
@@ -71,22 +77,13 @@ export default {
     },
   },
   methods: {
-    // auth() {
-    //   return this.$store.getters.authStatus;
-    // },
-    // authArtist() {
-    //   return this.$store.getters.artistStatus;
-    // },
+   
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
-    // handleClickArtist() {
-    //   this.$store.artist.dispatch("logout");
-    //   this.$router.push("/");
-    // },
-  },
+  
 };
 </script>
 
