@@ -1,10 +1,16 @@
-import axios from "axios";
-import swal from "sweetalert";
+
+import axios from "axios"
+
+
 export default {
+
+
   state: {
     userStatus: "",
     token: window.localStorage.getItem("token") || "",
     user: {},
+  
+
   },
 
   mutations: {
@@ -14,6 +20,7 @@ export default {
     auth_success(state, user) {
       state.userStatus = "success";
       state.user = user;
+  
     },
     auth_error(state) {
       state.userStatus = "error";
@@ -23,46 +30,34 @@ export default {
       state.token = "";
     },
   },
-  getters: {
-    authStatus: (state) => state.userStatus,
-    isLoggedIn: (state) => !!Object.keys(state.user).length
-  },
+   getters: {
+     isLoggedInuser: (state) => !!state.token,
+    authStatususer: (state) => state.userStatus,
+    getuser: (state) => state.user
+  }, 
   actions: {
 
-    verify_token({ commit }, token) {
-      return new Promise((resolve, reject) => {
-        axios
-          .post("http://localhost:3000/api/auth/artists/verify", {token})
-          .then(({data}) => {
-            const {artist} = data
-            console.log("hhhhh", data);
 
-            commit("auth_success", artist);
-            resolve(artist);
-          })
-          .catch((err) => {
-            commit("auth_error");
-            localStorage.removeItem("token");
-            reject(err);
-          });
-      });
-    },
+
+
+
 
     signup({ commit }, User) {
       return new Promise((resolve, reject) => {
-        commit("auth_request_user");
+      commit("auth_request_user");
         axios
           .post("http://localhost:3000/api/auth/users/signup", User)
-          .then((resp) => {
-            console.log("hhhhh", resp);
-            const token = resp.data.token;
-            console.log("hhhhh", token);
-            const user = resp.data.user;
+          .then((data) => {
+            console.log("===>", data);
+            const token = data.data.token;
+           
+            const user = data.data.user;
+            console.log("===>",user)
 
-            localStorage.setItem("token", token);
+//             localStorage.setItem("token", token);
 
-            commit("auth_success", token, user);
-            resolve(resp);
+            commit("auth_success", token, user);  
+            resolve(data);
           })
           .catch((err) => {
             commit("auth_error");
@@ -77,17 +72,13 @@ export default {
         commit("auth_request_user");
         axios
           .post("http://localhost:3000/api/auth/users/login", user)
-          .then(({ data }) => {
-            const token = data.token;
-            const user = data.user;
-            if (data.message === "wrong password") {
-              swal("Oops!", "Wrong Password!", "error");
-            } else if (data.message === "user not found") {
-              swal("Oops!", "Wrong Email!", "error");
-            } else {
+          .then((data) => {
+            const token = data.data.token;
+            const user = data.data.user;
+             console.log("=====>",user)
               localStorage.setItem("token", token);
               commit("auth_success", token, user);
-            }
+            
             resolve(data);
           })
           .catch((err) => {
@@ -98,13 +89,17 @@ export default {
       });
     },
 
-    logout({ commit }) {
-      return new Promise((resolve) => {
-        commit("logout");
-        localStorage.removeItem("token");
 
-        resolve();
-      });
-    },
+
+ logout({ commit }) {
+       return new Promise((resolve) => {
+         commit("logout");
+         localStorage.removeItem("token");
+
+         resolve();
+       });
+     },
   },
-};
+ };
+
+ 

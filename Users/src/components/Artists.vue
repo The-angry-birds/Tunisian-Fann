@@ -1,25 +1,27 @@
 <template>
   <div>
     <h1 class="artworks-header">or buy one of our artworks</h1>
-    <div class="card-container">
+
    
+     <input type="text" v-model="search" placeholder="Search title.."/>
+        <label>Search title:</label>
+    <div class="card-container">
       <b-card
-      @click="sharedData(artwork)"
-        v-for="(artwork, i) in artworks"
+        v-for="(artist, i) in filteredList"
         :key="i"
-        v-bind:img-src="artwork.imageUrl"
+        v-bind:img-src="artist.imageUrl"
         img-top
         class="mb-2"
       >
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
+        <b-card-text class="card-category">{{ artist.category }}</b-card-text>
 
      
-        <h3 class="card-title" @click="sharedData(artwork)">{{ artwork.nameArtwork }}</h3>
+        <h3 class="card-title" >{{ artist.firstName }}</h3>
     
 
         <div class="card-by">
           by
-          <p class="card-author">Bensalem Walid</p>
+          <p class="card-author">{{ artist.lastName }}</p>
         </div>
       </b-card>
       
@@ -33,34 +35,44 @@
 import axios from "axios";
 
 export default {
-   
+
   data() {
     return {
-      artworks: [],
-      oneArt:{}
+      artists: [],
+       search: "",
+   
     };
   },
   methods: {
-    getArtworks() {
+    getArtists() {
       axios
-        .get(`http://localhost:3000/api/artworks`)
+        .get(`http://localhost:3000/api/artists`)
         .then((res) => {
-          this.artworks = res.data;
-          console.log("=============", this.artworks);
+          this.artists = res.data;
+          console.log("=============", this.artists);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    sharedData(a){
-      this.$router.push({name:"artworkDetails" , params: a})
-  
-    },
     
   },
+   computed: {
+    filteredList() {
+      return this.artists.filter(artist => {
+        return artist.firstName.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+   },
+    
+    
+
+   
+
   mounted() {
-    this.getArtworks();
+    this.getArtists();
       this.oneArt = this.$route.params;
+    
   
   },
 };

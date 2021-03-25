@@ -1,11 +1,19 @@
 <template>
   <div>
-    <h1 class="artworks-header">or buy one of our artworks</h1>
+    <h1 class="artworks-header">Artworks</h1>
+    <div class="search">
+      <label class="search-label">Search for an artwork:</label>
+      <input
+        class="search-input"
+        type="text"
+        v-model="search"
+        placeholder="Search..."
+      />
+    </div>
     <div class="card-container">
-   
       <b-card
-      @click="sharedData(artwork)"
-        v-for="(artwork, i) in artworks"
+        @click="sharedData(artwork)"
+        v-for="(artwork, i) in filteredList"
         :key="i"
         v-bind:img-src="artwork.imageUrl"
         img-top
@@ -13,19 +21,16 @@
       >
         <b-card-text class="card-category">Digital Paintings</b-card-text>
 
-     
-        <h3 class="card-title" @click="sharedData(artwork)">{{ artwork.nameArtwork }}</h3>
-    
+        <h3 class="card-title" @click="sharedData(artwork)">
+          {{ artwork.nameArtwork }}
+        </h3>
 
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
         </div>
       </b-card>
-      
     </div>
-          <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
-
   </div>
 </template>
 
@@ -33,11 +38,10 @@
 import axios from "axios";
 
 export default {
-   
   data() {
     return {
       artworks: [],
-      oneArt:{}
+      search: "",
     };
   },
   methods: {
@@ -46,31 +50,43 @@ export default {
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
           this.artworks = res.data;
-          console.log("=============", this.artworks);
+          // console.log("=============", this.artworks);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    sharedData(a){
-      this.$router.push({name:"artworkDetails" , params: a})
-  
+    sharedData(a) {
+      this.$router.push({ name: "artworkDetails", params: a });
     },
-    
   },
+  computed: {
+    filteredList() {
+      console.log("yuihuin");
+      return this.artworks.filter((artwork) => {
+        return artwork.nameArtwork
+          .toLowerCase()
+          .includes(this.search.toLowerCase());
+      });
+    },
+  },
+
   mounted() {
     this.getArtworks();
-      this.oneArt = this.$route.params;
-  
+    this.oneArt = this.$route.params;
   },
 };
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+  font-family: "Spectral", serif;
+}
 .artworks-header {
   font-size: 25px;
   text-align: center;
-  margin-top: 25px;
+  margin-top: 100px;
   color: #ad7d52;
 }
 .card-container {
@@ -120,14 +136,23 @@ img {
   height: 250px;
   object-fit: cover;
 }
-#loadMore {
-  font-size: 15px;
-  text-align: center;
-  margin-top: 25px;
-  color: #ad7d52;
-  margin-left: 46%;
+.search {
+  text-align: right;
+  margin-right: 10%;
 }
-#loadMore:hover {
-  color: #000000;
+
+.search-label {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 10px;
+}
+
+.search-input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  width: 300px;
+  border-style: solid;
+  border-radius: 5px;
 }
 </style>

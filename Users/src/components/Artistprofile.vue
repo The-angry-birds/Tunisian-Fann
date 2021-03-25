@@ -344,17 +344,17 @@ export default {
       });
     },
   },
-computed:{
-  getUser(){
-     return this.$store.getters.getArist
-  }
-}
-//   beforeMount() {
-//     // this.getUser();
-//     this.getCategories();
-//     this.getArtworks(1);
-//   },
-// };
+  computed: {
+    getUser() {
+      return this.$store.getters.getArist;
+    },
+  },
+  //   beforeMount() {
+  //     // this.getUser();
+  //     this.getCategories();
+  //     this.getArtworks(1);
+  //   },
+};
 $(function($) {
   var big_image;
 
@@ -708,7 +708,7 @@ a .material-icons {
   font-size: 50px;
   font-family: "Roboto Slab", "Times New Roman", serif;
 }
-  
+
 .nav-pills.nav-pills-icons .nav-item .nav-link {
   border-radius: 4px;
 }

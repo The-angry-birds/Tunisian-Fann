@@ -94,7 +94,7 @@ router.beforeEach(async (to, from, next) => {
     next();
   } else {
     console.log(store.state.auth.user);
-    if (Object.keys(store.state.user.user).length) {
+    if (Object.keys(store.state.auth.user).length) {
       console.log("and user logged in");
       next();
     } else {
