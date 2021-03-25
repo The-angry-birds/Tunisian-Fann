@@ -21,11 +21,11 @@
         class="mb-2"
       >
         <b-card-text class="card-category">Digital Paintings</b-card-text>
+        <h3>{{ artwork.likes }} </h3>
 
         <h3 class="card-title" @click="sharedData(artwork)">
           {{ artwork.nameArtwork }}          
         </h3>
-        <h3>{{ artwork.likes }} </h3>
         <button @click.prevent="like(artwork)">Li</button>   
         <div class="card-by">
           by
@@ -34,7 +34,6 @@
         <div>
         </div>
       </b-card>
-      <i class="fas fa-heart" ></i>
     </div>
       
   </div>
@@ -55,10 +54,9 @@ export default {
   },
   
   methods: {
-  like(a){
-    console.log('da' , a.id  , this.user_id)
+  like(art){
     const create = {
-        artwork_id: a.id,
+        artwork_id: art.id,
         user_id : 2,
       }
     axios.post("http://localhost:3000/api/likes",create)
@@ -68,10 +66,10 @@ export default {
       })
     },
 
-    getlikes(a){
-      axios.get(`http://localhost:3000/api/likes/${a}`)
+    getlikes(id){
+      axios.get(`http://localhost:3000/api/likes/${id}`)
       .then((res) =>{
-        console.log("dadadadadadaadda",res.data.length)
+        console.log(res.data.length)
         })
       .catch(err =>{console.log(err)})
     },
@@ -81,11 +79,11 @@ export default {
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
           this.artworks = res.data
-       this.artworks.map((e)=>{
-              axios.get(`http://localhost:3000/api/likes/${e.id}`)
+       this.artworks.map((art)=>{
+        axios.get(`http://localhost:3000/api/likes/${art.id}`)
       .then((res) =>{
-        console.log("d",res.data.length)
-        e.likes = res.data.length
+        console.log(res.data.length)
+        art.likes = res.data.length
         })
       .catch(err =>{console.log(err)})
         })

@@ -86,7 +86,7 @@ export default {
   methods: {},
   computed: {
     getArtist() {
-      console.log(this.$store.state.artist);
+      console.log("iii", this.$store.state.auth.user);
       return this.$store.state.auth.user;
     },
   },
