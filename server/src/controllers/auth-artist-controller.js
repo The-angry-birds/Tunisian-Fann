@@ -19,6 +19,8 @@ module.exports = {
         email: req.body.email,
         password: hash,
         category: req.body.category,
+        imageUrl:req.body.imageUrl,
+        description:req.body.description
       });
       if (artist) {
         res.send({
