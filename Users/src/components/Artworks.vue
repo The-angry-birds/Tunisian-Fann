@@ -58,7 +58,7 @@ export default {
   like(){
     const create = {
         artwork_id: this.artwork_id,
-        user_id : this.user_id ,
+        user_id : this.user_id,
      
       }
     axios.post("http://localhost:3000/api/likes",create)
