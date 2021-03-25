@@ -7,13 +7,13 @@
 
 
     <button>
-            <router-link class="as-btns" to="/artists"
+            <router-link class="nav-btns" to="/artists"
               >Artists</router-link
             >
           </button>
 
           <button>
-            <router-link class="as-btns" to="/artworks"
+            <router-link class="nav-btns" to="/artworks"
               >Artworks</router-link
             >
           </button>
@@ -124,7 +124,25 @@ export default {
 #nav-join:hover {
   color: #000000;
 }
+.nav-btns {
+  
+  align-items: center;
+  color: #ad7d52;
+  display: flex;
+  float: left;
+  font-family: "Spectral", serif;
+  font-size: 16px;
+  height: 100%;
+  margin-left: 20px;
+  top: 2px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.nav-btns:hover {
+  color: #000000;
+}
 .as-btns {
+  margin-top:10px;
   align-items: center;
   color: #ad7d52;
   display: flex;
