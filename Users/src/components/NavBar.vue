@@ -84,13 +84,11 @@ export default {
       this.$router.push("/");
     },
   },
-
   computed: {
     info() {
       return this.$store.getters.getuser;
     },
   },
-
   mounted() {
     this.status();
   },
@@ -102,7 +100,6 @@ export default {
   padding: 0;
   margin: 0;
 }
-
 .navbar {
   background-color: white;
   height: 50px;
@@ -113,7 +110,6 @@ export default {
   top: 0;
   z-index: 10;
 }
-
 #nav-join {
   align-items: center;
   color: #ad7d52;
@@ -125,11 +121,9 @@ export default {
   margin-left: 80%;
   font-weight: bold;
 }
-
 #nav-join:hover {
   color: #000000;
 }
-
 .as-btns {
   align-items: center;
   color: #ad7d52;
@@ -144,11 +138,9 @@ export default {
   font-weight: bold;
   text-decoration: none;
 }
-
 .as-btns:hover {
   color: #000000;
 }
-
 .navbar-logo {
   height: 100%;
   margin-left: 15%;

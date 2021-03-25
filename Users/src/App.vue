@@ -16,9 +16,6 @@ export default {
   components: {
     NavBar,
   },
-  mounted() {
-    console.log(this.$store.state.currentUser)
-  }
 };
 </script>
 

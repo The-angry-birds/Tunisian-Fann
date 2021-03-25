@@ -7,7 +7,7 @@ export default {
 
   state: {
     userStatus: "",
-    token: localStorage.getItem("token") || "",
+    token: window.localStorage.getItem("token") || "",
     user: {},
   
 
@@ -17,9 +17,8 @@ export default {
     auth_request_user(state) {
       state.userStatus = "loading";
     },
-    auth_success(state, token, user) {
+    auth_success(state, user) {
       state.userStatus = "success";
-      state.token = token;
       state.user = user;
   
     },
@@ -102,3 +101,4 @@ export default {
      },
   },
  };
+
