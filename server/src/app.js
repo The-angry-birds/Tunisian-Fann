@@ -14,6 +14,7 @@ const artistRoutes = require("./routes/artists.routes");
 const artworkRouter = require("./routes/artwork-routes");
  const auctionsRouter =require("./routes/auctions.routes")
  const likesRouter =require("./routes/routes.likes")
+ const verifyRouter=require("./routes/auth.verify.routes")
 const app = express();
 
 app.use(morgan("combined"));
@@ -30,10 +31,11 @@ app.use("/api/users", usersRoutes);
 app.use("/api/auth/artists", artistAuthRoutes);
 app.use("/api/artists", artistRoutes);
 app.use("/api/auctions",auctionsRouter)
-app.use("/api/users/likes",likesRouter)
+app.use("/api/auth",verifyRouter)
+app.use("/api/likes",likesRouter)
 
-const stripeSecretkey= process.env.STRIPE_SECRET_KEY
-const stripePublickey= process.env.STRIPE_PUBLIC_KEY
+
+
 
 app.post("/sendmessage", (req, res) => {
   console.log(req.body);

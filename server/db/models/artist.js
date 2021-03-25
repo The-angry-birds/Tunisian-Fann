@@ -14,21 +14,17 @@ const artistAuthSchema = (sequelize, type) => {
       lastName: type.STRING,
       email: type.STRING,
       password: type.STRING,
-      description:type.STRING,
-      category: type.STRING,
+      description: type.STRING,
       imageUrl: type.STRING,
-      telNumber:type.INTEGER,
+      telNumber: type.INTEGER,
       accept: {
         type: type.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       banned: {
         type: type.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
- 
-
-
     },
     { timestamps: false }
   );
@@ -36,4 +32,4 @@ const artistAuthSchema = (sequelize, type) => {
 };
 
 let Artist = artistAuthSchema(sequelize, Sequelize);
-module.exports = { Artist }
+module.exports = { Artist };
