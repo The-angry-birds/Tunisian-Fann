@@ -9,10 +9,11 @@
         v-model="search"
         placeholder="Search..."
       />
+       
     </div>
     <div class="card-container">
       <b-card
-        @click="sharedData(artwork)"
+      
         v-for="(artwork, i) in filteredList"
         :key="i"
         v-bind:img-src="artwork.imageUrl"
@@ -20,17 +21,21 @@
         class="mb-2"
       >
         <b-card-text class="card-category">Digital Paintings</b-card-text>
+        <h3>{{ artwork.likes }} </h3>
 
         <h3 class="card-title" @click="sharedData(artwork)">
-          {{ artwork.nameArtwork }}
+          {{ artwork.nameArtwork }}          
         </h3>
-
+        <button @click.prevent="like(artwork)">Li</button>   
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
         </div>
+        <div>
+        </div>
       </b-card>
     </div>
+      
   </div>
 </template>
 
@@ -41,16 +46,48 @@ export default {
     return {
       artworks: [],
       search: "",
+      artwork_id:"",
+      user_id :""
+
     };
   },
+  
   methods: {
-    getArtworks() {
+  like(art){
+    const create = {
+        artwork_id: art.id,
+        user_id : 2,
+      }
+    axios.post("http://localhost:3000/api/likes",create)
+    .then((res) =>
+    {
+      console.log("==>",res.data)
+      })
+    },
+
+    getlikes(id){
+      axios.get(`http://localhost:3000/api/likes/${id}`)
+      .then((res) =>{
+        console.log(res.data.length)
+        })
+      .catch(err =>{console.log(err)})
+    },
+
+  getArtworks() {
       axios
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
-          this.artworks = res.data;
-          // console.log("=============", this.artworks);
+          this.artworks = res.data
+       this.artworks.map((art)=>{
+        axios.get(`http://localhost:3000/api/likes/${art.id}`)
+      .then((res) =>{
+        console.log(res.data.length)
+        art.likes = res.data.length
         })
+      .catch(err =>{console.log(err)})
+        })
+       })
+
         .catch((err) => {
           console.log(err);
         });
@@ -61,7 +98,6 @@ export default {
   },
   computed: {
     filteredList() {
-      console.log("yuihuin");
       return this.artworks.filter((artwork) => {
         return artwork.nameArtwork
           .toLowerCase()
@@ -71,8 +107,8 @@ export default {
   },
 
   mounted() {
+    this.getlikes()
     this.getArtworks();
-    this.oneArt = this.$route.params;
   },
 };
 </script>
@@ -82,6 +118,7 @@ export default {
   box-sizing: border-box;
   font-family: "Spectral", serif;
 }
+
 .artworks-header {
   margin-top: 120px;
 }

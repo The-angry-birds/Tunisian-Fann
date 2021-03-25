@@ -6,6 +6,7 @@
     />
 
     <button>
+
       <router-link class="nav-btns" to="/artists">Artists</router-link>
     </button>
 
@@ -13,7 +14,7 @@
       <router-link class="nav-btns" to="/artworks">Artworks</router-link>
     </button>
 
-    <div v-if="status() === ''" class="dropdown" id="nav-join">
+    <div v-if="!authGuest" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
         Join us
       </button>
@@ -35,7 +36,7 @@
       </ul>
     </div>
 
-    <div v-if="status() === 'success'" class="dropdown" id="nav-join">
+    <div v-else class="dropdown" id="nav-join">
       Profile
       <button
         class="dropdown-toggle"
@@ -52,10 +53,7 @@
         </li>
         <li>
           <button>
-            <router-link
-              class="as-btns"
-              to="/join-as-client"
-              @click="handleClick()"
+            <router-link is="a" class="as-btns" @click="handleClick()"
               >Logout</router-link
             >
           </button>
@@ -67,15 +65,20 @@
 
 <script>
 export default {
-  methods: {
-    status() {
-      console.log("ahahahahah", this.$store.getters.authStatususer);
-      return this.$store.getters.authStatususer;
+  computed: {
+    authGuest() {
+      console.log("logged: s", this.$store.getters.logged);
+      return this.$store.getters.logged;
     },
+  },
+  methods: {
+   
     handleClick() {
+      console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
+
     handleScroll() {
       if (document.documentElement.scrollTop > 80) {
         document.getElementById("navbar").style.padding = "20px 0";
@@ -109,6 +112,7 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
 };
+
 </script>
 
 <style scoped>
@@ -161,7 +165,9 @@ export default {
   color: #000000;
 }
 .as-btns {
+
   font-family: "Inconsolata", monospace;
+
   margin-top: 10px;
   align-items: center;
   color: #a08018;
@@ -186,8 +192,10 @@ export default {
   padding-bottom: 10px;
 }
 
+
 .dropdown-menu {
   background-color: transparent !important;
   backdrop-filter: blur(10px) !important;
 }
 </style>
+
