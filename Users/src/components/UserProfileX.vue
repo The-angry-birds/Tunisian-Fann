@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar></NavBar>
+  
     <div>
       <div class="row py-8 px-8">
         <div class="col-md-25 mx-auto">
@@ -9,7 +9,7 @@
               <div class="media align-items-end profile-head">
                 <div class="profile mr-3">
                   <img
-                    src="https://i.ibb.co/TkxhgdJ/nabil-elbir.jpg"
+                   :src="data.imageUrl" 
                     alt="#"
                     width="130"
                     class="rounded mb-2 img-thumbnail"
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="media-body mb-5 text-black">
-                  <h4 class="mt-0 mb-0">Nabil Elbir</h4>
+                  <h4 class="mt-0 mb-0">{{ data.firstName }}{{ data.lastName }}</h4>
                   <p class="small mb-4">
                     <i class="fas fa-map-marker-alt mr-2"></i>Nabeul
                   </p>
@@ -47,10 +47,11 @@
           </div>
         </div>
       </div>
+      
     </div>
 
         <!-- MODAL CONTENT -->
-
+    
     <div
       class="modal fade"
       id="Modal"
@@ -77,6 +78,7 @@
               <div class="form-group">
                 <label class="labels" for="Firstname">Firstname</label>
                 <input
+                  v-model="data.firstName"
                   type="firstname"
                   class="form-control"
                   id="Firstname"
@@ -85,33 +87,39 @@
                 />
                 <label class="labels" for="Lastname">Lastname</label>
                 <input
+                  v-model="data.lastName"
                   type="lastname"
                   class="form-control"
                   id="Lastname"
                   aria-describedby="lastname"
                   placeholder="Lastname"
                 />
-                <label class="labels" for="InputEmail1">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="InputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Email"
-                />
-                <small id="emailHelp" class="form-text text-muted"
-                  >We'll never share your email with anyone else.</small
-                >
+         
               </div>
-              <div class="form-group">
-                <label class="labels" for="InputPassword1">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="InputPassword1"
-                  placeholder="Password"
-                />
-              </div>
+            
+                    <div class="file-field">
+                              <div class="mb-4">
+                                <img
+                                  id="btn-file"
+                                  :src="data.imageUrl"
+                                  class="rounded-circle z-depth-1-half avatar-pic"
+                                  alt="example placeholder avatar"
+                                />
+                              </div>
+                              <div class="d-flex justify-content-center">
+                                <div
+                                  class="btn btn-mdb-color btn-rounded float-left"
+                                >
+                                  <span>Add photo</span>
+                                  <input
+                                    v-on:change="handleFileUpload()"
+                                    type="file"
+                                    id="file"
+                                    ref="file"
+                                  />
+                                </div>
+                              </div>
+                            </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -125,12 +133,68 @@
   </div>
 </template>
 <script>
-import NavBar from "./NavBar.vue";
+
+import axios from "axios";
 export default {
-  components: {
-    NavBar,
+
+  data() {
+    return {
+      data: {},
+      show: false,
+     
+    };
+  },
+
+  methods: {
+    showelement() {
+      var h = this.show;
+      this.show = !h;
+    },
+    handleEdit() {
+      axios
+        .patch(`http://localhost:3000/api/users/${this.data.id}`, this.data)
+        .then(() => {
+          console.log("sent");
+          this.displayUser();
+        })
+        .catch((err) => console.log(err));
+    },
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+      console.log("ahahaha", this.file);
+      const image = new FormData();
+      image.append("file", this.file);
+      image.append("upload_preset", "fvzq7qqo");
+      axios
+        .post("https://api.cloudinary.com/v1_1/dkcwqbl9d/image/upload", image)
+        .then(({ data }) => {
+          console.log("imageId", data.url);
+          this.data.imageUrl = data.url;
+          console.log("===>", this.data.imageUrl);
+        })
+        .catch((err) => console.log(err));
+    },
+    displayUser() {
+
+      const token = localStorage.getItem("token");
+      axios
+        .get("http://localhost:3000/api/users/getUserByToken", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(({ data }) => {
+          this.data = data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+  },
+  mounted() {
+    this.displayUser();
   },
 };
+
 </script>
 <style scoped>
 * {

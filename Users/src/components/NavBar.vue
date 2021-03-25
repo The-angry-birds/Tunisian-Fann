@@ -5,7 +5,7 @@
       src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
     />
 
-    <div v-if="status()===''" class="dropdown" id="nav-join">
+    <div v-if="status() ===''" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
         Join us
       </button>
@@ -26,27 +26,32 @@
         </li>
       </ul>
     </div>
-   
-
-      <div v-if="status()==='success'"  class="dropdown" id="nav-join">
-      <h3>Artworks</h3>
-        <button class="dropdown-toggle" type="button" data-toggle="dropdown">
-      
-        </button>
-        <ul class="dropdown-menu">
-          <li>
-            <button>
-              account
-            </button>
-          </li>
-          <li>
-            <button>
-              logout
-            </button>
-          </li>
-        </ul>
-      </div>
  
+    <div v-if="status()==='success'" class="dropdown" id="nav-join">
+     Profile
+      <button
+        class="dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+      ></button>
+      <ul class="dropdown-menu">
+        <li>
+          <router-link  to="/user-profile"
+            ><button class="as-btns">
+              Account
+            </button>
+          </router-link>
+        </li>
+        <li>
+          <router-link  to="/join-as-client">
+            <button  @click="handleClick()"   class="as-btns">
+              Logout 
+            </button>
+          </router-link>
+        </li>
+      </ul>
+    </div>
+   
   </nav>
 </template>
 
@@ -54,20 +59,26 @@
 export default {
   methods: {
     status() {
-      console.log("ahahahahah",this.$store.getters.authStatususer)
-       return this.$store.getters.authStatususer;
+      console.log("ahahahahah", this.$store.getters.authStatususer);
+      return this.$store.getters.authStatususer;
+    },
+           handleClick() {
+    this.$store.dispatch('logout')
+      this.$router.push("/");
     },
   },
 
   computed: {
     info() {
       return this.$store.getters.getuser;
-    },
+    }
+ 
   },
-  mounted(){
-     console.log("ahahahahah",this.status())
+
+  mounted() {
+    this.status()
+  },
   }
-};
 </script>
 
 <style scoped>
