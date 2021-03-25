@@ -11,7 +11,7 @@ module.exports = {
         existingLike
       );
       if (existingLike) {
-        res.send("Nooooop");
+        res.send("Noop");
       } else {
         const newLike = await Likes.create({
           artwork_id: req.body.artwork_id,
