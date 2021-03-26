@@ -28,13 +28,13 @@ exports.editUser = async function (req, res) {
 
 exports.getUserByToken = async (req, res) => {
   try {
-    // console.log("=====>", req.headers);
+    console.log("=====>", req.headers);
     const token = req.headers.authorization.split(" ")[1];
-    const verification = jwt.verify(token, config.secret);
+    const email = jwt.verify(token, config.secret);
     const user = await User.findOne({
-      where: { email: verification.email },
+      where: { email: email.email },
     });
-    res.send(user);
+    res.send({user:user});
   } catch (err) {
     res.send(err);
   }

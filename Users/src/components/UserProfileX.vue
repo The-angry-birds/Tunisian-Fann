@@ -108,8 +108,8 @@
                 <div class="d-flex justify-content-center">
                   <div class="btn btn-mdb-color btn-rounded float-left">
                     <span>Add photo</span>
-                    <input type="file" id="file" ref="file" />
-                    <!-- v-on:change="handleFileUpload()" -->
+                  
+                    <input     v-on:change="handleFileUpload()" type="file" id="file" ref="file" />
                   </div>
                 </div>
               </div>
@@ -161,6 +161,7 @@ export default {
         .then(({ data }) => {
           console.log("imageId", data.url);
           this.image = data.url;
+          console.log("image",this.image)
         })
         .catch((err) => console.log(err));
     },
@@ -180,9 +181,9 @@ export default {
        const token= localStorage.getItem("token");
       
       axios.get("http://localhost:3000/api/users/getUserByToken",{
-          headers: { Authorization: `Bearer ${token}`}}).then(({ data }) => {
+          headers: { authorization: `Bearer ${token}`}}).then(({ data }) => {
            this.user = data.user;
-           console.log("hello",data.user);
+   
       });
 
     },
