@@ -3,9 +3,10 @@ const { Artwork } = require("../../db/models/artwork");
 
 module.exports = {
   createAuction: async (req, res) => {
-
     try {
-      const artworkData = await Auction.findOne({where: { artwork_id: req.body.artwork_id }});
+      const artworkData = await Auction.findOne({
+        where: { artwork_id: req.body.artwork_id },
+      });
       if (artworkData) {
         res.send("finished the auction");
       } else {
@@ -14,7 +15,7 @@ module.exports = {
           startDate: req.body.startDate,
           endDate: req.body.endDate,
         });
-  
+
         res.send("created");
       }
     } catch (err) {

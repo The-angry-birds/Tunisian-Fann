@@ -53,6 +53,11 @@ const router = new Router({
       component: () => import("@/components/UserProfileX.vue"),
     },
     {
+      path: "/auctions",
+      name: "auctions",
+      component: () => import("@/components/Auctions.vue"),
+    },
+    {
       path: "/auction-details",
       name: "auction-details",
       component: () => import("@/components/AuctionDetails.vue"),
