@@ -5,16 +5,17 @@ module.exports = {
   createAuction: async (req, res) => {
     try {
       const artworkData = await Auction.findOne({
-        where: { artwork_id: req.body.artwork_id },
+        where: { artwork_id: req.body.artwork_id ,artist_id:req.body.artist_id},
       });
       if (artworkData) {
         res.send("finished the auction");
       } else {
         const auction = await Auction.create({
           artwork_id: req.body.artwork_id,
-          
+          artist_id :req.body.artist_id,
           startDate: req.body.startDate,
-          endDate: "mars 30, 2021 15:37:25",
+          endDate: req.body.endDate,
+          price: req.body.price
         });
 
         res.send("created");
