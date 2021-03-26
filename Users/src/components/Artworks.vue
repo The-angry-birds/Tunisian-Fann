@@ -24,6 +24,7 @@
         <h3 class="card-title" @click="sharedData(artwork)">
           {{ artwork.nameArtwork }}
         </h3>
+
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
@@ -65,24 +66,23 @@ export default {
             axios
               .get(`http://localhost:3000/api/likes/${art.id}`)
               .then((res) => {
-                art.likes = res.data.length
-                console.log(art.likes)
-                this.artworks.push(art)
+                art.likes = res.data.length;
+                console.log(art.likes);
+                this.artworks.push(art);
               })
               .catch((err) => {
                 console.log(err);
               });
-            
-          })
+          });
         })
         .catch((err) => {
           console.log(err);
         });
-      },
+    },
 
     sharedData(a) {
       this.$router.push({ name: "artworkDetails", params: a });
-    }
+    },
   },
   computed: {
     filteredList() {
@@ -175,5 +175,13 @@ img {
   width: 300px;
   border-style: solid;
   border-radius: 5px;
+}
+
+.likes-container {
+  display: flex;
+  flex-wrap: nowrap;
+  position: absolute;
+  bottom: 85px;
+  right: 20px;
 }
 </style>

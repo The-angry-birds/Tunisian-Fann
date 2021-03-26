@@ -9,16 +9,8 @@ const auction = (sequelize, type) => {
     "auction",
 
     {
-      virtuals: {
-        type: type.VIRTUAL,
-        case: { type: type.STRING, defaultValue: false },
-        get() {
-          return differenceInSeconds(this.startDate, new Date()) < 0;
-        },
-        get() {
-          return differenceInSeconds(this.endDate, new Date()) < 0;
-        },
-      },
+  
+
 
       id: {
         type: type.INTEGER,
@@ -30,10 +22,6 @@ const auction = (sequelize, type) => {
         required: false,
       },
       startTime: {
-        type: type.STRING,
-        required: false,
-      },
-        startTime: {
         type: type.STRING,
         required: false,
       },
@@ -50,10 +38,6 @@ const auction = (sequelize, type) => {
       endTime: {
         type: type.DATE,
         required: false,
-      },
-      featured: {
-        type: type.BOOLEAN,
-        defaultValue: false,
       },
     },
 
