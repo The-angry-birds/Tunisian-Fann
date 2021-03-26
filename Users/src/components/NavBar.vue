@@ -75,10 +75,10 @@
 export default {
   computed: {
     authGuest() {
+       console.log("this.user",this.$store.getters.logged)
       return this.$store.getters.logged;
 
     },
-
     type() {
       return this.$store.getters.role;
     },
@@ -89,9 +89,11 @@ export default {
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
-      this.$router.push("/");
+      this.$router.push("/hello");
     },
-
+    userType() {
+      return this.$store.getters.role;
+    },
     handleScroll() {
       if (document.documentElement.scrollTop > 80) {
         document.getElementById("navbar").style.padding = "20px 0";
@@ -192,4 +194,3 @@ export default {
   backdrop-filter: blur(10px) !important;
 }
 </style>
-

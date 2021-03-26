@@ -4,7 +4,7 @@ const controllerUsers = require("../controllers/users-controller.js");
 
 router.get('/',controllerUsers.getUser)
 router.patch('/:id',controllerUsers.editUser)
-router.get('/getUserByToken',controllerUsers.getUserByToken)
+router.get('/getUserByToken',controllerUsers.getUserByToken)    
 
 
 module.exports = router;

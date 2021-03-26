@@ -18,9 +18,17 @@ export default {
       state.user = {};
       state.type = "";
     },
+
+
   },
   getters: {
-    logged: (state) => !!Object.keys(state.user).length,
+  
+    logged: (state) => {if (state.user){
+     return !!Object.keys(state.user).length
+      }else {
+        state.user = {};
+      }
+    },
     authStatus: (state) => state.authStatus,
     role: (state) => state.type,
   },
@@ -46,6 +54,22 @@ export default {
       });
     },
     //signup for the artist
+    // editUser({commit},data){
+    //   return new Promise((resolve, reject) => {
+    //          axios
+    //             .patch(`http://localhost:3000/api/users/${data.id}`,data)
+    //             .then(() => {
+    //               console.log("sent");
+    //               commit("edit_success");
+    //                resolve()
+
+    //             }).catch(err =>{
+    //               commit("edit_error")
+    //               console.log(err);
+    //               reject()
+    //             })
+    //   })
+    // },
     register({ commit }, artist) {
       return new Promise((resolve, reject) => {
         axios
