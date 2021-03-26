@@ -6,7 +6,6 @@
     />
 
     <button>
-
       <router-link class="nav-btns" to="/artists">Artists</router-link>
     </button>
 
@@ -45,8 +44,13 @@
       ></button>
       <ul class="dropdown-menu">
         <li>
-          <button>
+          <button v-if="type === 'guest'">
             <router-link class="as-btns" to="/user-profile"
+              >Account</router-link
+            >
+          </button>
+          <button v-else>
+            <router-link class="as-btns" to="/artist-profile"
               >Account</router-link
             >
           </button>
@@ -67,21 +71,23 @@
 export default {
   computed: {
     authGuest() {
-      console.log("logged: s", this.$store.getters.logged);
+       console.log("this.user",this.$store.getters.logged)
       return this.$store.getters.logged;
     },
-    info() {
-      return this.$store.getters.getuser;
+    type() {
+      return this.$store.getters.role;
     },
   },
+
   methods: {
-   
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
-      this.$router.push("/");
+      this.$router.push("/hello");
     },
-
+    userType() {
+      return this.$store.getters.role;
+    },
     handleScroll() {
       if (document.documentElement.scrollTop > 80) {
         document.getElementById("navbar").style.padding = "20px 0";
@@ -100,10 +106,7 @@ export default {
       // document.getElementById("logo").style.fontSize = "35px";
     },
   },
-  
-  mounted() {
-    this.status();
-  },
+
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -111,7 +114,6 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
 };
-
 </script>
 
 <style scoped>
@@ -164,7 +166,6 @@ export default {
   color: #000000;
 }
 .as-btns {
-
   font-family: "Inconsolata", monospace;
 
   margin-top: 10px;
@@ -191,10 +192,8 @@ export default {
   padding-bottom: 10px;
 }
 
-
 .dropdown-menu {
   background-color: transparent !important;
   backdrop-filter: blur(10px) !important;
 }
 </style>
-

@@ -1,6 +1,7 @@
 const { User } = require("../../db/models/users-model-signup");
-const config = require("../../db/configUsers");
 const jwt = require("jsonwebtoken");
+const config = require("../../db/configArtist");
+
 exports.getUser = async function (req, res) {
   try {
     const data = await User.findAll({});
@@ -11,19 +12,15 @@ exports.getUser = async function (req, res) {
 };
 exports.editUser = async function (req, res) {
   try {
-
     const data = await User.update(
       {
-    
-        firstName: req.body.userName,
+        firstName: req.body.firstName,
         lastName: req.body.lastName,
-        email:req.body.email,
-        
-        imageUrl: req.body.imageUrl,
+        imageUrl: req.body.image,
       },
       { where: { id: req.params.id } }
     );
-    res.send("updated");  
+    res.send("updated");
   } catch (err) {
     console.log(err);
   }
