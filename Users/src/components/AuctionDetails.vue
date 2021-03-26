@@ -1,6 +1,5 @@
 <template>
   <div>
-  
     <div class="auction-container">
       <div class="left-container">
         <img
@@ -11,24 +10,24 @@
       <div class="right-container">
         <div class="auction-header">
           <h1 class="auction-name">Oh My God</h1>
-          <p class="auction-category">Digital Paintings</p>
+          <p class="auction-category"></p>
         </div>
-        <hr>
+        <hr />
         <p class="auction-description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et arcu
           eget eros semper tempus eget ac nisl.
         </p>
-        <hr>
+        <hr />
         <div class="time-container">
           <h4 class="time-header">Time left:</h4>
-          <p class="time">01 Days : 11 Hrs : 59 Min</p>
+          <p class="time">{{ auction.startDate }}</p>
         </div>
-        <hr>
+        <hr />
         <div class="current-price-container">
           <h4 class="current-price-header">Current winning price:</h4>
           <h1 class="current-price">120.00 TD</h1>
         </div>
-        <hr>
+        <hr />
         <div>
           <h4 class="price-input-header">Insert your desired bid: *</h4>
           <div class="input-group mb-3">
@@ -58,9 +57,21 @@
 </template>
 
 <script>
-
 export default {
- 
+  data() {
+    return {
+      auction: {},
+    };
+  },
+  mounted() {
+    this.auction = this.$route.params;
+
+    console.log("=======================>", this.auction);
+  },
+
+  methods: {
+  
+  },
 };
 </script>
 

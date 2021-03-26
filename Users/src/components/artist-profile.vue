@@ -40,6 +40,7 @@
             <div class="px-3 py-4">
               <h5 class="mb-4">About</h5>
               <div class="p-4 rounded shadow-sm " id="info-card">
+
                 <p class="font-italic mb-0">{{ user.description }}</p>
               </div>
             </div>
@@ -326,6 +327,55 @@
               </div>
             </div>
 
+
+                <p class="font-italic mb-0">{{ getArtist.description }}</p>
+
+              </div>
+            </div>
+            <div class="py-4 px-4">
+              <div
+                class="d-flex align-items-center justify-content-between mb-3"
+              >
+                <h5 class="mb-0">Edit profile</h5>
+
+                <a href="#" class="btn btn-link text-muted">submit</a>
+
+              </div>
+              <!-- <div class="row"> -->
+              <form>
+                <div class="row">
+                  <div class="col">
+                    <input
+        v-model="firstName"
+
+
+                      type="text"
+                      class="form-control"
+                      placeholder="First name"
+                    />
+                  </div>
+                  <div class="col">
+                    <input
+
+                      v-model="lastName"
+
+
+                      type="text"
+                      class="form-control"
+                      placeholder="Last name"
+                    />
+                  </div>
+
+                  <div>
+                    <b-form-textarea
+                      id="textarea"
+                      v-model="description"
+                      placeholder="Enter your bio ..."
+                      rows="3"
+                      max-rows="6"
+                    ></b-form-textarea>
+
+
             <!-- //EDIT INFO -->
             <div
               class="modal fade"
@@ -409,6 +459,7 @@
                       Submit
                     </button>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -435,10 +486,9 @@ export default {
       artworks: [],
       user: {},
     };
+
   },
-  // components: {
-  //   NavBar,
-  // },
+
   methods: {
     //to edit the artist information like firstName and image
     handleSubmit() {
@@ -526,6 +576,7 @@ export default {
     },
   },
 
+
   computed: {
     //it returns the user that is actually logged in
     getArtist() {
@@ -568,6 +619,7 @@ export default {
   margin: auto;
   margin-top: 20px;
 }
+
 image-load {
   background-color: black;
   color: white;
@@ -679,4 +731,5 @@ image-load {
 .labels {
   margin-top: 30px;
 }
+
 </style>

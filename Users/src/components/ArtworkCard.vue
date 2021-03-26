@@ -4,7 +4,7 @@
     <div class="card-container">
    
       <b-card
-      @click="sharedData(artwork)"
+    
         v-for="(artwork, i) in artworks"
         :key="i"
         v-bind:img-src="artwork.imageUrl"
@@ -60,7 +60,7 @@ export default {
   },
   mounted() {
     this.getArtworks();
-      this.oneArt = this.$route.params;
+    
   
   },
 };

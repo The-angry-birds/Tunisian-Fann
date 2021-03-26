@@ -9,57 +9,40 @@ const auction = (sequelize, type) => {
     "auction",
 
     {
-      virtuals: {
-        type: type.VIRTUAL,
-        case: { type: type.STRING, defaultValue: false },
-        get() {
-          return differenceInSeconds(this.startDate, new Date()) < 0;
-        },
-        get() {
-          return differenceInSeconds(this.endDate, new Date()) < 0;
-        },
-      },
+  
+
 
       id: {
         type: type.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      startDate: {
-        type: type.DATE,
-        required: false,
-      },
-      startTime: {
-        type: type.STRING,
-        required: false,
-      },
 
-      artWork_id: {
+
+      artwork_id: {
         type: type.INTEGER,
         allowNull: false,
       },
 
+      startDate: {
+        type: type.DATE,
+        required: false,
+      },
       endDate: {
         type: type.DATE,
         required: false,
       },
-      endTime: {
-        type: type.DATE,
-        required: false,
-      },
-      featured: {
-        type: type.BOOLEAN,
-        defaultValue: false,
-      },
     },
 
-    { timestamps: true }
+    { timestamps: true}
   );
 
   return auctions;
 };
 const Auction = auction(sequelize, Sequelize);
-Artwork.hasMany(Auction, { foreignKey: "artWork_id", as: "artwork" });
+
+Artwork.hasMany(Auction, { foreignKey: "artwork_id", as: "artwork" });
+
 module.exports = { Auction };
 
 // category.belongsToMany(Auction, {

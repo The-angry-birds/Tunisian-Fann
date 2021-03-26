@@ -6,6 +6,7 @@
     />
 
     <button>
+
       <router-link class="nav-btns" to="/artists">Artists</router-link>
     </button>
 
@@ -72,10 +73,13 @@ export default {
   computed: {
     authGuest() {
       return this.$store.getters.logged;
+
     },
+
     type() {
       return this.$store.getters.role;
     },
+
   },
 
   methods: {
@@ -111,6 +115,7 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
 };
+
 </script>
 
 <style scoped>
@@ -193,3 +198,4 @@ export default {
   backdrop-filter: blur(10px) !important;
 }
 </style>
+
