@@ -70,12 +70,8 @@ export default {
       console.log("logged: s", this.$store.getters.logged);
       return this.$store.getters.logged;
     },
-    info() {
-      return this.$store.getters.getuser;
-    },
   },
   methods: {
-   
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
@@ -100,10 +96,7 @@ export default {
       // document.getElementById("logo").style.fontSize = "35px";
     },
   },
-  
-  mounted() {
-    this.status();
-  },
+
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -164,7 +157,6 @@ export default {
   color: #000000;
 }
 .as-btns {
-
   font-family: "Inconsolata", monospace;
 
   margin-top: 10px;
@@ -190,8 +182,6 @@ export default {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-
-
 .dropdown-menu {
   background-color: transparent !important;
   backdrop-filter: blur(10px) !important;
