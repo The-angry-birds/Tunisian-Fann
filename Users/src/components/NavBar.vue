@@ -74,6 +74,7 @@ export default {
      info() {
       return this.$store.getters.getuser;
     },
+  
   },
   methods: {
    
