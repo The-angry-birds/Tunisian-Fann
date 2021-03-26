@@ -18,9 +18,7 @@ const auction = (sequelize, type) => {
         type: type.INTEGER,
         allowNull: false,
       },
-      nameArtwork: type.STRING,
-   
-   
+
       startDate: {
         type: type.DATE,
         required: false,
@@ -44,6 +42,5 @@ const Auction = auction(sequelize, Sequelize);
 Artwork.hasMany(Auction, { foreignKey: "artwork_id", as: "artwork" });
 Artist.hasMany(Auction, { foreignKey: "artist_id", as: "artists" });
 module.exports = { Auction };
-
 
 module.exports = { Auction };
