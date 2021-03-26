@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="artworks-header">Artworks</h1>
+    <div class="artworks-header"></div>
     <div class="search">
       <label class="search-label">Search for an artwork:</label>
       <input
@@ -9,10 +9,11 @@
         v-model="search"
         placeholder="Search..."
       />
+       
     </div>
     <div class="card-container">
       <b-card
-        @click="sharedData(artwork)"
+      
         v-for="(artwork, i) in filteredList"
         :key="i"
         v-bind:img-src="artwork.imageUrl"
@@ -20,38 +21,73 @@
         class="mb-2"
       >
         <b-card-text class="card-category">Digital Paintings</b-card-text>
+        <h3>{{ artwork.likes }} </h3>
 
         <h3 class="card-title" @click="sharedData(artwork)">
-          {{ artwork.nameArtwork }}
+          {{ artwork.nameArtwork }}          
         </h3>
-
+        <button @click.prevent="like(artwork)">Li</button>   
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
         </div>
+        <div>
+        </div>
       </b-card>
     </div>
+      
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
     return {
       artworks: [],
       search: "",
+      artwork_id:"",
+      user_id :""
+
     };
   },
+  
   methods: {
-    getArtworks() {
+  like(art){
+    const create = {
+        artwork_id: art.id,
+        user_id : 2,
+      }
+    axios.post("http://localhost:3000/api/likes",create)
+    .then((res) =>
+    {
+      console.log("==>",res.data)
+      })
+    },
+
+    getlikes(id){
+      axios.get(`http://localhost:3000/api/likes/${id}`)
+      .then((res) =>{
+        console.log(res.data.length)
+        })
+      .catch(err =>{console.log(err)})
+    },
+
+  getArtworks() {
       axios
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
-          this.artworks = res.data;
-          // console.log("=============", this.artworks);
+          this.artworks = res.data
+       this.artworks.map((art)=>{
+        axios.get(`http://localhost:3000/api/likes/${art.id}`)
+      .then((res) =>{
+        console.log(res.data.length)
+        art.likes = res.data.length
         })
+      .catch(err =>{console.log(err)})
+        })
+       })
+
         .catch((err) => {
           console.log(err);
         });
@@ -62,7 +98,6 @@ export default {
   },
   computed: {
     filteredList() {
-      console.log("yuihuin");
       return this.artworks.filter((artwork) => {
         return artwork.nameArtwork
           .toLowerCase()
@@ -72,8 +107,8 @@ export default {
   },
 
   mounted() {
+    this.getlikes()
     this.getArtworks();
-    this.oneArt = this.$route.params;
   },
 };
 </script>
@@ -83,11 +118,9 @@ export default {
   box-sizing: border-box;
   font-family: "Spectral", serif;
 }
+
 .artworks-header {
-  font-size: 25px;
-  text-align: center;
-  margin-top: 100px;
-  color: #ad7d52;
+  margin-top: 120px;
 }
 .card-container {
   display: flex;
@@ -100,8 +133,8 @@ export default {
 }
 .mb-2 {
   margin: 22px;
-  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
-  border-radius: 0;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
   width: 300px;
   height: 385px;
 }
@@ -131,7 +164,7 @@ img:hover {
   opacity: 0.5;
 }
 img {
-  border-radius: 0;
+  border-radius: 5px 5px 0px 0px;
   width: 100%;
   height: 250px;
   object-fit: cover;

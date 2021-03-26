@@ -1,33 +1,27 @@
 <template>
   <div>
-    <h1 class="artworks-header">or buy one of our artworks</h1>
-
-   
-     <input type="text" v-model="search" placeholder="Search title.."/>
-        <label>Search title:</label>
-    <div class="card-container">
-      <b-card
-        v-for="(artist, i) in filteredList"
-        :key="i"
-        v-bind:img-src="artist.imageUrl"
-        img-top
-        class="mb-2"
-      >
-        <b-card-text class="card-category">{{ artist.category }}</b-card-text>
-
-     
-        <h3 class="card-title" >{{ artist.firstName }}</h3>
-    
-
-        <div class="card-by">
-          by
-          <p class="card-author">{{ artist.lastName }}</p>
-        </div>
-      </b-card>
-      
+    <div class="artists-header"></div>
+    <div class="search">
+      <label class="search-label">Search for an artist:</label>
+      <input
+        class="search-input"
+        type="text"
+        v-model="search"
+        placeholder="Search..."
+      />
     </div>
-          <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
-
+    <div class="cards-container">
+      <div class="card-container"  v-for="(artist, i) in filteredList" :key="i">
+        <img class="round" v-bind:src="artist.imageUrl" />
+        <h3>{{ artist.firstName }} {{ artist.lastName }}</h3>
+        <h6>Location</h6>
+        <p>{{ artist.description }}</p>
+        <div class="buttons">
+          <button class="primary">Contact</button>
+          <button class="primary">Profile</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -35,12 +29,10 @@
 import axios from "axios";
 
 export default {
-
   data() {
     return {
       artists: [],
-       search: "",
-   
+      search: "",
     };
   },
   methods: {
@@ -55,91 +47,110 @@ export default {
           console.log(err);
         });
     },
-    
   },
-   computed: {
+  computed: {
     filteredList() {
-      return this.artists.filter(artist => {
-        return artist.firstName.toLowerCase().includes(this.search.toLowerCase())
-      })
-    }
-   },
-    
-    
-
-   
+      return this.artists.filter((artist) => {
+        return artist.firstName
+          .toLowerCase()
+          .includes(this.search.toLowerCase());
+      });
+    },
+  },
 
   mounted() {
     this.getArtists();
-      this.oneArt = this.$route.params;
-    
-  
+    this.oneArt = this.$route.params;
   },
 };
 </script>
 
 <style scoped>
-.artworks-header {
-  font-size: 25px;
-  text-align: center;
-  margin-top: 25px;
-  color: #ad7d52;
+* {
+  box-sizing: border-box;
+  font-family: "Spectral", serif;
+}
+
+.artists-header {
+  margin-top: 120px;
+}
+
+.cards-container {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+img {
+  width: 50%;
+}
+h3 {
+  margin: 10px 0;
+}
+h6 {
+  margin: 5px 0;
+  text-transform: uppercase;
+}
+p {
+  font-size: 14px;
+  line-height: 21px;
 }
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 0;
-  -webkit-justify-content: center;
-  -webkit-align-items: center;
-  justify-content: center;
-  align-items: center;
-}
-.mb-2 {
-  margin: 22px;
-  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
-  border-radius: 0;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  color: black;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  /* position: relative; */
+  text-align: center;
+  margin: 20px;
   width: 300px;
   height: 385px;
 }
-.card-category {
-  text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 2px;
+.card-container .round {
+  border: 1px solid black;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  padding: 4px;
+}
+.primary {
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 3px;
+  color: black;
+  font-family: Montserrat, sans-serif;
   font-weight: 500;
-  color: #868686;
+  padding: 10px 25px;
+  background-color: transparent;
+  color: black;
+  margin-left: 10px;
+  transition: 0.5s;
 }
-.card-title {
-  margin-top: 5px;
-  margin-bottom: 10px;
+
+.primary:hover {
+  color: white;
+  background-color: black;
 }
-.card-by {
-  font-size: 12px;
-  display: flex;
-  flex-wrap: nowrap;
+.search {
+  text-align: right;
+  margin-right: 10%;
 }
-.card-author {
-  font-weight: 600;
-  text-decoration: none;
-  color: #ad7d52;
-  margin-left: 3px;
+
+.search-label {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 10px;
 }
-img:hover {
-  opacity: 0.5;
-}
-img {
-  border-radius: 0;
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-}
-#loadMore {
-  font-size: 15px;
-  text-align: center;
-  margin-top: 25px;
-  color: #ad7d52;
-  margin-left: 46%;
-}
-#loadMore:hover {
-  color: #000000;
+
+.search-input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  width: 300px;
+  border-style: solid;
+  border-radius: 5px;
 }
 </style>

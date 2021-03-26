@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar></NavBar>
+    <!-- <NavBar></NavBar> -->
     <LPAnimation></LPAnimation>
     <AboutUs></AboutUs>
     <AuctionCard></AuctionCard>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import NavBar from "./NavBar.vue";
+// import NavBar from "./NavBar.vue";
 import LPAnimation from "./LPAnimation.vue";
 import AboutUs from "./AboutUs.vue";
 import AuctionCard from "./AuctionCard.vue";
@@ -19,7 +19,7 @@ import Footer from "./Footer.vue";
 
 export default {
   components: {
-    NavBar,
+    // NavBar,
     AuctionCard,
     ArtworkCard,
     LPAnimation,
