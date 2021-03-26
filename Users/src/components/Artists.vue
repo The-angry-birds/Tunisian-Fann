@@ -112,7 +112,7 @@ p {
 .card-container .round {
   border: 1px solid black;
   width: 50%;
-  height: 50%;
+  height: 48%;
   border-radius: 50%;
   padding: 4px;
 }
