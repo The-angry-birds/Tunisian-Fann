@@ -40,7 +40,9 @@ const auction = (sequelize, type) => {
   return auctions;
 };
 const Auction = auction(sequelize, Sequelize);
+
 Artwork.hasMany(Auction, { foreignKey: "artwork_id", as: "artwork" });
+
 module.exports = { Auction };
 
 // category.belongsToMany(Auction, {
