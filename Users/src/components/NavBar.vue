@@ -44,8 +44,13 @@
       ></button>
       <ul class="dropdown-menu">
         <li>
-          <button>
+          <button v-if="type === 'guest'">
             <router-link class="as-btns" to="/user-profile"
+              >Account</router-link
+            >
+          </button>
+          <button v-else>
+            <router-link class="as-btns" to="/artist-profile"
               >Account</router-link
             >
           </button>
@@ -66,12 +71,14 @@
 export default {
   computed: {
     authGuest() {
-      console.log("logged: s", this.$store.getters.logged);
       return this.$store.getters.logged;
     },
-    userType() {
-      return this.$store.state.auth.user;
+    type() {
+      return this.$store.getters.role;
     },
+  },
+  mounted() {
+    this.userType();
   },
   methods: {
     handleClick() {
@@ -79,7 +86,9 @@ export default {
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
-
+    userType() {
+      return this.$store.getters.role;
+    },
     handleScroll() {
       if (document.documentElement.scrollTop > 80) {
         document.getElementById("navbar").style.padding = "20px 0";
@@ -99,9 +108,6 @@ export default {
     },
   },
 
-  mounted() {
-    this.status();
-  },
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },

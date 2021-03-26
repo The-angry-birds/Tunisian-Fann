@@ -38,6 +38,7 @@ const router = new Router({
     {
       path: "/artist-profile",
       name: "artist",
+
       component: () => import("@/components/artist-profile.vue"),
     },
     {
@@ -55,6 +56,7 @@ const router = new Router({
     {
       path: "/auction-details",
       name: "auction-details",
+
       component: () => import("@/components/AuctionDetails.vue"),
     },
     {
@@ -84,6 +86,7 @@ router.beforeEach(async (to, from, next) => {
         .dispatch("verify_token", token)
         .then((data) => {
           console.log("reppppp", data);
+          store.state.user = data;
         });
       console.log(artist);
     }
