@@ -12,8 +12,9 @@ module.exports = {
       } else {
         const auction = await Auction.create({
           artwork_id: req.body.artwork_id,
+          
           startDate: req.body.startDate,
-          endDate: req.body.endDate,
+          endDate: "mars 30, 2021 15:37:25",
         });
 
         res.send("created");

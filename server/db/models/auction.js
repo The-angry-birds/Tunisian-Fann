@@ -2,22 +2,16 @@ const Sequelize = require("sequelize");
 const { sequelize } = require("../index");
 const { Artwork } = require("./artwork");
 
-
-
 const auction = (sequelize, type) => {
   const auctions = sequelize.define(
     "auction",
 
     {
-  
-
-
       id: {
         type: type.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-
 
       artwork_id: {
         type: type.INTEGER,
@@ -28,13 +22,10 @@ const auction = (sequelize, type) => {
         type: type.DATE,
         required: false,
       },
-      endDate: {
-        type: type.DATE,
-        required: false,
-      },
+      endDate: type.STRING,
     },
 
-    { timestamps: true}
+    { timestamps: true }
   );
 
   return auctions;
