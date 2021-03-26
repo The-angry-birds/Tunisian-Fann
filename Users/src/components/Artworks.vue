@@ -18,17 +18,18 @@
         img-top
         class="mb-2"
       >
-        <div>
+        <div class="likes-container">
           <button @click.prevent="like(artwork)">
-            <i class="fa fa-facebook"></i>
+            <i class="fa fa-thumbs-up"></i>
           </button>
-          <h3>{{ artwork.likes }}</h3>
+          <p>{{ artwork.likes }}</p>
         </div>
         <b-card-text class="card-category">Digital Paintings</b-card-text>
 
         <h3 class="card-title" @click="sharedData(artwork)">
           {{ artwork.nameArtwork }}
         </h3>
+
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
@@ -70,24 +71,23 @@ export default {
             axios
               .get(`http://localhost:3000/api/likes/${art.id}`)
               .then((res) => {
-                art.likes = res.data.length
-                console.log(art.likes)
-                this.artworks.push(art)
+                art.likes = res.data.length;
+                console.log(art.likes);
+                this.artworks.push(art);
               })
               .catch((err) => {
                 console.log(err);
               });
-            
-          })
+          });
         })
         .catch((err) => {
           console.log(err);
         });
-      },
+    },
 
     sharedData(a) {
       this.$router.push({ name: "artworkDetails", params: a });
-    }
+    },
   },
   computed: {
     filteredList() {
@@ -180,5 +180,13 @@ img {
   width: 300px;
   border-style: solid;
   border-radius: 5px;
+}
+
+.likes-container {
+  display: flex;
+  flex-wrap: nowrap;
+  position: absolute;
+  bottom: 85px;
+  right: 20px;
 }
 </style>
