@@ -24,9 +24,9 @@
                 </div>
 
                 <div class="media-body mb-5 text-black">
-                  <h4 class="mt-0 mb-0">
-                    {{ data.firstName }} {{ data.lastName }}
-                  </h4>
+
+
+                  <h4 class="mt-0 mb-0">{{ data.firstName }} {{ data.lastName }}</h4>
                   <p class="small mb-4">
                     <i class="fas fa-map-marker-alt mr-2"></i>Nabeul
                   </p>

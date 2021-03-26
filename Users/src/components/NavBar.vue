@@ -6,6 +6,7 @@
     />
 
     <button>
+
       <router-link class="nav-btns" to="/artists">Artists</router-link>
     </button>
 
@@ -69,9 +70,6 @@ export default {
       console.log("logged: s", this.$store.getters.logged);
       return this.$store.getters.logged;
     },
-    userType() {
-      return this.$store.state.auth.user;
-    },
   },
   methods: {
     handleClick() {
@@ -99,9 +97,6 @@ export default {
     },
   },
 
-  mounted() {
-    this.status();
-  },
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -109,6 +104,7 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
 };
+
 </script>
 
 <style scoped>
@@ -186,9 +182,9 @@ export default {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-
 .dropdown-menu {
   background-color: transparent !important;
   backdrop-filter: blur(10px) !important;
 }
 </style>
+
