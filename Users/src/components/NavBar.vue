@@ -3,6 +3,7 @@
     <img
       class="navbar-logo"
       src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
+    
     />
 
     <button>

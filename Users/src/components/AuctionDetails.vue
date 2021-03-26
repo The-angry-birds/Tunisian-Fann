@@ -65,12 +65,6 @@ export default {
   },
   mounted() {
     this.auction = this.$route.params;
-
-    console.log("=======================>", this.auction);
-  },
-
-  methods: {
-  
   },
 };
 </script>
