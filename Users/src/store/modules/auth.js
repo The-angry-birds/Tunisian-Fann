@@ -33,14 +33,15 @@ export default {
     role: (state) => state.type,
   },
   actions: {
-    //to verify which user is connected whether the guest otr the artist
+    //to verify which user is connected whether the guest or the artist
     verify_token({ commit }, token) {
       return new Promise((resolve, reject) => {
         axios
           .post("http://localhost:3000/api/auth/", { token })
           .then(({ data }) => {
             const { user, type } = data;
-            console.log("==========data", { user, token, type });
+            console.log(type)
+            console.log("tyyyyype", { user, token, type });
             commit("auth_success", { user, token, type });
 
             resolve(user);
@@ -164,5 +165,26 @@ export default {
         resolve();
       });
     },
+
+    // getUser() {
+    //   return new Promise((resolve, reject) => {
+    //     const token = localStorage.getItem("token");
+    //     axios
+    //       .get("http://localhost:3000/api/auth/artists", {
+    //         headers: { Authorization: `Bearer ${token}` },
+    //       })
+    //       .then(({ data }) => {
+    //         console.log("iiiiiii", data);
+    //         const { user, type } = data;
+    //         commit("auth_success", { token, user, type: "guest" });
+    //         resolve(data);
+    //       })
+    //       .catch((err) => {
+    //         commit("auth_error_or_logout");
+    //         localStorage.removeItem("token");
+    //         reject(err);
+    //       });
+    //   });
+    // },
   },
 };
