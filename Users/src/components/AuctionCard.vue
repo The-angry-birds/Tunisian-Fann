@@ -54,7 +54,7 @@
           <div class="card__img--hover"></div>
         </a>
         <div class="card__info">
-         <!-- <ArtworkCard/> -->
+          <span class="card__category">Digital Paintings</span>
           <h3 class="card__title">Before Lights Out</h3>
           <span class="card__by"
             >by
@@ -127,7 +127,7 @@
         </div>
       </article>
     </section>
-      <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
+    <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
   </div>
 </template>
 
@@ -287,7 +287,7 @@ body {
   text-align: center;
   margin-top: 25px;
   color: #ad7d52;
-  margin-left: 46% ;
+  margin-left: 46%;
 }
 
 #loadMore:hover {
