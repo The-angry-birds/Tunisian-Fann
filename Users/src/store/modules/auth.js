@@ -11,7 +11,7 @@ export default {
     auth_success(state, { token, user, type }) {
       state.token = token;
       state.user = user;
-      state.type = type.type;
+      state.type = type;
     },
     auth_error_or_logout(state) {
       state.token = "";
@@ -32,7 +32,7 @@ export default {
           .post("http://localhost:3000/api/auth/", { token })
           .then(({ data }) => {
             const { user, type } = data;
-
+            console.log(type)
             console.log("tyyyyype", { user, token, type });
             commit("auth_success", { user, token, type });
 
