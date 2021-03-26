@@ -7,7 +7,7 @@ Vue.use(Router);
 const router = new Router({
   routes: [
     {
-      path: "/",
+      path: "/hello",
       component: () => import("@/components/LandingPage.vue"),
     },
     {

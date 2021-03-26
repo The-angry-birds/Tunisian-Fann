@@ -40,7 +40,6 @@
             <div class="px-3 py-4">
               <h5 class="mb-4">About</h5>
               <div class="p-4 rounded shadow-sm " id="info-card">
-
                 <p class="font-italic mb-0">{{ user.description }}</p>
               </div>
             </div>
@@ -83,6 +82,7 @@
                         <form>
                           <label class="labels" for="Title">Title</label>
                           <input
+                            v-model="title"
                             type="title"
                             class="form-control"
                             id="Title"
@@ -91,6 +91,7 @@
                           />
                           <label class="labels" for="ImageURL">Image URL</label>
                           <input
+                            v-model="image"
                             type="imageurl"
                             class="form-control"
                             id="ImageURL"
@@ -101,6 +102,7 @@
                             >Description</label
                           >
                           <input
+                            v-model="details"
                             type="description"
                             class="form-control"
                             id="Description"
@@ -109,6 +111,7 @@
                           />
                           <label class="labels" for="Price">Price</label>
                           <input
+                            v-model="price"
                             type="price"
                             class="form-control"
                             id="Price"
@@ -123,15 +126,18 @@
                               text="Category"
                               class="m-2"
                             >
-                              <b-dropdown-item href="#"
-                                >Paintings</b-dropdown-item
+                              <b-dropdown-item
+                                href="#"
+                                v-for="(category, i) in categories"
+                                :key="i"
+                                >{{ category.name }}</b-dropdown-item
                               >
-                              <b-dropdown-item href="#"
+                              <!-- <b-dropdown-item href="#"
                                 >Digital Paintings</b-dropdown-item
                               >
                               <b-dropdown-item href="#"
                                 >Sculptures</b-dropdown-item
-                              >
+                              > -->
                             </b-dropdown>
                           </div>
                         </form>
@@ -251,14 +257,11 @@
                                     text="Category"
                                     class="m-2"
                                   >
-                                    <b-dropdown-item href="#"
-                                      >Paintings</b-dropdown-item
-                                    >
-                                    <b-dropdown-item href="#"
-                                      >Digital Paintings</b-dropdown-item
-                                    >
-                                    <b-dropdown-item href="#"
-                                      >Sculptures</b-dropdown-item
+                                    <b-dropdown-item
+                                      href="#"
+                                      v-for="(category, i) in categories"
+                                      :key="i"
+                                      >{{ category.name }}</b-dropdown-item
                                     >
                                   </b-dropdown>
                                 </div>
@@ -328,6 +331,7 @@
             </div>
 
 
+
                 <p class="font-italic mb-0">{{ getArtist.description }}</p>
 
               </div>
@@ -349,7 +353,7 @@
         v-model="firstName"
 
 
-                      type="text"
+                   type="text"
                       class="form-control"
                       placeholder="First name"
                     />
@@ -374,7 +378,6 @@
                       rows="3"
                       max-rows="6"
                     ></b-form-textarea>
-
 
             <!-- //EDIT INFO -->
             <div
@@ -438,13 +441,6 @@
                         <label id="image-load" for="actual-btn"
                           >No image chosen</label
                         >
-                        <!-- <input
-                            class="ui button"
-                            type="file"
-                            id="file"
-                            ref="file"
-                            v-on:change="handleFileUpload()"
-                          /> -->
                       </div>
                     </form>
                   </div>
@@ -459,7 +455,6 @@
                       Submit
                     </button>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -471,7 +466,6 @@
 </template>
 
 <script>
-// import NavBar from "./NavBar.vue";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -482,13 +476,19 @@ export default {
       firstName: "",
       lastName: "",
       imageUrl: "",
+      title: "",
+      details: "",
+      price: "",
+      url: "",
+      nameOfCategory: "",
       categories: [],
       artworks: [],
       user: {},
     };
-
   },
-
+  // components: {
+  //   NavBar,
+  // },
   methods: {
     //to edit the artist information like firstName and image
     handleSubmit() {
@@ -553,9 +553,9 @@ export default {
     handleSubmitArtwork() {
       axios
         .post("http://localhost:3000/api/artworks ", {
-          artist_id: this.$data.data.id,
+          artist_id: this.user.id,
           nameArtwork: this.title,
-          description: this.description,
+          description: this.details,
           imageUrl: this.url,
           price: this.price,
           categoryName: this.name,
@@ -575,7 +575,6 @@ export default {
         });
     },
   },
-
 
   computed: {
     //it returns the user that is actually logged in
@@ -619,7 +618,6 @@ export default {
   margin: auto;
   margin-top: 20px;
 }
-
 image-load {
   background-color: black;
   color: white;
@@ -731,5 +729,4 @@ image-load {
 .labels {
   margin-top: 30px;
 }
-
 </style>
