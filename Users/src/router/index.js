@@ -72,7 +72,6 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-  console.log("+++", store);
   console.log(store.state.auth.token);
   if (!store.state.auth.token) {
     console.log("No token here");

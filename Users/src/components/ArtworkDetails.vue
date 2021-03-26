@@ -41,10 +41,7 @@ export default {
     };
   },
   mounted() {
-    console.log("==========", this.$route.params);
     this.oneArt = this.$route.params;
-
-    console.log("ghjkl", this.oneArt);
   },
 
   methods: {
