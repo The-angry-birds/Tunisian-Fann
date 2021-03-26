@@ -1,6 +1,5 @@
 <template>
   <div>
-  
     <div>
       <div class="row py-8 px-8">
         <div class="col-md-25 mx-auto">
@@ -9,7 +8,7 @@
               <div class="media align-items-end profile-head">
                 <div class="profile mr-3">
                   <img
-                   :src="data.imageUrl" 
+                    :src="data.imageUrl"
                     alt="#"
                     width="130"
                     class="rounded mb-2 img-thumbnail"
@@ -25,6 +24,8 @@
                 </div>
 
                 <div class="media-body mb-5 text-black">
+
+
                   <h4 class="mt-0 mb-0">{{ data.firstName }} {{ data.lastName }}</h4>
                   <p class="small mb-4">
                     <i class="fas fa-map-marker-alt mr-2"></i>Nabeul
@@ -47,11 +48,10 @@
           </div>
         </div>
       </div>
-      
     </div>
 
-        <!-- MODAL CONTENT -->
-    
+    <!-- MODAL CONTENT -->
+
     <div
       class="modal fade"
       id="Modal"
@@ -94,32 +94,29 @@
                   aria-describedby="lastname"
                   placeholder="Lastname"
                 />
-         
               </div>
-            
-                    <div class="file-field">
-                              <div class="mb-4">
-                                <img
-                                  id="btn-file"
-                                  :src="data.imageUrl"
-                                  class="rounded-circle z-depth-1-half avatar-pic"
-                                  alt="example placeholder avatar"
-                                />
-                              </div>
-                              <div class="d-flex justify-content-center">
-                                <div
-                                  class="btn btn-mdb-color btn-rounded float-left"
-                                >
-                                  <span>Add photo</span>
-                                  <input
-                                    v-on:change="handleFileUpload()"
-                                    type="file"
-                                    id="file"
-                                    ref="file"
-                                  />
-                                </div>
-                              </div>
-                            </div>
+
+              <div class="file-field">
+                <div class="mb-4">
+                  <img
+                    id="btn-file"
+                    :src="data.imageUrl"
+                    class="rounded-circle z-depth-1-half avatar-pic"
+                    alt="example placeholder avatar"
+                  />
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="btn btn-mdb-color btn-rounded float-left">
+                    <span>Add photo</span>
+                    <input
+                      v-on:change="handleFileUpload()"
+                      type="file"
+                      id="file"
+                      ref="file"
+                    />
+                  </div>
+                </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -133,15 +130,12 @@
   </div>
 </template>
 <script>
-
 import axios from "axios";
 export default {
-
   data() {
     return {
       data: {},
       show: false,
-     
     };
   },
 
@@ -174,27 +168,31 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-    displayUser() {
+    // displayUser() {
 
-      const token = localStorage.getItem("token");
-      axios
-        .get("http://localhost:3000/api/users/getUserByToken", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then(({ data }) => {
-          this.data = data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
+    //   const token = localStorage.getItem("token");
+    //   axios
+    //     .get("http://localhost:3000/api/users/getUserByToken", {
+    //       headers: { Authorization: `Bearer ${token}` },
+    //     })
+    //     .then(({ data }) => {
+    //       this.data = data;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
   },
-  mounted() {
-    this.displayUser();
+  // mounted() {
+  //   this.displayUser();
+  // },
+  computed: {
+    getUser() {
+      console.log("iii", this.$store.state.auth.user);
+      return this.$store.state.auth.user;
+    },
   },
 };
-
 </script>
 <style scoped>
 * {
@@ -233,5 +231,4 @@ export default {
   padding: 10px;
   color: black;
 }
-
-</style> 
+</style>

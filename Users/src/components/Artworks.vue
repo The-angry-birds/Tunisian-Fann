@@ -9,11 +9,9 @@
         v-model="search"
         placeholder="Search..."
       />
-       
     </div>
-    <div class="card-container">
+    <div class="card-container" :v-if="this.artworks">
       <b-card
-      
         v-for="(artwork, i) in filteredList"
         :key="i"
         v-bind:img-src="artwork.imageUrl"
@@ -24,18 +22,15 @@
         <b-card-text class="card-category">Digital Paintings</b-card-text>
 
         <h3 class="card-title" @click="sharedData(artwork)">
-          {{ artwork.nameArtwork }}          
+          {{ artwork.nameArtwork }}
         </h3>
-        <button @click.prevent="like(artwork)">Li</button>   
         <div class="card-by">
           by
           <p class="card-author">Bensalem Walid</p>
         </div>
-        <div>
-        </div>
+        <div></div>
       </b-card>
     </div>
-      
   </div>
 </template>
 
@@ -46,55 +41,48 @@ export default {
     return {
       artworks: [],
       search: "",
-      artwork_id:"",
-      user_id :""
-
+      artwork_id: "",
+      user_id: "",
     };
   },
-  
+
   methods: {
-  like(art){
-    const create = {
+    like(art) {
+      const create = {
         artwork_id: art.id,
-        user_id : 2,
-      }
-    axios.post("http://localhost:3000/api/likes",create)
-    .then((res) =>
-    {
-      console.log("==>",res.data)
-      })
+        user_id: 9,
+      };
+      axios.post("http://localhost:3000/api/likes", create).then((res) => {
+        console.log("==>", res.data);
+      });
     },
 
-    getlikes(id){
-      axios.get(`http://localhost:3000/api/likes/${id}`)
-      .then((res) =>{
-        console.log(res.data.length)
-        })
-      .catch(err =>{console.log(err)})
-    },
-
-  getArtworks() {
+    getArtworks() {
       axios
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
-          this.artworks = res.data
-       this.artworks.map((art)=>{
-        axios.get(`http://localhost:3000/api/likes/${art.id}`)
-      .then((res) =>{
-        console.log(res.data.length)
-        art.likes = res.data.length
+          res.data.map((art) => {
+            axios
+              .get(`http://localhost:3000/api/likes/${art.id}`)
+              .then((res) => {
+                art.likes = res.data.length
+                console.log(art.likes)
+                this.artworks.push(art)
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+            
+          })
         })
-      .catch(err =>{console.log(err)})
-        })
-       })
-
         .catch((err) => {
           console.log(err);
         });
-    },
+      },
+
     sharedData(a) {
       this.$router.push({ name: "artworkDetails", params: a });
-    },
+    }
   },
   computed: {
     filteredList() {
@@ -107,13 +95,13 @@ export default {
   },
 
   mounted() {
-    this.getlikes()
     this.getArtworks();
   },
 };
 </script>
 
 <style scoped>
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css");
 * {
   box-sizing: border-box;
   font-family: "Spectral", serif;

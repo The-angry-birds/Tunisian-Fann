@@ -33,6 +33,10 @@ const auction = (sequelize, type) => {
         type: type.STRING,
         required: false,
       },
+        startTime: {
+        type: type.STRING,
+        required: false,
+      },
 
       artWork_id: {
         type: type.INTEGER,
@@ -59,7 +63,7 @@ const auction = (sequelize, type) => {
   return auctions;
 };
 const Auction = auction(sequelize, Sequelize);
-// Artwork.hasMany(Auction, { foreignKey: "artWork_id", as: "artwork" });
+Artwork.hasMany(Auction, { foreignKey: "artWork_id", as: "artwork" });
 module.exports = { Auction };
 
 // category.belongsToMany(Auction, {

@@ -6,7 +6,7 @@ const config = require("../../db/configArtist");
 
 module.exports = {
   signup: async (req, res) => {
-    console.log("jhjkjkeee")
+    console.log("jhjkjkeee");
     try {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(req.body.password, salt);
@@ -20,8 +20,8 @@ module.exports = {
         imageUrl:req.body.imageUrl,
         password: hash,
         category: req.body.category,
-        imageUrl:req.body.imageUrl,
-        description:req.body.description
+        imageUrl: req.body.imageUrl,
+        description: req.body.description,
       });
       if (artist) {
         res.send({
@@ -55,12 +55,27 @@ module.exports = {
             expiresIn: "4h",
           });
 
-          res.send({ message: "success", auth: true, token: token,user:artist });
+          res.send({
+            message: "success",
+            auth: true,
+            token: token,
+            user: artist,
+          });
         } else {
-          res.send({ message: "wrong password", auth: false, token: null,user:null });
+          res.send({
+            message: "wrong password",
+            auth: false,
+            token: null,
+            user: null,
+          });
         }
       } else {
-        res.send({ message: "user not found", auth: false, token: null,user :null});
+        res.send({
+          message: "user not found",
+          auth: false,
+          token: null,
+          user: null,
+        });
       }
     } catch (err) {
       res.send(err);
@@ -74,7 +89,7 @@ module.exports = {
       const user = await Artist.findOne({
         where: { email: email.email },
       });
-      res.send(user);
+      res.send({ user: user, type: "artist" });
     } catch (err) {
       res.send(err);
     }
@@ -110,17 +125,16 @@ module.exports = {
   },
   verifyToken: async (req, res) => {
     try {
-
-      const token = req.body.token
-      console.log("============",token, config.secret);
-      const {email} = jwt.verify(token, config.secret);
+      const token = req.body.token;
+      console.log("============", token, config.secret);
+      const { email } = jwt.verify(token, config.secret);
       console.log(email);
-      const {dataValues} = await Artist.findOne({
+      const { dataValues } = await Artist.findOne({
         where: { email },
       });
-      res.json({auth: true, artist: dataValues})
+      res.json({ auth: true, artist: dataValues });
     } catch (e) {
       res.send(e);
     }
-  }
+  },
 };
