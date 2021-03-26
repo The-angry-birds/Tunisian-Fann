@@ -17,37 +17,30 @@ const auction = (sequelize, type) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      startDate: {
-        type: type.DATE,
-        required: false,
-      },
-      startTime: {
-        type: type.STRING,
-        required: false,
-      },
 
-      artWork_id: {
+
+      artwork_id: {
         type: type.INTEGER,
         allowNull: false,
       },
 
-      endDate: {
+      startDate: {
         type: type.DATE,
         required: false,
       },
-      endTime: {
+      endDate: {
         type: type.DATE,
         required: false,
       },
     },
 
-    { timestamps: true }
+    { timestamps: true}
   );
 
   return auctions;
 };
 const Auction = auction(sequelize, Sequelize);
-Artwork.hasMany(Auction, { foreignKey: "artWork_id", as: "artwork" });
+Artwork.hasMany(Auction, { foreignKey: "artwork_id", as: "artwork" });
 module.exports = { Auction };
 
 // category.belongsToMany(Auction, {
