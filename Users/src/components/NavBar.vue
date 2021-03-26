@@ -48,8 +48,13 @@
       ></button>
       <ul class="dropdown-menu">
         <li>
-          <button>
+          <button v-if="type === 'guest'">
             <router-link class="as-btns" to="/user-profile"
+              >Account</router-link
+            >
+          </button>
+          <button v-else>
+            <router-link class="as-btns" to="/artist-profile"
               >Account</router-link
             >
           </button>
@@ -70,10 +75,16 @@
 export default {
   computed: {
     authGuest() {
-      console.log("logged: s", this.$store.getters.logged);
       return this.$store.getters.logged;
+
     },
+
+    type() {
+      return this.$store.getters.role;
+    },
+
   },
+
   methods: {
     handleClick() {
       console.log("logging out");
