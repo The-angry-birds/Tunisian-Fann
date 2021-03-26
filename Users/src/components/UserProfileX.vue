@@ -8,7 +8,6 @@
               <div class="media align-items-end profile-head">
                 <div class="profile mr-3">
                   <img
-                    v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="#"
                     width="130"
@@ -23,7 +22,6 @@
                     Edit profile
                   </button>
                 </div>
-
                 <div class="media-body mb-5 text-black">
                   <h4 class="mt-0 mb-0">
                     {{ user.firstName }} {{ user.lastName }}
@@ -50,9 +48,7 @@
         </div>
       </div>
     </div>
-
     <!-- MODAL CONTENT -->
-
     <div
       class="modal fade"
       id="Modal"
@@ -96,7 +92,6 @@
                   placeholder="Lastname"
                 />
               </div>
-
               <div class="file-field">
                 <div class="mb-4">
                   <img
@@ -108,8 +103,7 @@
                 <div class="d-flex justify-content-center">
                   <div class="btn btn-mdb-color btn-rounded float-left">
                     <span>Add photo</span>
-                  
-                    <input     v-on:change="handleFileUpload()" type="file" id="file" ref="file" />
+                    <input v-on:change="handleFileUpload()" type="file" id="file" ref="file" />
                   </div>
                 </div>
               </div>
@@ -148,7 +142,6 @@ export default {
       return this.$store.state.auth.user;
     },
   },
-
   methods: {
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
@@ -174,18 +167,14 @@ export default {
       axios
         .patch(`http://localhost:3000/api/users/${this.getUser.id}`, data)
         .then((response) => {
-          console.log( 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',response);
+          console.log( response);
         });
-
-   
        const token= localStorage.getItem("token");
-      
       axios.get("http://localhost:3000/api/users/getUserByToken",{
           headers: { authorization: `Bearer ${token}`}}).then(({ data }) => {
-           this.user = data.user;
-   
+           this.user = data.user
+           console.log(" this is user",this.user )
       });
-
     },
   },
   mounted() {
@@ -193,9 +182,7 @@ export default {
   },
 };
 //   showelement() {
-
 // mounted(){
-
 // }
 //     var h = this.show;
 //     this.show = !h;
@@ -219,17 +206,16 @@ export default {
   transform: translateY(5rem);
 }
 .cover {
-  background-color: #fdf5e6;
+  background-color: #FDF5E6;
   background-size: cover;
   background-repeat: no-repeat;
 }
 #heading {
   padding: 30px !important;
-  background-color: #fdf5e6;
+  background-color: #FDF5E6;
 }
-
 #recent-bidding {
-  background-color: #fdf5e6;
+  background-color: #FDF5E6;
 }
 #Modal {
   margin-top: 60px;
@@ -238,7 +224,6 @@ export default {
 .labels {
   margin-top: 20px;
 }
-
 .btn-save {
   padding: 10px;
   color: grey;
