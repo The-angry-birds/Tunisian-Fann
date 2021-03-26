@@ -103,7 +103,7 @@ export default {
 
                 .then(() => {
                   swal("Good job!", "Welcome", "success");
-                  this.$router.push("/");
+                  this.$router.push("/user-profile");
                 });
             }
           });
@@ -119,16 +119,15 @@ export default {
         };
 
         this.$store.dispatch("login", data).then((res) => {
-          if(res.data.message==="success")
-          {swal("Good job!", "Welcome", "success");
-          this.$router.push("/");
+          if (res.data.message === "success") {
+            swal("Good job!", "Welcome", "success");
+            this.$router.push("/user-profile");
+          } else if (res.data.message === "wrong password") {
+            swal("Oops!", "Wrong Password!", "error");
+          } else {
+            swal("Oops!", "Wrong Email!", "error");
           }
-          else if (res.data.message==="wrong password")
-          { swal("Oops!", "Wrong Password!", "error");}
-          else{
-              swal("Oops!", "Wrong Email!", "error");
-          }
-        })
+        });
       }
     },
 

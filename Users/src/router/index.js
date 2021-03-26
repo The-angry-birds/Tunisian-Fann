@@ -37,7 +37,7 @@ const router = new Router({
     },
     {
       path: "/artist-profile",
-      name: "Artist",
+      name: "artist",
       component: () => import("@/components/artist-profile.vue"),
     },
     {
@@ -80,7 +80,11 @@ router.beforeEach(async (to, from, next) => {
     } else {
       console.log("but user not logged in");
       const token = window.localStorage.getItem("token");
-      const artist = await store.dispatch("verify_token", token);
+      const artist = await store
+        .dispatch("verify_token", token)
+        .then((data) => {
+          console.log("reppppp", data);
+        });
       console.log(artist);
     }
   }

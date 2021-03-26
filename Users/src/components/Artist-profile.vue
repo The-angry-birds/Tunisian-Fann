@@ -33,9 +33,9 @@
             <div class="px-3 py-4">
               <h5 class="mb-4">About</h5>
               <div class="p-4 rounded shadow-sm " id="info-card">
-                <p class="font-italic mb-0">Web Developer</p>
-                <p class="font-italic mb-0">Lives in New York</p>
-                <p class="font-italic mb-0">Photographer</p>
+                <p class="font-italic mb-0">{{ getArtist.description }}</p>
+                <!-- <p class="font-italic mb-0">Lives in New York</p>
+                <p class="font-italic mb-0">Photographer</p> -->
               </div>
             </div>
             <div class="py-4 px-4">
@@ -43,13 +43,13 @@
                 class="d-flex align-items-center justify-content-between mb-3"
               >
                 <h5 class="mb-0">Edit profile</h5>
-                <a href="#" class="btn btn-link text-muted">submit</a>
               </div>
               <!-- <div class="row"> -->
               <form>
                 <div class="row">
                   <div class="col">
                     <input
+                      v-model="firstName"
                       type="text"
                       class="form-control"
                       placeholder="First name"
@@ -57,10 +57,30 @@
                   </div>
                   <div class="col">
                     <input
+                      v-model="lastName"
                       type="text"
                       class="form-control"
                       placeholder="Last name"
                     />
+                  </div>
+                  <div>
+                    <b-form-textarea
+                      id="textarea"
+                      v-model="description"
+                      placeholder="Enter your bio ..."
+                      rows="3"
+                      max-rows="6"
+                    ></b-form-textarea>
+
+                    <pre class="mt-3 mb-0">{{ description }}</pre>
+
+                    <a
+                      id="submitbtn"
+                      href="#"
+                      class="btn btn-outline-dark btn-sm  btn-block"
+                      @click.prevent="handleSubmit()"
+                      >submit</a
+                    >
                   </div>
                 </div>
               </form>
@@ -75,15 +95,36 @@
 
 <script>
 import NavBar from "./NavBar.vue";
+import axios from "axios";
 
 export default {
   data() {
-    return {};
+    return {
+      description: "",
+      firstName: "",
+      lastName: "",
+    };
   },
   components: {
     NavBar,
   },
-  methods: {},
+  methods: {
+    handleSubmit() {
+      const data = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        description: this.description,
+      };
+      axios
+        .put(
+          `http://localhost:3000/api/auth/artists/${this.getArtist.id}`,
+          data
+        )
+        .then(({ data }) => {
+          console.log("this is my update", data);
+        });
+    },
+  },
   computed: {
     getArtist() {
       console.log("iii", this.$store.state.auth.user);
@@ -110,5 +151,10 @@ export default {
 }
 #info-card {
   background-color: #fdf5e6;
+}
+#submitbtn {
+  width: 120px;
+  margin: auto;
+  margin-top: 20px;
 }
 </style>

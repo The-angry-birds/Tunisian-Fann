@@ -69,23 +69,16 @@ export default {
       console.log("logged: s", this.$store.getters.logged);
       return this.$store.getters.logged;
     },
+    userType() {
+      return this.$store.state.auth.user;
+    },
   },
   methods: {
-    // auth() {
-    //   return this.$store.getters.authStatus;
-    // },
-    // authArtist() {
-    //   return this.$store.getters.artistStatus;
-    // },
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
-    // handleClickArtist() {
-    //   this.$store.artist.dispatch("logout");
-    //   this.$router.push("/");
-    // },
   },
 };
 </script>
