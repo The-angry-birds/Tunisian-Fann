@@ -77,18 +77,14 @@ export default {
       return this.$store.getters.role;
     },
   },
-  mounted() {
-    this.userType();
-  },
+
   methods: {
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
-    userType() {
-      return this.$store.getters.role;
-    },
+
     handleScroll() {
       if (document.documentElement.scrollTop > 80) {
         document.getElementById("navbar").style.padding = "20px 0";
@@ -192,7 +188,6 @@ export default {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-
 .dropdown-menu {
   background-color: transparent !important;
   backdrop-filter: blur(10px) !important;

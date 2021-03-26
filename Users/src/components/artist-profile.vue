@@ -525,6 +525,7 @@ export default {
         });
     },
   },
+
   computed: {
     //it returns the user that is actually logged in
     getArtist() {
@@ -561,6 +562,7 @@ export default {
 #info-card {
   background-color: #fdf5e6;
 }
+
 #submitbtn {
   width: 120px;
   margin: auto;
