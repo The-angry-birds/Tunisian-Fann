@@ -69,7 +69,9 @@ export default {
     authGuest() {
       console.log("logged: s", this.$store.getters.logged);
       return this.$store.getters.logged;
+
     },
+   
   },
   methods: {
     handleClick() {
@@ -96,7 +98,10 @@ export default {
       // document.getElementById("logo").style.fontSize = "35px";
     },
   },
-
+ 
+  mounted() {
+    this.status();
+  },
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
