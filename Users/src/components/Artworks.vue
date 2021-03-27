@@ -18,12 +18,14 @@
         img-top
         class="mb-2"
       >
+
         <div class="likes-container">
           <button @click.prevent="like(artwork)">
             <i class="fa fa-thumbs-up"></i>
           </button>
           <p>{{ artwork.likes }}</p>
         </div>
+
         <b-card-text class="card-category">Digital Paintings</b-card-text>
 
         <h3 class="card-title" @click="sharedData(artwork)">

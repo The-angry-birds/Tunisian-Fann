@@ -3,6 +3,7 @@
     <img
       class="navbar-logo"
       src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
+       to="/"
     />
 
     <button>
@@ -11,6 +12,10 @@
 
     <button>
       <router-link class="nav-btns" to="/artworks">Artworks</router-link>
+    </button>
+
+    <button>
+      <router-link class="nav-btns" to="/auctions">Auctions</router-link>
     </button>
 
     <div v-if="!authGuest" class="dropdown" id="nav-join">
@@ -71,20 +76,25 @@
 export default {
   computed: {
     authGuest() {
+       console.log("this.user",this.$store.getters.logged)
       return this.$store.getters.logged;
+
     },
     type() {
       return this.$store.getters.role;
     },
+
   },
 
   methods: {
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
-      this.$router.push("/");
+      this.$router.push("/hello");
     },
-
+    userType() {
+      return this.$store.getters.role;
+    },
     handleScroll() {
       if (document.documentElement.scrollTop > 80) {
         document.getElementById("navbar").style.padding = "20px 0";
@@ -99,8 +109,6 @@ export default {
         document.getElementById("navbar").style.boxShadow = "0 0 0";
         document.getElementById("dropdown-menu").style.backgroundColor = "#fff";
       }
-      //   document.getElementById("navbar").style.padding = "80px 10px";
-      // document.getElementById("logo").style.fontSize = "35px";
     },
   },
 
@@ -121,16 +129,13 @@ export default {
   margin: 0;
 }
 .navbar {
-  /* background-color: rgb(187, 187, 187, 0.2); */
   background: transparent;
-  /* border-bottom: 1px solid rgb(187, 187, 187); */
   border-radius: 0px;
   min-width: 100%;
   position: fixed;
   top: 0;
   box-shadow: 0 0 0;
   padding-top: 30px;
-  /* backdrop-filter: blur(10px); */
   z-index: 10;
   transition: 0.4s;
 }
@@ -164,7 +169,6 @@ export default {
 }
 .as-btns {
   font-family: "Inconsolata", monospace;
-
   margin-top: 10px;
   align-items: center;
   color: #a08018;
@@ -173,8 +177,6 @@ export default {
   font-size: 16px;
   height: 100%;
   margin-left: 20px;
-  /* padding: 0 20px;
-  top: 2px; */
   text-decoration: none;
 }
 .as-btns:hover {

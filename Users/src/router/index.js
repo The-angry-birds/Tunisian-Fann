@@ -54,6 +54,11 @@ const router = new Router({
       component: () => import("@/components/UserProfileX.vue"),
     },
     {
+      path: "/auctions",
+      name: "auctions",
+      component: () => import("@/components/Auctions.vue"),
+    },
+    {
       path: "/auction-details",
       name: "auction-details",
 
@@ -69,7 +74,6 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-  console.log("+++", store);
   console.log(store.state.auth.token);
   if (!store.state.auth.token) {
     console.log("No token here");
