@@ -75,7 +75,7 @@
               <div class="form-group">
                 <label class="labels" for="Firstname">Firstname</label>
                 <input
-                  v-model="firstName"
+                  v-model="user.firstName"
                   type="firstname"
                   class="form-control"
                   id="Firstname"
@@ -84,7 +84,7 @@
                 />
                 <label class="labels" for="Lastname">Lastname</label>
                 <input
-                  v-model="lastName"
+                  v-model="user.lastName"
                   type="lastname"
                   class="form-control"
                   id="Lastname"
@@ -144,7 +144,7 @@ export default {
   },
   methods: {
     handleFileUpload() {
-      this.file = this.$refs.file.files[0];
+      this.file = this.$refs.file.files[0]; 
       console.log("ahahaha", this.file);
       const image = new FormData();
       image.append("file", this.file);
@@ -153,32 +153,30 @@ export default {
         .post("https://api.cloudinary.com/v1_1/dkcwqbl9d/image/upload", image)
         .then(({ data }) => {
           console.log("imageId", data.url);
-          this.image = data.url;
-          console.log("image",this.image)
+          this.user.image = data.url;
         })
         .catch((err) => console.log(err));
     },
     handleEdit() {
-      const data = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        image: this.image,
-      };
       axios
-        .patch(`http://localhost:3000/api/users/${this.getUser.id}`, data)
+        .patch(`http://localhost:3000/api/users/${this.getUser.id}`, this.user)
         .then((response) => {
-          console.log( response);
+          console.log(response);
+              this.getdata()
         });
+    },
+    getdata(){
        const token= localStorage.getItem("token");
       axios.get("http://localhost:3000/api/users/getUserByToken",{
           headers: { authorization: `Bearer ${token}`}}).then(({ data }) => {
            this.user = data.user
            console.log(" this is user",this.user )
       });
-    },
+    }
   },
   mounted() {
     this.user = this.$store.state.auth.user;
+     this.getdata()
   },
 };
 //   showelement() {

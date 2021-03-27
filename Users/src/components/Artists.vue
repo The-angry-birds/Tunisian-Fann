@@ -115,6 +115,7 @@ p {
   height: 48%;
   border-radius: 50%;
   padding: 4px;
+  object-fit: cover;
 }
 .primary {
   background-color: black;
