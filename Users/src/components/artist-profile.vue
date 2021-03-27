@@ -91,7 +91,11 @@
                           />
                           <label class="labels" for="ImageURL">Image URL</label>
                           <input
+
+                            v-model="url"
+
                             v-model="image"
+
                             type="imageurl"
                             class="form-control"
                             id="ImageURL"
@@ -112,7 +116,11 @@
                           <label class="labels" for="Price">Price</label>
                           <input
                             v-model="price"
+
+                            type="number"
+
                             type="price"
+
                             class="form-control"
                             id="Price"
                             aria-describedby="price"
@@ -120,13 +128,35 @@
                           />
                           <div class="btn-group">
                             <b-dropdown
-                              split
                               split-variant="secondary"
                               variant="secondary"
                               text="Category"
                               class="m-2"
+                              v-model="nameOfCategory"
                             >
                               <b-dropdown-item
+
+                                v-for="(category, i) in categories"
+                                :key="i"
+                                :value="category.name"
+                                >{{ category.name }}</b-dropdown-item
+                              >
+                            </b-dropdown>
+                            <select
+                              class=" btn-group "
+                              v-model="nameOfCategory"
+                            >
+                              <option value="" selected>Category</option>
+
+                              <option
+                                class="m-2"
+                                v-for="category in categories"
+                                :key="category.id"
+                              >
+                                {{ category.name }}</option
+                              >
+                            </select>
+
                                 href="#"
                                 v-for="(category, i) in categories"
                                 :key="i"
@@ -139,6 +169,7 @@
                                 >Sculptures</b-dropdown-item
                               > -->
                             </b-dropdown>
+
                           </div>
                         </form>
                       </div>
@@ -150,7 +181,11 @@
                         >
                           Close
                         </button>
-                        <button type="button" class="btn btn-primary">
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          @click.prevent="handleSubmitArtwork()"
+                        >
                           Submit
                         </button>
                       </div>
@@ -158,23 +193,27 @@
                   </div>
                 </div>
                 <div class="card-container">
-                  <card class="artwork-card">
-                    <img
-                      class="img-card"
-                      src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/moments-artwork-by-bensalem-walid.png"
-                    />
-                    <p class="card-category">Digital Paintings</p>
-                    <h3 class="card-title">Moments</h3>
-                    <h6 class="card-price">570 DT</h6>
+                  <card
+                    class="artwork-card"
+                    v-for="(artwork, i) in artworks"
+                    :key="i"
+                  >
+                    <img class="img-card" :src="artwork.imageUrl" />
+                    <p class="card-category">{{ artwork.description }}</p>
+                    <h3 class="card-title">{{ artwork.nameArtwork }}</h3>
+                    <h6 class="card-price">{{ artwork.price }} dt</h6>
                     <div class="card-by">
                       by
-                      <p class="card-author">Bensalem Walid</p>
+                      <p class="card-author">
+                        {{ user.firstName }}{{ user.lastName }}
+                      </p>
                     </div>
                     <div>
                       <button
                         class="card-btn"
                         data-toggle="modal"
                         data-target="#editModal"
+                        @click.prevent="setCurrentId(artwork.id, artwork)"
                       >
                         Edit
                       </button>
@@ -182,6 +221,7 @@
                         class="card-btn"
                         data-toggle="modal"
                         data-target="#deleteModal"
+                        @click.prevent="setCurrentId(artwork.id, artwork)"
                       >
                         Delete
                       </button>
@@ -215,6 +255,8 @@
                               <form>
                                 <label class="labels" for="Title">Title</label>
                                 <input
+                                  value="artwork.title"
+                                  v-model="art.title"
                                   type="title"
                                   class="form-control"
                                   id="Title"
@@ -225,6 +267,7 @@
                                   >Image URL</label
                                 >
                                 <input
+                                  v-model="art.url"
                                   type="imageurl"
                                   class="form-control"
                                   id="ImageURL"
@@ -235,6 +278,7 @@
                                   >Description</label
                                 >
                                 <input
+                                  v-model="art.description"
                                   type="description"
                                   class="form-control"
                                   id="Description"
@@ -243,14 +287,15 @@
                                 />
                                 <label class="labels" for="Price">Price</label>
                                 <input
-                                  type="price"
+                                  v-model="art.price"
+                                  type="number"
                                   class="form-control"
                                   id="Price"
                                   aria-describedby="price"
                                   placeholder="Price"
                                 />
                                 <div class="btn-group">
-                                  <b-dropdown
+                                  <!-- <b-dropdown
                                     split
                                     split-variant="secondary"
                                     variant="secondary"
@@ -258,12 +303,36 @@
                                     class="m-2"
                                   >
                                     <b-dropdown-item
-                                      href="#"
+
                                       v-for="(category, i) in categories"
                                       :key="i"
                                       >{{ category.name }}</b-dropdown-item
                                     >
-                                  </b-dropdown>
+                                  </b-dropdown> -->
+                                  <div split split-variant="secondary">
+                                    <select
+                                      class=" btn-group m-2 "
+                                      v-model="art.category_id"
+
+                                      href="#"
+                                      v-for="(category, i) in categories"
+                                      :key="i"
+                                      >{{ category.name }}</b-dropdown-item
+
+                                    >
+                                      <option value="category" selected
+                                        >Category</option
+                                      >
+
+                                      <option
+                                        class="m-2"
+                                        v-for="category in categories"
+                                        :key="category.id"
+                                      >
+                                        {{ category.name }}</option
+                                      >
+                                    </select>
+                                  </div>
                                 </div>
                               </form>
                             </div>
@@ -276,7 +345,11 @@
                             >
                               Close
                             </button>
-                            <button type="button" class="btn btn-primary">
+                            <button
+                              type="button"
+                              class="btn btn-primary"
+                              @click.prevent="handleUpdate()"
+                            >
                               Submit
                             </button>
                           </div>
@@ -318,7 +391,11 @@
                             >
                               Close
                             </button>
-                            <button type="button" class="btn btn-danger">
+                            <button
+                              type="button"
+                              class="btn btn-danger"
+                              @click.prevent="handleDelete()"
+                            >
                               Delete
                             </button>
                           </div>
@@ -429,12 +506,15 @@ export default {
       imageUrl: "",
       title: "",
       details: "",
-      price: "",
+
+      price: null,
       url: "",
       nameOfCategory: "",
       categories: [],
       artworks: [],
       user: {},
+      currentId: null,
+      art: {},
     };
   },
   // components: {
@@ -502,27 +582,58 @@ export default {
       });
     },
     handleSubmitArtwork() {
+      console.log("======object", {
+        artist_id: this.getArtist.id,
+        nameArtwork: this.title,
+        description: this.details,
+        imageUrl: this.url,
+        price: this.price,
+        categoryName: this.nameOfCategory,
+      });
       axios
+
         .post("http://localhost:3000/api/artworks ", {
           artist_id: this.user.id,
           nameArtwork: this.title,
           description: this.details,
           imageUrl: this.url,
           price: this.price,
-          categoryName: this.name,
+          artist_id: this.getArtist.id,
+          categoryName: this.nameOfCategory,
         })
         .then(({ data }) => {
           console.log("created", data);
-
+          this.getAllArtworks();
           Swal.fire({
             position: "top-end",
             icon: "success",
             title: "Your Artwork has been created",
             showConfirmButton: false,
             timer: 1500,
-          }).catch((err) => {
-            console.log(err);
           });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    setCurrentId(id, art) {
+      this.art = art;
+      this.currentId = id;
+      console.log("deletd", this.currentId);
+    },
+    handleDelete() {
+      axios
+        .delete(`http://localhost:3000/api/artworks/${this.currentId}`)
+        .then(({ response }) => {
+          this.getAllArtworks();
+          console.log("deleted", response);
+        });
+    },
+    handleUpdate() {
+      axios
+        .put(`http://localhost:3000/api/artworks/${this.currentId}`, this.art)
+        .then((response) => {
+          console.log("heyyyyyy", response.statusText);
         });
     },
   },
@@ -599,7 +710,7 @@ image-load {
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   width: 300px;
-  height: 450px;
+  height: 490px;
   background-color: white;
 }
 .card-category {
