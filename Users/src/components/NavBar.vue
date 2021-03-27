@@ -90,7 +90,7 @@ export default {
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
-      this.$router.push("/hello");
+      this.$router.push("/");
     },
     userType() {
       return this.$store.getters.role;

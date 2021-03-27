@@ -17,6 +17,8 @@
             </svg>
             <span class="card__time" id="demo">{{ auction.startDate }} /</span>
             <span class="card__time" id="demo"> / {{ auction.endDate }}</span>
+            <span v-if="!isExpired" class="card__time" id="demo"> / {{ distanceDate.days }}d {{ distanceDate.hours }}h {{ distanceDate.minutes }}m {{ distanceDate.seconds }}s</span>
+            <span v-if="isExpired" class="card__time" id="demo"> Expired </span>
           </div>
         </div>
         <div class="card__img"></div>
@@ -44,8 +46,10 @@ export default {
   data() {
     return {
       artwork_id: "",
-      auctions: [],
+      auctions: {},
       auction: {},
+      distanceDate: {days: null, hours: null, minutes: null, seconds: null},
+      isExpired: false,
     };
   },
   methods: {
@@ -53,14 +57,53 @@ export default {
       axios.get("http://localhost:3000/api/auctions").then((res) => {
         console.log(res);
         this.auctions = res.data;
+        this.calculateCountDown();
       });
     },
     sharedData(a) {
       this.$router.push({ path: "/auction-details", params: a });
     },
+    calculateCountDown(){
+      // Set the date we're counting down ton
+      console.log("============>",this.auctions)
+      var countDownDate = new Date(this.auction.endDate).getTime();
+      console.log(countDownDate)
+      // Update the count down every 1 second
+      var x = setInterval(() => {
+
+      // Get today's date and time
+      let now = new Date().getTime();
+        
+      // Find the distance between now and the count down date
+      let distance = countDownDate - now;
+
+      // If the count down is over, write some text 
+      if (distance < 0){
+        this.isExpired = true
+        clearInterval(x)
+      }
+        
+      // Time calculations for days, hours, minutes and seconds
+      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      console.log(days,hours)
+        
+      // Output the result in an element with id="demo"
+      this.distanceDate = {
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+      }
+      console.log(this.distanceDate)
+    }, 1000);
+    },
   },
   mounted() {
     this.getAuctions();
+    
   },
 };
 </script>
@@ -83,6 +126,8 @@ body {
 
 .container {
   margin-top: 120px;
+  display:flex;
+  flex-wrap: wrap;
 }
 
 .auctions-header {

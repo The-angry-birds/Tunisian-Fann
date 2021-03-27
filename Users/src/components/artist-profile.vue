@@ -91,11 +91,7 @@
                           />
                           <label class="labels" for="ImageURL">Image URL</label>
                           <input
-
                             v-model="url"
-
-                            v-model="image"
-
                             type="imageurl"
                             class="form-control"
                             id="ImageURL"
@@ -116,11 +112,7 @@
                           <label class="labels" for="Price">Price</label>
                           <input
                             v-model="price"
-
                             type="number"
-
-                            type="price"
-
                             class="form-control"
                             id="Price"
                             aria-describedby="price"
@@ -135,7 +127,6 @@
                               v-model="nameOfCategory"
                             >
                               <b-dropdown-item
-
                                 v-for="(category, i) in categories"
                                 :key="i"
                                 :value="category.name"
@@ -156,20 +147,6 @@
                                 {{ category.name }}</option
                               >
                             </select>
-
-                                href="#"
-                                v-for="(category, i) in categories"
-                                :key="i"
-                                >{{ category.name }}</b-dropdown-item
-                              >
-                              <!-- <b-dropdown-item href="#"
-                                >Digital Paintings</b-dropdown-item
-                              >
-                              <b-dropdown-item href="#"
-                                >Sculptures</b-dropdown-item
-                              > -->
-                            </b-dropdown>
-
                           </div>
                         </form>
                       </div>
@@ -303,7 +280,6 @@
                                     class="m-2"
                                   >
                                     <b-dropdown-item
-
                                       v-for="(category, i) in categories"
                                       :key="i"
                                       >{{ category.name }}</b-dropdown-item
@@ -313,12 +289,6 @@
                                     <select
                                       class=" btn-group m-2 "
                                       v-model="art.category_id"
-
-                                      href="#"
-                                      v-for="(category, i) in categories"
-                                      :key="i"
-                                      >{{ category.name }}</b-dropdown-item
-
                                     >
                                       <option value="category" selected
                                         >Category</option
@@ -506,7 +476,6 @@ export default {
       imageUrl: "",
       title: "",
       details: "",
-
       price: null,
       url: "",
       nameOfCategory: "",
@@ -591,9 +560,7 @@ export default {
         categoryName: this.nameOfCategory,
       });
       axios
-
-        .post("http://localhost:3000/api/artworks ", {
-          artist_id: this.user.id,
+        .post("http://localhost:3000/api/artworks", {
           nameArtwork: this.title,
           description: this.details,
           imageUrl: this.url,

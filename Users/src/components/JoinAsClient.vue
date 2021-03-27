@@ -102,8 +102,8 @@ export default {
                 .dispatch("signup", data)
 
                 .then(() => {
-                  swal("Good job!", "Welcome", "success");
-                  this.$router.push("/hello");
+                  swal("Successfully signed up", "Welcome", "success");
+                  this.$router.push("/");
                 });
             }
           });
@@ -120,8 +120,8 @@ export default {
 
         this.$store.dispatch("login", data).then((res) => {
           if (res.data.message === "success") {
-            swal("Good job!", "Welcome", "success");
-            this.$router.push("/hello");
+            swal( "Welcome", "success");
+            this.$router.push("/");
           } else if (res.data.message === "wrong password") {
             swal("Oops!", "Wrong Password!", "error");
           } else {
@@ -234,7 +234,7 @@ input {
   width: 768px;
   max-width: 100%;
   min-height: 480px;
-  margin-top: 4%;
+  margin-top: 10%;
 }
 
 .form-container {
