@@ -279,7 +279,7 @@ export default {
         .then(({ data }) => {
           console.log("imageId", data.url);
           this.$data.imageUrl = data.url;
-          console.log("===>", this.$data.imageUrl);
+          // console.log("===>", this.$data.imageUrl);
         })
         .catch((err) => console.log(err));
     },

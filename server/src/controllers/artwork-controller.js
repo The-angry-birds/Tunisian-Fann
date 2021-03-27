@@ -21,8 +21,7 @@ module.exports = {
       });
       //sending the artwork as response
       res.send(artwork);
-      console.log("==================",artwork)
-
+      console.log("==================", artwork);
     } catch (err) {
       res.send(err);
     }
@@ -78,7 +77,6 @@ module.exports = {
       );
 
       res.send("updated");
-      console.log("============== work", artwork);
     } catch (err) {
       res.send(err);
     }
@@ -91,11 +89,8 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-  }
-
-}
-
-
+  },
+};
 
 // "nameArtwork": "CRY BABY",
 // "description": "DIGITAL ART AND ILLUSTRATION",
