@@ -20,9 +20,9 @@
       >
         <div class="likes-container">
           <button @click.prevent="like(artwork)">
-            <i class="fa fa-thumbs-up"></i>
+            <i class="fa fa-thumbs-up likes-icon"></i>
           </button>
-          <p>{{ artwork.likes }}</p>
+          <p   class="likes-number">{{ artwork.likes }}</p>
         </div>
 
         <b-card-text class="card-category">Digital Paintings</b-card-text>
@@ -57,7 +57,7 @@ export default {
     like(art) {
       const create = {
         artwork_id: art.id,
-        user_id: 9,
+        user_id: 11
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
@@ -155,7 +155,7 @@ export default {
   margin-left: 3px;
 }
 img:hover {
-  opacity: 0.5;
+  opacity: 0.8;
 }
 img {
   border-radius: 5px 5px 0px 0px;
@@ -190,8 +190,18 @@ img {
   bottom: 85px;
   right: 20px;
 }
-.fa-thumbs-up {
+.likes-icon {
   font-size: 25px;
+  color: black;
+  transition: 0.3s;
+}
+.likes-icon:hover {
+  font-size: 30px;
+  color: #a08018;
+}
+
+.likes-number {
+  font-size: 15px;
   color: #a08018;
 }
 </style>
