@@ -18,15 +18,17 @@ export default {};
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
+
 * {
-  font-family: "Spectral", serif;
+  font-family: "Lexend", serif;
 }
 
 .aboutUs-header {
   font-size: 25px;
   text-align: center;
   margin-top: 25px;
-  color: #ad7d52;
+  color: #a08018;
 }
 
 .aboutUs-body {

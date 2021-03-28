@@ -18,7 +18,6 @@
         img-top
         class="mb-2"
       >
-
         <div class="likes-container">
           <button @click.prevent="like(artwork)">
             <i class="fa fa-thumbs-up"></i>
@@ -111,11 +110,11 @@ export default {
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css");
 * {
   box-sizing: border-box;
-  font-family: "Spectral", serif;
+  font-family: "Lexend", serif;
 }
 
 .artworks-header {
-  margin-top: 120px;
+  margin-top: 100px;
 }
 .card-container {
   display: flex;
@@ -138,7 +137,7 @@ export default {
   font-size: 13px;
   letter-spacing: 2px;
   font-weight: 500;
-  color: #868686;
+  color: grey;
 }
 .card-title {
   margin-top: 5px;
@@ -152,7 +151,7 @@ export default {
 .card-author {
   font-weight: 600;
   text-decoration: none;
-  color: #ad7d52;
+  color: #a08018;
   margin-left: 3px;
 }
 img:hover {
@@ -190,5 +189,9 @@ img {
   position: absolute;
   bottom: 85px;
   right: 20px;
+}
+.fa-thumbs-up {
+  font-size: 25px;
+  color: #a08018;
 }
 </style>

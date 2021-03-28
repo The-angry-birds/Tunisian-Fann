@@ -68,16 +68,18 @@ export default {
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
+
 * {
-  font-family: "Spectral", serif;
+  font-family: "Lexend", serif;
 }
 .auction-container {
-  padding-top: 70px;
+  padding-top: 160px;
   padding-bottom: 20px;
   padding-right: 10%;
   padding-left: 12%;
   width: 100vw;
-  height: 100vh;
+  height: 120vh;
 }
 .left-container {
   width: 60%;
@@ -88,6 +90,7 @@ export default {
   height: 100%;
   width: 90%;
   object-fit: cover;
+  border-radius: 5px;
 }
 .auction-header {
   display: flex;
@@ -95,7 +98,7 @@ export default {
 }
 .auction-name {
   font-weight: bolder;
-  color: #AD7D52;
+  color: #a08018;
 }
 .auction-category {
   padding-top: 18px;
@@ -113,17 +116,17 @@ export default {
   flex-wrap: nowrap;
 }
 .current-price {
-  color: #AD7D52;
+  color: #a08018;
   font-weight: 800;
 }
 .time {
   padding-top: 3px;
   padding-left: 15px;
   font-weight: bold;
-  color: #AD7D52;
+  color: #a08018;
 }
 .submit-btn {
-  color: #AD7D52;
+  color: #a08018;
 }
 .submit-btn:hover {
   color: black;
@@ -139,6 +142,6 @@ export default {
 .auction-artist {
   margin-left: 3px;
   font-weight: 600;
-  color: #AD7D52;
+  color: #a08018;
 }
 </style>

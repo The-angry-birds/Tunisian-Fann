@@ -73,7 +73,7 @@ export default {
 }
 
 .artists-header {
-  margin-top: 120px;
+  margin-top: 100px;
 }
 
 .cards-container {
@@ -107,7 +107,6 @@ p {
   width: 300px;
   height: 385px;
   cursor: pointer;
-
 }
 
 .card-container:hover {
@@ -120,8 +119,7 @@ p {
   border-radius: 50%;
   padding: 4px;
   object-fit: cover;
-    transition: 0.5s;
-
+  transition: 0.5s;
 }
 .card-container .round:hover {
   border: 1px solid black;

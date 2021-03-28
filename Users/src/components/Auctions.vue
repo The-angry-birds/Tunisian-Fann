@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="container">
-        <SingleAuction
-          v-for="(auction, i) in auctions"
-          :key="i"
-          :auction="auction"
-        />
-      </div>
+      <SingleAuction
+        v-for="(auction, i) in auctions"
+        :key="i"
+        :auction="auction"
+      />
     </div>
+  </div>
 </template>
 
 <script>
@@ -43,9 +43,11 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
+
 * {
   box-sizing: border-box;
-  font-family: "Spectral", serif;
+  font-family: "Lexend", serif;
 }
 
 body {
@@ -59,7 +61,7 @@ body {
 }
 
 .container {
-  margin-top: 120px;
+  margin-top: 60px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -68,7 +70,7 @@ body {
   font-size: 25px;
   text-align: center;
   margin-top: 25px;
-  color: #ad7d52;
+  color: #a08018;
 }
 
 .cards {
@@ -92,12 +94,12 @@ body {
 .card__clock {
   width: 17px;
   vertical-align: middle;
-  fill: #ad7d52;
+  fill: #a08018;
 }
 
 .card__time {
   font-size: 14px;
-  color: #ad7d52;
+  color: #a08018;
   vertical-align: middle;
   margin-left: 5px;
 }
@@ -164,7 +166,7 @@ body {
   font-size: 13px;
   letter-spacing: 2px;
   font-weight: 500;
-  color: #868686;
+  color: grey;
 }
 
 .card__title {
@@ -179,7 +181,7 @@ body {
 .card__author {
   font-weight: 600;
   text-decoration: none;
-  color: #ad7d52;
+  color: #a08018;
 }
 
 .card:hover .card__img--hover {
