@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="auctions-header">Feel free to join our auctions</h1>
+    <!-- <h1 class="auctions-header">Feel free to join our auctions</h1>
     <section class="cards">
       <article class="card card--1">
         <div class="card__info-hover">
@@ -127,7 +127,7 @@
         </div>
       </article>
     </section>
-    <button id="loadMore" class="dropdown-toggle">LOAD MORE</button>
+    <button id="loadMore" class="dropdown-toggle">LOAD MORE</button> -->
   </div>
 </template>
 

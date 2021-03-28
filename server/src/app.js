@@ -6,15 +6,17 @@ const cors = require("cors");
 const morgan = require("morgan");
 const router = require("./routes/admin.routes.js");
 const adminRoutes = require("./routes/auth.admin.routes.js");
+const port = process.env.PORT || 3000;
+const path = require("path");
 
 const usersRoutes = require("./routes/users.routes.js");
 const usersSignupRoutes = require("./routes/auth.users.routes.js");
 const artistAuthRoutes = require("./routes/auth.artists.routes.js");
 const artistRoutes = require("./routes/artists.routes");
 const artworkRouter = require("./routes/artwork-routes");
- const auctionsRouter =require("./routes/auctions.routes")
- const likesRouter =require("./routes/routes.likes")
- const verifyRouter=require("./routes/auth.verify.routes")
+const auctionsRouter = require("./routes/auctions.routes");
+const likesRouter = require("./routes/routes.likes");
+const verifyRouter = require("./routes/auth.verify.routes");
 const app = express();
 
 app.use(morgan("combined"));
@@ -30,12 +32,55 @@ app.use("/api/users", usersRoutes);
 
 app.use("/api/auth/artists", artistAuthRoutes);
 app.use("/api/artists", artistRoutes);
-app.use("/api/auctions",auctionsRouter)
-app.use("/api/auth",verifyRouter)
-app.use("/api/likes",likesRouter)
+app.use("/api/auctions", auctionsRouter);
+app.use("/api/auth", verifyRouter);
+app.use("/api/likes", likesRouter);
+// View Engine Setup
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
+var Publishable_Key = process.env.Publishable_Key;
+var Secret_Key = process.env.Secret_Key;
 
+const stripe = require("stripe")(Secret_Key);
 
+app.get("/", function (req, res) {
+  res.render("Home", {
+    key: Publishable_Key,
+  });
+});
+
+app.post("/payment", function (req, res) {
+
+  // like Address, Name, etc from form
+  stripe.customers
+    .create({
+      email: req.body.stripeEmail,
+      source: req.body.stripeToken,
+      name: req.body.name,
+      address: {
+        line1: req.body.line1,
+        postal_code: req.body.postal_code,
+        city: req.body.city,
+        state: req.body.state,
+        country: req.body.country,
+      },
+    })
+    .then((customer) => {
+      return stripe.charges.create({
+        amount: 7000, // Charing Rs 25
+        description: "Web Development Product",
+        currency: "USD",
+        customer: customer.id,
+      });
+    })
+    .then((charge) => {
+      res.send("Success"); // If no error occurs
+    })
+    .catch((err) => {
+      res.send(err); // If some error occurs
+    });
+});
 
 // app.post("/sendmessage", (req, res) => {
 //   console.log(req.body);
@@ -53,13 +98,6 @@ app.use("/api/likes",likesRouter)
 //     .then((message) => res.send(message));
 // });
 
-// const stripe = require('stripe')('sk_test_51ISo8BBdTsia79TvAqLvTk18vcwIA3IqgP1L0ovVH3wqR1zUbjLaEpI8avUH1PdRxNObvtXHqF1Sh1oN5gEBjDIk00HgympT1p');
-
-// const paymentIntent = await stripe.paymentIntents.create({
-//   amount: 2000,
-//   currency: 'usd',
-//   payment_method_types: ['card'],
-// });
 app.listen(process.env.PORT || 3000, () => {
   console.log("listening on port 3000");
 });
