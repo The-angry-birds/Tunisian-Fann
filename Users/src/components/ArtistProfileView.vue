@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     getArtworks() {
-      
       axios
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
@@ -90,9 +89,10 @@ export default {
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
+
 * {
-  padding: 0px;
-  margin: 0px;
+  font-family: "Lexend", serif;
 }
 .profile-head {
   transform: translateY(5rem);

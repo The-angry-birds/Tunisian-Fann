@@ -3,8 +3,8 @@
     <!-- <NavBar></NavBar> -->
     <LPAnimation></LPAnimation>
     <AboutUs></AboutUs>
-    <AuctionCard></AuctionCard>
-    <ArtworkCard></ArtworkCard>
+    <Auctions></Auctions>
+    <Artworks></Artworks>
     <Footer></Footer>
   </div>
 </template>
@@ -13,15 +13,15 @@
 // import NavBar from "./NavBar.vue";
 import LPAnimation from "./LPAnimation.vue";
 import AboutUs from "./AboutUs.vue";
-import AuctionCard from "./AuctionCard.vue";
-import ArtworkCard from "./ArtworkCard.vue";
+import Auctions from "./Auctions.vue";
+import Artworks from "./Artworks.vue";
 import Footer from "./Footer.vue";
 
 export default {
   components: {
     // NavBar,
-    AuctionCard,
-    ArtworkCard,
+    Auctions,
+    Artworks,
     LPAnimation,
     AboutUs,
     Footer,
@@ -30,8 +30,10 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
+
 * {
-  font-family: "Spectral", serif;
+  font-family: "Lexend", serif;
 }
 </style>
 

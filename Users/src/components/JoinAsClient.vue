@@ -2,7 +2,7 @@
   <div class="container" id="container">
     <div class="form-container sign-up-container">
       <form action="#">
-        <h3>Create Account</h3>
+        <h4>Create a client account</h4>
         <div class="social-container">
           <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
           <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
@@ -33,7 +33,7 @@
         <input type="email" v-model="email" placeholder="Email" />
         <input type="password" v-model="password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button @click.prevent="handleClick()">Login</button>
+        <button @click.prevent="handleClick()">Sign in</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -120,7 +120,7 @@ export default {
 
         this.$store.dispatch("login", data).then((res) => {
           if (res.data.message === "success") {
-            swal( "Welcome", "success");
+            swal("Welcome", "success");
             this.$router.push("/");
           } else if (res.data.message === "wrong password") {
             swal("Oops!", "Wrong Password!", "error");
@@ -131,11 +131,11 @@ export default {
       }
     },
 
-    movingsignUp: function() {
+    movingsignUp: function () {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    movingsignIn: function() {
+    movingsignIn: function () {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
@@ -144,8 +144,7 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
-
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
 * {
   box-sizing: border-box;
 }
@@ -176,8 +175,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #ad7d52;
-  background-color: #ad7d52;
+  border: 1px solid #a08018;
+  background-color: #a08018;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -226,6 +225,7 @@ input {
 }
 
 .container {
+  font-family: "Lexend", serif;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -234,7 +234,7 @@ input {
   width: 768px;
   max-width: 100%;
   min-height: 480px;
-  margin-top: 10%;
+  margin-top: 120px;
 }
 
 .form-container {
@@ -299,8 +299,8 @@ input {
 
 .overlay {
   background: #0a44ff;
-  background: -webkit-linear-gradient(to right, #ad7d52, #c0c0c0);
-  background: linear-gradient(to right, #ad7d52, #c0c0c0);
+  background: -webkit-linear-gradient(to right, #a08018, #c0c0c0);
+  background: linear-gradient(to right, #a08018, #c0c0c0);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;

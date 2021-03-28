@@ -22,10 +22,10 @@
 
                     {{ getUser.lastName }}
                   </h3>
-                  <div class="description text-center " v-if="data.description">
+                  <div class="description text-center" v-if="data.description">
                     <p><!-- {{ data.description }} -->dkhsfhfshfhsdjh</p>
                   </div>
-                  <form class="ui form  " id="artwork">
+                  <form class="ui form" id="artwork">
                     <h4 class="ui dividing header labels">
                       Update your information
                     </h4>
@@ -54,9 +54,7 @@
                     </div>
 
                     <div id="create">
-                      <button class="ui grey basic button">
-                        SUBMIT
-                      </button>
+                      <button class="ui grey basic button">SUBMIT</button>
                     </div>
                   </form>
                   <input
@@ -208,8 +206,8 @@
             <option value="" selected>Category</option>
 
             <option v-for="category in categories" :key="category.id">
-              {{ category.name }}</option
-            >
+              {{ category.name }}
+            </option>
           </select>
           <div id="create">
             <button
@@ -223,7 +221,7 @@
       </div>
     </div>
 
-    <div class="footer text-center ">
+    <div class="footer text-center">
       <p>Hello there</p>
     </div>
   </div>
@@ -355,10 +353,10 @@ export default {
   //     this.getArtworks(1);
   //   },
 };
-$(function($) {
+$(function ($) {
   var big_image;
 
-  $(document).ready(function() {
+  $(document).ready(function () {
     BrowserDetect.init();
 
     // Init Material scripts for buttons ripples, inputs animations etc, more info on the next link https://github.com/FezVrasta/bootstrap-material-design#materialjs
@@ -391,27 +389,27 @@ $(function($) {
     }
   });
 
-  $(document).on("click", ".navbar-toggler", function() {
+  $(document).on("click", ".navbar-toggler", function () {
     var $toggle = $(this);
 
     if (materialKit.misc.navbar_menu_visible == 1) {
       $("html").removeClass("nav-open");
       materialKit.misc.navbar_menu_visible = 0;
       $("#bodyClick").remove();
-      setTimeout(function() {
+      setTimeout(function () {
         $toggle.removeClass("toggled");
       }, 550);
 
       $("html").removeClass("nav-open-absolute");
     } else {
-      setTimeout(function() {
+      setTimeout(function () {
         $toggle.addClass("toggled");
       }, 580);
 
       var div = '<div id="bodyClick"></div>';
       $(div)
         .appendTo("body")
-        .click(function() {
+        .click(function () {
           $("html").removeClass("nav-open");
 
           if ($("nav").hasClass("navbar-absolute")) {
@@ -419,7 +417,7 @@ $(function($) {
           }
           materialKit.misc.navbar_menu_visible = 0;
           $("#bodyClick").remove();
-          setTimeout(function() {
+          setTimeout(function () {
             $toggle.removeClass("toggled");
           }, 550);
         });
@@ -443,7 +441,7 @@ $(function($) {
       isWindow: document.documentMode || /Edge/.test(navigator.userAgent),
     },
 
-    initFormExtendedDatetimepickers: function() {
+    initFormExtendedDatetimepickers: function () {
       $(".datetimepicker").datetimepicker({
         icons: {
           time: "fa fa-clock-o",
@@ -459,7 +457,7 @@ $(function($) {
       });
     },
 
-    initSliders: function() {
+    initSliders: function () {
       // Sliders for demo purpose
       var slider = document.getElementById("sliderRegular");
 
@@ -484,7 +482,7 @@ $(function($) {
       });
     },
 
-    checkScrollForParallax: function() {
+    checkScrollForParallax: function () {
       var oVal = $(window).scrollTop() / 3;
       big_image.css({
         transform: "translate3d(0," + oVal + "px,0)",
@@ -494,7 +492,7 @@ $(function($) {
       });
     },
 
-    checkScrollForTransparentNavbar: debounce(function() {
+    checkScrollForTransparentNavbar: debounce(function () {
       var scroll_distance = 10;
       if ($(document).scrollTop() > scroll_distance) {
         if (materialKit.misc.transparent) {
@@ -517,11 +515,11 @@ $(function($) {
 
   function debounce(func, wait, immediate) {
     var timeout;
-    return function() {
+    return function () {
       var context = this,
         args = arguments;
       clearTimeout(timeout);
-      timeout = setTimeout(function() {
+      timeout = setTimeout(function () {
         timeout = null;
         if (!immediate) func.apply(context, args);
       }, wait);
@@ -530,14 +528,14 @@ $(function($) {
   }
 
   var BrowserDetect = {
-    init: function() {
+    init: function () {
       this.browser = this.searchString(this.dataBrowser) || "Other";
       this.version =
         this.searchVersion(navigator.userAgent) ||
         this.searchVersion(navigator.appVersion) ||
         "Unknown";
     },
-    searchString: function(data) {
+    searchString: function (data) {
       for (var i = 0; i < data.length; i++) {
         var dataString = data[i].string;
         this.versionSearchString = data[i].subString;
@@ -547,7 +545,7 @@ $(function($) {
         }
       }
     },
-    searchVersion: function(dataString) {
+    searchVersion: function (dataString) {
       var index = dataString.indexOf(this.versionSearchString);
       if (index === -1) {
         return;
@@ -600,6 +598,12 @@ $(function($) {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
+
+* {
+  font-family: "Lexend", serif;
+}
+
 .col-md-3 {
   margin: 0 !important;
 }
