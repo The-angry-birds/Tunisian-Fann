@@ -42,8 +42,9 @@ export default {
   },
   methods: {
     getArtworks() {
+      console.log("sdfghjkl")
       axios
-        .get(`http://localhost:3000/api/artworks`)
+        .get("http://localhost:3000/api/artworks")
         .then((res) => {
           this.artworks = res.data;
           console.log("=============", this.artworks);
