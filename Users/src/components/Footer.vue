@@ -111,7 +111,7 @@ section .section-title {
   transition: 0.5s all ease;
 }
 #footer ul.social li:hover a i {
-  color: #ad7d52;
+  color: #a08018;
   padding-right: 25px;
   padding-left: 25px;
 }
