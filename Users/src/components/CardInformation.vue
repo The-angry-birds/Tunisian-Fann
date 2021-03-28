@@ -1,6 +1,5 @@
 <template>
   <div>
-   <h1>jhevhsgjklm</h1>
    
 <div class="row">
   <div class="col-75">
@@ -100,6 +99,10 @@ body {
   -ms-flex-wrap: wrap; /* IE10 */
   flex-wrap: wrap;
   margin: 0 -16px;
+  margin-top:120px;
+  margin-left: 120px;
+ 
+  
 }
 
 .col-25 {
@@ -151,7 +154,7 @@ label {
 }
 
 .btn {
-  background-color:gold;
+  background-color:grey;
   color: white;
   padding: 12px;
   margin: 10px 0;
@@ -160,10 +163,12 @@ label {
   border-radius: 3px;
   cursor: pointer;
   font-size: 17px;
+  transition:0.5s
 }
 
 .btn:hover {
-  background-color: gold;
+  background-color: white;
+  color:grey
 }
 
 a {

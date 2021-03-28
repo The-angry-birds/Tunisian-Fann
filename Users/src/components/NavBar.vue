@@ -1,10 +1,12 @@
 <template>
   <nav class="navbar navbar-expand-sm" id="navbar">
+    <router-link to="/" >
     <img
       class="navbar-logo"
       src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
-       to="/"
+         to
     />
+    </router-link>
 
     <button>
       <router-link class="nav-btns" to="/artists">Artists</router-link>

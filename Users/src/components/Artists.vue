@@ -11,10 +11,10 @@
       />
     </div>
     <div class="cards-container">
-      <div class="card-container"  v-for="(artist, i) in filteredList" :key="i">
+      <div class="card-container" v-for="(artist, i) in filteredList" :key="i">
         <img class="round" v-bind:src="artist.imageUrl" />
         <h3>{{ artist.firstName }} {{ artist.lastName }}</h3>
-        <h6>Location</h6>
+
         <p>{{ artist.description }}</p>
         <div class="buttons">
           <button class="primary">Contact</button>
@@ -66,9 +66,10 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
 * {
   box-sizing: border-box;
-  font-family: "Spectral", serif;
+  font-family: "Lexend", sans-serif;
 }
 
 .artists-header {
@@ -88,10 +89,7 @@ img {
 h3 {
   margin: 10px 0;
 }
-h6 {
-  margin: 5px 0;
-  text-transform: uppercase;
-}
+
 p {
   font-size: 14px;
   line-height: 21px;
@@ -108,11 +106,27 @@ p {
   margin: 20px;
   width: 300px;
   height: 385px;
+  cursor: pointer;
+
+}
+
+.card-container:hover {
+  box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
 }
 .card-container .round {
   border: 1px solid black;
   width: 50%;
   height: 48%;
+  border-radius: 50%;
+  padding: 4px;
+  object-fit: cover;
+    transition: 0.5s;
+
+}
+.card-container .round:hover {
+  border: 1px solid black;
+  width: 55%;
+  height: 53%;
   border-radius: 50%;
   padding: 4px;
   object-fit: cover;
@@ -122,7 +136,7 @@ p {
   border: 1px solid black;
   border-radius: 3px;
   color: black;
-  font-family: Montserrat, sans-serif;
+  font-family: "Lexend", sans-serif;
   font-weight: 500;
   padding: 10px 25px;
   background-color: transparent;
