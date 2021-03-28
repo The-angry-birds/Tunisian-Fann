@@ -37,22 +37,29 @@ app.use("/api/likes",likesRouter)
 
 
 
-app.post("/sendmessage", (req, res) => {
-  console.log(req.body);
+// app.post("/sendmessage", (req, res) => {
+//   console.log(req.body);
 
-  const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const client = require("twilio")(accountSid, authToken);
+//   const accountSid = process.env.TWILIO_ACCOUNT_SID;
+//   const authToken = process.env.TWILIO_AUTH_TOKEN;
+//   const client = require("twilio")(accountSid, authToken);
 
-  client.messages
-    .create({
-      body: "Welcome to our platforme",
-      from: "+15034063023",
-      to: "+21622292162",
-    })
-    .then((message) => res.send(message));
-});
+//   client.messages
+//     .create({
+//       body: "Welcome to our platforme",
+//       from: "+15034063023",
+//       to: "+21622292162",
+//     })
+//     .then((message) => res.send(message));
+// });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("listening on port 3000");
-});
+// const stripe = require('stripe')('sk_test_51ISo8BBdTsia79TvAqLvTk18vcwIA3IqgP1L0ovVH3wqR1zUbjLaEpI8avUH1PdRxNObvtXHqF1Sh1oN5gEBjDIk00HgympT1p');
+
+// const paymentIntent = await stripe.paymentIntents.create({
+//   amount: 2000,
+//   currency: 'usd',
+//   payment_method_types: ['card'],
+// });
+// app.listen(process.env.PORT || 3000, () => {
+//   console.log("listening on port 3000");
+// });

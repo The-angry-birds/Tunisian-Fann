@@ -8,6 +8,7 @@
               <div class="media align-items-end profile-head">
                 <div class="profile mr-3">
                   <img
+                     v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="#"
                     width="130"
@@ -95,6 +96,8 @@
               <div class="file-field">
                 <div class="mb-4">
                   <img
+                    v-if="user.imageUrl"
+                    :src="user.imageUrl"
                     id="btn-file"
                     class="rounded-circle z-depth-1-half avatar-pic"
                     alt="example placeholder avatar"
@@ -133,7 +136,7 @@ export default {
       lastName: "",
       image: "",
       user: {},
-      // show: false,
+      // show: false, 
     };
   },
   computed: {
@@ -143,25 +146,11 @@ export default {
     },
   },
   methods: {
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0]; 
-      console.log("ahahaha", this.file);
-      const image = new FormData();
-      image.append("file", this.file);
-      image.append("upload_preset", "fvzq7qqo");
-      axios
-        .post("https://api.cloudinary.com/v1_1/dkcwqbl9d/image/upload", image)
-        .then(({ data }) => {
-          console.log("imageId", data.url);
-          this.user.image = data.url;
-        })
-        .catch((err) => console.log(err));
-    },
     handleEdit() {
       axios
-        .patch(`http://localhost:3000/api/users/${this.getUser.id}`, this.user)
+        .patch(`http://localhost:3000/api/users/${this.getUser.id}`,this.user)
         .then((response) => {
-          console.log(response);
+          console.log( 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',response);
               this.getdata()
         });
     },
@@ -172,7 +161,22 @@ export default {
            this.user = data.user
            console.log(" this is user",this.user )
       });
-    }
+    },
+     handleFileUpload() {
+      this.file = this.$refs.file.files[0]; 
+      console.log("ahahaha", this.file);
+      const image = new FormData();
+      image.append("file", this.file);
+      image.append("upload_preset", "fvzq7qqo");
+      axios
+        .post("https://api.cloudinary.com/v1_1/dkcwqbl9d/image/upload", image)
+        .then(({ data }) => {
+          console.log("imageId",this.user.image);
+          this.user.imageUrl = data.url
+           console.log("this.is user image :", this.user.image )
+        })
+        .catch((err) => console.log(err));
+    },
   },
   mounted() {
     this.user = this.$store.state.auth.user;
@@ -229,5 +233,11 @@ export default {
 .btn-save:hover {
   padding: 10px;
   color: black;
+}
+.rounded-circle.z-depth-1-half.avatar-pic{
+    width: 30%;
+    height: 8rem;
+    margin-left: 10rem;
+    margin-top: 1rem;
 }
 </style>
