@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <!-- <NavBar></NavBar> -->
+  
     <div>
       <div class="row py-8 px-8">
         <div class="col-md-20 mx-auto">
-          <!-- Profile widget -->
           <div class="bg-white shadow rounded overflow-hidden">
             <div class="px-4 pt-0 pb-4 cover">
               <div class="media align-items-end profile-head">
@@ -13,7 +11,7 @@
                     v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="..."
-                    width="130"
+                    width="200"
                     class="rounded mb-2 img-thumbnail"
                   />
                   <button
@@ -441,7 +439,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="editImageLabel">
-                      upload your image
+                      Upload your image
                     </h5>
                     <button
                       type="button"
@@ -463,14 +461,6 @@
                           v-on:change="handleFileUpload()"
                         />
                         <label id="image-load" for="actual-btn"></label>
-                        <!-- <input
-                          v-model="art.url"
-                          type="imageurl"
-                          class="form-control"
-                          id="ImageURL"
-                          aria-describedby="imageurl"
-                          placeholder="Image URL"
-                        /> -->
                       </form>
                     </div>
                   </div>
@@ -493,90 +483,11 @@
                 </div>
               </div>
             </div>
-            <!-- <div
-              class="modal fade"
-              id="Modal"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="ModalLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="ModalLabel">Edit Profile</h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="row">
-                        <div class="col">
-                          <input
-                            v-model="user.firstName"
-                            type="text"
-                            class="form-control"
-                            placeholder="First name"
-                          />
-                        </div>
-                        <div class="col">
-                          <input
-                            v-model="user.lastName"
-                            type="text"
-                            class="form-control"
-                            placeholder="Last name"
-                          />
-                        </div>
-                        <div>
-                          <b-form-textarea
-                            id="textarea"
-                            v-model="user.description"
-                            placeholder="Enter your bio ..."
-                            rows="3"
-                            max-rows="6"
-                          ></b-form-textarea>
-
-                          <pre class="mt-3 mb-0">{{ description }}</pre>
-                        </div>
-                        <input
-                          value="user.imageUrl"
-                          type="file"
-                          ref="file"
-                          id="actual-btn"
-                          v-on:change="handleFileUpload()"
-                        />
-                        <label id="image-load" for="actual-btn"
-                          >No image chosen</label
-                        >
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      id="submitbtn"
-                      type="button"
-                      class="btn btn-outline-dark btn-sm  btn-block"
-                      data-dismiss="modal"
-                      @click.prevent="handleSubmit()"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <!-- //limits -->
           </div>
         </div>
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script>
@@ -779,16 +690,19 @@ export default {
   font-family: "Lexend", sans-serif;
 }
 .profile-head {
+  padding-top: 50px;
   transform: translateY(5rem);
 }
 
 .cover {
+  
   background-color: #fdf5e6;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #heading {
+  
   padding: 30px !important;
   background-color: #fdf5e6;
 }
@@ -801,18 +715,7 @@ export default {
   margin: auto;
   margin-top: 20px;
 }
-image-load {
-  background-color: black;
-  color: white;
-  padding: 0.5rem;
-  font-family: sans-serif;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  margin-top: 1rem;
-  /* margin: auto; */
-  width: 90px;
-  margin-left: 15px;
-}
+
 #artworks {
   background-color: #fdf5e6;
 }
@@ -897,13 +800,11 @@ image-load {
   background-color: rgb(255, 255, 255);
   width: 80px;
   height: 80px;
-  position: absolute;
-  right: 5%;
-  bottom: 20%;
   border: 2px solid black;
   transition: 0.5s;
   font-size: 12px;
   font-weight: bold;
+  position:relative
 }
 .add-artwork-btn:hover {
   color: white;
