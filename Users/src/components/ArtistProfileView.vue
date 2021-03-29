@@ -106,17 +106,17 @@ export default {
 }
 
 .cover {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #heading {
   padding: 30px !important;
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 #info-card {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 
 #submitbtn {
@@ -126,7 +126,7 @@ export default {
 }
 
 #artworks {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 
 
@@ -289,7 +289,7 @@ figure.effect-ravi:hover #card-desc {
 }
 
 #auctions {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 
 </style>

@@ -218,16 +218,16 @@ export default {
   transform: translateY(5rem);
 }
 .cover {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
   background-size: cover;
   background-repeat: no-repeat;
 }
 #heading {
   padding: 30px !important;
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 #recent-bidding {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 #Modal {
   margin-top: 60px;
