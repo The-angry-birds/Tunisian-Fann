@@ -10,7 +10,7 @@
                   v-if="user.imageUrl"
                   :src="user.imageUrl"
                   alt="..."
-                  width="250"
+                  width="200"
                   class="rounded mb-2 img-thumbnail"
                 />
                 <button
@@ -52,6 +52,7 @@
           <div class="px-3 py-4">
             <h5 class="mb-4">My Artworks</h5>
             <div class="p-4 rounded shadow-sm" id="artworks">
+              <!-- button for adding artworks -->
               <button
                 class="add-artwork-btn"
                 data-toggle="modal"
@@ -59,6 +60,103 @@
               >
                 Add Artwork
               </button>
+              <br />
+              <!-- button for adding auctions -->
+              <button
+                id="auctions"
+                class="add-artwork-btn"
+                data-toggle="modal"
+                data-target="#addAuctions"
+              >
+                Add Auctions
+              </button>
+              <!-- add auctions -->
+              <div
+                class="modal fade"
+                id="addAuctions"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="addModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="addModalLabel">
+                        Add Auction
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <label class="labels" for="startDate"
+                          >Start-Date
+                        </label>
+                        <input
+                          class="form-control"
+                          type="datetime-local"
+                          id="startDate"
+                          name="birthdaytime"
+                        />
+                        <label class="labels" for="endDate">Start-Date </label>
+                        <input
+                          class="form-control"
+                          type="datetime-local"
+                          id="endDate"
+                          name="birthdaytime"
+                        />
+
+                        <label class="labels" for="Price">Starting-price</label>
+                        <input
+                          v-model="price"
+                          type="number"
+                          class="form-control"
+                          id="Price"
+                          aria-describedby="price"
+                          placeholder="Starting-price"
+                        />
+                        <div>
+                          <select class="btn-group">
+                            <option value="" selected>Artworks</option>
+
+                            <option
+                              class="m-2"
+                              v-for="artwork in artworks"
+                              :key="artwork.id"
+                            >
+                              {{ artwork.nameArtwork }}
+                            </option>
+                          </select>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        @click.prevent="handleSubmitArtwork()"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- add auctions -->
               <!-- Add Modal -->
               <div
                 class="modal fade"
@@ -294,7 +392,7 @@
                             Submit
                           </button>
                         </div>
-                      </div>
+                      </div>￼￼
                     </div>
                   </div>
                   <!-- Delete Modal -->
@@ -345,12 +443,6 @@
                   </div>
                 </card>
               </div>
-            </div>
-          </div>
-          <div class="px-3 py-4">
-            <h5 class="mb-4">My Auctions</h5>
-            <div class="p-4 rounded shadow-sm" id="auctions">
-              <SingleAuction />
             </div>
           </div>
 
@@ -497,7 +589,6 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-import SingleAuction from "./SingleAuction";
 export default {
   data() {
     return {
@@ -516,9 +607,6 @@ export default {
       currentId: null,
       art: {},
     };
-  },
-  components: {
-    SingleAuction,
   },
   // components: {
   //   NavBar,
@@ -599,7 +687,6 @@ export default {
       }
     },
     //to upload the image
-
     //to fetch all the categories
     getCategories() {
       axios.get("http://localhost:3000/api/categories").then(({ data }) => {
@@ -676,7 +763,6 @@ export default {
         });
     },
   },
-
   computed: {
     //it returns the user that is actually logged in
     getArtist() {
@@ -700,29 +786,25 @@ export default {
   padding-top: 50px;
   transform: translateY(5rem);
 }
-
 .cover {
-  background-color: #fbeec1;
+  background-color: #fdf5e6;
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 #heading {
   padding: 30px !important;
-  background-color: #fbeec1;
+  background-color: #fdf5e6;
 }
 #info-card {
-  background-color: #fbeec1;
+  background-color: #fdf5e6;
 }
-
 #submitbtn {
   width: 120px;
   margin: auto;
   margin-top: 20px;
 }
-
 #artworks {
-  background-color: #fbeec1;
+  background-color: #fdf5e6;
 }
 .card-container {
   display: flex;
@@ -832,8 +914,5 @@ export default {
 .btn-group:hover {
   background-color: rgb(0, 0, 0);
   color: white;
-}
-#auctions {
-  background-color: #fbeec1;
 }
 </style>
