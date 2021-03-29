@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="row py-8 px-8">
@@ -212,6 +211,7 @@
                           id="Description"
                           aria-describedby="description"
                           placeholder="Description"
+
                         />
                         <label class="labels" for="Price">Price</label>
                         <input
@@ -222,6 +222,7 @@
                           aria-describedby="price"
                           placeholder="Price"
                         />
+
                         <div>
                           <select class="btn-group" v-model="nameOfCategory">
                             <option value="" selected>Category</option>
@@ -253,6 +254,7 @@
                         Submit
                       </button>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -272,6 +274,7 @@
                       {{ user.firstName }}{{ user.lastName }}
                     </p>
                   </div>
+
                   <div>
                     <button
                       class="card-btn"
@@ -590,7 +593,6 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-
 export default {
   data() {
     return {
@@ -689,7 +691,6 @@ export default {
       }
     },
     //to upload the image
-
     //to fetch all the categories
     getCategories() {
       axios.get("http://localhost:3000/api/categories").then(({ data }) => {
@@ -766,7 +767,6 @@ export default {
         });
     },
   },
-
   computed: {
     //it returns the user that is actually logged in
     getArtist() {
@@ -790,13 +790,11 @@ export default {
   padding-top: 50px;
   transform: translateY(5rem);
 }
-
 .cover {
   background-color: #fdf5e6;
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 #heading {
   padding: 30px !important;
   background-color: #fdf5e6;
@@ -804,13 +802,11 @@ export default {
 #info-card {
   background-color: #fdf5e6;
 }
-
 #submitbtn {
   width: 120px;
   margin: auto;
   margin-top: 20px;
 }
-
 #artworks {
   background-color: #fdf5e6;
 }
