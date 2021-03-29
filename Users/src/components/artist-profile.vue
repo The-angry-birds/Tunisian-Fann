@@ -11,7 +11,7 @@
                     v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="..."
-                    width="200"
+                    width="250"
                     class="rounded mb-2 img-thumbnail"
                   />
                   <button

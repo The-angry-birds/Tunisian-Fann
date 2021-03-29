@@ -9,7 +9,7 @@
                 <img
                   src="https://apollo.imgix.net/content/uploads/2019/08/5d5c68a43f00005c005b1927.jpeg?auto=compress,format&w=900&h=600"
                   alt="..."
-                  width="200"
+                  width="250"
                   class="rounded mb-2 img-thumbnail"
                 />
               </div>
@@ -54,20 +54,6 @@
                       <figure class="effect-ravi">
                         <img
                           id="card-image"
-                          src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/silent-tears-artwork-by-bensalem-walid.png"
-                        />
-                        <figcaption>
-                          <div>
-                            <h2 id="card-title">Silent Tears</h2>
-                            <p id="card-desc">
-                              Whatever whatever whatever whatever
-                            </p>
-                          </div>
-                        </figcaption>
-                      </figure>
-                      <figure class="effect-ravi">
-                        <img
-                          id="card-image"
                           src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/the-dancer-in-red-artwork-by-bensalem-walid.png"
                         />
                         <figcaption>
@@ -79,24 +65,17 @@
                           </div>
                         </figcaption>
                       </figure>
-                      <figure class="effect-ravi">
-                        <img
-                          id="card-image"
-                          src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/dreams-artwork-by-bensalem-walid.png"
-                        />
-                        <figcaption>
-                          <div>
-                            <h2 id="card-title">Colors Of My Dreams</h2>
-                            <p id="card-desc">
-                              Whatever whatever whatever whatever
-                            </p>
-                          </div>
-                        </figcaption>
-                      </figure>
+                      
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="px-3 py-4">
+            <h5 class="mb-4">Auctions</h5>
+            <div class="p-4 rounded shadow-sm" id="auctions">
+              <SingleAuction/>
             </div>
           </div>
         </div>
@@ -106,7 +85,14 @@
 </template>
 
 <script>
-export default {};
+import SingleAuction from "./SingleAuction";
+
+export default {
+
+  components: {
+    SingleAuction,
+  },
+};
 </script>
 
 <style scoped>
@@ -144,8 +130,6 @@ export default {};
 }
 
 
-
-
 .grid {
   position: relative;
   margin: 0 auto;
@@ -161,11 +145,11 @@ export default {};
   float: left;
   overflow: hidden;
   margin: 10px 1%;
-  min-width: 320px;
+  min-width: 480px;
   max-width: 480px;
-  max-height: 360px;
+  max-height: 280px;
   width: 48%;
-  background: #3085a3;
+  background: #000000;
   text-align: center;
   cursor: pointer;
 }
@@ -229,10 +213,6 @@ export default {};
   letter-spacing: 1px;
   font-size: 68.5%;
 }
-/* Individual effects */
-/*---------------*/
-/***** Lily *****/
-/*---------------*/
 
 figure.effect-ravi #card-image {
   max-width: none;
@@ -307,4 +287,9 @@ figure.effect-ravi:hover #card-desc {
     width: 100%;
   }
 }
+
+#auctions {
+  background-color: #fdf5e6;
+}
+
 </style>
