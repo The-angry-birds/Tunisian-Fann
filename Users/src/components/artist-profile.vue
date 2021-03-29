@@ -211,6 +211,7 @@
                           id="Description"
                           aria-describedby="description"
                           placeholder="Description"
+
                         />
                         <label class="labels" for="Price">Price</label>
                         <input
@@ -221,6 +222,7 @@
                           aria-describedby="price"
                           placeholder="Price"
                         />
+
                         <div>
                           <select class="btn-group" v-model="nameOfCategory">
                             <option value="" selected>Category</option>
@@ -252,6 +254,7 @@
                         Submit
                       </button>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -271,6 +274,7 @@
                       {{ user.firstName }}{{ user.lastName }}
                     </p>
                   </div>
+
                   <div>
                     <button
                       class="card-btn"
