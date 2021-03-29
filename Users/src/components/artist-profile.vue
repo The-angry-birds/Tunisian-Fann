@@ -11,7 +11,7 @@
                     v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="..."
-                    width="200"
+                    width="250"
                     class="rounded mb-2 img-thumbnail"
                   />
                   <button
@@ -696,7 +696,7 @@ export default {
 
 .cover {
   
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -704,10 +704,10 @@ export default {
 #heading {
   
   padding: 30px !important;
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 #info-card {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 
 #submitbtn {
@@ -717,7 +717,7 @@ export default {
 }
 
 #artworks {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 .card-container {
   display: flex;
