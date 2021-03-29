@@ -131,6 +131,12 @@ export default {
   border-radius: 5px;
   width: 300px;
   height: 385px;
+  transition: 0.5s;
+}
+
+.mb-2:hover {
+    box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
+
 }
 .card-category {
   text-transform: uppercase;
