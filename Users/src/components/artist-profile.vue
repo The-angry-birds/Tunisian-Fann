@@ -1,5 +1,6 @@
 <template>
   <div>
+   
     <div>
       <div class="row py-8 px-8">
         <div class="col-md-20 mx-auto">
@@ -15,14 +16,7 @@
                     width="130"
                     class="rounded mb-2 img-thumbnail"
                   />
-                  <button
-                    href="#"
-                    class="btn btn-outline btn-sm btn-block"
-                    data-toggle="modal"
-                    data-target="#editImage"
-                  >
-                    Edit image
-                  </button>
+
                   <button
                     href="#"
                     class="btn btn-outline btn-sm btn-block"
@@ -30,6 +24,14 @@
                     data-target="#editArtwork"
                   >
                     Edit profile
+                  </button>
+                  <button
+                    href="#"
+                    class="btn btn-outline btn-sm btn-block"
+                    data-toggle="modal"
+                    data-target="#editImage"
+                  >
+                    Edit image
                   </button>
                 </div>
                 <div class="media-body mb-5 text-black">
@@ -518,7 +520,9 @@ export default {
       art: {},
     };
   },
-
+  // components: {
+  //   NavBar,
+  // },
   methods: {
     //to edit the artist information like firstName and image
     handleSubmit() {
