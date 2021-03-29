@@ -43,7 +43,7 @@
                           src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/the-fallen-artwork-by-bensalem-walid.png"
                         />
                         <figcaption>
-                          <div>
+                          <div> 
                             <h2 id="card-title">Refuge</h2>
                             <p id="card-desc">
                               Whatever whatever whatever whatever
