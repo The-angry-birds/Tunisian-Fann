@@ -16,20 +16,28 @@
                     width="130"
                     class="rounded mb-2 img-thumbnail"
                   />
+
                   <button
                     href="#"
                     class="btn btn-outline btn-sm btn-block"
                     data-toggle="modal"
-                    data-target="#Modal"
+                    data-target="#editArtwork"
                   >
                     Edit profile
                   </button>
+                  <button
+                    href="#"
+                    class="btn btn-outline btn-sm btn-block"
+                    data-toggle="modal"
+                    data-target="#editImage"
+                  >
+                    Edit image
+                  </button>
                 </div>
                 <div class="media-body mb-5 text-black">
-                  <h4 class="mt-0 mb-0">{{ user.firstName }}</h4>
-                  <p class="small mb-4">
-                    {{ user.lastName }}
-                  </p>
+                  <h4 class="mt-0 mb-0">
+                    {{ user.firstName }} {{ user.lastName }}
+                  </h4>
                 </div>
               </div>
             </div>
@@ -119,20 +127,6 @@
                             placeholder="Price"
                           />
                           <div class="btn-group">
-                            <b-dropdown
-                              split-variant="secondary"
-                              variant="secondary"
-                              text="Category"
-                              class="m-2"
-                              v-model="nameOfCategory"
-                            >
-                              <b-dropdown-item
-                                v-for="(category, i) in categories"
-                                :key="i"
-                                :value="category.name"
-                                >{{ category.name }}</b-dropdown-item
-                              >
-                            </b-dropdown>
                             <select
                               class=" btn-group "
                               v-model="nameOfCategory"
@@ -271,38 +265,21 @@
                                   aria-describedby="price"
                                   placeholder="Price"
                                 />
-                                <div class="btn-group">
-                                  <!-- <b-dropdown
-                                    split
-                                    split-variant="secondary"
-                                    variant="secondary"
-                                    text="Category"
-                                    class="m-2"
+                                <div>
+                                  <select
+                                    class=" btn-group "
+                                    v-model="nameOfCategory"
                                   >
-                                    <b-dropdown-item
-                                      v-for="(category, i) in categories"
-                                      :key="i"
-                                      >{{ category.name }}</b-dropdown-item
-                                    >
-                                  </b-dropdown> -->
-                                  <div split split-variant="secondary">
-                                    <select
-                                      class=" btn-group m-2 "
-                                      v-model="art.category_id"
-                                    >
-                                      <option value="category" selected
-                                        >Category</option
-                                      >
+                                    <option value="" selected>Category</option>
 
-                                      <option
-                                        class="m-2"
-                                        v-for="category in categories"
-                                        :key="category.id"
-                                      >
-                                        {{ category.name }}</option
-                                      >
-                                    </select>
-                                  </div>
+                                    <option
+                                      class="m-2"
+                                      v-for="category in categories"
+                                      :key="category.id"
+                                    >
+                                      {{ category.name }}</option
+                                    >
+                                  </select>
                                 </div>
                               </form>
                             </div>
@@ -380,6 +357,147 @@
             <!-- //EDIT INFO -->
             <div
               class="modal fade"
+              id="editArtwork"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="editArtworkLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editArtworkLabel">
+                      Edit your information
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="modal-body">
+                      <form>
+                        <label class="labels" for="firstName">First name</label>
+                        <input
+                          value="artwork.title"
+                          v-model="user.firstName"
+                          type="title"
+                          class="form-control"
+                          id="firstName"
+                          aria-describedby="title"
+                          placeholder="first name"
+                        />
+                        <label class="labels" for="lastName">Last name</label>
+                        <input
+                          v-model="user.lastName"
+                          type="title"
+                          class="form-control"
+                          id="lastName"
+                          aria-describedby="lastName"
+                          placeholder="last name"
+                        />
+                        <label class="labels" for="bio">Biography</label>
+                        <input
+                          v-model="user.description"
+                          type="description"
+                          class="form-control"
+                          id="bio"
+                          aria-describedby="description"
+                          placeholder="your biography"
+                        />
+                      </form>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      @click.prevent="handleSubmit()"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- ///edit image/ -->
+            <div
+              class="modal fade"
+              id="editImage"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="editImageLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editImageLabel">
+                      upload your image
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="modal-body">
+                      <form>
+                        <label class="labels" for="ImageURL">Image URL</label>
+                        <input
+                          type="file"
+                          ref="file"
+                          id="ImageURL"
+                          v-on:change="handleFileUpload()"
+                        />
+                        <label id="image-load" for="actual-btn"></label>
+                        <!-- <input
+                          v-model="art.url"
+                          type="imageurl"
+                          class="form-control"
+                          id="ImageURL"
+                          aria-describedby="imageurl"
+                          placeholder="Image URL"
+                        /> -->
+                      </form>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      @click.prevent="onsubmit()"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div
+              class="modal fade"
               id="Modal"
               tabindex="-1"
               role="dialog"
@@ -404,7 +522,7 @@
                       <div class="row">
                         <div class="col">
                           <input
-                            v-model="firstName"
+                            v-model="user.firstName"
                             type="text"
                             class="form-control"
                             placeholder="First name"
@@ -412,7 +530,7 @@
                         </div>
                         <div class="col">
                           <input
-                            v-model="lastName"
+                            v-model="user.lastName"
                             type="text"
                             class="form-control"
                             placeholder="Last name"
@@ -421,7 +539,7 @@
                         <div>
                           <b-form-textarea
                             id="textarea"
-                            v-model="description"
+                            v-model="user.description"
                             placeholder="Enter your bio ..."
                             rows="3"
                             max-rows="6"
@@ -430,11 +548,11 @@
                           <pre class="mt-3 mb-0">{{ description }}</pre>
                         </div>
                         <input
+                          value="user.imageUrl"
                           type="file"
                           ref="file"
                           id="actual-btn"
                           v-on:change="handleFileUpload()"
-                          hidden
                         />
                         <label id="image-load" for="actual-btn"
                           >No image chosen</label
@@ -455,7 +573,8 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
+            <!-- //limits -->
           </div>
         </div>
       </div>
@@ -492,14 +611,18 @@ export default {
   methods: {
     //to edit the artist information like firstName and image
     handleSubmit() {
-      const data = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        description: this.description,
-        image: this.imageUrl,
-      };
+      // const data = {
+      //   firstName: this.firstName,
+      //   lastName: this.lastName,
+      //   description: this.description,
+      //   imageUrl: this.imageUrl,
+      // };
+      console.log("=====user", this.user);
       axios
-        .put(`http://localhost:3000/api/auth/artists/${this.user.id}`, data)
+        .put(
+          `http://localhost:3000/api/auth/artists/${this.user.id}`,
+          this.user
+        )
         .then(({ data }) => {
           console.log("this is my update", data);
           Swal.fire({
@@ -514,8 +637,9 @@ export default {
           axios
             .get("http://localhost:3000/api/auth/artists", headers)
             .then(({ data }) => {
-              console.log("data", data.user);
+              console.log("USERBEFORE", this.user);
               this.user = data.user;
+              console.log("USERAFTER", this.user);
             });
         });
     },
@@ -532,9 +656,33 @@ export default {
         .then(({ data }) => {
           // console.log("imageId", data.url);
           this.imageUrl = data.url;
+          console.log("====", this.user.imageUrl);
         })
         .catch((err) => console.log(err));
     },
+    onsubmit() {
+      if (this.imageUrl) {
+        axios
+          .patch(
+            "http://localhost:3000/api/auth/artists/upload/" + this.user.id,
+            {
+              image: this.imageUrl,
+            }
+          )
+          .then(({ data }) => {
+            console.log("===", data);
+            const token = localStorage.getItem("token");
+            const headers = { headers: { Authorization: `Bearer ${token}` } };
+            axios
+              .get("http://localhost:3000/api/auth/artists", headers)
+              .then(({ data }) => {
+                this.user = data.user;
+              });
+          });
+      }
+    },
+    //to upload the image
+
     //to fetch all the categories
     getCategories() {
       axios.get("http://localhost:3000/api/categories").then(({ data }) => {
@@ -594,6 +742,13 @@ export default {
         .then(({ response }) => {
           this.getAllArtworks();
           console.log("deleted", response);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your Artwork has been deleted",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     handleUpdate() {
@@ -757,5 +912,20 @@ image-load {
 }
 .labels {
   margin-top: 30px;
+}
+.btn-group {
+  margin-top: 25px;
+  text-align: center;
+  border: 1px solid rgb(0, 0, 0);
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  transition: 0.5s;
+  padding-left: 30px;
+  border-radius: 5px;
+}
+.btn-group:hover {
+  background-color: rgb(0, 0, 0);
+  color: white;
 }
 </style>
