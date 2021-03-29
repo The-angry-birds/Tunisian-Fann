@@ -1,10 +1,12 @@
 <template>
   <nav class="navbar navbar-expand-sm" id="navbar">
-    <img
-      class="navbar-logo"
-      src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
-       to="/"
-    />
+    <router-link to="/">
+      <img
+        class="navbar-logo"
+        src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
+        to
+      />
+    </router-link>
 
     <button>
       <router-link class="nav-btns" to="/artists">Artists</router-link>
@@ -76,21 +78,19 @@
 export default {
   computed: {
     authGuest() {
-       console.log("this.user",this.$store.getters.logged)
+      console.log("this.user", this.$store.getters.logged);
       return this.$store.getters.logged;
-
     },
     type() {
       return this.$store.getters.role;
     },
-
   },
 
   methods: {
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
-      this.$router.push("/hello");
+      this.$router.push("/");
     },
     userType() {
       return this.$store.getters.role;
@@ -122,7 +122,7 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
 
 * {
   padding: 0;
@@ -140,7 +140,7 @@ export default {
   transition: 0.4s;
 }
 #nav-join {
-  font-family: "Inconsolata", monospace;
+  font-family: "Lexend", monospace;
   align-items: center;
   color: #a08018;
   display: flex;
@@ -157,7 +157,7 @@ export default {
   color: #a08018;
   display: flex;
   float: left;
-  font-family: "Inconsolata", monospace;
+  font-family: "Lexend", monospace;
   font-size: 18px;
   height: 100%;
   margin-left: 80px;
@@ -168,7 +168,7 @@ export default {
   color: #000000;
 }
 .as-btns {
-  font-family: "Inconsolata", monospace;
+  font-family: "Lexend", monospace;
   margin-top: 10px;
   align-items: center;
   color: #a08018;
@@ -183,12 +183,11 @@ export default {
   color: #000000;
 }
 .navbar-logo {
-  height: 45px;
   width: auto;
-  margin-left: 15%;
+  margin-left: 150px;
   color: #a08018;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
 }
 .dropdown-menu {
   background-color: transparent !important;

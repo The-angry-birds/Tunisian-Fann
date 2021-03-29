@@ -74,6 +74,8 @@ export default {};
 
 <style scoped>
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
+
 section {
   margin-top: 30px;
   padding-top: 60px;
@@ -109,7 +111,7 @@ section .section-title {
   transition: 0.5s all ease;
 }
 #footer ul.social li:hover a i {
-  color: #ad7d52;
+  color: #a08018;
   padding-right: 25px;
   padding-left: 25px;
 }

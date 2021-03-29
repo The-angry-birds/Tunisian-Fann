@@ -8,6 +8,7 @@
               <div class="media align-items-end profile-head">
                 <div class="profile mr-3">
                   <img
+                    v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="#"
                     width="130"
@@ -75,7 +76,7 @@
               <div class="form-group">
                 <label class="labels" for="Firstname">Firstname</label>
                 <input
-                  v-model="firstName"
+                  v-model="user.firstName"
                   type="firstname"
                   class="form-control"
                   id="Firstname"
@@ -84,7 +85,7 @@
                 />
                 <label class="labels" for="Lastname">Lastname</label>
                 <input
-                  v-model="lastName"
+                  v-model="user.lastName"
                   type="lastname"
                   class="form-control"
                   id="Lastname"
@@ -95,6 +96,8 @@
               <div class="file-field">
                 <div class="mb-4">
                   <img
+                    v-if="user.imageUrl"
+                    :src="user.imageUrl"
                     id="btn-file"
                     class="rounded-circle z-depth-1-half avatar-pic"
                     alt="example placeholder avatar"
@@ -103,7 +106,12 @@
                 <div class="d-flex justify-content-center">
                   <div class="btn btn-mdb-color btn-rounded float-left">
                     <span>Add photo</span>
-                    <input v-on:change="handleFileUpload()" type="file" id="file" ref="file" />
+                    <input
+                      v-on:change="handleFileUpload()"
+                      type="file"
+                      id="file"
+                      ref="file"
+                    />
                   </div>
                 </div>
               </div>
@@ -143,6 +151,25 @@ export default {
     },
   },
   methods: {
+    handleEdit() {
+      axios
+        .patch(`http://localhost:3000/api/users/${this.getUser.id}`, this.user)
+        .then((response) => {
+          console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", response);
+          this.getdata();
+        });
+    },
+    getdata() {
+      const token = localStorage.getItem("token");
+      axios
+        .get("http://localhost:3000/api/users/getUserByToken", {
+          headers: { authorization: `Bearer ${token}` },
+        })
+        .then(({ data }) => {
+          this.user = data.user;
+          console.log(" this is user", this.user);
+        });
+    },
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
       console.log("ahahaha", this.file);
@@ -152,33 +179,16 @@ export default {
       axios
         .post("https://api.cloudinary.com/v1_1/dkcwqbl9d/image/upload", image)
         .then(({ data }) => {
-          console.log("imageId", data.url);
-          this.image = data.url;
-          console.log("image",this.image)
+          console.log("imageId", this.user.image);
+          this.user.imageUrl = data.url;
+          console.log("this.is user image :", this.user.image);
         })
         .catch((err) => console.log(err));
-    },
-    handleEdit() {
-      const data = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        image: this.image,
-      };
-      axios
-        .patch(`http://localhost:3000/api/users/${this.getUser.id}`, data)
-        .then((response) => {
-          console.log( response);
-        });
-       const token= localStorage.getItem("token");
-      axios.get("http://localhost:3000/api/users/getUserByToken",{
-          headers: { authorization: `Bearer ${token}`}}).then(({ data }) => {
-           this.user = data.user
-           console.log(" this is user",this.user )
-      });
     },
   },
   mounted() {
     this.user = this.$store.state.auth.user;
+    this.getdata();
   },
 };
 //   showelement() {
@@ -198,7 +208,9 @@ export default {
 // },
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
 * {
+  font-family: "Lexend", sans-serif;
   padding: 0px;
   margin: 0px;
 }
@@ -206,16 +218,16 @@ export default {
   transform: translateY(5rem);
 }
 .cover {
-  background-color: #FDF5E6;
+  background-color: #fdf5e6;
   background-size: cover;
   background-repeat: no-repeat;
 }
 #heading {
   padding: 30px !important;
-  background-color: #FDF5E6;
+  background-color: #fdf5e6;
 }
 #recent-bidding {
-  background-color: #FDF5E6;
+  background-color: #fdf5e6;
 }
 #Modal {
   margin-top: 60px;
@@ -231,5 +243,11 @@ export default {
 .btn-save:hover {
   padding: 10px;
   color: black;
+}
+.rounded-circle.z-depth-1-half.avatar-pic {
+  width: 30%;
+  height: 8rem;
+  margin-left: 10rem;
+  margin-top: 1rem;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <ArtworkCard />
     <div class="artwork-container">
       <div class="left-container">
         <img class="artwork-image" v-bind:src="oneArt.imageUrl" />
@@ -32,8 +31,6 @@
 </template>
 
 <script>
-// import ArtworkCard from "./ArtworkCard.vue";
-
 export default {
   data() {
     return {
@@ -62,7 +59,7 @@ export default {
   padding-right: 10%;
   padding-left: 12%;
   width: 100vw;
-  height: 100vh;
+  height: 120vh;
 }
 .left-container {
   width: 60%;
@@ -73,6 +70,7 @@ export default {
   height: 100%;
   width: 90%;
   object-fit: cover;
+  border-radius: 5px;
 }
 .artwork-header {
   display: flex;
@@ -80,7 +78,7 @@ export default {
 }
 .artwork-name {
   font-weight: bolder;
-  color: #ad7d52;
+  color: #a08018;
 }
 .artwork-category {
   padding-top: 18px;
@@ -98,7 +96,7 @@ export default {
   flex-wrap: nowrap;
 }
 .price {
-  color: #ad7d52;
+  color: #a08018;
   font-weight: 800;
 }
 .buy-btn {
@@ -121,6 +119,6 @@ export default {
 .artwork-artist {
   margin-left: 3px;
   font-weight: 600;
-  color: #ad7d52;
+  color: #a08018;
 }
 </style>

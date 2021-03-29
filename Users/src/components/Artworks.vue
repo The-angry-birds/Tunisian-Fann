@@ -18,12 +18,11 @@
         img-top
         class="mb-2"
       >
-
         <div class="likes-container">
           <button @click.prevent="like(artwork)">
-            <i class="fa fa-thumbs-up"></i>
+            <i class="fa fa-thumbs-up likes-icon"></i>
           </button>
-          <p>{{ artwork.likes }}</p>
+          <p   class="likes-number">{{ artwork.likes }}</p>
         </div>
 
         <b-card-text class="card-category">Digital Paintings</b-card-text>
@@ -58,7 +57,7 @@ export default {
     like(art) {
       const create = {
         artwork_id: art.id,
-        user_id: 9,
+        user_id: 11
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
@@ -111,11 +110,11 @@ export default {
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css");
 * {
   box-sizing: border-box;
-  font-family: "Spectral", serif;
+  font-family: "Lexend", serif;
 }
 
 .artworks-header {
-  margin-top: 120px;
+  margin-top: 100px;
 }
 .card-container {
   display: flex;
@@ -138,7 +137,7 @@ export default {
   font-size: 13px;
   letter-spacing: 2px;
   font-weight: 500;
-  color: #868686;
+  color: grey;
 }
 .card-title {
   margin-top: 5px;
@@ -152,11 +151,11 @@ export default {
 .card-author {
   font-weight: 600;
   text-decoration: none;
-  color: #ad7d52;
+  color: #a08018;
   margin-left: 3px;
 }
 img:hover {
-  opacity: 0.5;
+  opacity: 0.8;
 }
 img {
   border-radius: 5px 5px 0px 0px;
@@ -190,5 +189,19 @@ img {
   position: absolute;
   bottom: 85px;
   right: 20px;
+}
+.likes-icon {
+  font-size: 25px;
+  color: black;
+  transition: 0.3s;
+}
+.likes-icon:hover {
+  font-size: 30px;
+  color: #a08018;
+}
+
+.likes-number {
+  font-size: 15px;
+  color: #a08018;
 }
 </style>

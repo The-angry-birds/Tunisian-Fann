@@ -4,7 +4,7 @@
       <h1 class="heading-primary">
         <img
           class="logo"
-          src="https://wovenmagazine.com/content/themes/woven/assets/svg/logo.svg"
+          src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
           alt="Logo"
         />
 
@@ -27,7 +27,7 @@ export default {};
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Spectral", serif;
+  font-family: "Lexend", serif;
 }
 
 header {
@@ -48,7 +48,7 @@ header {
 }
 
 .logo {
-  height: 3.5rem;
+  height: 6rem;
   animation: moveInLeft 1s ease-out;
 }
 

@@ -1,8 +1,7 @@
 <template>
   <div>
-    <!-- <NavBar></NavBar> -->
     <div>
-      <div class="row py-8 px-8 ">
+      <div class="row py-8 px-8">
         <div class="col-md-20 mx-auto">
           <!-- Profile widget -->
           <div class="bg-white shadow rounded overflow-hidden">
@@ -16,15 +15,6 @@
                     width="130"
                     class="rounded mb-2 img-thumbnail"
                   />
-
-                  <button
-                    href="#"
-                    class="btn btn-outline btn-sm btn-block"
-                    data-toggle="modal"
-                    data-target="#editArtwork"
-                  >
-                    Edit profile
-                  </button>
                   <button
                     href="#"
                     class="btn btn-outline btn-sm btn-block"
@@ -32,6 +22,14 @@
                     data-target="#editImage"
                   >
                     Edit image
+                  </button>
+                  <button
+                    href="#"
+                    class="btn btn-outline btn-sm btn-block"
+                    data-toggle="modal"
+                    data-target="#editArtwork"
+                  >
+                    Edit profile
                   </button>
                 </div>
                 <div class="media-body mb-5 text-black">
@@ -47,7 +45,7 @@
             ></div>
             <div class="px-3 py-4">
               <h5 class="mb-4">About</h5>
-              <div class="p-4 rounded shadow-sm " id="info-card">
+              <div class="p-4 rounded shadow-sm" id="info-card">
                 <p class="font-italic mb-0">{{ user.description }}</p>
               </div>
             </div>
@@ -126,7 +124,7 @@
                             aria-describedby="price"
                             placeholder="Price"
                           />
-                          <div class="btn-group">
+                          <div>
                             <select
                               class=" btn-group "
                               v-model="nameOfCategory"
@@ -138,8 +136,8 @@
                                 v-for="category in categories"
                                 :key="category.id"
                               >
-                                {{ category.name }}</option
-                              >
+                                {{ category.name }}
+                              </option>
                             </select>
                           </div>
                         </form>
@@ -267,7 +265,7 @@
                                 />
                                 <div>
                                   <select
-                                    class=" btn-group "
+                                    class="btn-group"
                                     v-model="nameOfCategory"
                                   >
                                     <option value="" selected>Category</option>
@@ -466,14 +464,6 @@
                           v-on:change="handleFileUpload()"
                         />
                         <label id="image-load" for="actual-btn"></label>
-                        <!-- <input
-                          v-model="art.url"
-                          type="imageurl"
-                          class="form-control"
-                          id="ImageURL"
-                          aria-describedby="imageurl"
-                          placeholder="Image URL"
-                        /> -->
                       </form>
                     </div>
                   </div>
@@ -496,84 +486,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div
-              class="modal fade"
-              id="Modal"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="ModalLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="ModalLabel">Edit Profile</h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="row">
-                        <div class="col">
-                          <input
-                            v-model="user.firstName"
-                            type="text"
-                            class="form-control"
-                            placeholder="First name"
-                          />
-                        </div>
-                        <div class="col">
-                          <input
-                            v-model="user.lastName"
-                            type="text"
-                            class="form-control"
-                            placeholder="Last name"
-                          />
-                        </div>
-                        <div>
-                          <b-form-textarea
-                            id="textarea"
-                            v-model="user.description"
-                            placeholder="Enter your bio ..."
-                            rows="3"
-                            max-rows="6"
-                          ></b-form-textarea>
 
-                          <pre class="mt-3 mb-0">{{ description }}</pre>
-                        </div>
-                        <input
-                          value="user.imageUrl"
-                          type="file"
-                          ref="file"
-                          id="actual-btn"
-                          v-on:change="handleFileUpload()"
-                        />
-                        <label id="image-load" for="actual-btn"
-                          >No image chosen</label
-                        >
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      id="submitbtn"
-                      type="button"
-                      class="btn btn-outline-dark btn-sm  btn-block"
-                      data-dismiss="modal"
-                      @click.prevent="handleSubmit()"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> -->
             <!-- //limits -->
           </div>
         </div>
@@ -605,9 +518,7 @@ export default {
       art: {},
     };
   },
-  // components: {
-  //   NavBar,
-  // },
+
   methods: {
     //to edit the artist information like firstName and image
     handleSubmit() {
