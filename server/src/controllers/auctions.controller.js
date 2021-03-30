@@ -4,25 +4,24 @@ const { User } = require("../../db/models/users-model-signup");
 module.exports = {
   createAuction: async (req, res) => {
     try {
-      const artworkData = await Auction.findOne({
-        where: {
-          artwork_id: req.body.artwork_id,
-          artist_id: req.body.artist_id,
-        },
-      });
-      if (artworkData) {
-        res.send("finished the auction");
-      } else {
-        const auction = await Auction.create({
-          artwork_id: req.body.artwork_id,
-          artist_id: req.body.artist_id,
-          startDate: req.body.startDate,
-          endDate: req.body.endDate,
-          starting_price: req.body.starting_price,
-        });
+      console.log("title", req.body.id);
+      // console.log("startDate", req.body.startDate);
+      // console.log("endDate", req.body.endDate);
+      // console.log("starting_price", req.body.starting_price);
 
-        res.send("created");
-      }
+      // if (artworkData) {
+      //   res.send("finished the auction");
+      // } else {
+      const auction = await Auction.create({
+        artwork_id: req.body.id,
+        artist_id: req.body.artist_id,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        starting_price: req.body.starting_price,
+      });
+
+      res.send("created");
+      // }
     } catch (err) {
       res.send(err);
     }
