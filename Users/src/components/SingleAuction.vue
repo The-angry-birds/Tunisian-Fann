@@ -36,7 +36,7 @@
           <a href="#" class="card__author" title="author"
             >Bensalem Walid</a
           ></span
-        >   
+        >
       </div>
     </article>
   </div>
@@ -54,9 +54,14 @@ export default {
     };
   },
   methods: {
-    sharedData(a) {
-      console.log("hellllooooooooooooooooooooooooooooooooo");
-      this.$router.push({ name:"auction-details", world: a });
+
+    sharedData(auction) {
+      console.log(auction,"hellllooooooooooooooooooooooooooooooooo");
+  
+      this.$router.push({
+        path: `/auction-details/${auction.id}`
+    
+      });
     },
     calculateCountDown() {
       // Set the date we're counting down ton

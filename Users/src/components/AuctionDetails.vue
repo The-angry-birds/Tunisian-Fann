@@ -4,27 +4,33 @@
       <div class="left-container">
         <img
           class="auction-image"
-          src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/oh-my-god-artwork-by-bensalem-walid.png"
+          :src="artwork.imageUrl"
         />
       </div>
       <div class="right-container">
         <div class="auction-header">
-          <h1 class="auction-name">Oh My God</h1>
+          <h1 class="auction-name">{{ artwork.nameArtwork }}</h1>
           <p class="auction-category"></p>
         </div>
         <hr />
         <p class="auction-description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et arcu
-          eget eros semper tempus eget ac nisl.
+        {{artwork.description }}
         </p>
-        <hr />
+        <hr/>
         <div class="time-container">
-          <h4 class="time-header">Time left:</h4>
-          <p class="time">hello</p>
+          <h4 class="time-header">
+            Time left:
+            <span v-if="!isExpired" class="card__time" id="demo">
+              {{ distanceDate.days }}Days {{ distanceDate.hours }}Hr
+              {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec :
+              Left</span
+            >
+          </h4>
+          <p class="time"></p>
         </div>
         <hr />
         <div class="current-price-container">
-          <h4 class="current-price-header">Current winning price:</h4>
+          <h4 class="current-price-header">Current bid:</h4>
           <h1 class="current-price">120.00 TD</h1>
         </div>
         <hr />
@@ -56,24 +62,94 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
+      artwork_id: null,
+      artwork: {},
+      auction_id: null,
       auction: {},
+      user_id: null,
+      isExpired: false,
+      distanceDate: { days: null, hours: null, minutes: null, seconds: null },
     };
   },
-methods: {
+  methods: {
+    getAuction() {
+      this.auction_id = this.$route.params.id;
+      axios
+        .get(`http://localhost:3000/api/auctions/${this.auction_id}`)
+        .then(({ data }) => {
+          console.log("this is auction", data);
+          this.auction = data;
+        })
+        .then(() => {
+          axios
+            .get(
+              `http://localhost:3000/api/artworks/${this.auction.artwork_id}`
+            )
+            .then(({ data }) => {
+              this.artwork = data;
+              console.log("this.is artwork", data);
+            }) .then(() => {
+                var countDownDate = new Date(this.auction.endDate).getTime();
+
+      var x = setInterval(() => {
+      
+        let now = new Date().getTime();
+
+        let distance = countDownDate - now;
+
+    
+        if (distance < 0) {
+          this.isExpired = true;
+          clearInterval(x);
+        }
+
   
-},
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+     
+        this.distanceDate = {
+          days: days,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+        };
+      });
+            })
+        });
+    },
+
+    getuser() {
+      const token = localStorage.getItem("token");
+
+      axios
+        .get("http://localhost:3000/api/users/getUserByToken", {
+          headers: { authorization: `Bearer ${token}` },
+        })
+        .then(({ data }) => {
+          console.log(" this is user idDDDDDDDDDDDDDDDDDDDDDDDD", data.user.id);
+          this.user_id = data.user.id;
+        });
+    },
+
+
+  },
 
   mounted() {
-    
-    this.auction =this.$route.world;
- 
-  
+    this.getAuction();
+
+    this.getuser();
   },
 };
-</script> 
+</script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
 

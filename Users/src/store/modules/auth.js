@@ -5,7 +5,7 @@ export default {
     token: window.localStorage.getItem("token") || "",
     user: {},
     type: "",
-    auction:[]
+
   },
 
   mutations: {
@@ -19,13 +19,8 @@ export default {
       state.user = {};
       state.type = "";
     },
-    auction_success(state,auction){
-      state.auction=auction
-    },
-    
-    auction_err(state){
-     state.auction=[]
-    }
+
+
 
 
   },
@@ -41,17 +36,7 @@ export default {
     role: (state) => state.type,
   },
   actions: {
-    async findAllAuction({commit}){
-       await axios.get("http://localhost:3000/api/auctions")
-       .then(({data})=>{
-           const auction=data
-           console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",data)
-           commit("auction_success",{auction})
-       }).catch(err=>{
-         console.log(err)
-         commit("auction_err")
-       })
-     },
+
     //to verify which user is connected whether the guest or the artist
     verify_token({ commit }, token) {
       return new Promise((resolve, reject) => {

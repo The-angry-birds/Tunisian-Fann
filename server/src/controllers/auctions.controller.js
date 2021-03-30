@@ -34,5 +34,16 @@ module.exports = {
       console.log(err);
     }
   },
+  getOneAuction: async (req, res)=> {
+    try {
+      const auction = await Auction.findOne({
+        where: { id:req.params.id },
+      })
+      res.send(auction);
+  }catch (err) {
+    console.log(err)
+  }
+}
+
 };
 
