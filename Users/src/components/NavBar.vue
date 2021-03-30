@@ -43,13 +43,10 @@
     </div>
 
     <div v-else class="dropdown" id="nav-join">
-      Profile
-      <button
-        class="dropdown-toggle"
-        type="button"
-        data-toggle="dropdown"
-      ></button>
-      <ul class="dropdown-menu">
+      <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+        Profile
+      </button>
+      <ul class="dropdown-menu" id="dropdown-menu">
         <li>
           <button v-if="type === 'guest'">
             <router-link class="as-btns" to="/user-profile"
@@ -69,6 +66,52 @@
             >
           </button>
         </li>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <a
+        id="dLabel"
+        role="button"
+        data-toggle="dropdown"
+        data-target="#"
+        href="/page.html"
+      >
+        <i class="glyphicon glyphicon-bell"></i>
+      </a>
+
+      <ul
+        class="dropdown-menu notifications"
+        role="menu"
+        aria-labelledby="dLabel"
+      >
+        <div class="notification-heading">
+          <h4 class="menu-title">Notifications</h4>
+          <h4 class="menu-title pull-right">
+            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
+          </h4>
+        </div>
+        <li class="divider"></li>
+        <div class="notifications-wrapper">
+          <a class="content" href="#">
+            <div class="notification-item">
+              <h4 class="item-title">Notification 1</h4>
+              <p class="item-info">Notification 1, 1 days ago</p>
+            </div>
+          </a>
+          <a class="content" href="#">
+            <div class="notification-item">
+              <h4 class="item-title">Notification 2</h4>
+              <p class="item-info">Notification 2, 2 days ago</p>
+            </div>
+          </a>
+        </div>
+        <li class="divider"></li>
+        <div class="notification-footer">
+          <h4 class="menu-title">
+            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
+          </h4>
+        </div>
       </ul>
     </div>
   </nav>
@@ -143,11 +186,8 @@ export default {
   font-family: "Lexend", monospace;
   align-items: center;
   color: #a08018;
-  display: flex;
-  position: fixed;
-  float: right;
   font-size: 18px;
-  margin-left: 80%;
+  margin-left: 20%;
 }
 #nav-join:hover {
   color: #000000;
@@ -186,11 +226,111 @@ export default {
   width: auto;
   margin-left: 150px;
   color: #a08018;
-  /* padding-top: 10px;
-  padding-bottom: 10px; */
 }
 .dropdown-menu {
   background-color: transparent !important;
   backdrop-filter: blur(10px) !important;
+}
+
+.dropdown {
+  display: inline-block;
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.glyphicon-bell {
+  color: #a08018;
+  text-decoration: none;
+  font-size: 20px;
+}
+.glyphicon-bell:hover {
+  animation: shake 0.5s;
+  color: black;
+  animation-iteration-count: infinite;
+}
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+.notifications {
+  min-width: 420px;
+  padding: 10px;
+  font-family: "Lexend";
+}
+
+.notifications-wrapper {
+  overflow: auto;
+  max-height: 250px;
+}
+
+.menu-title {
+  color: #a08018;
+  font-size: 1rem;
+  display: inline-block;
+}
+
+.glyphicon-circle-arrow-right {
+  margin-left: 10px;
+}
+
+.notification-heading,
+.notification-footer {
+  padding: 2px 10px;
+}
+
+.dropdown-menu.divider {
+  margin: 5px 0;
+}
+
+.item-title {
+  font-size: 1rem;
+  color: #000;
+}
+
+.notifications a.content {
+  text-decoration: none;
+  background: #ccc;
+}
+
+.notification-item {
+  padding: 10px;
+  margin: 5px;
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.item-info {
+  color: #a08018;
 }
 </style>
