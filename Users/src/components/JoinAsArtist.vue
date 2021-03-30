@@ -137,7 +137,7 @@ export default {
           .dispatch("access", { email, password })
           .then((resp) => {
             if(resp.user.banned===true){
-              swal("Oops!", "You are Banned!", "error");
+              swal("Oops!", "You are banned!", "error");
            }else if (resp.message === "wrong password") {
               swal("Oops!", "Wrong Password!", "error");
             } else if (resp.message === "user not found") {
