@@ -63,7 +63,7 @@ const stripe = require("stripe")(Secret_Key);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.get("/", function (req, res) {
+app.get("/payment", function (req, res) {
   res.render("Home", {
     key: Publishable_Key,
   });
@@ -72,17 +72,18 @@ app.get("/", function (req, res) {
 app.post("/payment", function (req, res) {
   // Moreover you can take more details from user
   // like Address, Name, etc from form
+  console.log(req.body);
   stripe.customers
     .create({
       email: req.body.stripeEmail,
       source: req.body.stripeToken,
-      name: req.body.name,
+      name: "Rikimi",
       address: {
-        line1: req.body.line1,
-        postal_code: req.body.line2,
-        city: req.body.city,
-        state: req.body.state,
-        country: req.body.state,
+        line1: "req.body.line1",
+        postal_code: "req.body.line2",
+        city: "req.body.city",
+        state: "req.body.state",
+        country: "req.body.state",
       },
     })
     .then((customer) => {

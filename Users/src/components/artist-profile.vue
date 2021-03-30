@@ -61,15 +61,7 @@
                 Add Artwork
               </button>
               <br />
-              <!-- button for adding auctions -->
-              <button
-                id="auctions"
-                class="add-artwork-btn"
-                data-toggle="modal"
-                data-target="#addAuctions"
-              >
-                Add Auctions
-              </button>
+
               <!-- add auctions -->
               <div
                 class="modal fade"
@@ -100,22 +92,26 @@
                           >Start-Date
                         </label>
                         <input
+                          v-model="startDate"
                           class="form-control"
                           type="datetime-local"
                           id="startDate"
-                          name="birthdaytime"
+                          name="dates"
                         />
-                        <label class="labels" for="endDate">Start-Date </label>
+                        <label class="labels" for="endDate">End-Date </label>
                         <input
+                          auto-submit="true"
+                          v-model="endDate"
                           class="form-control"
                           type="datetime-local"
                           id="endDate"
-                          name="birthdaytime"
+                          name="dates"
                         />
 
-                        <label class="labels" for="Price">Starting-price</label>
+                        <label class="labels" for="Price">Starting-Price</label>
                         <input
-                          v-model="price"
+                          auto-submit="true"
+                          v-model="starting_price"
                           type="number"
                           class="form-control"
                           id="Price"
@@ -123,10 +119,11 @@
                           placeholder="Starting-price"
                         />
                         <div>
-                          <select class="btn-group">
+                          <select class="btn-group" v-model="title">
                             <option value="" selected>Artworks</option>
 
                             <option
+                              :value="artwork.id"
                               class="m-2"
                               v-for="artwork in artworks"
                               :key="artwork.id"
@@ -148,7 +145,7 @@
                       <button
                         type="button"
                         class="btn btn-primary"
-                        @click.prevent="handleSubmitArtwork()"
+                        @click.prevent="handleSubmitAuction()"
                       >
                         Submit
                       </button>
@@ -211,7 +208,6 @@
                           id="Description"
                           aria-describedby="description"
                           placeholder="Description"
-
                         />
                         <label class="labels" for="Price">Price</label>
                         <input
@@ -222,7 +218,6 @@
                           aria-describedby="price"
                           placeholder="Price"
                         />
-
                         <div>
                           <select class="btn-group" v-model="nameOfCategory">
                             <option value="" selected>Category</option>
@@ -254,7 +249,6 @@
                         Submit
                       </button>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -274,7 +268,6 @@
                       {{ user.firstName }}{{ user.lastName }}
                     </p>
                   </div>
-
                   <div>
                     <button
                       class="card-btn"
@@ -396,7 +389,7 @@
                             Submit
                           </button>
                         </div>
-                      </div>￼￼
+                      </div>
                     </div>
                   </div>
                   <!-- Delete Modal -->
@@ -447,6 +440,21 @@
                   </div>
                 </card>
               </div>
+            </div>
+          </div>
+          <div class="px-3 py-4">
+            <h5 class="mb-4">My Auctions</h5>
+            <div class="p-4 rounded shadow-sm" id="auctions">
+              <!-- button for adding auctions -->
+              <button
+                id="auctions"
+                class="add-artwork-btn"
+                data-toggle="modal"
+                data-target="#addAuctions"
+              >
+                Add Auctions
+              </button>
+              <Auctions :artist="auction"/>
             </div>
           </div>
 
@@ -593,11 +601,13 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import Auctions from "./Auctions";
+
 export default {
   data() {
     return {
       description: "",
-      firstName: "",
+      firstName: "",  
       lastName: "",
       imageUrl: "",
       title: "",
@@ -610,11 +620,15 @@ export default {
       user: {},
       currentId: null,
       art: {},
+      startDate: "",
+      endDate: "",
+      starting_price: "",
     };
   },
-  // components: {
-  //   NavBar,
-  // },
+  components: {
+    // SingleAuction,
+    Auctions,
+  },
   methods: {
     //to edit the artist information like firstName and image
     handleSubmit() {
@@ -691,6 +705,7 @@ export default {
       }
     },
     //to upload the image
+
     //to fetch all the categories
     getCategories() {
       axios.get("http://localhost:3000/api/categories").then(({ data }) => {
@@ -744,6 +759,7 @@ export default {
       this.currentId = id;
       console.log("deletd", this.currentId);
     },
+    //this function deletes the artwork
     handleDelete() {
       axios
         .delete(`http://localhost:3000/api/artworks/${this.currentId}`)
@@ -766,7 +782,24 @@ export default {
           console.log("heyyyyyy", response.statusText);
         });
     },
+    //this function posts an auction
+    handleSubmitAuction() {
+      const auction = {
+        id: this.title,
+        artist_id: this.user.id,
+        startDate: this.startDate,
+        endDate: this.endDate,
+        starting_price: this.starting_price,
+      };
+      axios
+        .post("http://localhost:3000/api/auctions", auction)
+        .then((response) => {
+          alert("created");
+          console.log("auction", response);
+        });
+    },
   },
+
   computed: {
     //it returns the user that is actually logged in
     getArtist() {
@@ -790,11 +823,13 @@ export default {
   padding-top: 50px;
   transform: translateY(5rem);
 }
+
 .cover {
   background-color: #fdf5e6;
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 #heading {
   padding: 30px !important;
   background-color: #fdf5e6;
@@ -802,11 +837,13 @@ export default {
 #info-card {
   background-color: #fdf5e6;
 }
+
 #submitbtn {
   width: 120px;
   margin: auto;
   margin-top: 20px;
 }
+
 #artworks {
   background-color: #fdf5e6;
 }
@@ -919,4 +956,8 @@ export default {
   background-color: rgb(0, 0, 0);
   color: white;
 }
+/* #auctions {
+  background-color: #fdf5e6;
+} */
 </style>
+

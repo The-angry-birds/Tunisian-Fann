@@ -138,9 +138,14 @@ export default {
         name: this.name,
         phone: this.phone,
       };
-      axios.post("http://localhost:3000/v1/charges", payment).then((res) => {
-        console.log("==========>", res);
-      });
+      axios.get("http://localhost:3000/payment").then((res)=>{
+        console.log(res);
+        axios.post("http://localhost:3000/payment", payment).then((res) => {
+          console.log("==========>", res);
+        });
+
+
+      })
     },
   },
 };
