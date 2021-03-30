@@ -34,6 +34,8 @@ export default {
 
 * {
   font-family: "Lexend", serif;
+  background-color: rgb(250, 250, 250);
 }
+
 </style>
 

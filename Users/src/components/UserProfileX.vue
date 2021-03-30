@@ -11,7 +11,7 @@
                      v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="#"
-                    width="130"
+                    width="250"
                     class="rounded mb-2 img-thumbnail"
                   />
                   <button
@@ -219,18 +219,19 @@ export default {
 }
 .profile-head {
   transform: translateY(5rem);
+  padding-top: 50px;
 }
 .cover {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
   background-size: cover;
   background-repeat: no-repeat;
 }
 #heading {
   padding: 30px !important;
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 #recent-bidding {
-  background-color: #fdf5e6;
+  background-color: #fbeec1;
 }
 #Modal {
   margin-top: 60px;

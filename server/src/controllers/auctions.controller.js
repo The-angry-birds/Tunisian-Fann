@@ -18,7 +18,7 @@ module.exports = {
           artist_id: req.body.artist_id,
           startDate: req.body.startDate,
           endDate: req.body.endDate,
-          startPrice:req.body.startPrice,
+          starting_price: req.body.starting_price,
         });
 
         res.send("created");
