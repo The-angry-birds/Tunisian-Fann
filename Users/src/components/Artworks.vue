@@ -22,7 +22,7 @@
           <button @click.prevent="like(artwork)">
             <i class="fa fa-thumbs-up likes-icon"></i>
           </button>
-          <p   class="likes-number">{{ artwork.likes }}</p>
+          <p class="likes-number">{{ artwork.likes }}</p>
         </div>
 
         <b-card-text class="card-category">Digital Paintings</b-card-text>
@@ -57,7 +57,7 @@ export default {
     like(art) {
       const create = {
         artwork_id: art.id,
-        user_id: 11
+        user_id: 11,
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
@@ -81,15 +81,12 @@ export default {
               });
           });
         })
-        .catch((err) => { 
+        .catch((err) => {
           console.log(err);
         });
     },
 
     sharedData(a) {
-   
-    
-      console.log("hiiiiiiiiiiiiii")
       this.$router.push({ name: "artworkDetails", params: a });
     },
   },
@@ -138,8 +135,7 @@ export default {
 }
 
 .mb-2:hover {
-    box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
-
+  box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
 }
 .card-category {
   text-transform: uppercase;
