@@ -39,3 +39,18 @@ exports.getUserByToken = async (req, res) => {
     res.send(err);
   }
 };
+exports.bannedUser = async function (req, res) {
+  try {
+
+    const bannedUser = await User.update(
+      {
+        banned:true
+      
+      },
+      { where: { id: req.params.id } }
+    );
+    res.send(bannedUser);
+  } catch (err) {
+    console.log(err);
+  }
+};

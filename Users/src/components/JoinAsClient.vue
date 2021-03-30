@@ -60,7 +60,6 @@
 <script>
 import axios from "axios";
 import swal from "sweetalert";
-
 export default {
   data() {
     return {
@@ -98,13 +97,10 @@ export default {
                 lastName: this.lastName,
                 password: this.password,
               };
-              this.$store
-                .dispatch("signup", data)
-
-                .then(() => {
-                  swal("Successfully signed up", "Welcome", "success");
-                  this.$router.push("/");
-                });
+              this.$store.dispatch("signup", data).then(() => {
+                swal("Successfully signed up", "Welcome", "success");
+                this.$router.push("/");
+              });
             }
           });
       }
@@ -117,9 +113,11 @@ export default {
           email: this.email,
           password: this.password,
         };
-
         this.$store.dispatch("login", data).then((res) => {
-          if (res.data.message === "success") {
+          if (res.data.user.banned === true) {
+            console.log("=====>fghj",res.data.user.banned);
+            swal("Oops!", "You are banned!", "error");
+          } else if (res.data.message === "success") {
             swal("Welcome", "success");
             this.$router.push("/");
           } else if (res.data.message === "wrong password") {
@@ -130,7 +128,6 @@ export default {
         });
       }
     },
-
     movingsignUp: function () {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
@@ -148,12 +145,10 @@ export default {
 * {
   box-sizing: border-box;
 }
-
 h2 {
   font-weight: bold;
   margin: 0;
 }
-
 p {
   font-size: 14px;
   font-weight: 100;
@@ -161,18 +156,15 @@ p {
   letter-spacing: 0.5px;
   margin: 20px 0 30px;
 }
-
 span {
   font-size: 12px;
 }
-
 a {
   color: #333;
   font-size: 14px;
   text-decoration: none;
   margin: 15px 0;
 }
-
 button {
   border-radius: 20px;
   border: 1px solid #a08018;
@@ -185,26 +177,21 @@ button {
   text-transform: uppercase;
   transition: transform 80ms ease-in;
 }
-
 button:hover {
   border: 1px solid #c0c0c0;
   background-color: #c0c0c0;
   color: #ffffff;
 }
-
 button:active {
   transform: scale(0.95);
 }
-
 button:focus {
   outline: none;
 }
-
 button.ghost {
   background-color: transparent;
   border-color: #ffffff;
 }
-
 form {
   background-color: #ffffff;
   display: flex;
@@ -215,7 +202,6 @@ form {
   height: 100%;
   text-align: center;
 }
-
 input {
   background-color: #eee;
   border: none;
@@ -223,7 +209,6 @@ input {
   margin: 8px 0;
   width: 100%;
 }
-
 .container {
   font-family: "Lexend", serif;
   background-color: #fff;
@@ -236,52 +221,44 @@ input {
   min-height: 480px;
   margin-top: 120px;
 }
-
 .form-container {
   position: absolute;
   top: 0;
   height: 100%;
   transition: all 0.6s ease-in-out;
 }
-
 .sign-in-container {
   left: 0;
   width: 50%;
   z-index: 2;
 }
-
 .container.right-panel-active .sign-in-container {
   transform: translateX(100%);
 }
-
 .sign-up-container {
   left: 0;
   width: 50%;
   opacity: 0;
   z-index: 1;
 }
-
 .container.right-panel-active .sign-up-container {
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
   animation: show 0.6s;
 }
-
 @keyframes show {
   0%,
   49.99% {
     opacity: 0;
     z-index: 1;
   }
-
   50%,
   100% {
     opacity: 1;
     z-index: 5;
   }
 }
-
 .overlay-container {
   position: absolute;
   top: 0;
@@ -292,11 +269,9 @@ input {
   transition: transform 0.6s ease-in-out;
   z-index: 100;
 }
-
 .container.right-panel-active .overlay-container {
   transform: translateX(-100%);
 }
-
 .overlay {
   background: #0a44ff;
   background: -webkit-linear-gradient(to right, #a08018, #c0c0c0);
@@ -312,11 +287,9 @@ input {
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
-
 .container.right-panel-active .overlay {
   transform: translateX(50%);
 }
-
 .overlay-panel {
   position: absolute;
   display: flex;
@@ -331,28 +304,22 @@ input {
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
-
 .overlay-left {
   transform: translateX(-20%);
 }
-
 .container.right-panel-active .overlay-left {
   transform: translateX(0);
 }
-
 .overlay-right {
   right: 0;
   transform: translateX(0);
 }
-
 .container.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
-
 .social-container {
   margin: 20px 0;
 }
-
 .social-container a {
   border: 1px solid #dddddd;
   border-radius: 50%;

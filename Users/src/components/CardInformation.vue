@@ -1,196 +1,238 @@
 <template>
-  <div>
-   
-<div class="row">
-  <div class="col-75">
-    <div class="container">
-      <form action="/action_page.php">
-      
-        <div class="row">
-          <div class="col-50">
-            <h3>Billing Address</h3>
-            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-         
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-            <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="New York">
-
-            <div class="row">
-              <div class="col-50">
-                <label for="state">State</label>
-                <input type="text" id="state" name="state" placeholder="NY">
-              </div>
-              <div class="col-50">
-                <label for="zip">Zip</label>
-                <input type="text" id="zip" name="zip" placeholder="10001">
-              </div>
+  <div class="payment">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="card my-4 p-3">
+          <div class="row main">
+            <div class="col-12">
+              <span>Cart</span>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                >Shipping confirmation</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;<span>Credit card checkout</span>
             </div>
           </div>
-
-          <div class="col-50">
-            <h3>Payment</h3>
-            <label for="fname">Accepted Cards</label>
-            <div class="icon-container">
-              <i class="fa fa-cc-visa" style="color:navy;"></i>
-              <i class="fa fa-cc-amex" style="color:blue;"></i>
-              <i class="fa fa-cc-mastercard" style="color:red;"></i>
-              <i class="fa fa-cc-discover" style="color:orange;"></i>
-            </div>
-            <label for="cname">Name on Card</label>
-            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-            <label for="ccnum">Credit card number</label>
-            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-            <label for="expmonth">Exp Month</label>
-            <input type="text" id="expmonth" name="expmonth" placeholder="September">
-            <div class="row">
-              <div class="col-50">
-                <label for="expyear">Exp Year</label>
-                <input type="text" id="expyear" name="expyear" placeholder="2018">
-              </div>
-              <div class="col-50">
-                <label for="cvv">CVV</label>
-                <input type="text" id="cvv" name="cvv" placeholder="352">
-              </div>
+          <div class="row justify-content-center mrow">
+            <div class="col-12">
+              <img
+                src="https://img.icons8.com/color/48/000000/mastercard-logo.png"
+                width="35px"
+                height="35px"
+              />
+              <img
+                src="https://img.icons8.com/color/48/000000/visa.png"
+                width="35px"
+                height="35px"
+              />
             </div>
           </div>
-          
+          <form class="form-card">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <input type="text" class="form-control p-0" />
+                  <label class="form-control-placeholder p-0" for="number"
+                    >CardNumber</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control p-0"
+                    id="name"
+                    required
+                  />
+                  <label class="form-control-placeholder p-0" for="email"
+                    >Email</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 col-12">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control p-0"
+                    id="expdate"
+                    required
+                  placeholder="MM/YY"
+                  />
+                  <label class="form-control-placeholder p-0" for="expdate"
+                    >ExpirationDate</label
+                  >
+                </div>
+              </div>
+              <div class="col-sm-4 col-12">
+                <div class="form-group">
+                  <input
+                    type="password"
+                    class="form-control p-0"
+                    id="passw"
+                    required
+                    v-model="cvc"
+                    placeholder="CVC"
+                  />
+                  <label class="form-control-placeholder p-0" for="passw"
+                    >CVV</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row lrow mt-4 mb-3">
+              <div class="col-sm-8 col-12">
+                <h3>Grand Total:</h3>
+              </div>
+              <div class="col-sm-4 col-12">
+                <h5>&#36;1,449.00</h5>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-12">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-block"
+                  @click.prevent="handleSubmit()"
+                >
+                  Pay
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
-        <label>
-          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-        </label>
-        <input type="submit" value="Continue to checkout" class="btn">
-      </form>
+      </div>
     </div>
-  </div>
-  <div class="col-25">
-  
-  </div>
-</div>
-
 
   </div>
+
 </template>
-
 <script>
-
-
+import axios from "axios";
 
 export default {
-}
+  
+  data() {
+    return {
+     cardumber:"",
+     cvc :"",
+
+       
+
+      }
+    },
+
+  methods: {
+    handleSubmit() {
+      const payment = {
+        adress: {
+          city: this.city,
+          country: this.country,
+          line1: this.line1,
+          line2: this.line2,
+          postal_code: this.postal_code,
+          state: this.state,
+        },
+        email: this.email,
+        name: this.name,
+        phone: this.phone,
+      };
+      axios.get("http://localhost:3000/payment").then((res)=>{
+        console.log(res);
+        axios.post("http://localhost:3000/payment", payment).then((res) => {
+          console.log("==========>", res);
+        });
+
+
+      })
+    },
+  },
+};
 </script>
 
 <style  scoped>
 body {
-  font-family: Arial;
-  font-size: 17px;
-  padding: 8px;
- 
+  font-family: Arial, Helvetica, sans-serif;
+  background: #343a40;
+}
+.payment{
+  margin-top: 10%;
 }
 
-* {
-  box-sizing: border-box;
+.card {
+  background: #000;
+  color: #fff;
+  width: 410px !important;
 }
 
-.row {
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
-  margin: 0 -16px;
-  margin-top:120px;
-  margin-left: 120px;
- 
-  
+.mrow {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
-.col-25 {
-  -ms-flex: 25%; /* IE10 */
-  flex: 25%;
+img {
+  margin-right: 10px;
 }
 
-.col-50 {
-  -ms-flex: 50%; /* IE10 */
-  flex: 50%;
-}
-
-.col-75 {
-  -ms-flex: 75%; /* IE10 */
-  flex: 75%;
-}
-
-.col-25,
-.col-50,
-.col-75 {
-  padding: 0 16px;
-}
-
-.container {
-  background-color:white;
-  box-shadow:10px 10px 10px ;
-  padding: 5px 20px 15px 20px;
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-}
-
-input[type=text] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-label {
-  margin-bottom: 10px;
-  display: block;
-}
-
-.icon-container {
-  margin-bottom: 20px;
-  padding: 7px 0;
-  font-size: 24px;
-}
-
-.btn {
-  background-color:grey;
-  color: white;
-  padding: 12px;
-  margin: 10px 0;
-  border: none;
-  width: 100%;
-  border-radius: 3px;
+.main span:hover {
+  text-decoration: underline;
   cursor: pointer;
-  font-size: 17px;
-  transition:0.5s
 }
 
-.btn:hover {
-  background-color: white;
-  color:grey
+.mrow img:hover {
+  border-bottom: 1px solid #fff;
+  cursor: pointer;
 }
 
-a {
-  color: #2196F3;
+.btn-primary {
+  border: none;
+  border-radius: 30px;
 }
 
-hr {
-  border: 1px solid lightgrey;
+h5 {
+  padding-top: 8px;
 }
 
-span.price {
-  float: right;
-  color: grey;
+.form-group {
+  position: relative;
+  margin-bottom: 2rem;
 }
 
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
-@media (max-width: 800px) {
-  .row {
-    flex-direction: column-reverse;
-  }
-  .col-25 {
-    margin-bottom: 20px;
-  }
+.form-control-placeholder {
+  position: absolute;
+  top: 6px;
+  padding: 7px 0 0 10px;
+  transition: all 200ms;
+  opacity: 0.5;
+  color: #dae0e5 !important;
+  font-size: 75%;
+}
+
+.form-control:focus + .form-control-placeholder,
+.form-control:valid + .form-control-placeholder {
+  font-size: 75%;
+  transform: translate3d(0, -100%, 0);
+  opacity: 1;
+  top: 10px;
+}
+
+.form-control {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #fff !important;
+  border-radius: 0;
+  outline: 0;
+}
+
+.form-control:focus,
+.form-control:after {
+  outline-width: 0;
+  border-bottom: 1px solid #fff !important;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  color: #dae0e5;
+  letter-spacing: 1px;
 }
 </style>

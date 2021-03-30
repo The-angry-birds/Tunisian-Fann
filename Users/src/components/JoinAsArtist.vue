@@ -110,7 +110,6 @@ export default {
         this.$store
           .dispatch("register", data)
           .then(() => {
-            console.log("mydata=====", data);
             this.$router.push("/artist-profile");
             Swal.fire({
               position: "top-end",
@@ -119,7 +118,6 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log("registred");
           })
           .catch((err) => {
             console.log(err);
@@ -136,7 +134,9 @@ export default {
         this.$store
           .dispatch("access", { email, password })
           .then((resp) => {
-            if (resp.message === "wrong password") {
+            if(resp.user.banned===true){
+              swal("Oops!", "You are banned!", "error");
+           }else if (resp.message === "wrong password") {
               swal("Oops!", "Wrong Password!", "error");
             } else if (resp.message === "user not found") {
               swal("Oops!", "Wrong Email!", "error");
