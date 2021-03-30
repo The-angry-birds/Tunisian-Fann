@@ -11,7 +11,7 @@
                     v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="#"
-                    width="130"
+                    width="250"
                     class="rounded mb-2 img-thumbnail"
                   />
                   <button
@@ -216,6 +216,7 @@ export default {
 }
 .profile-head {
   transform: translateY(5rem);
+  padding-top: 50px;
 }
 .cover {
   background-color: #fbeec1;
