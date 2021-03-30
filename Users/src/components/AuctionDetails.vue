@@ -20,7 +20,7 @@
         <hr />
         <div class="time-container">
           <h4 class="time-header">Time left:</h4>
-          <p class="time">{{ auction.startDate }}</p>
+          <p class="time">hello</p>
         </div>
         <hr />
         <div class="current-price-container">
@@ -62,11 +62,18 @@ export default {
       auction: {},
     };
   },
+methods: {
+  
+},
+
   mounted() {
-    this.auction = this.$route.params;
+    
+    this.auction =this.$route.world;
+ 
+  
   },
 };
-</script>
+</script> 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
 

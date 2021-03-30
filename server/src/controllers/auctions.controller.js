@@ -1,6 +1,6 @@
 const { Auction } = require("../../db/models/auction");
 const { Artwork } = require("../../db/models/artwork");
-
+const { User } = require("../../db/models/users-model-signup");
 module.exports = {
   createAuction: async (req, res) => {
     try {
@@ -18,6 +18,7 @@ module.exports = {
           artist_id: req.body.artist_id,
           startDate: req.body.startDate,
           endDate: req.body.endDate,
+          startPrice:req.body.startPrice,
         });
 
         res.send("created");
@@ -35,3 +36,4 @@ module.exports = {
     }
   },
 };
+

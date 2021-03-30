@@ -31,6 +31,10 @@ const auction = (sequelize, type) => {
         type: type.STRING,
         required: false,
       },
+      startPrice:{
+        type: type.INTEGER,
+        required: false,
+      }
     },
 
     { timestamps: true }

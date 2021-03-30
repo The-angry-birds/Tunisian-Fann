@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div class="container">
+    <div  class="container">
       <SingleAuction
         v-for="(auction, i) in auctions"
         :key="i"
         :auction="auction"
+      
       />
+        <!-- :sharedData="sharedData" -->
     </div>
   </div>
 </template>
@@ -29,14 +31,13 @@ export default {
         this.auctions = res.data;
       });
     },
-    sharedData(a) {
-      this.$router.push({ path: "/auction-details", params: a });
-    },
+ 
   },
   components: {
     SingleAuction,
   },
   mounted() {
+    // this.sharedData()
     this.getAuctions();
   },
 };

@@ -8,7 +8,7 @@
               <div class="media align-items-end profile-head">
                 <div class="profile mr-3">
                   <img
-                    v-if="user.imageUrl"
+                     v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="#"
                     width="130"
@@ -23,6 +23,7 @@
                     Edit profile
                   </button>
                 </div>
+
                 <div class="media-body mb-5 text-black">
                   <h4 class="mt-0 mb-0">
                     {{ user.firstName }} {{ user.lastName }}
@@ -49,7 +50,9 @@
         </div>
       </div>
     </div>
+
     <!-- MODAL CONTENT -->
+
     <div
       class="modal fade"
       id="Modal"
@@ -93,6 +96,7 @@
                   placeholder="Lastname"
                 />
               </div>
+
               <div class="file-field">
                 <div class="mb-4">
                   <img
@@ -106,12 +110,8 @@
                 <div class="d-flex justify-content-center">
                   <div class="btn btn-mdb-color btn-rounded float-left">
                     <span>Add photo</span>
-                    <input
-                      v-on:change="handleFileUpload()"
-                      type="file"
-                      id="file"
-                      ref="file"
-                    />
+                  
+                    <input v-on:change="handleFileUpload()" type="file" id="file" ref="file" />
                   </div>
                 </div>
               </div>
@@ -139,9 +139,9 @@ export default {
     return {
       firstName: "",
       lastName: "",
-      image: "",
+   
       user: {},
-      // show: false,
+      // show: false, 
     };
   },
   computed: {
@@ -151,27 +151,8 @@ export default {
     },
   },
   methods: {
-    handleEdit() {
-      axios
-        .patch(`http://localhost:3000/api/users/${this.getUser.id}`, this.user)
-        .then((response) => {
-          console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", response);
-          this.getdata();
-        });
-    },
-    getdata() {
-      const token = localStorage.getItem("token");
-      axios
-        .get("http://localhost:3000/api/users/getUserByToken", {
-          headers: { authorization: `Bearer ${token}` },
-        })
-        .then(({ data }) => {
-          this.user = data.user;
-          console.log(" this is user", this.user);
-        });
-    },
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0];
+         handleFileUpload() {
+      this.file = this.$refs.file.files[0]; 
       console.log("ahahaha", this.file);
       const image = new FormData();
       image.append("file", this.file);
@@ -179,16 +160,40 @@ export default {
       axios
         .post("https://api.cloudinary.com/v1_1/dkcwqbl9d/image/upload", image)
         .then(({ data }) => {
-          console.log("imageId", this.user.image);
-          this.user.imageUrl = data.url;
-          console.log("this.is user image :", this.user.image);
+          console.log("imageId",this.user.imageUrl);
+          this.user.imageUrl = data.url
+           console.log("this.is user image :", this.user.imageUrl )
+     
         })
         .catch((err) => console.log(err));
     },
+      getdata(){
+         const token= localStorage.getItem("token");
+        
+        axios.get("http://localhost:3000/api/users/getUserByToken",{
+            headers: { authorization: `Bearer ${token}`}}).then(({ data }) => {
+             this.user = data.user
+
+             console.log(" this is user",this.user )
+     
+        });
+      },
+
+    handleEdit() {
+      axios
+        .patch(`http://localhost:3000/api/users/${this.getUser.id}`,this.user)
+        .then((response) => {
+          console.log( 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',response);
+              this.getdata()
+        });
+   
+      
+    },
+
   },
   mounted() {
     this.user = this.$store.state.auth.user;
-    this.getdata();
+     this.getdata()
   },
 };
 //   showelement() {
@@ -208,9 +213,7 @@ export default {
 // },
 </script>
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
 * {
-  font-family: "Lexend", sans-serif;
   padding: 0px;
   margin: 0px;
 }
@@ -244,10 +247,10 @@ export default {
   padding: 10px;
   color: black;
 }
-.rounded-circle.z-depth-1-half.avatar-pic {
-  width: 30%;
-  height: 8rem;
-  margin-left: 10rem;
-  margin-top: 1rem;
+.rounded-circle.z-depth-1-half.avatar-pic{
+    width: 30%;
+    height: 8rem;
+    margin-left: 10rem;
+    margin-top: 1rem;
 }
 </style>

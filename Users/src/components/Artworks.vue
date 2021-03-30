@@ -81,12 +81,15 @@ export default {
               });
           });
         })
-        .catch((err) => {
+        .catch((err) => { 
           console.log(err);
         });
     },
 
     sharedData(a) {
+   
+    
+      console.log("hiiiiiiiiiiiiii")
       this.$router.push({ name: "artworkDetails", params: a });
     },
   },
