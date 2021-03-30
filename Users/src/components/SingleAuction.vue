@@ -56,9 +56,8 @@ export default {
   methods: {
     calculateCountDown() {
       // Set the date we're counting down ton
-      console.log("============>", this.auction);
+     
       var countDownDate = new Date(this.auction.endDate).getTime();
-      console.log(countDownDate);
       // Update the count down every 1 second
       var x = setInterval(() => {
         // Get today's date and time
@@ -89,7 +88,7 @@ export default {
           minutes: minutes,
           seconds: seconds,
         };
-        console.log(this.distanceDate);
+      
       }, 1000);
     },
   },
