@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const { sequelize } = require("../index");
 const { Auction } = require("./auction");
-const { usersLogin } = require("./users-model-login");
-const bid = (sequelize, type) => {
+const { User} = require("./users-model-signup");
+const Bids = (sequelize, type) => {
   const bid = sequelize.define(
     "bid",
     {
@@ -27,10 +27,10 @@ const bid = (sequelize, type) => {
   return bid;
 };
 
-let Bid = bid(sequelize, Sequelize);
+let Bid = Bids(sequelize, Sequelize);
 
-usersLogin.hasMany(Bid, { foreignKey: "user_id", as: "userBid" });
+Bid.hasMany(User ,{ foreignKey: "user_id", as: "userBid" });
 
-Auction.hasMany(Bid, { foreignKey: "auction_id", as: "bidauction" });
+Auction.hasMany(Bid, { foreignKey:"auction_id", as: "bidauction" });
 
 module.exports = { Bid };

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div @click="sharedData(auction)" class="container">
     <article class="card card--1">
       <div class="card__info-hover">
         <svg class="card__like" viewBox="0 0 24 24">
@@ -29,9 +29,7 @@
         <div class="card__img--hover"></div>
       </a>
       <div class="card__info">
-        <span class="card__category" @click="sharedData(auction)"
-          >Digital Paintings</span
-        >
+        <span class="card__category">Digital Paintings</span>
         <h3 class="card__title">Before Lights Out</h3>
         <span class="card__by"
           >by
@@ -46,7 +44,9 @@
 
 <script>
 export default {
-  props: ["auction"],
+  props: {
+    auction: Object,
+  },
   data() {
     return {
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
@@ -54,11 +54,20 @@ export default {
     };
   },
   methods: {
+
+    sharedData(auction) {
+      console.log(auction,"hellllooooooooooooooooooooooooooooooooo");
+  
+      this.$router.push({
+        path: `/auction-details/${auction.id}`
+    
+      });
+    },
     calculateCountDown() {
       // Set the date we're counting down ton
-      console.log("============>", this.auction);
+
       var countDownDate = new Date(this.auction.endDate).getTime();
-      console.log(countDownDate);
+
       // Update the count down every 1 second
       var x = setInterval(() => {
         // Get today's date and time
@@ -80,7 +89,6 @@ export default {
         );
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        console.log(days, hours);
 
         // Output the result in an element with id="demo"
         this.distanceDate = {
@@ -89,8 +97,7 @@ export default {
           minutes: minutes,
           seconds: seconds,
         };
-        console.log(this.distanceDate);
-      }, 1000);
+      });
     },
   },
   mounted() {
