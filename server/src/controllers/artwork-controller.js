@@ -92,7 +92,16 @@ module.exports = {
       console.log(err);
     }
   },
-};
+  getOneartwork: async (req, res)=> {
+    try {
+      const artwork = await Artwork.findOne({
+        where: { id:req.params.id },
+      })
+      res.send(artwork);
+  }catch (err) {
+    console.log(err)
+  }
+}
 
 // "nameArtwork": "CRY BABY",
 // "description": "DIGITAL ART AND ILLUSTRATION",
@@ -100,4 +109,4 @@ module.exports = {
 // "price": "3000",
 // "artist_id": "1",
 // "categoryName": "Digital Paintings"
-// }
+}

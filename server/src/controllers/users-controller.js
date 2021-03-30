@@ -16,7 +16,7 @@ exports.editUser = async function (req, res) {
       {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        imageUrl: req.body.image,
+        imageUrl: req.body.imageUrl,
       },
       { where: { id: req.params.id } }
     );

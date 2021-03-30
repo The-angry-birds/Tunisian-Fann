@@ -13,10 +13,6 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.config.productionTip = false;
-// Vue.use(
-//   VueStripeCheckout,
-//   "pk_test_51ISo8BBdTsia79TvvPiOhcEdgJW5RrLgYuqSmgo7FwC1JdsSIeCd0O867AdapRzapwhZYY8mCfrbqK9yHTh3LPxf00pIAjIYFw"
-// );
 
 new Vue({
   router,

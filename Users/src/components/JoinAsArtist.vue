@@ -110,7 +110,6 @@ export default {
         this.$store
           .dispatch("register", data)
           .then(() => {
-            console.log("mydata=====", data);
             this.$router.push("/artist-profile");
             Swal.fire({
               position: "top-end",
@@ -119,7 +118,6 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log("registred");
           })
           .catch((err) => {
             console.log(err);

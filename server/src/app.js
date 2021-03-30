@@ -9,7 +9,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const router = require("./routes/admin.routes.js");
 const adminRoutes = require("./routes/auth.admin.routes.js");
-
+const bidRoutes=require("./routes/bid-routes")
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
@@ -21,6 +21,8 @@ const artworkRouter = require("./routes/artwork-routes");
 const auctionsRouter = require("./routes/auctions.routes");
 const likesRouter = require("./routes/routes.likes");
 const verifyRouter = require("./routes/auth.verify.routes");
+var server = require('http').createServer(app);  
+var io = require('socket.io')(server);
 
 app.use(morgan("combined"));
 app.use(cors());
@@ -31,7 +33,7 @@ app.use("/api/artworks", artworkRouter);
 
 app.use("/api/auth/users", usersSignupRoutes);
 app.use("/api/users", usersRoutes);
-
+app.use("/api/bid", bidRoutes);
 app.use("/api/auth/artists", artistAuthRoutes);
 app.use("/api/artists", artistRoutes);
 app.use("/api/auctions", auctionsRouter);
@@ -102,6 +104,18 @@ app.post("/payment", function (req, res) {
     });
 });
 
+// const paymentIntent = await stripe.paymentIntents.create({
+//   amount: 2000,
+//   currency: 'usd',
+//   payment_method_types: ['card'],
+// });
+io.on('connection', function(client) {
+  console.log('Client connected...');
+  client.on('join', function(data) {
+     console.log(data);
+     client.emit('messages', 'Hello from server');
+  });
+});
 app.listen(process.env.PORT || 3000, () => {
   console.log("listening on port 3000");
 });
