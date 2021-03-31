@@ -33,29 +33,34 @@
           <div class="px-3 py-4">
             <h5 class="mb-4">Artworks</h5>
             <div class="p-4 rounded shadow-sm" id="artworks">
-              <div class="card-container">
-                <div class="container">
-                  <!-- Top Navigation -->
-                  <div class="content">
-                    <div class="grid">
-                      <figure class="effect-ravi">
-                        <img
-                          id="card-image"
-                          src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/the-fallen-artwork-by-bensalem-walid.png"
-                        />
-                        <figcaption>
-                          <div>
-                            <h2 id="card-title">Refuge</h2>
-                            <p id="card-desc">
-                              Whatever whatever whatever whatever
-                            </p>
-                          </div>
-                        </figcaption>
-                      </figure>
-                    </div>
-                  </div>
-                </div>
-              </div>
+               <div class="card-container" :v-if="this.artworks">
+      <b-card
+        v-for="(art, i) in artwork"
+        :key="i"
+        v-bind:img-src="art.imageUrl"
+        img-top
+        class="mb-2"
+      >
+        <div class="likes-container">
+          <button @click.prevent="like(artwork)">
+            <i class="fa fa-thumbs-up likes-icon"></i>
+          </button>
+          <p class="likes-number">{{ art.likes }}</p>
+        </div>
+
+        <b-card-text class="card-category">Digital Paintings</b-card-text>
+
+        <h3 class="card-title" >
+          {{ art.nameArtwork }}
+        </h3>
+
+        <div class="card-by">
+          by
+          <p class="card-author">Bensalem Walid</p>
+        </div>
+        <div></div>
+      </b-card>
+    </div>
             </div>
           </div>
           <div class="px-3 py-4">
@@ -69,9 +74,7 @@
 </template>
 
 <script>
-// import SingleAuction from "./SingleAuction";
-// import Artworks from "./Artworks";
-
+import axios from "axios"
 export default {
   data() {
     return {
@@ -81,14 +84,19 @@ export default {
   },
   mounted() {
     this.artist = this.$route.params;
-    this.artwork = this.$route.params;
-    console.log(this.artist);
+    this.getArtwork()
+  },
+  methods:{
+    getArtwork(){
+      axios.get(`http://localhost:3000/api/artworks/${this.artist.id}`).then((res)=>{
+        console.log(res.data)
+        this.artwork = res.data
+      })
+
+    },
+
   },
 
-  components: {
-    // SingleAuction,
-    // Artworks
-  },
 };
 </script>
 
@@ -134,6 +142,7 @@ export default {
   list-style: none;
   text-align: center;
 }
+
 /* Common style */
 
 .grid figure {
@@ -286,5 +295,78 @@ figure.effect-ravi:hover #card-desc {
 
 #auctions {
   background-color: #fbeec1;
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+.mb-2 {
+  margin: 22px;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  width: 300px;
+  height: 385px;
+  transition: 0.5s;
+}
+
+.mb-2:hover {
+  box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
+}
+.card-category {
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: grey;
+}
+.card-title {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.card-by {
+  font-size: 12px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.card-author {
+  font-weight: 600;
+  text-decoration: none;
+  color: #a08018;
+  margin-left: 3px;
+}
+img:hover {
+  opacity: 0.8;
+}
+img {
+  border-radius: 5px 5px 0px 0px;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+.likes-container {
+  display: flex;
+  flex-wrap: nowrap;
+  position: absolute;
+  bottom: 85px;
+  right: 20px;
+}
+.likes-icon {
+  font-size: 25px;
+  color: black;
+  transition: 0.3s;
+}
+.likes-icon:hover {
+  font-size: 30px;
+  color: #a08018;
+}
+
+.likes-number {
+  font-size: 15px;
+  color: #a08018;
 }
 </style>

@@ -2,7 +2,7 @@
 
   <div>
       <ArtistProfileView
-        :artwork_id="artwork_id"
+        :artwork="artwork"
       
       />
     <div class="artworks-header"></div>
@@ -55,6 +55,7 @@ export default {
       search: "",
       artwork_id: "",
       user_id: "",
+      artwork:{}
     };
   },
 
@@ -93,7 +94,7 @@ export default {
 
     sharedData(a) {
       this.$router.push({ name: "artworkDetails", params: a });
-       this.$router.push({ name: "ArtistProfileView", params: a });
+      
     },
   },
   computed: {
@@ -117,7 +118,7 @@ export default {
 * {
   box-sizing: border-box;
   font-family: "Lexend", serif;
-}
+}artwork
 
 .artworks-header {
   margin-top: 100px;
