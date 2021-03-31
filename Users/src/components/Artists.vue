@@ -1,6 +1,11 @@
 <template>
   <div class="container mt-40">
     <div class="search">
+         <ArtistProfileView
+        :artist="artist"
+      
+      />
+      
       <label class="search-label">Search for an artist:</label>
       <input
         class="search-input"
@@ -21,7 +26,7 @@
             <h3 class="title">{{ artist.firstName }} {{ artist.lastName }}</h3>
           </div>
         </div>
-        <button class="profile-btn">PROFILE</button>
+        <button class="profile-btn" @click="artistProfile(artist)" >PROFILE</button>
         <button class="profile-btn">MESSAGE</button>
       </div>
     </div>
@@ -36,6 +41,7 @@ export default {
     return {
       artists: [],
       search: "",
+      artist:{}
     };
   },
   methods: {
@@ -49,6 +55,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    artistProfile(a) {
+      this.$router.push({ name: "ArtistProfileView", params: a });
     },
   },
   computed: {

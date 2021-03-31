@@ -20,6 +20,7 @@
               class="client-ban-btn btn btn-danger"
               data-toggle="modal"
               data-target="#myClientBanModal"
+              @click.prevent="changeCurrentuser(user)"
             >
               Ban
             </button>
@@ -42,6 +43,7 @@
                       type="button"
                       class="btn btn-danger"
                       data-dismiss="modal"
+                      @click.prevent="bannedUsers(user.id)"
                     >
                       Ban
                     </button>
@@ -62,12 +64,16 @@ export default {
   data() {
     return {
       users: [],
+      curentUser: "",
     };
   },
   mounted() {
     this.getAlluser();
   },
   methods: {
+    changeCurrentuser(user) {
+      this.curentUser = user;
+    },
     getAlluser() {
       axios
         .get(`http://localhost:3000/api/users`)
@@ -75,6 +81,16 @@ export default {
           this.users = user;
 
           console.log("=================>", user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    bannedUsers(id) {
+      axios
+        .put(`http://localhost:3000/api/users/${id}`)
+        .then((baneed) => {
+          console.log(baneed);
         })
         .catch((err) => {
           console.log(err);
@@ -101,6 +117,6 @@ th {
   padding: 8px;
 }
 .client-ban-btn {
-  width:200px
+  width: 200px;
 }
 </style>

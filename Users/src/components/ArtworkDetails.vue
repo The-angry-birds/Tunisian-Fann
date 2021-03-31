@@ -39,14 +39,11 @@ export default {
   },
   mounted() {
     this.oneArt = this.$route.params;
-    
-
   },
 
   methods: {
     cardInformation() {
       this.$router.push("/informationCard");
-       
     },
   },
 };

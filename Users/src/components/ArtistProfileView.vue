@@ -7,14 +7,14 @@
             <div class="media align-items-end profile-head">
               <div class="profile mr-3">
                 <img
-                  src="https://apollo.imgix.net/content/uploads/2019/08/5d5c68a43f00005c005b1927.jpeg?auto=compress,format&w=900&h=600"
+                  :src="artist.imageUrl"
                   alt="..."
                   width="250"
                   class="rounded mb-2 img-thumbnail"
                 />
               </div>
               <div class="media-body mb-5 text-black">
-                <h4 class="mt-0 mb-0">Artist Artist</h4>
+                <h4 class="mt-0 mb-0">{{artist.firstName}} {{artist.lastName}}</h4>
               </div>
             </div>
           </div>
@@ -25,9 +25,10 @@
           <div class="px-3 py-4">
             <h5 class="mb-4">About</h5>
             <div class="p-4 rounded shadow-sm" id="info-card">
-              <p class="font-italic mb-0">Artist biography</p>
+              <p class="font-italic mb-0">{{artist.description}}</p>
             </div>
           </div>
+      
           <!-- //ARTWORKS SECTION -->
           <div class="px-3 py-4">
             <h5 class="mb-4">Artworks</h5>
@@ -43,7 +44,7 @@
                           src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/the-fallen-artwork-by-bensalem-walid.png"
                         />
                         <figcaption>
-                          <div> 
+                          <div>
                             <h2 id="card-title">Refuge</h2>
                             <p id="card-desc">
                               Whatever whatever whatever whatever
@@ -51,21 +52,6 @@
                           </div>
                         </figcaption>
                       </figure>
-                      <figure class="effect-ravi">
-                        <img
-                          id="card-image"
-                          src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/the-dancer-in-red-artwork-by-bensalem-walid.png"
-                        />
-                        <figcaption>
-                          <div>
-                            <h2 id="card-title">The Dancer In Red</h2>
-                            <p id="card-desc">
-                              Whatever whatever whatever whatever
-                            </p>
-                          </div>
-                        </figcaption>
-                      </figure>
-                      
                     </div>
                   </div>
                 </div>
@@ -74,9 +60,7 @@
           </div>
           <div class="px-3 py-4">
             <h5 class="mb-4">Auctions</h5>
-            <div class="p-4 rounded shadow-sm" id="auctions">
-              <SingleAuction/>
-            </div>
+            <div class="p-4 rounded shadow-sm" id="auctions"></div>
           </div>
         </div>
       </div>
@@ -85,12 +69,25 @@
 </template>
 
 <script>
-import SingleAuction from "./SingleAuction";
+// import SingleAuction from "./SingleAuction";
+// import Artworks from "./Artworks";
 
 export default {
+  data() {
+    return {
+      artist: {},
+      artwork:{}
+    };
+  },
+  mounted() {
+    this.artist = this.$route.params;
+    this.artwork = this.$route.params;
+    console.log(this.artist);
+  },
 
   components: {
-    SingleAuction,
+    // SingleAuction,
+    // Artworks
   },
 };
 </script>
@@ -128,7 +125,6 @@ export default {
 #artworks {
   background-color: #fbeec1;
 }
-
 
 .grid {
   position: relative;
@@ -291,5 +287,4 @@ figure.effect-ravi:hover #card-desc {
 #auctions {
   background-color: #fbeec1;
 }
-
 </style>

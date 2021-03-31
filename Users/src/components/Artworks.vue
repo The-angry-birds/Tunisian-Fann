@@ -1,5 +1,10 @@
 <template>
+
   <div>
+      <ArtistProfileView
+        :artwork_id="artwork_id"
+      
+      />
     <div class="artworks-header"></div>
     <div class="search">
       <label class="search-label">Search for an artwork:</label>
@@ -57,7 +62,7 @@ export default {
     like(art) {
       const create = {
         artwork_id: art.id,
-        user_id: 11,
+        user_id: 55,
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
@@ -88,6 +93,7 @@ export default {
 
     sharedData(a) {
       this.$router.push({ name: "artworkDetails", params: a });
+       this.$router.push({ name: "ArtistProfileView", params: a });
     },
   },
   computed: {
