@@ -10,8 +10,7 @@ exports.getArtist = async function (req, res) {
 };
 exports.getbanned = async function (req, res) {
   try {
-    const getArtist = await Artist.findOne({where: { id: req.params.id } })
-
+    const getArtist = await Artist.findOne({ where: { id: req.params.id } });
 
     res.send(getArtist);
   } catch (err) {
@@ -19,14 +18,11 @@ exports.getbanned = async function (req, res) {
   }
 };
 
-
 exports.bannedArtist = async function (req, res) {
   try {
-
     const bannedArtist = await Artist.update(
       {
-        banned:true
-      
+        banned: true,
       },
       { where: { id: req.params.id } }
     );
@@ -38,11 +34,9 @@ exports.bannedArtist = async function (req, res) {
 
 exports.acceptArtist = async function (req, res) {
   try {
-
     const acceptArtist = await Artist.update(
       {
-        accept:true
-      
+        accept: true,
       },
       { where: { id: req.params.id } }
     );

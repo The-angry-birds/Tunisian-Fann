@@ -7,3 +7,9 @@ router.put("/:id",controllerArtist.bannedArtist)
 router.put("/accept/:id/",controllerArtist.acceptArtist)
 
 module.exports = router;
+
+
+
+
+
+

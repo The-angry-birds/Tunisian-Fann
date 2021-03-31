@@ -26,7 +26,6 @@ const myArtwork = (sequelize, type) => {
       description: type.STRING,
       imageUrl: type.STRING,
       price: type.INTEGER,
-      
     },
 
     { timestamps: false }
