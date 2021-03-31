@@ -852,17 +852,17 @@ export default {
 }
 
 .cover {
-  background-color: #fdf5e6;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #heading {
   padding: 30px !important;
-  background-color: #fdf5e6;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 #info-card {
-  background-color: #fdf5e6;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 
 #submitbtn {
@@ -872,7 +872,7 @@ export default {
 }
 
 #artworks {
-  background-color: #fdf5e6;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 .card-container {
   display: flex;
@@ -984,6 +984,6 @@ export default {
   color: white;
 }
 #auctions {
-  background-color: #fdf5e6;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 </style>

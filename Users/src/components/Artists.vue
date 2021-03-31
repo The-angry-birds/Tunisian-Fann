@@ -23,7 +23,6 @@
           </div>
         </div>
         <button class="profile-btn" @click="artistProfile(artist)" >PROFILE</button>
-        <button class="profile-btn">MESSAGE</button>
       </div>
     </div>
   </div>
@@ -189,9 +188,7 @@ export default {
 }
 .profile-btn{
   margin-top: 10px;
-  margin-right: 6px;
-   margin-left: 6px;
-  width: 44%;
+  width: 100%;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   transition: 0.5s;
