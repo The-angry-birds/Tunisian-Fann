@@ -44,8 +44,7 @@
                       type="button"
                       class="btn btn-danger"
                       data-dismiss="modal"
-                   
-                      @click.prevent="bannedArtist(artist)"
+                      @click.prevent="bannedArtist(artist.id)"
                     >
                       Ban
                     </button>
@@ -56,9 +55,9 @@
             <button
               type="button"
               class="artist-accept-btn btn btn-success"
-               v-on:click="messageArtist()"
-               @click="accepted"
-               @click.prevent="acceptArtist(artist)"
+              v-on:click="messageArtist()"
+              @click="accepted"
+              @click.prevent="acceptArtist(artist)"
             >
               Accept
             </button>
@@ -76,16 +75,12 @@ export default {
     return {
       artists: [],
       currentArtist: {},
-      dataArtists: {},
+      artist: {},
     };
   },
   methods: {
-    setCurrentId(artist) {
-      this.dataArtists= artist;
-    },
     changeCurrentartist(artist) {
       this.currentArtist = artist;
-  
     },
 
     getAllartist() {
@@ -102,35 +97,39 @@ export default {
     banned() {
       this.$message("Artist Banned!");
     },
-    accepted(){
-       this.$message("Accepted!");
+    accepted() {
+      this.$message("Accepted!");
     },
 
     bannedArtist(id) {
       axios
-        .put(`http://localhost:3000/api/artists/${id}`, this.currentArtist)
-        .then((updated) => {
-          console.log("=========>",updated);
+        .put(`http://localhost:3000/api/artists/${id}`)
+        .then((baneed) => {
+          console.log("=========>", baneed);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    acceptArtist(id){
-     axios .put(`http://localhost:3000/api/artists/accept/${id}`, )
+    acceptArtist(id) {
+      axios
+        .put(`http://localhost:3000/api/artists/accept/${id}`)
         .then((accepted) => {
           console.log(accepted);
- 
         })
         .catch((err) => {
           console.log(err);
         });
-
     },
-    messageArtist(){
-   axios.post("http://localhost:3000/sendmessage")
-   .then((response) => {console.log(response)})
-   .catch((err) => {console.log(err)})
+    messageArtist() {
+      axios
+        .post("http://localhost:3000/sendmessage")
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 

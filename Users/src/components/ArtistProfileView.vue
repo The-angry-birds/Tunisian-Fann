@@ -7,14 +7,16 @@
             <div class="media align-items-end profile-head">
               <div class="profile mr-3">
                 <img
-                  src="https://apollo.imgix.net/content/uploads/2019/08/5d5c68a43f00005c005b1927.jpeg?auto=compress,format&w=900&h=600"
+                  :src="artist.imageUrl"
                   alt="..."
                   width="250"
                   class="rounded mb-2 img-thumbnail"
                 />
               </div>
               <div class="media-body mb-5 text-black">
-                <h4 class="mt-0 mb-0">Artist Artist</h4>
+                <h4 class="mt-0 mb-0">
+                  {{ artist.firstName }} {{ artist.lastName }}
+                </h4>
               </div>
             </div>
           </div>
@@ -25,58 +27,49 @@
           <div class="px-3 py-4">
             <h5 class="mb-4">About</h5>
             <div class="p-4 rounded shadow-sm" id="info-card">
-              <p class="font-italic mb-0">Artist biography</p>
+              <p class="font-italic mb-0">{{ artist.description }}</p>
             </div>
           </div>
+
           <!-- //ARTWORKS SECTION -->
           <div class="px-3 py-4">
             <h5 class="mb-4">Artworks</h5>
             <div class="p-4 rounded shadow-sm" id="artworks">
               <div class="card-container">
-                <div class="container">
-                  <!-- Top Navigation -->
-                  <div class="content">
-                    <div class="grid">
-                      <figure class="effect-ravi">
-                        <img
-                          id="card-image"
-                          src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/the-fallen-artwork-by-bensalem-walid.png"
-                        />
-                        <figcaption>
-                          <div> 
-                            <h2 id="card-title">Refuge</h2>
-                            <p id="card-desc">
-                              Whatever whatever whatever whatever
-                            </p>
-                          </div>
-                        </figcaption>
-                      </figure>
-                      <figure class="effect-ravi">
-                        <img
-                          id="card-image"
-                          src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/the-dancer-in-red-artwork-by-bensalem-walid.png"
-                        />
-                        <figcaption>
-                          <div>
-                            <h2 id="card-title">The Dancer In Red</h2>
-                            <p id="card-desc">
-                              Whatever whatever whatever whatever
-                            </p>
-                          </div>
-                        </figcaption>
-                      </figure>
-                      
-                    </div>
+                <b-card
+                  v-for="(art, i) in artwork"
+                  :key="i"
+                  v-bind:img-src="art.imageUrl"
+                  img-top
+                  class="mb-2"
+                >
+                  <div class="likes-container">
+                    <button @click.prevent="like(artwork)">
+                      <i class="fa fa-thumbs-up likes-icon"></i>
+                    </button>
+                    <p class="likes-number">{{ art.likes }}</p>
                   </div>
-                </div>
+
+                  <b-card-text class="card-category"
+                    >Digital Paintings</b-card-text
+                  >
+
+                  <h3 class="card-title">
+                    {{ art.nameArtwork }}
+                  </h3>
+
+                  <div class="card-by">
+                    by
+                    <p class="card-author">Bensalem Walid</p>
+                  </div>
+                  <div></div>
+                </b-card>
               </div>
             </div>
           </div>
           <div class="px-3 py-4">
             <h5 class="mb-4">Auctions</h5>
-            <div class="p-4 rounded shadow-sm" id="auctions">
-              <SingleAuction/>
-            </div>
+            <div class="p-4 rounded shadow-sm" id="auctions"></div>
           </div>
         </div>
       </div>
@@ -85,12 +78,36 @@
 </template>
 
 <script>
-import SingleAuction from "./SingleAuction";
-
+import axios from "axios";
 export default {
-
-  components: {
-    SingleAuction,
+  data() {
+    return {
+      artist: {},
+      artwork: {},
+      auction: {},
+    };
+  },
+  mounted() {
+    this.artist = this.$route.params;
+    this.getAuctions();
+    this.getArtwork()
+  },
+  methods: {
+    getArtwork() {
+      axios
+        .get(`http://localhost:3000/api/artworks/${this.artist.id}`)
+        .then((res) => {
+          console.log(res.data);
+          this.artwork = res.data;
+        });
+    },
+    getAuctions() {
+      axios
+        .get(`http://localhost:3000/api/auctionbid/${this.artist.id}`)
+        .then((res) => {
+          console.log(res);
+        });
+    },
   },
 };
 </script>
@@ -129,7 +146,6 @@ export default {
   background-color: #fbeec1;
 }
 
-
 .grid {
   position: relative;
   margin: 0 auto;
@@ -138,6 +154,7 @@ export default {
   list-style: none;
   text-align: center;
 }
+
 /* Common style */
 
 .grid figure {
@@ -291,5 +308,98 @@ figure.effect-ravi:hover #card-desc {
 #auctions {
   background-color: #fbeec1;
 }
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+.mb-2 {
+  margin: 22px;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  width: 300px;
+  height: 385px;
+  transition: 0.5s;
+}
 
+.mb-2:hover {
+  box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
+}
+.card-category {
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: grey;
+}
+.card-title {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.card-by {
+  font-size: 12px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.card-author {
+  font-weight: 600;
+  text-decoration: none;
+  color: #a08018;
+  margin-left: 3px;
+}
+img:hover {
+  opacity: 0.8;
+}
+img {
+  border-radius: 5px 5px 0px 0px;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+.search {
+  text-align: right;
+  margin-right: 10%;
+}
+
+.search-label {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 10px;
+}
+
+.search-input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  width: 300px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.likes-container {
+  display: flex;
+  flex-wrap: nowrap;
+  position: absolute;
+  bottom: 85px;
+  right: 20px;
+}
+.likes-icon {
+  font-size: 25px;
+  color: black;
+  transition: 0.3s;
+}
+.likes-icon:hover {
+  font-size: 30px;
+  color: #a08018;
+}
+
+.likes-number {
+  font-size: 15px;
+  color: #a08018;
+}
 </style>

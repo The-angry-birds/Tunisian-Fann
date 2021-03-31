@@ -1,6 +1,6 @@
 const { Auction } = require("../../db/models/auction");
 const { Artwork } = require("../../db/models/artwork");
-const { Artist } = require("../../db/models/artist.js");
+
 module.exports = {
   createAuction: async (req, res) => {
     try {
@@ -50,9 +50,7 @@ module.exports = {
         ],
         raw: true,
       });
-      const artwork = await Artwork.findAll({
-        where: { artist_id: req.params.artist_id },
-      });
+      constdrop
       res.send({ data: data, artwork: artwork });
     } catch (err) {
       res.send(err);
@@ -73,15 +71,6 @@ module.exports = {
     }
   },
 
-  getOneAuction: async (req, res)=> {
-    try {
-      const auction = await Auction.findOne({
-        where: { id:req.params.id },
-      })
-      res.send(auction);
-  }catch (err) {
-    console.log(err)
-  }
-}
+
 
 };

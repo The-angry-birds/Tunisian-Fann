@@ -44,4 +44,4 @@ Artwork.hasMany(Auction, { foreignKey: "artwork_id", as: "artwork" });
 Artist.hasMany(Auction, { foreignKey: "artist_id", as: "artists" });
 module.exports = { Auction };
 
-module.exports = { Auction };
+

@@ -1,6 +1,7 @@
 <template>
   <div class="container mt-40">
     <div class="search">
+      
       <label class="search-label">Search for an artist:</label>
       <input
         class="search-input"
@@ -21,7 +22,7 @@
             <h3 class="title">{{ artist.firstName }} {{ artist.lastName }}</h3>
           </div>
         </div>
-        <button class="profile-btn">PROFILE</button>
+        <button class="profile-btn" @click="artistProfile(artist)" >PROFILE</button>
         <button class="profile-btn">MESSAGE</button>
       </div>
     </div>
@@ -36,6 +37,7 @@ export default {
     return {
       artists: [],
       search: "",
+      artist:{}
     };
   },
   methods: {
@@ -44,11 +46,14 @@ export default {
         .get(`http://localhost:3000/api/artists`)
         .then((res) => {
           this.artists = res.data;
-          console.log("=============", this.artists);
+          console.log(this.artists);
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    artistProfile(a) {
+      this.$router.push({ name: "ArtistProfileView", params: a });
     },
   },
   computed: {

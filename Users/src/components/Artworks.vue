@@ -1,5 +1,10 @@
 <template>
+
   <div>
+      <ArtistProfileView
+        :artwork="artwork"
+      
+      />
     <div class="artworks-header"></div>
     <div class="search">
       <label class="search-label">Search for an artwork:</label>
@@ -27,7 +32,7 @@
 
         <b-card-text class="card-category">Digital Paintings</b-card-text>
 
-        <h3 class="card-title" @click="sharedData()">
+        <h3 class="card-title" @click="sharedData(artwork)">
           {{ artwork.nameArtwork }}
         </h3>
 
@@ -50,6 +55,7 @@ export default {
       search: "",
       artwork_id: "",
       user_id: "",
+    
     };
   },
 
@@ -57,7 +63,7 @@ export default {
     like(art) {
       const create = {
         artwork_id: art.id,
-        user_id: 11,
+        user_id: 55,
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
@@ -86,14 +92,9 @@ export default {
         });
     },
 
-    sharedData() {
-   
-    
-      console.log("hiiiiiiiiiiiiii")
- this.artworks.map((art)=>{
-
-   this.$router.push({ path:`/artwork-details${art.id}`});
- })
+    sharedData(a) {
+      this.$router.push({ name: "artworkDetails", params: a });
+      
     },
   },
   computed: {
