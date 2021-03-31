@@ -1,5 +1,10 @@
 <template>
+
   <div>
+      <ArtistProfileView
+        :artwork="artwork"
+      
+      />
     <div class="artworks-header"></div>
     <div class="search">
       <label class="search-label">Search for an artwork:</label>
@@ -50,6 +55,7 @@ export default {
       search: "",
       artwork_id: "",
       user_id: "",
+      artwork:{}
     };
   },
 
@@ -57,7 +63,7 @@ export default {
     like(art) {
       const create = {
         artwork_id: art.id,
-        user_id: 11,
+        user_id: 55,
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
@@ -85,6 +91,7 @@ export default {
           console.log(err);
         });
     },
+
 
     sharedData() {
    
@@ -117,7 +124,7 @@ export default {
 * {
   box-sizing: border-box;
   font-family: "Lexend", serif;
-}
+}artwork
 
 .artworks-header {
   margin-top: 100px;

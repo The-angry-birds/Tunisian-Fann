@@ -85,7 +85,11 @@ module.exports = {
 
   getAllartworks: async (req, res) => {
     try {
-      const artworks = await Artwork.findAll({});
+      const artworks = await Artwork.findAll({
+        order: [
+          ['id', 'DESC'],
+      ],
+      });
       res.send(artworks);
     } catch (err) {
       console.log(err);
@@ -102,10 +106,4 @@ module.exports = {
   }
 }
 
-// "nameArtwork": "CRY BABY",
-// "description": "DIGITAL ART AND ILLUSTRATION",
-// "imageUrl": "bensalemwalid.com/wp-content/uploads/2021/02/cry-baby-artwork-by-bensalem-walid.png",
-// "price": "3000",
-// "artist_id": "1",
-// "categoryName": "Digital Paintings"
 }
