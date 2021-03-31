@@ -832,7 +832,7 @@ export default {
     },
   },
   mounted() {
-    this.getAuctions();
+    // this.getAuctions();
     this.getCategories();
     this.getAllArtworks();
     this.user = this.$store.state.auth.user;
