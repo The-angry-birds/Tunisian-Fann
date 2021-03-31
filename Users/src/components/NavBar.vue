@@ -8,15 +8,15 @@
       />
     </router-link>
 
-    <button>
+    <button  v-if="authGuest" >
       <router-link class="nav-btns" to="/artists">Artists</router-link>
     </button>
 
-    <button>
+    <button  v-if="authGuest" >
       <router-link class="nav-btns" to="/artworks">Artworks</router-link>
     </button>
 
-    <button>
+    <button  v-if="authGuest" >
       <router-link class="nav-btns" to="/auctions">Auctions</router-link>
     </button>
 
@@ -69,7 +69,7 @@
       </ul>
     </div>
 
-    <div class="dropdown">
+    <div v-if="authGuest"  class="dropdown">
       <a
         id="dLabel"
         role="button"

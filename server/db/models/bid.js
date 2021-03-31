@@ -31,6 +31,6 @@ let Bid = Bids(sequelize, Sequelize);
 
 Bid.hasMany(User ,{ foreignKey: "user_id", as: "userBid" });
 
-Auction.hasMany(Bid, { foreignKey:"auction_id", as: "bidauction" });
+Auction.hasMany(Bid, { foreignKey:"auction_id", as: "bidauction" });  
 
 module.exports = { Bid };

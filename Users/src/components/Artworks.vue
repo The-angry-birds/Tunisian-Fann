@@ -32,7 +32,7 @@
 
         <b-card-text class="card-category">Digital Paintings</b-card-text>
 
-        <h3 class="card-title" @click="sharedData(artwork)">
+        <h3 class="card-title" @click="sharedData()">
           {{ artwork.nameArtwork }}
         </h3>
 
@@ -92,9 +92,15 @@ export default {
         });
     },
 
-    sharedData(a) {
-      this.$router.push({ name: "artworkDetails", params: a });
-      
+
+    sharedData() {
+   
+    
+      console.log("hiiiiiiiiiiiiii")
+ this.artworks.map((art)=>{
+
+   this.$router.push({ path:`/artwork-details${art.id}`});
+ })
     },
   },
   computed: {

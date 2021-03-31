@@ -66,6 +66,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      bidValue:null,
       artwork_id: null,
       artwork: {},
       auction_id: null,
@@ -75,6 +76,7 @@ export default {
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
     };
   },
+
   methods: {
     getAuction() {
       this.auction_id = this.$route.params.id;
@@ -139,14 +141,24 @@ export default {
           this.user_id = data.user.id;
         });
     },
+    createBid(){
+    
+    axios.post("http://localhost:3000/api/bid",{
+    bidValue:this.bidValue,
+    auction_id:this.auction_id, 
+    user_id:this. this.user_id ,
+}).then(()=>{
+  console.log("updated bid ")
+})
+
+    }
 
 
   },
 
   mounted() {
     this.getAuction();
-
-    this.getuser();
+     this.getuser();
   },
 };
 </script>
