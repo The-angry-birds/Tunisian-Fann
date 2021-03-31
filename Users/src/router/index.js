@@ -15,6 +15,7 @@ const router = new Router({
       name: "join_Client",
       component: () => import("@/components/JoinAsClient.vue"),
     },
+
     {
       path: "/informationCard",
       name: "informationCard",
