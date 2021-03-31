@@ -67,7 +67,7 @@ const router = new Router({
       props: true,
     },
     {
-      path: "/artwork-details",
+      path: "/artwork-details/:id",
       name: "artworkDetails",
       component: () => import("@/components/ArtworkDetails.vue"),
       props: true,
