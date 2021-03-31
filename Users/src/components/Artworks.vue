@@ -63,7 +63,7 @@ export default {
     like(art) {
       const create = {
         artwork_id: art.id,
-        user_id: 55,
+        user_id: localStorage.getItem("id"),
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
