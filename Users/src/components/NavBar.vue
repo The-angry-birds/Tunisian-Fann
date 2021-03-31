@@ -1,25 +1,72 @@
 <template>
   <nav class="navbar navbar-expand-sm" id="navbar">
-    <router-link to="/">
-      <img
-        class="navbar-logo"
-        src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
-        to
-      />
-    </router-link>
+      <router-link to="/">
+        <img
+          class="navbar-logo"
+          src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
+          to
+        />
+      </router-link>
+    <div class="left-nav">
 
-    <button  v-if="authGuest" >
-      <router-link class="nav-btns" to="/artists">Artists</router-link>
-    </button>
+      <button>
+        <router-link class="nav-btns" to="/artists">Artists</router-link>
+      </button>
 
-    <button  v-if="authGuest" >
-      <router-link class="nav-btns" to="/artworks">Artworks</router-link>
-    </button>
+      <button>
+        <router-link class="nav-btns" to="/artworks">Artworks</router-link>
+      </button>
 
-    <button  v-if="authGuest" >
-      <router-link class="nav-btns" to="/auctions">Auctions</router-link>
-    </button>
+      <button>
+        <router-link class="nav-btns" to="/auctions">Auctions</router-link>
+      </button>
+    </div>
+    <div class="right-nav">
+      <div v-if="authGuest" class="dropdown">
+      <a
+        id="dLabel"
+        role="button"
+        data-toggle="dropdown"
+        data-target="#"
+        href="/page.html"
+      >
+        <i class="glyphicon glyphicon-bell"></i>
+      </a>
 
+      <ul
+        class="dropdown-menu notifications"
+        role="menu"
+        aria-labelledby="dLabel"
+      >
+        <div class="notification-heading">
+          <h4 class="menu-title">Notifications</h4>
+          <h4 class="menu-title pull-right">
+            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
+          </h4>
+        </div>
+        <li class="divider"></li>
+        <div class="notifications-wrapper">
+          <a class="content" href="#">
+            <div class="notification-item">
+              <h4 class="item-title">Notification 1</h4>
+              <p class="item-info">Notification 1, 1 days ago</p>
+            </div>
+          </a>
+          <a class="content" href="#">
+            <div class="notification-item">
+              <h4 class="item-title">Notification 2</h4>
+              <p class="item-info">Notification 2, 2 days ago</p>
+            </div>
+          </a>
+        </div>
+        <li class="divider"></li>
+        <div class="notification-footer">
+          <h4 class="menu-title">
+            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
+          </h4>
+        </div>
+      </ul>
+    </div>
     <div v-if="!authGuest" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
         Join us
@@ -68,51 +115,6 @@
         </li>
       </ul>
     </div>
-
-    <div v-if="authGuest"  class="dropdown">
-      <a
-        id="dLabel"
-        role="button"
-        data-toggle="dropdown"
-        data-target="#"
-        href="/page.html"
-      >
-        <i class="glyphicon glyphicon-bell"></i>
-      </a>
-
-      <ul
-        class="dropdown-menu notifications"
-        role="menu"
-        aria-labelledby="dLabel"
-      >
-        <div class="notification-heading">
-          <h4 class="menu-title">Notifications</h4>
-          <h4 class="menu-title pull-right">
-            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
-          </h4>
-        </div>
-        <li class="divider"></li>
-        <div class="notifications-wrapper">
-          <a class="content" href="#">
-            <div class="notification-item">
-              <h4 class="item-title">Notification 1</h4>
-              <p class="item-info">Notification 1, 1 days ago</p>
-            </div>
-          </a>
-          <a class="content" href="#">
-            <div class="notification-item">
-              <h4 class="item-title">Notification 2</h4>
-              <p class="item-info">Notification 2, 2 days ago</p>
-            </div>
-          </a>
-        </div>
-        <li class="divider"></li>
-        <div class="notification-footer">
-          <h4 class="menu-title">
-            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
-          </h4>
-        </div>
-      </ul>
     </div>
   </nav>
 </template>
@@ -182,12 +184,24 @@ export default {
   z-index: 10;
   transition: 0.4s;
 }
+
+.left-nav {
+  width: 60%;
+  text-align: center;
+}
+.right-nav{
+  width: 20%;
+  display: flex;
+  flex-wrap: nowrap;
+  text-align: center;
+  }
 #nav-join {
   font-family: "Lexend", monospace;
   align-items: center;
   color: #a08018;
   font-size: 18px;
-  margin-left: 20%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 #nav-join:hover {
   color: #000000;
@@ -195,14 +209,12 @@ export default {
 .nav-btns {
   align-items: center;
   color: #a08018;
-  display: flex;
-  float: left;
   font-family: "Lexend", monospace;
   font-size: 18px;
   height: 100%;
-  margin-left: 80px;
-  top: 2px;
   text-decoration: none;
+  margin-left:40px;
+  margin-right: 40px;
 }
 .nav-btns:hover {
   color: #000000;
@@ -224,8 +236,10 @@ export default {
 }
 .navbar-logo {
   width: auto;
-  margin-left: 150px;
   color: #a08018;
+  margin-left: 50%;
+  margin-right: 50%;
+  text-align: center;
 }
 .dropdown-menu {
   background-color: transparent !important;
@@ -233,9 +247,8 @@ export default {
 }
 
 .dropdown {
-  display: inline-block;
-  margin-left: 20px;
-  padding: 10px;
+  margin-left:10%;
+  margin-right:10%;
 }
 
 .glyphicon-bell {
