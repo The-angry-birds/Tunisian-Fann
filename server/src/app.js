@@ -104,11 +104,7 @@ app.post("/payment", function (req, res) {
     });
 });
 
-// const paymentIntent = await stripe.paymentIntents.create({
-//   amount: 2000,
-//   currency: 'usd',
-//   payment_method_types: ['card'],
-// });
+
 io.on('connection', function(client) {
   console.log('Client connected...');
   client.on('join', function(data) {

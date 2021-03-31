@@ -90,7 +90,6 @@ export default {
   mounted() {
     this.artist = this.$route.params;
     this.getAuctions();
-    this.getArtwork()
   },
   methods: {
     getArtwork() {
@@ -102,6 +101,7 @@ export default {
         });
     },
     getAuctions() {
+      console.log(this.artist.id)
       axios
         .get(`http://localhost:3000/api/auctionbid/${this.artist.id}`)
         .then((res) => {
@@ -123,7 +123,7 @@ export default {
 }
 
 .cover {
-  background-color: #fbeec1;
+  background-color:#ADD8E6;
   background-size: cover;
   background-repeat: no-repeat;
 }

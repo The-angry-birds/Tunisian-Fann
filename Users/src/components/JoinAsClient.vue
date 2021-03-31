@@ -114,10 +114,10 @@ export default {
           password: this.password,
         };
         this.$store.dispatch("login", data).then((res) => {
-          console.log("=====>fghj",res.data.user.banned);
-          // if (res.data.user.banned === true) {
-          //   swal("Oops!", "You are banned!", "error");
-          // } else 
+          console.log(res.data.user.banned)
+          if (res.data.user.banned !== false) {
+            swal("Oops!", "You are banned!", "error");
+          } else 
           if (res.data.message === "success") {
             swal("Welcome", "success");
             this.$router.push("/");
