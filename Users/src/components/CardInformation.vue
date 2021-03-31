@@ -58,7 +58,7 @@
                     class="form-control p-0"
                     id="expdate"
                     required
-                  placeholder="MM/YY"
+               
                   />
                   <label class="form-control-placeholder p-0" for="expdate"
                     >ExpirationDate</label
@@ -73,7 +73,7 @@
                     id="passw"
                     required
                     v-model="cvc"
-                    placeholder="CVC"
+            
                   />
                   <label class="form-control-placeholder p-0" for="passw"
                     >CVV</label
@@ -161,7 +161,8 @@ body {
 }
 
 .card {
-  background: #000;
+  background: #a08018;
+  
   color: #fff;
   width: 410px !important;
 }

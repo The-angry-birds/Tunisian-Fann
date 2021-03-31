@@ -173,7 +173,7 @@ export default {
         axios.get("http://localhost:3000/api/users/getUserByToken",{
             headers: { authorization: `Bearer ${token}`}}).then(({ data }) => {
              this.user = data.user
-
+             localStorage.setItem("id",this.user.id)
              console.log(" this is user",this.user )
      
         });

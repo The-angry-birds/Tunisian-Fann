@@ -115,9 +115,9 @@ export default {
         };
         this.$store.dispatch("login", data).then((res) => {
           console.log("=====>fghj",res.data.user.banned);
-          if (res.data.user.banned === true) {
-            swal("Oops!", "You are banned!", "error");
-          } else 
+          // if (res.data.user.banned === true) {
+          //   swal("Oops!", "You are banned!", "error");
+          // } else 
           if (res.data.message === "success") {
             swal("Welcome", "success");
             this.$router.push("/");
