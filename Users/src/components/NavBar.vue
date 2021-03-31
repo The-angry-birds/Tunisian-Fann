@@ -202,6 +202,7 @@ export default {
   font-size: 18px;
   margin-left: 10%;
   margin-right: 10%;
+  text-align: center;
 }
 #nav-join:hover {
   color: #000000;
@@ -211,7 +212,7 @@ export default {
   color: #a08018;
   font-family: "Lexend", monospace;
   font-size: 18px;
-  height: 100%;
+  
   text-decoration: none;
   margin-left:40px;
   margin-right: 40px;
@@ -238,7 +239,6 @@ export default {
   width: auto;
   color: #a08018;
   margin-left: 50%;
-  margin-right: 50%;
   text-align: center;
 }
 .dropdown-menu {
@@ -249,6 +249,8 @@ export default {
 .dropdown {
   margin-left:10%;
   margin-right:10%;
+    text-align: center;
+
 }
 
 .glyphicon-bell {
