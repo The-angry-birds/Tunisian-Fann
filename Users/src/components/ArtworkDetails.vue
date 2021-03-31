@@ -23,7 +23,7 @@
         <hr />
         <div class="artwork-by">
           by
-          <p class="artwork-artist">Bensalem Walid</p>
+          <p class="artwork-artist">{{artist.lastName}} {{artist.firstName}}</p>
         </div>
       </div>
     </div>
@@ -31,20 +31,60 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
+      artwork_id: null,
       oneArt: {},
+        artist:{}
     };
   },
+
+
   mounted() {
     this.oneArt = this.$route.params;
   },
 
+
   methods: {
+    getArtwork() {
+      this.artwork_id = this.$route.params.id;
+
+      axios
+        .get(`http://localhost:3000/api/artworks/${this.artwork_id}`)
+        .then(({ data }) => {
+          this.oneArt = data;
+          console.log("this.is artwork", data);
+        }).then(() => {
+         axios.get(`http://localhost:3000/api/artists/${this.oneArt.artist_id}`) .then(({ data }) => {
+       
+          console.log("this.is artist", data);
+          this.artist=data
+        })
+        })
+    },
+    getuser() {
+      const token = localStorage.getItem("token");
+
+      axios
+        .get("http://localhost:3000/api/users/getUserByToken", {
+          headers: { authorization: `Bearer ${token}` },
+        })
+        .then(({ data }) => {
+          console.log(" this is user idDDDDDDDDDDDDDDDDDDDDDDDD", data.user.id);
+          this.user_id = data.user.id;
+        });
+    },
+
     cardInformation() {
       this.$router.push("/informationCard");
     },
+  },
+  mounted() {
+    this.getArtwork();
+    console.log("this.oneArt", this.artwork_id);
+    this.getuser();
   },
 };
 </script>

@@ -1,6 +1,6 @@
 const { Auction } = require("../../db/models/auction");
 const { Artwork } = require("../../db/models/artwork");
-const { Artist } = require("../../db/models/artist.js");
+
 module.exports = {
   createAuction: async (req, res) => {
     try {
@@ -71,16 +71,7 @@ module.exports = {
     }
   },
 
-  getOneAuction: async (req, res)=> {
-    try {
-      const auction = await Auction.findOne({
-        where: { id:req.params.id },
-      })
-      res.send(auction);
-  }catch (err) {
-    console.log(err)
-  }
-}
+
 
 };
 

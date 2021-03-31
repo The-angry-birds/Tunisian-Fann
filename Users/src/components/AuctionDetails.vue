@@ -5,6 +5,7 @@
         <img
           class="auction-image"
           :src="artwork.imageUrl"
+
         />
       </div>
       <div class="right-container">
@@ -81,7 +82,7 @@ export default {
     getAuction() {
       this.auction_id = this.$route.params.id;
       axios
-        .get(`http://localhost:3000/api/auctions/${this.auction_id}`)
+        .get(`http://localhost:3000/api/auctionbid/${this.auction_id}`)
         .then(({ data }) => {
           console.log("this is auction", data);
           this.auction = data;
@@ -93,7 +94,8 @@ export default {
             )
             .then(({ data }) => {
               this.artwork = data;
-              console.log("this.is artwork", data);
+              console.log("this is",this.artwork)
+       
             }) .then(() => {
                 var countDownDate = new Date(this.auction.endDate).getTime();
 
@@ -137,7 +139,6 @@ export default {
           headers: { authorization: `Bearer ${token}` },
         })
         .then(({ data }) => {
-          console.log(" this is user idDDDDDDDDDDDDDDDDDDDDDDDD", data.user.id);
           this.user_id = data.user.id;
         });
     },
@@ -182,6 +183,7 @@ export default {
   float: left;
 }
 .auction-image {
+  cursor: pointer;
   height: 100%;
   width: 90%;
   object-fit: cover;
