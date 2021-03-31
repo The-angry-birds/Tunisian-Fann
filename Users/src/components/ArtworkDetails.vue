@@ -41,6 +41,7 @@ export default {
     };
   },
 
+
   methods: {
     getArtwork() {
       this.artwork_id = this.$route.params.id;
