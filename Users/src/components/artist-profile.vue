@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="row py-8 px-8">
@@ -316,8 +315,7 @@
                             <form>
                               <label class="labels" for="Title">Title</label>
                               <input
-                                value="artwork.title"
-                                v-model="art.title"
+                                v-model="art.nameArtwork"
                                 type="title"
                                 class="form-control"
                                 id="Title"
@@ -328,7 +326,7 @@
                                 >Image URL</label
                               >
                               <input
-                                v-model="art.url"
+                                v-model="art.imageUrl"
                                 type="imageurl"
                                 class="form-control"
                                 id="ImageURL"
@@ -385,7 +383,7 @@
                           <button
                             type="button"
                             class="btn btn-primary"
-                            @click.prevent="handleUpdate()"
+                            @click.prevent="handleUpdate(nameOfCategory)"
                           >
                             Submit
                           </button>
@@ -454,7 +452,13 @@
               >
                 Add Auctions
               </button>
-              <Auctions :artist="auction" />
+              <div
+                class="container"
+                v-for="(auction, i) in auctionData"
+                :key="i"
+              >
+                <ArtistAuction :auction="auction" />
+              </div>
             </div>
           </div>
 
@@ -601,7 +605,7 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-import Auctions from "./Auctions";
+import ArtistAuction from "./ArtistAuction";
 
 export default {
   data() {
@@ -625,11 +629,12 @@ export default {
       starting_price: "",
       auctions: {},
       artworkAuctions: {},
+      auctionData: {},
     };
   },
   components: {
-    // SingleAuction,
-    Auctions,
+    ArtistAuction,
+    // Auctions,
   },
   methods: {
     //to edit the artist information like firstName and image
@@ -751,6 +756,11 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
+          this.title = "";
+          this.details = "";
+          this.url = "";
+          this.price = null;
+          this.nameOfCategory = "";
         })
         .catch((err) => {
           console.log(err);
@@ -759,15 +769,15 @@ export default {
     setCurrentId(id, art) {
       this.art = art;
       this.currentId = id;
-      console.log("deletd", this.currentId);
+      console.log("idddddd", this.currentId);
     },
     //this function deletes the artwork
     handleDelete() {
       axios
         .delete(`http://localhost:3000/api/artworks/${this.currentId}`)
         .then(({ response }) => {
-          this.getAllArtworks();
           console.log("deleted", response);
+          this.getAllArtworks();
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -777,12 +787,16 @@ export default {
           });
         });
     },
-    handleUpdate() {
+    handleUpdate(q) {
+      this.art.categoryName = q;
+
       axios
         .put(`http://localhost:3000/api/artworks/${this.currentId}`, this.art)
         .then((response) => {
-          console.log("heyyyyyy", response.statusText);
+          this.art = response.data;
+          console.log("updated", response);
         });
+      console.log("===Id", this.currentId, "hey you there", this.art);
     },
     //this function posts an auction
     handleSubmitAuction() {
@@ -799,8 +813,20 @@ export default {
         .then((response) => {
           alert("created");
           console.log("auction", response);
+          var ne = [];
+          for (var i = 0; i < this.artworks.length; i++) {
+            for (var j = 0; j < this.auctionData.length; j++) {
+              if (this.artworks[i].id !== this.auctionData[j].artwork_id) {
+                ne.push(this.artworks[i]);
+              }
+            }
+          }
+          this.artworks = ne;
+          this.getAllArtworks();
+          this.getAuctions();
         });
     },
+    // this function gives me back the auction and the artwork of that specific artist
     getAuctions() {
       axios
         .get(`http://localhost:3000/api/auctions/${this.getArtist.id}`)
@@ -808,20 +834,17 @@ export default {
           console.log("======data", data);
           var myauctions = Object.values(data)[0];
           var myartworks = Object.values(data)[1];
-          this.auctions = myauctions;
-
-          console.log("artwork==================", this.artworkAuctions);
-          console.log("auctionnnnnns==================", this.auctions);
-          var array = [];
+          //looping through the two arrays and assigning the object of the auction to the object of the artwork
+          var mixdata = [];
           for (var i = 0; i < myauctions.length; i++) {
             for (var j = 0; j < myartworks.length; j++) {
               if (myartworks[j].id == myauctions[i].artwork_id) {
-                array.push(myartworks[j]);
+                var myObj = Object.assign(myartworks[j], myauctions[i]);
+                mixdata.push(myObj);
               }
             }
           }
-          // return array;
-          console.log("==", array);
+          this.auctionData = mixdata;
         });
     },
   },
@@ -832,6 +855,7 @@ export default {
       return this.$store.state.auth.user;
     },
   },
+
   mounted() {
     this.getAuctions();
     this.getCategories();
@@ -985,5 +1009,10 @@ export default {
 }
 #auctions {
   background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+}
+.container {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

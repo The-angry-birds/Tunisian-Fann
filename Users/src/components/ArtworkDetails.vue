@@ -54,7 +54,8 @@ export default {
         }).then(() => {
          axios.get(`http://localhost:3000/api/artists/${this.oneArt.artist_id}`) .then(({ data }) => {
        
-        
+
+          console.log("this.is artist", data);
           this.artist=data
         })
         })
