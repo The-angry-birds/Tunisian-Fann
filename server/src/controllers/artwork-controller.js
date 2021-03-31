@@ -67,7 +67,6 @@ module.exports = {
 
       const artwork = await Artwork.update(
         {
-          artist_id: req.body.artist_id,
           category_id: categoryData.id,
           nameArtwork: req.body.nameArtwork,
           description: req.body.description,
@@ -91,21 +90,21 @@ module.exports = {
       console.log(err);
     }
   },
-  getOneartwork: async (req, res)=> {
+  getOneartwork: async (req, res) => {
     try {
       const artwork = await Artwork.findOne({
-        where: { id:req.params.id },
-      })
+        where: { id: req.params.id },
+      });
       res.send(artwork);
-  }catch (err) {
-    console.log(err)
-  }
-}
+    } catch (err) {
+      console.log(err);
+    }
+  },
 
-// "nameArtwork": "CRY BABY",
-// "description": "DIGITAL ART AND ILLUSTRATION",
-// "imageUrl": "bensalemwalid.com/wp-content/uploads/2021/02/cry-baby-artwork-by-bensalem-walid.png",
-// "price": "3000",
-// "artist_id": "1",
-// "categoryName": "Digital Paintings"
-}
+  // "nameArtwork": "CRY BABY",
+  // "description": "DIGITAL ART AND ILLUSTRATION",
+  // "imageUrl": "bensalemwalid.com/wp-content/uploads/2021/02/cry-baby-artwork-by-bensalem-walid.png",
+  // "price": "3000",
+  // "artist_id": "1",
+  // "categoryName": "Digital Paintings"
+};
