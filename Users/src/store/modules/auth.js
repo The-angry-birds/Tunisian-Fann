@@ -5,6 +5,7 @@ export default {
     token: window.localStorage.getItem("token") || "",
     user: {},
     type: "",
+
   },
 
   mutations: {
@@ -13,11 +14,13 @@ export default {
       state.user = user;
       state.type = type;
     },
-    auth_error_or_logout(state) {
+    auth_error_or_logout(state,) {
       state.token = "";
       state.user = {};
       state.type = "";
     },
+
+
 
 
   },
@@ -33,6 +36,7 @@ export default {
     role: (state) => state.type,
   },
   actions: {
+
     //to verify which user is connected whether the guest or the artist
     verify_token({ commit }, token) {
       return new Promise((resolve, reject) => {

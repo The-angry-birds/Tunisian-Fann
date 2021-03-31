@@ -15,6 +15,7 @@ const router = new Router({
       name: "join_Client",
       component: () => import("@/components/JoinAsClient.vue"),
     },
+
     {
       path: "/informationCard",
       name: "informationCard",
@@ -59,10 +60,11 @@ const router = new Router({
       component: () => import("@/components/Auctions.vue"),
     },
     {
-      path: "/auction-details",
+      path: "/auction-details/:id",
       name: "auction-details",
 
       component: () => import("@/components/AuctionDetails.vue"),
+      props: true,
     },
     {
       path: "/artwork-details",

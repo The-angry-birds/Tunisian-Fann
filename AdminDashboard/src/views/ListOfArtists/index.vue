@@ -110,7 +110,7 @@ export default {
       axios
         .put(`http://localhost:3000/api/artists/${id}`, this.currentArtist)
         .then((updated) => {
-          console.log(updated);
+          console.log("=========>",updated);
         })
         .catch((err) => {
           console.log(err);

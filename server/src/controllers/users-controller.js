@@ -16,7 +16,7 @@ exports.editUser = async function (req, res) {
       {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        imageUrl: req.body.image,
+        imageUrl: req.body.imageUrl,
       },
       { where: { id: req.params.id } }
     );
@@ -37,5 +37,20 @@ exports.getUserByToken = async (req, res) => {
     res.send({user:user});
   } catch (err) {
     res.send(err);
+  }
+};
+exports.bannedUser = async function (req, res) {
+  try {
+
+    const bannedUser = await User.update(
+      {
+        banned:true
+      
+      },
+      { where: { id: req.params.id } }
+    );
+    res.send(bannedUser);
+  } catch (err) {
+    console.log(err);
   }
 };

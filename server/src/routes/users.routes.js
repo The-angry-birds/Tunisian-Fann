@@ -5,6 +5,8 @@ const controllerUsers = require("../controllers/users-controller.js");
 router.get('/',controllerUsers.getUser)
 router.patch('/:id',controllerUsers.editUser)
 router.get('/getUserByToken',controllerUsers.getUserByToken)    
+router.put('/:id',controllerUsers.bannedUser)    
+
 
 
 module.exports = router;
