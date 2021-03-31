@@ -14,7 +14,9 @@
                 />
               </div>
               <div class="media-body mb-5 text-black">
-                <h4 class="mt-0 mb-0">{{artist.firstName}} {{artist.lastName}}</h4>
+                <h4 class="mt-0 mb-0">
+                  {{ artist.firstName }} {{ artist.lastName }}
+                </h4>
               </div>
             </div>
           </div>
@@ -25,42 +27,44 @@
           <div class="px-3 py-4">
             <h5 class="mb-4">About</h5>
             <div class="p-4 rounded shadow-sm" id="info-card">
-              <p class="font-italic mb-0">{{artist.description}}</p>
+              <p class="font-italic mb-0">{{ artist.description }}</p>
             </div>
           </div>
-      
+
           <!-- //ARTWORKS SECTION -->
           <div class="px-3 py-4">
             <h5 class="mb-4">Artworks</h5>
             <div class="p-4 rounded shadow-sm" id="artworks">
-               <div class="card-container" :v-if="this.artworks">
-      <b-card
-        v-for="(art, i) in artwork"
-        :key="i"
-        v-bind:img-src="art.imageUrl"
-        img-top
-        class="mb-2"
-      >
-        <div class="likes-container">
-          <button @click.prevent="like(artwork)">
-            <i class="fa fa-thumbs-up likes-icon"></i>
-          </button>
-          <p class="likes-number">{{ art.likes }}</p>
-        </div>
+              <div class="card-container">
+                <b-card
+                  v-for="(art, i) in artwork"
+                  :key="i"
+                  v-bind:img-src="art.imageUrl"
+                  img-top
+                  class="mb-2"
+                >
+                  <div class="likes-container">
+                    <button @click.prevent="like(artwork)">
+                      <i class="fa fa-thumbs-up likes-icon"></i>
+                    </button>
+                    <p class="likes-number">{{ art.likes }}</p>
+                  </div>
 
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
+                  <b-card-text class="card-category"
+                    >Digital Paintings</b-card-text
+                  >
 
-        <h3 class="card-title" >
-          {{ art.nameArtwork }}
-        </h3>
+                  <h3 class="card-title">
+                    {{ art.nameArtwork }}
+                  </h3>
 
-        <div class="card-by">
-          by
-          <p class="card-author">Bensalem Walid</p>
-        </div>
-        <div></div>
-      </b-card>
-    </div>
+                  <div class="card-by">
+                    by
+                    <p class="card-author">Bensalem Walid</p>
+                  </div>
+                  <div></div>
+                </b-card>
+              </div>
             </div>
           </div>
           <div class="px-3 py-4">
@@ -74,29 +78,37 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 export default {
   data() {
     return {
       artist: {},
-      artwork:{}
+      artwork: {},
+      auction: {},
     };
   },
   mounted() {
     this.artist = this.$route.params;
+    this.getAuctions();
     this.getArtwork()
   },
-  methods:{
-    getArtwork(){
-      axios.get(`http://localhost:3000/api/artworks/${this.artist.id}`).then((res)=>{
-        console.log(res.data)
-        this.artwork = res.data
-      })
-
+  methods: {
+    getArtwork() {
+      axios
+        .get(`http://localhost:3000/api/artworks/${this.artist.id}`)
+        .then((res) => {
+          console.log(res.data);
+          this.artwork = res.data;
+        });
     },
-
+    getAuctions() {
+      axios
+        .get(`http://localhost:3000/api/auctionbid/${this.artist.id}`)
+        .then((res) => {
+          console.log(res);
+        });
+    },
   },
-
 };
 </script>
 
@@ -327,6 +339,7 @@ figure.effect-ravi:hover #card-desc {
 .card-title {
   margin-top: 5px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .card-by {
   font-size: 12px;
@@ -348,6 +361,26 @@ img {
   height: 250px;
   object-fit: cover;
 }
+.search {
+  text-align: right;
+  margin-right: 10%;
+}
+
+.search-label {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 10px;
+}
+
+.search-input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  width: 300px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
 .likes-container {
   display: flex;
   flex-wrap: nowrap;

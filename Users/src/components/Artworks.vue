@@ -1,4 +1,5 @@
- <template>
+<template>
+
   <div>
       <ArtistProfileView
         :artwork="artwork"
@@ -54,7 +55,7 @@ export default {
       search: "",
       artwork_id: "",
       user_id: "",
-      artwork:{}
+    
     };
   },
 
@@ -91,12 +92,9 @@ export default {
         });
     },
 
-
-    sharedData(artwork) {
-      this.$router.push({ path:`/artwork-details/${artwork.id}` });
-      console.log("hiiiiiiiiiiiiii", artwork.id);
-
-
+    sharedData(a) {
+      this.$router.push({ name: "artworkDetails", params: a });
+      
     },
   },
   computed: {
@@ -120,7 +118,7 @@ export default {
 * {
   box-sizing: border-box;
   font-family: "Lexend", serif;
-}artwork
+}
 
 .artworks-header {
   margin-top: 100px;
@@ -156,7 +154,6 @@ export default {
 .card-title {
   margin-top: 5px;
   margin-bottom: 10px;
-  cursor: pointer;
 }
 .card-by {
   font-size: 12px;

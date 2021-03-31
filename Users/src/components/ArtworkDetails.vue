@@ -42,11 +42,6 @@ export default {
   },
 
 
-  mounted() {
-    this.oneArt = this.$route.params;
-  },
-
-
   methods: {
     getArtwork() {
       this.artwork_id = this.$route.params.id;

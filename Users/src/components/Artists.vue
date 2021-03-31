@@ -1,10 +1,6 @@
 <template>
   <div class="container mt-40">
     <div class="search">
-         <ArtistProfileView
-        :artist="artist"
-      
-      />
       
       <label class="search-label">Search for an artist:</label>
       <input
