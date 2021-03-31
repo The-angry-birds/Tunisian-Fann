@@ -447,14 +447,13 @@
             <div class="p-4 rounded shadow-sm" id="auctions">
               <!-- button for adding auctions -->
               <button
-                id="auctions"
                 class="add-artwork-btn"
                 data-toggle="modal"
                 data-target="#addAuctions"
               >
                 Add Auctions
               </button>
-              <Auctions :artist="auction"/>
+              <Auctions :artist="auction" />
             </div>
           </div>
 
@@ -607,7 +606,7 @@ export default {
   data() {
     return {
       description: "",
-      firstName: "",  
+      firstName: "",
       lastName: "",
       imageUrl: "",
       title: "",
@@ -623,6 +622,8 @@ export default {
       startDate: "",
       endDate: "",
       starting_price: "",
+      auctions: {},
+      artworkAuctions: {},
     };
   },
   components: {
@@ -791,11 +792,35 @@ export default {
         endDate: this.endDate,
         starting_price: this.starting_price,
       };
+
       axios
         .post("http://localhost:3000/api/auctions", auction)
         .then((response) => {
           alert("created");
           console.log("auction", response);
+        });
+    },
+    getAuctions() {
+      axios
+        .get(`http://localhost:3000/api/auctions/${this.getArtist.id}`)
+        .then(({ data }) => {
+          console.log("======data", data);
+          var myauctions = Object.values(data)[0];
+          var myartworks = Object.values(data)[1];
+          this.auctions = myauctions;
+
+          console.log("artwork==================", this.artworkAuctions);
+          console.log("auctionnnnnns==================", this.auctions);
+          var array = [];
+          for (var i = 0; i < myauctions.length; i++) {
+            for (var j = 0; j < myartworks.length; j++) {
+              if (myartworks[j].id == myauctions[i].artwork_id) {
+                array.push(myartworks[j]);
+              }
+            }
+          }
+          // return array;
+          console.log("==", array);
         });
     },
   },
@@ -807,6 +832,7 @@ export default {
     },
   },
   mounted() {
+    this.getAuctions();
     this.getCategories();
     this.getAllArtworks();
     this.user = this.$store.state.auth.user;
@@ -956,7 +982,7 @@ export default {
   background-color: rgb(0, 0, 0);
   color: white;
 }
-/* #auctions {
+#auctions {
   background-color: #fdf5e6;
-} */
+}
 </style>
