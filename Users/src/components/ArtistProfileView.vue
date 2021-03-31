@@ -39,9 +39,7 @@
                 <b-card
                   v-for="(art, i) in artwork"
                   :key="i"
-                  v-bind:img-src="art.imageUrl"
-                  img-top
-                  class="mb-2"
+              
                 >
                   <div class="likes-container">
                     <button @click.prevent="like(artwork)">
@@ -89,6 +87,7 @@ export default {
   },
   mounted() {
     this.artist = this.$route.params;
+    this.getArtwork()
     this.getAuctions();
   },
   methods: {
@@ -96,7 +95,7 @@ export default {
       axios
         .get(`http://localhost:3000/api/artworks/${this.artist.id}`)
         .then((res) => {
-          console.log(res.data);
+          console.log("=======",res.data);
           this.artwork = res.data;
         });
     },
