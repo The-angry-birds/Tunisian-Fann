@@ -102,6 +102,7 @@ module.exports = {
   }
 }
 
+
 // "nameArtwork": "CRY BABY",
 // "description": "DIGITAL ART AND ILLUSTRATION",
 // "imageUrl": "bensalemwalid.com/wp-content/uploads/2021/02/cry-baby-artwork-by-bensalem-walid.png",

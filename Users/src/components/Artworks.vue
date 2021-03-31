@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div>
     <div class="artworks-header"></div>
     <div class="search">
@@ -27,7 +27,7 @@
 
         <b-card-text class="card-category">Digital Paintings</b-card-text>
 
-        <h3 class="card-title" @click="sharedData()">
+        <h3 class="card-title" @click="sharedData(artwork)">
           {{ artwork.nameArtwork }}
         </h3>
 
@@ -86,14 +86,9 @@ export default {
         });
     },
 
-    sharedData() {
-   
-    
-      console.log("hiiiiiiiiiiiiii")
- this.artworks.map((art)=>{
-
-   this.$router.push({ path:`/artwork-details${art.id}`});
- })
+    sharedData(artwork) {
+      this.$router.push({ path:`/artwork-details/${artwork.id}` });
+      console.log("hiiiiiiiiiiiiii", artwork.id);
     },
   },
   computed: {
@@ -153,6 +148,7 @@ export default {
 .card-title {
   margin-top: 5px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .card-by {
   font-size: 12px;
