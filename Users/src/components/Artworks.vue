@@ -121,7 +121,7 @@ export default {
 }
 
 .artworks-header {
-  margin-top: 100px;
+  margin-top: 120px;
 }
 .card-container {
   display: flex;
