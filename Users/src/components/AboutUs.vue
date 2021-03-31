@@ -34,7 +34,7 @@ export default {};
 .aboutUs-header {
   position: absolute;
   color: white;
-  left: 50vw;
+  left: 40vw;
   top: 125vh;
 }
 .aboutUs-img {
@@ -49,8 +49,8 @@ export default {};
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
-  width: 500px;
-  left: 50vw;
+  width: 50%;
+  left: 40vw;
   top: 135vh;
   padding: 20px;
 }

@@ -34,18 +34,16 @@ exports.getUserByToken = async (req, res) => {
     const user = await User.findOne({
       where: { email: email.email },
     });
-    res.send({user:user});
+    res.send({ user: user });
   } catch (err) {
     res.send(err);
   }
 };
 exports.bannedUser = async function (req, res) {
   try {
-
     const bannedUser = await User.update(
       {
-        banned:true
-      
+        banned: true,
       },
       { where: { id: req.params.id } }
     );

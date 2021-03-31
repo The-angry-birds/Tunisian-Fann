@@ -50,9 +50,7 @@ module.exports = {
         ],
         raw: true,
       });
-      const artwork = await Artwork.findAll({
-        where: { artist_id: req.params.artist_id },
-      });
+      constdrop
       res.send({ data: data, artwork: artwork });
     } catch (err) {
       res.send(err);

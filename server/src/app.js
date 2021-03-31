@@ -65,7 +65,7 @@ const stripe = require("stripe")(Secret_Key);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.get("/payment", function (req, res) {
+app.get("/", function (req, res) {
   res.render("Home", {
     key: Publishable_Key,
   });
