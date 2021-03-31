@@ -90,7 +90,10 @@ export default {
    
     
       console.log("hiiiiiiiiiiiiii")
-      this.$router.push({ name: "artworkDetails", params: a });
+ this.artworks.map((art)=>{
+
+   this.$router.push({ path:`/artwork-details${art.id}`});
+ })
     },
   },
   computed: {
