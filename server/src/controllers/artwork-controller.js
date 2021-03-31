@@ -67,7 +67,6 @@ module.exports = {
 
       const artwork = await Artwork.update(
         {
-          artist_id: req.body.artist_id,
           category_id: categoryData.id,
           nameArtwork: req.body.nameArtwork,
           description: req.body.description,
@@ -86,24 +85,25 @@ module.exports = {
   getAllartworks: async (req, res) => {
     try {
       const artworks = await Artwork.findAll({
-        order: [
-          ['id', 'DESC'],
-      ],
-      });
+
+        order: [["id", "DESC"]],
+}); 
       res.send(artworks);
     } catch (err) {
       console.log(err);
     }
   },
-  getOneartwork: async (req, res)=> {
+  getOneartwork: async (req, res) => {
     try {
       const artwork = await Artwork.findOne({
-        where: { id:req.params.id },
-      })
+        where: { id: req.params.id },
+      });
       res.send(artwork);
-  }catch (err) {
-    console.log(err)
-  }
-}
 
-}
+    } catch (err) {
+      console.log(err);
+    }
+  },
+};
+
+
