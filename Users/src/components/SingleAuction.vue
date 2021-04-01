@@ -24,9 +24,9 @@
           <span v-if="isExpired" class="card__time" id="demo"> Expired </span>
         </div>
       </div>
-      <div class="card__img"></div>
+      <img class="card__img" src="" />
       <a href="#" class="card_link">
-        <div class="card__img--hover"></div>
+        <img class="card__img--hover" src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/before-lights-out-artwork-by-bensalem-walid.png"/>
       </a>
       <div class="card__info">
         <span class="card__category">Digital Paintings</span>
@@ -130,7 +130,7 @@ export default {
 
 .card--1 .card__img,
 .card--1 .card__img--hover {
-  background-image: url("https://www.bensalemwalid.com/wp-content/uploads/2021/02/before-lights-out-artwork-by-bensalem-walid.png");
+object-fit: cover;
 }
 
 .card__like {
@@ -161,7 +161,7 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
-  height: 235px;
+  height: 190px;
 }
 
 .card__info-hover {
