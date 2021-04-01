@@ -26,7 +26,9 @@
           <p class="likes-number">{{ artwork.likes }}</p>
         </div>
 
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
+        <b-card-text class="card-category">{{
+          artwork.description
+        }}</b-card-text>
 
         <h3 class="card-title" @click="sharedData(artwork)">
           {{ artwork.nameArtwork }}
@@ -34,7 +36,7 @@
 
         <div class="card-by">
           by
-          <p class="card-author">Bensalem Walid</p>
+          <p class="card-author">{{ artwork.artistnamee }}</p>
         </div>
         <div></div>
       </b-card>
@@ -62,6 +64,8 @@ export default {
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
+        this.artworks = []
+        this.getArtworks();
       });
     },
 
@@ -69,18 +73,31 @@ export default {
       axios
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
+          var p = [];
           res.data.map((art) => {
             axios
               .get(`http://localhost:3000/api/likes/${art.id}`)
               .then((res) => {
                 art.likes = res.data.length;
-                console.log(art.likes);
-                this.artworks.push(art);
+                console.log("myliiiikes", art);
+
+                axios
+                  .get(`http://localhost:3000/api/artists/${art.artist_id}`)
+                  .then((res) => {
+                    art.artistnamee =
+                      res.data.firstName + " " + res.data.lastName;
+                    this.artworks.push(art);
+                    p.push(res.data.firstName);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               })
               .catch((err) => {
                 console.log(err);
               });
           });
+          console.log("wqdqdwdqqwddqwqwdqd", this.artworks);
         })
         .catch((err) => {
           console.log(err);

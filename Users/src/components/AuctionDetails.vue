@@ -2,12 +2,7 @@
   <div>
     <div class="auction-container">
       <div class="left-container">
-
-        <img
-          class="auction-image"
-          :src="artwork.imageUrl"
-
-        />
+        <img class="auction-image" :src="artwork.imageUrl" />
       </div>
       <div class="right-container">
         <div class="auction-header">
@@ -32,7 +27,10 @@
         <hr />
         <div class="current-price-container">
           <h4 class="current-price-header">Current bid:</h4>
-          <h1 class="current-price">{{ currentBid }} TD</h1>
+          <h1 v-if="!currentBid" class="current-price">
+            {{ artwork.price }} TD
+          </h1>
+          <h1 v-else class="current-price">{{ currentBid }} TD</h1>
         </div>
         <hr />
         <div>
@@ -49,12 +47,12 @@
             />
             <div class="input-group-append">
               <button
-                class="submit-btn"  
+                class="submit-btn"
                 @click.prevent="createBid()"
                 type="button"
                 id="butn"
               >
-                Submit
+                PLACE A BID
               </button>
             </div>
             <p class="price-note">
@@ -65,7 +63,9 @@
         </div>
         <div class="auction-by">
           by
-          <p class="auction-artist">Bensalem Walid</p>
+          <p class="auction-artist">
+            {{ artist.firstName }} {{ artist.lastName }}
+          </p>
         </div>
       </div>
     </div>
@@ -77,8 +77,8 @@ import swal from "sweetalert";
 export default {
   data() {
     return {
-      artist:{},
-      currentBid:0,
+      artist: {},
+      currentBid: 0,
       highBid: 0,
       bidValue: "",
       artwork_id: null,
@@ -108,11 +108,19 @@ export default {
             .then(({ data }) => {
               this.artwork = data;
 
-              console.log("this is",this.artwork)
-       
-            }) 
+              console.log("this is", this.artwork);
+            })
             .then(() => {
-            
+              axios
+                .get(
+                  `http://localhost:3000/api/artists/${this.artwork.artist_id}`
+                )
+                .then(({ data }) => {
+                  console.log("this.is artist", data);
+                  this.artist = data;
+                });
+            })
+            .then(() => {
               var countDownDate = new Date(this.auction.endDate).getTime();
 
               var x = setInterval(() => {
@@ -142,14 +150,7 @@ export default {
                 };
               });
             });
-        }).then(() =>{
-           axios.get(`http://localhost:3000/api/artists/${this.artwork.artist_id}`) .then(({ data }) => {
-       
-          console.log("this.is artist", data);
-          this.artist=data
-        })
-        })
-       
+        });
     },
 
     getuser() {
@@ -178,7 +179,7 @@ export default {
           .then(() => {
             console.log("updated bid ");
             this.getallbids();
-             swal("great", "bid is added", "success ");
+            swal("great", "bid is added", "success ");
           })
           .catch((err) => {
             console.log(err);
