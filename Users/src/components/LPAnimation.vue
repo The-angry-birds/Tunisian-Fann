@@ -70,6 +70,7 @@ header {
   animation-duration: 1s;
   animation-timing-function: ease-in;
   animation: moveInRight 1s ease-out;
+  color:white
 }
 
 .text-box {

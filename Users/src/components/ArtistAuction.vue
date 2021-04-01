@@ -23,20 +23,20 @@
           <span v-if="isExpired" class="card__time" id="demo"> Expired </span>
         </div>
       </div>
-      <div class="card__img"></div>
+      <div class="card__info-hover"></div>
+
       <a href="#" class="card_link">
         <div class="card__img--hover"></div>
+        <img :src="auction.imageUrl" />
       </a>
       <div class="card__info">
-        <span class="card__category" @click="sharedData(auction)"
-          >Digital Paintings</span
-        >
-        <h3 class="card__title">Before Lights Out</h3>
+        <span class="card__category">{{ auction.description }}</span>
+        <h3 class="card__title">{{ auction.nameArtwork }}</h3>
         <span class="card__by"
           >by
           <a href="#" class="card__author" title="author"
-            >Bensalem Walid</a
-          ></span
+            >{{ getArtist.firstName }} {{ getArtist.lastName }}
+          </a></span
         >
       </div>
     </article>
@@ -45,7 +45,11 @@
 
 <script>
 export default {
-  props: ["auction"],
+  props: {
+    auction: {
+      type: Object,
+    },
+  },
   data() {
     return {
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
@@ -95,6 +99,12 @@ export default {
   mounted() {
     this.calculateCountDown();
   },
+  computed: {
+    //it returns the user that is actually logged in
+    getArtist() {
+      return this.$store.state.auth.user;
+    },
+  },
 };
 </script>
 <style scoped>
@@ -120,10 +130,14 @@ export default {
   -webkit-justify-content: center;
 }
 
-.card--1 .card__img,
+/* .card--1 .card__img,
 .card--1 .card__img--hover {
-  background-image: url("https://www.bensalemwalid.com/wp-content/uploads/2021/02/before-lights-out-artwork-by-bensalem-walid.png");
-}
+  position: relative;
+
+  width: 500px;
+  height: auto;
+  display: block;
+} */
 
 .card__like {
   width: 18px;
