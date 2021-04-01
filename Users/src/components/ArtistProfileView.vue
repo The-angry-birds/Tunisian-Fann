@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row py-8 px-8">
-      <div class="col-md-20 mx-auto">
+      <div class="col-md-20 mx-auto" >
         <div class="bg-white shadow rounded overflow-hidden">
           <div class="px-4 pt-0 pb-4 cover">
             <div class="media align-items-end profile-head">
@@ -31,20 +31,19 @@
           </div>
 
           <!-- //ARTWORKS SECTION -->
-          <div class="px-3 py-4">
+          <div class="px-3 py-4" >
             <h5 class="mb-4">Artworks</h5>
-            <div class="p-4 rounded shadow-sm" id="artworks">
-              <div class="card-container">
+            <div class="p-4 rounded shadow-sm" id="artworks" >
+              <div class="card-container" >
                 <b-card
-                  v-for="(art, i) in artwork"
-                  :key="i"
-              
+                v-for="(art, i) in artworks"
+        :key="i"
                 >
                   <div class="likes-container">
                     <button @click.prevent="like(artwork)">
                       <i class="fa fa-thumbs-up likes-icon"></i>
                     </button>
-                    <p class="likes-number">{{ art.likes }}</p>
+                    <!-- <p class="likes-number">{{ art.likes }}</p> -->
                   </div>
 
                   <b-card-text class="card-category"
@@ -80,7 +79,7 @@ export default {
   data() {
     return {
       artist: {},
-      artwork: {},
+      artworks: {},
       auction: {},
     };
   },
@@ -91,11 +90,12 @@ export default {
   },
   methods: {
     getArtwork() {
+      
       axios
         .get(`http://localhost:3000/api/artworks/${this.artist.id}`)
         .then((res) => {
           console.log("=======",res.data);
-          this.artwork = res.data;
+          this.artworks = res.data;
         });
     },
     getAuctions() {

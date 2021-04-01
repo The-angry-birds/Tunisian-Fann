@@ -73,14 +73,13 @@ export default {
         .then(({ data }) => {
           console.log(" this is user idDDDDDDDDDDDDDDDDDDDDDDDD", data.user.id);
           this.user_id = data.user.id;
-          this.user=data.user
-         
-
+          this.user = data.user;
+          console.log(data.user.email);
         });
     },
 
     payment() {
-      console.log(this.user_id)
+      console.log("===============", this.user);
       const token = localStorage.getItem("token");
       if (token === null) {
         this.$router.push("/join-as-client");
@@ -92,7 +91,7 @@ export default {
           amount: this.oneArt.price,
         };
         axios
-          .post("http://localhost:3000/payments/init-payment",createPayment)
+          .post("http://localhost:3000/payments/init-payment", createPayment)
           .then((res) => {
             console.log("================", res);
             window.location.href = res.data.payUrl;
