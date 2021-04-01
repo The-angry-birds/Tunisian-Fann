@@ -40,7 +40,7 @@
         />
 
         <div class="clearfix">
-          <button type="submit" class="signupbtn" @click.prevent="payment()">
+          <button method="post" @click.prevent="payment()">
             Pay
           </button>
         </div>
@@ -72,8 +72,9 @@ export default {
       axios
         .post("http://localhost:3000/payments/init-payment", createPayment)
         .then((res) => {
-          console.log(res);
-          this.$router.push(res.data.payUrl)
+          console.log(res)
+          window.location.href=res.data.payUrl
+          
           
         })
         .catch((err) => {
