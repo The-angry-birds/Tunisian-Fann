@@ -7,7 +7,7 @@ Vue.use(Router);
 const router = new Router({
   routes: [
     {
-      path: "/",
+      path:"/",
       component: () => import("@/components/LandingPage.vue"),
     },
     {
@@ -17,9 +17,10 @@ const router = new Router({
     },
 
     {
-      path: "/informationCard",
+      path: "/informationCard/:id",
       name: "informationCard",
       component: () => import("@/components/CardInformation.vue"),
+      props:true
     },
     {
       path: "/artworks",

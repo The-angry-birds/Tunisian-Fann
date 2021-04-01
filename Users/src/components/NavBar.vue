@@ -21,7 +21,7 @@
         <router-link class="nav-btns" to="/auctions">Auctions</router-link>
       </button>
     
-      <div v-if="authGuest && type==='guest'" class="dropdown">
+      <div v-if="authGuest" class="dropdown">
       <a
         id="dLabel"
         role="button"
@@ -43,52 +43,7 @@
             View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
           </h4>
         </div>
-        <li  class="divider"></li>
-        <div class="notifications-wrapper">
-          <a class="content" href="#">
-            <div class="notification-item">
-              <h4 class="item-title">Notification 1</h4>
-              <p class="item-info">Notification 1, 1 days ago</p>
-            </div>
-          </a>
-          <a class="content" href="#">
-            <div class="notification-item">
-              <h4 class="item-title">Notification 2</h4>
-              <p class="item-info">Notification 2, 2 days ago</p>
-            </div>
-          </a>
-        </div>
         <li class="divider"></li>
-        <div class="notification-footer">
-          <h4 class="menu-title">
-            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
-          </h4>
-        </div>
-      </ul>
-    </div>
-    <div v-if="authGuest && type==='artist'" class="dropdown">
-      <a
-        id="dLabel"
-        role="button"
-        data-toggle="dropdown"
-        data-target="#"
-        href="/page.html"
-      >
-        <i class="glyphicon glyphicon-bell"></i>
-      </a>
-
-      <ul
-        class="dropdown-menu notifications"
-        role="menu"
-        aria-labelledby="dLabel"
-      >
-        <div v-if="type === 'guest'" class="notification-heading">
-          <h4 class="menu-title">Notifications</h4>
-          <h4 class="menu-title pull-right">
-            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
-          </h4>
-        </div>
-        <li  class="divider"></li>
         <div class="notifications-wrapper">
           <a class="content" href="#">
             <div class="notification-item">
@@ -164,6 +119,7 @@
 
 <script>
 export default {
+  
   computed: {
     authGuest() {
       console.log("this.user", this.$store.getters.logged);
@@ -172,19 +128,17 @@ export default {
     type() {
       return this.$store.getters.role;
     },
-
   },
-
   methods: {
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
+
     userType() {
       return this.$store.getters.role;
     },
-    
     handleScroll() {
       if (document.documentElement.scrollTop > 80) {
         document.getElementById("navbar").style.padding = "20px 0";
@@ -201,7 +155,6 @@ export default {
       }
     },
   },
-
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -213,7 +166,6 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
-
 * {
   padding: 0;
   margin: 0;
@@ -231,8 +183,6 @@ export default {
   z-index: 10;
   transition: 0.4s;
 }
-
-
 #nav-join {
   font-family: "Lexend", monospace;
   align-items: center;
@@ -243,7 +193,6 @@ export default {
 #nav-join:hover {
   color: #000000;
 }
-
 .nav-btns {
   align-items: center;
   color: #a08018;
@@ -282,12 +231,10 @@ export default {
   background-color: transparent !important;
   backdrop-filter: blur(10px) !important;
 }
-
 .dropdown {
   margin-left:10vh;
  margin-right: 10px;
 }
-
 .glyphicon-bell {
   color: #a08018;
   text-decoration: none;
@@ -338,48 +285,39 @@ export default {
   padding: 10px;
   font-family: "Lexend";
 }
-
 .notifications-wrapper {
   overflow: auto;
   max-height: 250px;
 }
-
 .menu-title {
   color: #a08018;
   font-size: 1rem;
   display: inline-block;
 }
-
 .glyphicon-circle-arrow-right {
   margin-left: 10px;
 }
-
 .notification-heading,
 .notification-footer {
   padding: 2px 10px;
 }
-
 .dropdown-menu.divider {
   margin: 5px 0;
 }
-
 .item-title {
   font-size: 1rem;
   color: #000;
 }
-
 .notifications a.content {
   text-decoration: none;
   background: #ccc;
 }
-
 .notification-item {
   padding: 10px;
   margin: 5px;
   background: #ccc;
   border-radius: 4px;
 }
-
 .item-info {
   color: #a08018;
 }

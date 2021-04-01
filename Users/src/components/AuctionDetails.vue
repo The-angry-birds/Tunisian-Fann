@@ -19,8 +19,7 @@
             Time left:
             <span v-if="!isExpired" class="card__time" id="demo">
               {{ distanceDate.days }}Days {{ distanceDate.hours }}Hr
-              {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec :
-              Left</span
+              {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec</span
             >
           </h4>
           <p class="time"></p>
@@ -28,7 +27,7 @@
         <hr />
         <div class="current-price-container">
           <h4 class="current-price-header">Current bid:</h4>
-          <h1 class="current-price">{{ currentBid }}</h1>
+          <h1 class="current-price">{{ currentBid }} TD</h1>
         </div>
         <hr />
         <div>
@@ -185,7 +184,7 @@ export default {
         else if(this.type !=="guest"&& !this.authGuest ){
         this.$router.push("/join-as-client")
         }
-        else if(this.type !=="artist"&& this.authGuest){
+        else if( this.type !=="guest"  && this.authGuest){
           swal("Oops!", "you are an artist you should sign as user first", "error");
         }
       else {

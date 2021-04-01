@@ -114,26 +114,25 @@ export default {
           password: this.password,
         };
         this.$store.dispatch("login", data).then((res) => {
-          console.log(res.data.user.banned)
+          console.log(res.data.user.banned);
           if (res.data.user.banned !== false) {
             swal("Oops!", "You are banned!", "error");
-          } else 
-          if (res.data.message === "success") {
-            swal("Welcome", "success");
-            this.$router.push("/");
           } else if (res.data.message === "wrong password") {
             swal("Oops!", "Wrong Password!", "error");
+          } else if (res.data.message === "success") {
+            swal("Welcome", "success");
+            this.$router.push("/");
           } else {
             swal("Oops!", "Wrong Email!", "error");
           }
         });
       }
     },
-    movingsignUp: function () {
+    movingsignUp: function() {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    movingsignIn: function () {
+    movingsignIn: function() {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
