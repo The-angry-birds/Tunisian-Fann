@@ -2,7 +2,12 @@
   <div>
     <div class="auction-container">
       <div class="left-container">
-        <img class="auction-image" :src="artwork.imageUrl" />
+
+        <img
+          class="auction-image"
+          :src="artwork.imageUrl"
+
+        />
       </div>
       <div class="right-container">
         <div class="auction-header">
@@ -103,9 +108,12 @@ export default {
             )
             .then(({ data }) => {
               this.artwork = data;
-              console.log("this is", this.artwork);
-            })
+
+              console.log("this is",this.artwork)
+       
+            }) 
             .then(() => {
+            
               var countDownDate = new Date(this.auction.endDate).getTime();
 
               var x = setInterval(() => {

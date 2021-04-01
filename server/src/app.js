@@ -75,7 +75,7 @@ app.post("/payments/init-payment", async (req, res) => {
     }
 console.log(body)
   await axios.post("https://api.preprod.konnect.network/api/v1/payments/init-payment",body).then((res)=>{
-      console.log("=============================>",res.data)
+      console.log(res.data)
       data=res.data
     }).catch((err)=>{
       console.log(err)

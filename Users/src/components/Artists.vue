@@ -1,14 +1,14 @@
 <template>
   <div class="container mt-40">
     <div class="search">
-      
-      <label class="search-label">Search for an artist:</label>
+      <!-- <label class="search-label">Search for an artist:</label> -->
       <input
         class="search-input"
         type="text"
         v-model="search"
-        placeholder="Search..."
+        placeholder="Search for an artist..."
       />
+      <i class="fas fa-search"></i>
     </div>
     <div class="row mt-30">
       <div
@@ -22,8 +22,9 @@
             <h3 class="title">{{ artist.firstName }} {{ artist.lastName }}</h3>
           </div>
         </div>
-        <button class="profile-btn" @click="artistProfile(artist)" >PROFILE</button>
-        <button class="profile-btn">MESSAGE</button>
+        <button class="profile-btn" @click="artistProfile(artist)">
+          PROFILE
+        </button>
       </div>
     </div>
   </div>
@@ -37,7 +38,7 @@ export default {
     return {
       artists: [],
       search: "",
-      artist:{}
+      artist: {},
     };
   },
   methods: {
@@ -174,24 +175,21 @@ export default {
   text-align: right;
   margin-right: 10%;
 }
-.search-label {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-right: 10px;
-}
+
 .search-input {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 10px;
   width: 300px;
-  border-style: solid;
-  border-radius: 5px;
+  border-top: 0.5px solid;
+  border-bottom: 0.5px solid;
 }
-.profile-btn{
+.search-input:focus {
+  outline: none;
+}
+.profile-btn {
   margin-top: 10px;
-  margin-right: 6px;
-   margin-left: 6px;
-  width: 44%;
+  width: 100%;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   transition: 0.5s;
@@ -199,8 +197,8 @@ export default {
   padding-bottom: 5px;
   color: #a08018;
 }
-.profile-btn:hover{
-  background-color:#a08018;
+.profile-btn:hover {
+  background-color: #a08018;
   color: white;
 }
 </style>
