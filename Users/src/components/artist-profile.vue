@@ -325,7 +325,7 @@
                                 type="file"
                                 ref="editfile"
                                 id="edit"
-                                v-on:change="halim()"
+                                v-on:change="ines()"
                               />
                               <label class="labels" for="Description"
                                 >Description</label
@@ -719,8 +719,8 @@ export default {
         .catch((err) => console.log(err));
     },
 
-    halim() {
-      if (this.$refs.editfile.files[0]) {
+    ines() {
+      if (this.$refs.editfile.files) {
         this.editfile = this.$refs.editfile.files[0];
         let image = new FormData();
         image.append("file", this.editfile);
