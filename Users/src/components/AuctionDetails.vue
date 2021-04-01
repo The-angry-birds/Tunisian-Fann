@@ -49,8 +49,10 @@ import swal from "sweetalert";
 export default {
   data() {
     return {
+
       artist: {},
       currentBid: 0,
+
       highBid: 0,
       bidValue: "",
       artwork_id: null,
