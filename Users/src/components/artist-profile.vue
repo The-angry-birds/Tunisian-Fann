@@ -190,12 +190,10 @@
                         />
                         <label class="labels" for="ImageURL">Image URL</label>
                         <input
-                          v-model="url"
-                          type="imageurl"
-                          class="form-control"
+                          type="file"
+                          ref="addfile"
                           id="ImageURL"
-                          aria-describedby="imageurl"
-                          placeholder="Image URL"
+                          v-on:change="handleArtworkUpload()"
                         />
                         <label class="labels" for="Description"
                           >Description</label
@@ -321,16 +319,13 @@
                                 aria-describedby="title"
                                 placeholder="Title"
                               />
-                              <label class="labels" for="ImageURL"
-                                >Image URL</label
-                              >
+                              <label class="labels" for="edit">Image URL</label>
+
                               <input
-                                v-model="art.imageUrl"
-                                type="imageurl"
-                                class="form-control"
-                                id="ImageURL"
-                                aria-describedby="imageurl"
-                                placeholder="Image URL"
+                                type="file"
+                                ref="editfile"
+                                id="edit"
+                                v-on:change="ines()"
                               />
                               <label class="labels" for="Description"
                                 >Description</label
@@ -384,7 +379,7 @@
                             class="btn btn-primary"
                             @click.prevent="handleUpdate(nameOfCategory)"
                           >
-                            Submit
+                            Submit edit
                           </button>
                         </div>
                       </div>
@@ -710,6 +705,37 @@ export default {
           });
       }
     },
+    handleArtworkUpload() {
+      this.addfile = this.$refs.addfile.files[0];
+      let image = new FormData();
+      image.append("file", this.addfile);
+      image.append("upload_preset", "d4oqyy96");
+      axios
+        .post("https://api.cloudinary.com/v1_1/dwpdokwag/image/upload", image)
+        .then(({ data }) => {
+          console.log("imageId", data.url);
+          this.url = data.url;
+        })
+        .catch((err) => console.log(err));
+    },
+
+    ines() {
+      if (this.$refs.editfile.files) {
+        this.editfile = this.$refs.editfile.files[0];
+        let image = new FormData();
+        image.append("file", this.editfile);
+        image.append("upload_preset", "d4oqyy96");
+        axios
+          .post("https://api.cloudinary.com/v1_1/dwpdokwag/image/upload", image)
+          .then(({ data }) => {
+            console.log("imageId", data.url);
+            this.url = data.url;
+          })
+          .catch((err) => console.log(err));
+      } else {
+        console.log("djkslncdlkcdklsds", this.$refs.editfile.files);
+      }
+    },
     //to upload the image
 
     //to fetch all the categories
@@ -738,14 +764,15 @@ export default {
       });
     },
     handleSubmitArtwork() {
-      console.log("======object", {
-        artist_id: this.getArtist.id,
-        nameArtwork: this.title,
-        description: this.details,
-        imageUrl: this.url,
-        price: this.price,
-        categoryName: this.nameOfCategory,
-      });
+      // console.log("======object", {
+      //   artist_id: this.getArtist.id,
+      //   nameArtwork: this.title,
+      //   description: this.details,
+      //   imageUrl: this.url,
+      //   price: this.price,
+      //   categoryName: this.nameOfCategory,
+      // });
+
       axios
         .post("http://localhost:3000/api/artworks", {
           nameArtwork: this.title,
@@ -797,10 +824,16 @@ export default {
         });
     },
     handleUpdate(q) {
-      this.art.categoryName = q;
-
+      console.log("myurll", this.url);
+      console.log("arttttttttttt", this.art);
       axios
-        .put(`http://localhost:3000/api/artworks/${this.currentId}`, this.art)
+        .put(`http://localhost:3000/api/artworks/${this.currentId}`, {
+          nameArtwork: this.art.nameArtwork,
+          description: this.art.description,
+          imageUrl: this.url,
+          price: this.art.price,
+          categoryName: q,
+        })
         .then((response) => {
           // this.art = response.data;
           console.log("updated", response);
@@ -820,7 +853,13 @@ export default {
       axios
         .post("http://localhost:3000/api/auctions", auction)
         .then((response) => {
-          alert("created");
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your auction has been addes successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log("auction", response);
           this.title = "";
           this.startDate = "";
@@ -893,17 +932,29 @@ export default {
 }
 
 .cover {
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #heading {
   padding: 30px !important;
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 #info-card {
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 
 #submitbtn {
@@ -913,7 +964,11 @@ export default {
 }
 
 #artworks {
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 .card-container {
   display: flex;
@@ -1025,7 +1080,11 @@ export default {
   color: white;
 }
 #auctions {
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 .container {
   margin-top: 60px;
