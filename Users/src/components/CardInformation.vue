@@ -109,9 +109,22 @@
 
 </template>
 <script>
+// import axios from "axios"
 
+export default {
+  data(){
+    return{
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
+  email: "",
+    }
+  },
+  methods:{
+    
 
-export default {};
+  }
+};
 </script>
 
 <style  scoped>
