@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="auction-cover-img">
-
-      <img class="auction-img" :src="artwork.imageUrl" alt="" />
+      <img
+        class="auction-img"
+        :src="artwork.imageUrl"
+        alt=""
+      />
     </div>
     <div class="artist-name">
-      <p class="artist-name-body">
-        Auction made and initiated by
-        <a href="#">{{ artist.firstName }} {{ artist.lastName }}</a>
-      </p>
+      <p class="artist-name-body">Auction made and initiated by <a href="#">{{artist.firstName}} {{artist.lastName}}</a></p>
     </div>
     <div class="auction-body">
       <div class="left-side">
@@ -26,23 +26,6 @@
         <div class="vl"></div>
         <div class="ending-time">
           <h5>Auction ending in</h5>
-       {{ distanceDate.days }}d {{ distanceDate.hours }}h
-            {{ distanceDate.minutes }}m {{ distanceDate.seconds }}s
-          </h1>
-        </div>
-        <input
-          onfocus="this.value=''"
-          type="number"
-          v-model="bidValue"
-          class="form-control"
-          placeholder="Place your desired bid here..."
-          aria-label="bid"
-          aria-describedby="butn"
-        />
-        <button class="place-bid-btn" @click.prevent="createBid()">
-          Place a bid
-        </button>
-
           <h1>{{ distanceDate.days }}d {{ distanceDate.hours }}h
               {{ distanceDate.minutes }}m {{ distanceDate.seconds }}s</h1>
         </div>
@@ -56,7 +39,6 @@
               aria-describedby="butn"
             />
         <button class="place-bid-btn" @click.prevent="createBid()">Place a bid</button>
-
       </div>
     </div>
   </div>
