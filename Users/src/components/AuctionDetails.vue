@@ -24,8 +24,7 @@
             Time left:
             <span v-if="!isExpired" class="card__time" id="demo">
               {{ distanceDate.days }}Days {{ distanceDate.hours }}Hr
-              {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec :
-              Left</span
+              {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec</span
             >
           </h4>
           <p class="time"></p>
@@ -33,7 +32,7 @@
         <hr />
         <div class="current-price-container">
           <h4 class="current-price-header">Current bid:</h4>
-          <h1 class="current-price">{{ currentBid }}</h1>
+          <h1 class="current-price">{{ currentBid }} TD</h1>
         </div>
         <hr />
         <div>
@@ -79,7 +78,7 @@ export default {
   data() {
     return {
       artist:{},
-      currentBid: 0,
+      currentBid:0,
       highBid: 0,
       bidValue: "",
       artwork_id: null,
