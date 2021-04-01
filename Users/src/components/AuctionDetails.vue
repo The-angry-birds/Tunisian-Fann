@@ -111,11 +111,7 @@ export default {
 
               console.log("this is",this.artwork)
        
-            }) .then(() => {
-                var countDownDate = new Date(this.auction.endDate).getTime();
-
-              console.log("this is", this.artwork);
-            })
+            }) 
             .then(() => {
               var countDownDate = new Date(this.auction.endDate).getTime();
 
