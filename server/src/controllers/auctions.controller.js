@@ -28,7 +28,23 @@ module.exports = {
   //this function is to get the auctions of all the artists
   getAllauctions: async function (req, res) {
     try {
-      const data = await Auction.findAll({});
+      const auctions = await Auction.findAll({
+        raw: true,
+      });
+      const artworks = await Artwork.findAll({
+        raw: true,
+      });
+      var artworksArray = Object.values(artworks);
+      var auctionsArray = Object.values(auctions);
+      var data = [];
+
+      for (var j = 0; j < auctionsArray.length; j++) {
+        if (artworksArray.id === auctionsArray.artwork_id) {
+          var obj = Object.assign(artworksArray[j], auctionsArray[j]);
+          data.push(obj);
+        }
+      }
+      console.log("data", data);
       res.send(data);
     } catch (err) {
       console.log(err);
@@ -66,7 +82,6 @@ module.exports = {
           artwork_id: req.params.artwork_id,
         },
       });
-
       res.send(artwork);
     } catch (err) {
       console.log(err);
