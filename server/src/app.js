@@ -61,7 +61,7 @@ app.post("/payments/init-payment", async (req, res) => {
   try {
     const body =  {
       receiverWallet: "6064c507c7e3ca6b3c9fa685",
-      amount: 100,
+      amount: req.body.amount*1000,
       entMetho: "gateway",
       token: "TND",
       firstName: req.body.firstName,

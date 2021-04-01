@@ -63,14 +63,12 @@ export default {
   },
   methods: {
     payment() {
-      const createPayment = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        phoneNumber: this.phoneNumber,
-        email: this.email,
-      };
+  const token = localStorage.getItem("token");
+      if (token == null) {
+        this.$router.push("/join-as-client");
+      }else {
       axios
-        .post("http://localhost:3000/payments/init-payment", createPayment)
+        .post("http://localhost:3000/payments/init-payment")
         .then((res) => {
           console.log(res)
           window.location.href=res.data.payUrl
@@ -80,6 +78,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    }
     },
   },
 };
