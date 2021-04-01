@@ -36,15 +36,17 @@
             <div class="p-4 rounded shadow-sm" id="artworks">
               <div class="card-container">
                 <b-card
-                  v-for="(art, i) in artwork"
+                  v-for="(e, i) in artworks"
                   :key="i"
-              
+                  v-bind:img-src="e.imageUrl"
+                  img-top
+                  class="mb-2"
                 >
                   <div class="likes-container">
                     <button @click.prevent="like(artwork)">
                       <i class="fa fa-thumbs-up likes-icon"></i>
                     </button>
-                    <p class="likes-number">{{ art.likes }}</p>
+                    <p class="likes-number">{{ e.likes }}</p>
                   </div>
 
                   <b-card-text class="card-category"
@@ -52,7 +54,7 @@
                   >
 
                   <h3 class="card-title">
-                    {{ art.nameArtwork }}
+                    {{ e.nameArtwork }}
                   </h3>
 
                   <div class="card-by">
@@ -80,32 +82,33 @@ export default {
   data() {
     return {
       artist: {},
-      artwork: {},
+      artworks: {},
       auction: {},
     };
   },
-  mounted() {
-    this.artist = this.$route.params;
-    this.getArtwork()
-    this.getAuctions();
-  },
+
   methods: {
     getArtwork() {
       axios
-        .get(`http://localhost:3000/api/artworks/${this.artist.id}`)
+        .get(`http://localhost:3000/api/artworks/h/${this.artist.id}`)
         .then((res) => {
-          console.log("=======",res.data);
-          this.artwork = res.data;
+          console.log("=======", res.data.nameArtwork);
+          this.artworks = res.data;
         });
     },
     getAuctions() {
-      console.log(this.artist.id)
+      console.log(this.artist.id);
       axios
         .get(`http://localhost:3000/api/auctionbid/${this.artist.id}`)
         .then((res) => {
           console.log(res);
         });
     },
+  },
+  mounted() {
+    this.artist = this.$route.params;
+    this.getArtwork();
+    this.getAuctions();
   },
 };
 </script>
@@ -129,18 +132,29 @@ export default {
 }
 
 .cover {
-
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #heading {
   padding: 30px !important;
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 #info-card {
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 
 #submitbtn {
@@ -150,7 +164,11 @@ export default {
 }
 
 #artworks {
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 
 .grid {
@@ -313,7 +331,11 @@ figure.effect-ravi:hover #card-desc {
 }
 
 #auctions {
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 .card-container {
   display: flex;

@@ -47,7 +47,7 @@ export default {
         .get(`http://localhost:3000/api/artists`)
         .then((res) => {
           this.artists = res.data;
-          console.log(this.artists);
+          console.log("==========>",this.artists.id);
         })
         .catch((err) => {
           console.log(err);

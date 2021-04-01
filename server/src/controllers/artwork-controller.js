@@ -102,4 +102,14 @@ module.exports = {
       console.log(err);
     }
   },
+  getUserArtistartwork: async (req, res) => {
+    try {
+      const artwork = await Artwork.findAll({
+        where: { artist_id: req.params.id },
+      });
+      res.send(artwork);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 };

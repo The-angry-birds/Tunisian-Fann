@@ -67,10 +67,11 @@ export default {
           console.log(" this is user idDDDDDDDDDDDDDDDDDDDDDDDD", data.user.id);
           this.user_id = data.user.id;
           this.user = data.user;
+          console.log(data.user.email);
         });
     },
     payment() {
-      console.log(this.user_id);
+     
       const token = localStorage.getItem("token");
       if (token === null) {
         this.$router.push("/join-as-client");
