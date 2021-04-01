@@ -1,203 +1,168 @@
 <template>
   <div class="payment">
-    <div class="container-fluid">
-      <div class="row justify-content-center">
-        <div class="card my-4 p-3">
-          <div class="row main">
-            <div class="col-12">
-              <span>Cart</span>&nbsp;&nbsp;&nbsp;&nbsp;<span
-                >Shipping confirmation</span
-              >&nbsp;&nbsp;&nbsp;&nbsp;<span>Credit card checkout</span>
-            </div>
-          </div>
-          <div class="row justify-content-center mrow">
-            <div class="col-12">
-              <img
-                src="https://img.icons8.com/color/48/000000/mastercard-logo.png"
-                width="35px"
-                height="35px"
-              />
-              <img
-                src="https://img.icons8.com/color/48/000000/visa.png"
-                width="35px"
-                height="35px"
-              />
-            </div>
-          </div>
-          <form class="form-card">
-            <div class="row">
-              <div class="col-12">
-                <div class="form-group">
-                  <input type="text" class="form-control p-0" />
-                  <label class="form-control-placeholder p-0" for="number"
-                    >CardNumber</label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control p-0"
-                    id="name"
-                    required
-                  />
-                  <label class="form-control-placeholder p-0" for="email"
-                    >Email</label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4 col-12">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control p-0"
-                    id="expdate"
-                    required
-               
-                  />
-                  <label class="form-control-placeholder p-0" for="expdate"
-                    >ExpirationDate</label
-                  >
-                </div>
-              </div>
-              <div class="col-sm-4 col-12">
-                <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control p-0"
-                    id="passw"
-                    required
-                    v-model="cvc"
-            
-                  />
-                  <label class="form-control-placeholder p-0" for="passw"
-                    >CVV</label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="row lrow mt-4 mb-3">
-              <div class="col-sm-8 col-12">
-                <h3>Grand Total:</h3>
-              </div>
-              <div class="col-sm-4 col-12">
-                <h5>&#36;1,449.00</h5>
-              </div>
-            </div>
-            <div class="row mb-2">
-              <div class="col-sm-12">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-block"
-                  
-                >
-                  Pay
-                </button>
-              </div>
-            </div>
-          </form>
+    <form action="/action_page.php" style="border: 1px solid #ccc">
+      <div class="container">
+        <hr />
+
+        <label for="email"><b>Email</b></label>
+        <input
+          type="text"
+          placeholder="Enter Email"
+          name="email"
+          required
+          v-model="email"
+        />
+
+        <label for="psw"><b>FirstName</b></label>
+        <input
+          v-model="firstName"
+          type="text"
+          placeholder="Enter Password"
+          name="psw"
+          required
+        />
+
+        <label for="psw-repeat"><b>LastName</b></label>
+        <input
+          v-model="lastName"
+          type="text"
+          placeholder="LastName"
+          name="psw-repeat"
+          required
+        />
+        <label for="psw-repeat"><b>Phone Number</b></label>
+        <input
+          v-model="phoneNumber"
+          type="text"
+          placeholder="Phone Number"
+          name="psw-repeat"
+          required
+        />
+
+        <div class="clearfix">
+          <button method="post" @click.prevent="payment()">
+            Pay
+          </button>
         </div>
       </div>
-    </div>
-
+    </form>
   </div>
-
 </template>
 <script>
-// import axios from "axios"
+import axios from "axios";
 
 export default {
-  data(){
-    return{
-  firstName: "",
-  lastName: "",
-  phoneNumber: "",
-  email: "",
-    }
+  data() {
+    return {
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      email: "",
+      amount: "",
+    };
   },
-  methods:{
-    
-
-  }
+  methods: {
+    payment() {
+  const token = localStorage.getItem("token");
+      if (token == null) {
+        this.$router.push("/join-as-client");
+      }else {
+      axios
+        .post("http://localhost:3000/payments/init-payment")
+        .then((res) => {
+          console.log(res)
+          window.location.href=res.data.payUrl
+          
+          
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    },
+  },
 };
 </script>
 
 <style  scoped>
+.payment{
+  margin-top:10%;
+}
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #343a40;
 }
-.payment{
-  margin-top: 10%;
-
+* {
+  box-sizing: border-box;
 }
 
-.card {
-    
-  background: #a08018;
-  color: #fff;
-  width: 410px !important;
-}
-
-.mrow {
-  
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-img {
-  margin-right: 10px;
-}
-
-.main span:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.mrow img:hover {
-  
-  border-bottom: 1px solid #fff;
-  cursor: pointer;
-}
-
-.btn-primary {
+/* Full-width input fields */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
   border: none;
-  border-radius: 30px;
+  background: #f1f1f1;
 }
 
-h5 {
-  padding-top: 8px;
+input[type="text"]:focus,
+input[type="password"]:focus {
+  background-color: #ddd;
+  outline: none;
 }
 
-.form-group {
-  position: relative;
-  margin-bottom: 2rem;
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
 }
 
-.form-control-placeholder {
-  position: absolute;
-  top: 6px;
-  padding: 7px 0 0 10px;
-  transition: all 200ms;
-  opacity: 0.5;
-  color: #e5dadf !important;
-  font-size: 75%;
-}
-
-
-
-.form-control {
-  background: transparent;
+/* Set a style for all buttons */
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
   border: none;
-  border-bottom: 1px solid #fff !important;
-  border-radius: 0;
-  outline: 0;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
 }
 
+button:hover {
+  opacity: 1;
+}
 
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn,
+.signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn,
+  .signupbtn {
+    width: 100%;
+  }
+}
 </style>

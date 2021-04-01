@@ -19,11 +19,13 @@
           <h1 class="price">{{ oneArt.price }} DT</h1>
         </div>
         <hr />
-        <button class="buy-btn" @click="cardInformation">BUY NOW</button>
+        <button class="buy-btn" @click="payment">BUY NOW</button>
         <hr />
         <div class="artwork-by">
           by
-          <p class="artwork-artist">{{artist.lastName}} {{artist.firstName}}</p>
+          <p class="artwork-artist">
+            {{ artist.lastName }} {{ artist.firstName }}
+          </p>
         </div>
       </div>
     </div>
@@ -37,10 +39,10 @@ export default {
     return {
       artwork_id: null,
       oneArt: {},
-        artist:{}
+      artist: {},
+      users: {},
     };
   },
-
 
   methods: {
     getArtwork() {
@@ -51,14 +53,15 @@ export default {
         .then(({ data }) => {
           this.oneArt = data;
           console.log("this.is artwork", data);
-        }).then(() => {
-         axios.get(`http://localhost:3000/api/artists/${this.oneArt.artist_id}`) .then(({ data }) => {
-       
-
-          console.log("this.is artist", data);
-          this.artist=data
         })
-        })
+        .then(() => {
+          axios
+            .get(`http://localhost:3000/api/artists/${this.oneArt.artist_id}`)
+            .then(({ data }) => {
+              console.log("this.is artist", data);
+              this.artist = data;
+            });
+        });
     },
     getuser() {
       const token = localStorage.getItem("token");
@@ -70,11 +73,34 @@ export default {
         .then(({ data }) => {
           console.log(" this is user idDDDDDDDDDDDDDDDDDDDDDDDD", data.user.id);
           this.user_id = data.user.id;
+          this.user=data.user
+         
+
         });
     },
 
-    cardInformation() {
-      this.$router.push("/informationCard");
+    payment() {
+      console.log(this.user_id)
+      const token = localStorage.getItem("token");
+      if (token === null) {
+        this.$router.push("/join-as-client");
+      } else {
+        const createPayment = {
+          email: this.user.email,
+          firstName: this.user.firstName,
+          lastName: this.user.lastName,
+          amount: this.oneArt.price,
+        };
+        axios
+          .post("http://localhost:3000/payments/init-payment",createPayment)
+          .then((res) => {
+            console.log("================", res);
+            window.location.href = res.data.payUrl;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
   mounted() {
