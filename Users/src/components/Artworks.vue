@@ -1,10 +1,6 @@
 <template>
-
   <div>
-      <ArtistProfileView
-        :artwork="artwork"
-      
-      />
+    <ArtistProfileView :artwork="artwork" />
     <div class="artworks-header"></div>
     <div class="search">
       <label class="search-label">Search for an artwork:</label>
@@ -55,7 +51,6 @@ export default {
       search: "",
       artwork_id: "",
       user_id: "",
-    
     };
   },
 
@@ -94,7 +89,6 @@ export default {
 
     sharedData(a) {
       this.$router.push({ name: "artworkDetails", params: a });
-      
     },
   },
   computed: {
