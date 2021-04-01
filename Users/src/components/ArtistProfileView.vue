@@ -9,7 +9,6 @@
                 <img
                   :src="artist.imageUrl"
                   alt="..."
-                  width="250"
                   class="rounded mb-2 img-thumbnail"
                 />
               </div>
@@ -119,6 +118,14 @@ export default {
 .profile-head {
   padding-top: 50px;
   transform: translateY(5rem);
+}
+
+.img-thumbnail {
+  max-width: 250px;
+  max-height: 250px;
+  min-width: 250px;
+  min-height: 250px;
+  object-fit: cover;
 }
 
 .cover {

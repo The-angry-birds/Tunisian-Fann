@@ -11,7 +11,6 @@
                      v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="#"
-                    width="250"
                     class="rounded mb-2 img-thumbnail"
                   />
                   <button
@@ -221,6 +220,15 @@ export default {
   transform: translateY(5rem);
   padding-top: 50px;
 }
+
+.img-thumbnail {
+  max-width: 250px;
+  max-height: 250px;
+  min-width: 250px;
+  min-height: 250px;
+  object-fit: cover;
+}
+
 .cover {
   background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
   background-size: cover;

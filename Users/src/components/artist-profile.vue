@@ -10,7 +10,6 @@
                   v-if="user.imageUrl"
                   :src="user.imageUrl"
                   alt="..."
-                  width="200"
                   class="rounded mb-2 img-thumbnail"
                 />
                 <button
@@ -873,6 +872,14 @@ export default {
 .profile-head {
   padding-top: 50px;
   transform: translateY(5rem);
+}
+
+.img-thumbnail {
+  max-width: 250px;
+  max-height: 250px;
+  min-width: 250px;
+  min-height: 250px;
+  object-fit: cover;
 }
 
 .cover {
