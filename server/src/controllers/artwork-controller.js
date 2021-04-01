@@ -85,7 +85,7 @@ module.exports = {
   getAllartworks: async (req, res) => {
     try {
       const artworks = await Artwork.findAll({
-        order: [["id", "DESC"]],
+        // order: [["id", "DESC"]],
       });
       res.send(artworks);
     } catch (err) {
