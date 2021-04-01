@@ -17,12 +17,6 @@ const router = new Router({
     },
 
     {
-      path: "/informationCard/:id",
-      name: "informationCard",
-      component: () => import("@/components/CardInformation.vue"),
-      props:true
-    },
-    {
       path: "/artworks",
       name: "artworks",
       component: () => import("@/components/Artworks.vue"),

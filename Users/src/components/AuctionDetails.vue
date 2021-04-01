@@ -1,67 +1,44 @@
 <template>
   <div>
-    <div class="auction-container">
-      <div class="left-container">
-        <img class="auction-image" :src="artwork.imageUrl" />
-      </div>
-      <div class="right-container">
-        <div class="auction-header">
-          <h1 class="auction-name">{{ artwork.nameArtwork }}</h1>
-          <p class="auction-category"></p>
-        </div>
-        <hr />
-        <p class="auction-description">
+    <div class="auction-cover-img">
+      <img
+        class="auction-img"
+        :src="artwork.imageUrl"
+        alt=""
+      />
+    </div>
+    <div class="artist-name">
+      <p class="artist-name-body">Auction made and initiated by <a href="#">Nabil</a></p>
+    </div>
+    <div class="auction-body">
+      <div class="left-side">
+        <h1 class="auction-name">{{ artwork.nameArtwork }}</h1>
+        <h4>Description</h4>
+        <p>
           {{ artwork.description }}
         </p>
-        <hr />
-        <div class="time-container">
-          <h4 class="time-header">
-            Time left:
-            <span v-if="!isExpired" class="card__time" id="demo">
-              {{ distanceDate.days }}Days {{ distanceDate.hours }}Hr
-              {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec</span
-            >
-          </h4>
-          <p class="time"></p>
+      </div>
+      <div class="right-side">
+        <div class="current-bid">
+          <h5>Current Bid</h5>
+          <h1>{{ currentBid }} td</h1>
         </div>
-        <hr />
-        <div class="current-price-container">
-          <h4 class="current-price-header">Current bid:</h4>
-          <h1 class="current-price">{{ currentBid }} TD</h1>
+        <div class="vl"></div>
+        <div class="ending-time">
+          <h5>Auction ending in</h5>
+          <h1>{{ distanceDate.days }}d {{ distanceDate.hours }}h
+              {{ distanceDate.minutes }}m {{ distanceDate.seconds }}s</h1>
         </div>
-        <hr />
-        <div>
-          <h4 class="price-input-header">Insert your desired bid: *</h4>
-          <div class="input-group mb-3">
-            <input
+        <input
               onfocus="this.value=''"
               type="number"
               v-model="bidValue"
               class="form-control"
-              placeholder="Place bid here..."
+              placeholder="Place your desired bid here..."
               aria-label="bid"
               aria-describedby="butn"
             />
-            <div class="input-group-append">
-              <button
-                class="submit-btn"
-                @click.prevent="createBid()"
-                type="button"
-                id="butn"
-              >
-                Submit
-              </button>
-            </div>
-            <p class="price-note">
-              * Please note that you should place a bid higher than the current
-              winning price.
-            </p>
-          </div>
-        </div>
-        <div class="auction-by">
-          by
-          <p class="auction-artist">Bensalem Walid</p>
-        </div>
+        <button class="place-bid-btn" @click.prevent="createBid()">Place a bid</button>
       </div>
     </div>
   </div>
@@ -72,9 +49,11 @@ import swal from "sweetalert";
 export default {
   data() {
     return {
+
       artist: {},
       currentBid: 0,
 
+      highBid: 0,
       bidValue: "",
       artwork_id: null,
       artwork: {},
@@ -121,16 +100,6 @@ export default {
               console.log("this is", this.artwork);
             })
             .then(() => {
-              axios
-                .get(
-                  `http://localhost:3000/api/artists/${this.artwork.artist_id}`
-                )
-                .then(({ data }) => {
-                  console.log("this.is artist", data);
-                  this.artist = data;
-                });
-            })
-            .then(() => {
               var countDownDate = new Date(this.auction.endDate).getTime();
 
               var x = setInterval(() => {
@@ -160,6 +129,14 @@ export default {
                 };
               });
             });
+        })
+        .then(() => {
+          axios
+            .get(`http://localhost:3000/api/artists/${this.artwork.artist_id}`)
+            .then(({ data }) => {
+              console.log("this.is artist", data);
+              this.artist = data;
+            });
         });
     },
 
@@ -176,7 +153,7 @@ export default {
         });
     },
     createBid() {
-      if (this.bidValue === " ") {
+       if (this.bidValue === " ") {
         swal("Oops!", "invalid bid1", "error");
       } else if (this.bidValue < this.currentBid) {
         swal("Oops!", "the bid is less than the current bid", "error");
@@ -186,7 +163,7 @@ export default {
         }
         else if( this.type !=="guest"  && this.authGuest){
           swal("Oops!", "you are an artist you should sign as user first", "error");
-        }
+        } 
       else {
         axios
           .post("http://localhost:3000/api/bid", {
@@ -233,76 +210,106 @@ export default {
 * {
   font-family: "Lexend", serif;
 }
-.auction-container {
-  padding-top: 160px;
-  padding-bottom: 20px;
-  padding-right: 10%;
-  padding-left: 12%;
-  width: 100vw;
-  height: 120vh;
+
+.auction-cover-img {
+  height: 80vh;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  padding-top: 120px;
 }
-.left-container {
-  width: 60%;
-  height: 100%;
-  float: left;
-}
-.auction-image {
-  cursor: pointer;
-  height: 100%;
-  width: 90%;
+
+.auction-img {
+  height: 90%;
+  text-align: center;
+  transition: 0.5s;
   object-fit: cover;
   border-radius: 5px;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
 }
-.auction-header {
+
+.auction-img:hover {
+  height: 98%;
+}
+
+.artist-name {
+  width: 100%;
+  height: 50px;
+  line-height: 25px;
+  padding: 15px;
+}
+
+.artist-name-body {
+  margin-left: 5%;
+}
+
+.auction-body {
   display: flex;
   flex-wrap: nowrap;
+  background-color: white;
 }
-.auction-name {
-  font-weight: bolder;
-  color: #a08018;
+
+.left-side {
+  background-color: white;
+  width: 50%;
+  margin-top: 0px;
+  margin-left: 20px;
+  margin-top: 20px;
+  padding-top: 0px;
+  padding-left: 20px;
 }
-.auction-category {
-  padding-top: 18px;
-  padding-left: 3px;
-  color: grey;
-  text-transform: uppercase;
-}
-.right-container {
-  width: 40%;
+
+.right-side {
+  background-color: white;
+  width: 50%;
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   height: 100%;
-  float: right;
 }
-.time-container {
-  display: flex;
-  flex-wrap: nowrap;
+
+.current-bid {
+  padding: 10px;
+  width: 39%;
 }
-.current-price {
-  color: #a08018;
-  font-weight: 800;
+.vl {
+  border-left: 1px solid grey;
+  margin-right: 20px;
 }
-.time {
-  padding-top: 3px;
-  padding-left: 15px;
-  font-weight: bold;
-  color: #a08018;
+
+.form-control {
+  margin-top: 10px;
+  padding: 10px;
 }
-.submit-btn {
-  color: #a08018;
-}
-.submit-btn:hover {
-  color: black;
-  font-weight: bold;
-}
-.price-note {
-  color: grey;
-}
-.auction-by {
-  display: flex;
-  flex-wrap: nowrap;
-}
-.auction-artist {
-  margin-left: 3px;
+
+.place-bid-btn {
+  align-items: flex-start;
+  background-color: #000000;
+  border-color: #1a1a1a;
+  border-radius: 15px;
+  border-style: solid;
+  border-width: 2px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 15px;
   font-weight: 600;
-  color: #a08018;
+  gap: normal;
+  padding: 16px 24px;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+  transition: 0.4s
+}
+
+.place-bid-btn:hover {
+  background-color: white;
+  color: #1a1a1a ;
+}
+
+.ending-time {
+  padding: 10px;
 }
 </style>
