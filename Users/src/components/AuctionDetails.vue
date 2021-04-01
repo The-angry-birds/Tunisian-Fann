@@ -113,6 +113,7 @@ export default {
        
             }) 
             .then(() => {
+            
               var countDownDate = new Date(this.auction.endDate).getTime();
 
               var x = setInterval(() => {
