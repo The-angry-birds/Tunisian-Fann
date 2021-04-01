@@ -64,15 +64,30 @@ export default {
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
     };
   },
+  computed: {
+       type() {
+      return this.$store.getters.role;
+    },
+    authGuest() {
+      console.log("this.user", this.$store.getters.logged);
+      return this.$store.getters.logged;
+    }
+    },
 
   methods: {
     getAuction() {
       this.auction_id = this.$route.params.id;
+         
+      
       axios
         .get(`http://localhost:3000/api/auctionbid/${this.auction_id}`)
         .then(({ data }) => {
           console.log("this is auction", data);
           this.auction = data;
+          if(this.currentBid===0){
+            this.currentBid =this.auction.starting_price;
+          }
+
         })
         .then(() => {
           axios
@@ -134,19 +149,27 @@ export default {
         })
         .then(({ data }) => {
           this.user_id = data.user.id;
+          console.log(' this.user_id', this.user_id)
         });
     },
     createBid() {
-      if (this.bidValue === " ") {
+       if (this.bidValue === " ") {
         swal("Oops!", "invalid bid1", "error");
       } else if (this.bidValue < this.currentBid) {
         swal("Oops!", "the bid is less than the current bid", "error");
-      } else {
+        }
+        else if(this.type !=="guest"&& !this.authGuest ){
+        this.$router.push("/join-as-client")
+        }
+        else if( this.type !=="guest"  && this.authGuest){
+          swal("Oops!", "you are an artist you should sign as user first", "error");
+        } 
+      else {
         axios
           .post("http://localhost:3000/api/bid", {
             bidValue: this.bidValue,
             auction_id: this.auction_id,
-            user_id: this.user_id,
+            user_id: this.user_id,  
           })
           .then(() => {
             console.log("updated bid ");

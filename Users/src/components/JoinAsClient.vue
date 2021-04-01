@@ -128,11 +128,11 @@ export default {
         });
       }
     },
-    movingsignUp: function () {
+    movingsignUp: function() {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    movingsignIn: function () {
+    movingsignIn: function() {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
