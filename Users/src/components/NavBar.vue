@@ -119,6 +119,7 @@
 
 <script>
 export default {
+  
   computed: {
     authGuest() {
       console.log("this.user", this.$store.getters.logged);
@@ -128,13 +129,13 @@ export default {
       return this.$store.getters.role;
     },
   },
-
   methods: {
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
+
     userType() {
       return this.$store.getters.role;
     },
@@ -154,7 +155,6 @@ export default {
       }
     },
   },
-
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -166,7 +166,6 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
-
 * {
   padding: 0;
   margin: 0;
@@ -184,8 +183,6 @@ export default {
   z-index: 10;
   transition: 0.4s;
 }
-
-
 #nav-join {
   font-family: "Lexend", monospace;
   align-items: center;
@@ -196,7 +193,6 @@ export default {
 #nav-join:hover {
   color: #000000;
 }
-
 .nav-btns {
   align-items: center;
   color: #a08018;
@@ -235,12 +231,10 @@ export default {
   background-color: transparent !important;
   backdrop-filter: blur(10px) !important;
 }
-
 .dropdown {
   margin-left:10vh;
  margin-right: 10px;
 }
-
 .glyphicon-bell {
   color: #a08018;
   text-decoration: none;
@@ -291,48 +285,39 @@ export default {
   padding: 10px;
   font-family: "Lexend";
 }
-
 .notifications-wrapper {
   overflow: auto;
   max-height: 250px;
 }
-
 .menu-title {
   color: #a08018;
   font-size: 1rem;
   display: inline-block;
 }
-
 .glyphicon-circle-arrow-right {
   margin-left: 10px;
 }
-
 .notification-heading,
 .notification-footer {
   padding: 2px 10px;
 }
-
 .dropdown-menu.divider {
   margin: 5px 0;
 }
-
 .item-title {
   font-size: 1rem;
   color: #000;
 }
-
 .notifications a.content {
   text-decoration: none;
   background: #ccc;
 }
-
 .notification-item {
   padding: 10px;
   margin: 5px;
   background: #ccc;
   border-radius: 4px;
 }
-
 .item-info {
   color: #a08018;
 }
