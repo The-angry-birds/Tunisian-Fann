@@ -189,7 +189,7 @@ export default {
 }
 
 .auction-cover-img {
-  height: 500px;
+  height: 80vh;
   width: 100%;
   background-color: white;
   text-align: center;
@@ -278,6 +278,12 @@ export default {
   text-align: center;
   width: 100%;
   margin-top: 20px;
+  transition: 0.4s
+}
+
+.place-bid-btn:hover {
+  background-color: white;
+  color: #1a1a1a ;
 }
 
 .ending-time {

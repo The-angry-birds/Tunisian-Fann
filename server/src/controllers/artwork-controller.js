@@ -104,8 +104,8 @@ module.exports = {
   },
   getUserArtistartwork: async (req, res) => {
     try {
-      const artwork = await Artwork.findOne({
-        where: { artist_id: req.params.artist_id },
+      const artwork = await Artwork.findAll({
+        where: { artist_id: req.params.id },
       });
       res.send(artwork);
     } catch (err) {
@@ -113,5 +113,3 @@ module.exports = {
     }
   },
 };
-
-
