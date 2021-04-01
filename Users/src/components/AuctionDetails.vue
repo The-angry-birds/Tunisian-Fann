@@ -2,6 +2,7 @@
   <div>
     <div class="auction-container">
       <div class="left-container">
+
         <img
           class="auction-image"
           :src="artwork.imageUrl"
@@ -15,9 +16,9 @@
         </div>
         <hr />
         <p class="auction-description">
-        {{artwork.description }}
+          {{ artwork.description }}
         </p>
-        <hr/>
+        <hr />
         <div class="time-container">
           <h4 class="time-header">
             Time left:
@@ -32,21 +33,30 @@
         <hr />
         <div class="current-price-container">
           <h4 class="current-price-header">Current bid:</h4>
-          <h1 class="current-price">120.00 TD</h1>
+          <h1 class="current-price">{{ currentBid }}</h1>
         </div>
         <hr />
         <div>
           <h4 class="price-input-header">Insert your desired bid: *</h4>
           <div class="input-group mb-3">
             <input
-              type="text"
+              onfocus="this.value=''"
+              type="number"
+              v-model="bidValue"
               class="form-control"
               placeholder="Place bid here..."
               aria-label="bid"
               aria-describedby="butn"
             />
             <div class="input-group-append">
-              <button class="submit-btn" type="button" id="butn">Submit</button>
+              <button
+                class="submit-btn"  
+                @click.prevent="createBid()"
+                type="button"
+                id="butn"
+              >
+                Submit
+              </button>
             </div>
             <p class="price-note">
               * Please note that you should place a bid higher than the current
@@ -64,10 +74,14 @@
 </template>
 <script>
 import axios from "axios";
+import swal from "sweetalert";
 export default {
   data() {
     return {
-      bidValue:null,
+      artist:{},
+      currentBid: 0,
+      highBid: 0,
+      bidValue: "",
       artwork_id: null,
       artwork: {},
       auction_id: null,
@@ -94,41 +108,49 @@ export default {
             )
             .then(({ data }) => {
               this.artwork = data;
+
               console.log("this is",this.artwork)
        
-            }) .then(() => {
-                var countDownDate = new Date(this.auction.endDate).getTime();
+            }) 
+            .then(() => {
+            
+              var countDownDate = new Date(this.auction.endDate).getTime();
 
-      var x = setInterval(() => {
-      
-        let now = new Date().getTime();
+              var x = setInterval(() => {
+                let now = new Date().getTime();
 
-        let distance = countDownDate - now;
+                let distance = countDownDate - now;
 
-    
-        if (distance < 0) {
-          this.isExpired = true;
-          clearInterval(x);
-        }
+                if (distance < 0) {
+                  this.isExpired = true;
+                  clearInterval(x);
+                }
 
-  
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor(
+                  (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                );
+                let minutes = Math.floor(
+                  (distance % (1000 * 60 * 60)) / (1000 * 60)
+                );
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-     
-        this.distanceDate = {
-          days: days,
-          hours: hours,
-          minutes: minutes,
-          seconds: seconds,
-        };
-      });
-            })
-        });
+                this.distanceDate = {
+                  days: days,
+                  hours: hours,
+                  minutes: minutes,
+                  seconds: seconds,
+                };
+              });
+            });
+        }).then(() =>{
+           axios.get(`http://localhost:3000/api/artists/${this.artwork.artist_id}`) .then(({ data }) => {
+       
+          console.log("this.is artist", data);
+          this.artist=data
+        })
+        })
+       
     },
 
     getuser() {
@@ -142,24 +164,48 @@ export default {
           this.user_id = data.user.id;
         });
     },
-    createBid(){
-    
-    axios.post("http://localhost:3000/api/bid",{
-    bidValue:this.bidValue,
-    auction_id:this.auction_id, 
-    user_id:this. this.user_id ,
-}).then(()=>{
-  console.log("updated bid ")
-})
+    createBid() {
+      if (this.bidValue === " ") {
+        swal("Oops!", "invalid bid1", "error");
+      } else if (this.bidValue < this.currentBid) {
+        swal("Oops!", "the bid is less than the current bid", "error");
+      } else {
+        axios
+          .post("http://localhost:3000/api/bid", {
+            bidValue: this.bidValue,
+            auction_id: this.auction_id,
+            user_id: this.user_id,
+          })
+          .then(() => {
+            console.log("updated bid ");
+            this.getallbids();
+             swal("great", "bid is added", "success ");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    getallbids() {
+      axios
+        .get(`http://localhost:3000/api/bid/${this.auction_id}`)
+        .then(({ data }) => {
+          console.log("allbids", data);
 
-    }
-
-
+          data.forEach((bid) => {
+            console.log(bid.bidValue);
+            if (bid.bidValue > this.currentBid) {
+              this.currentBid = bid.bidValue;
+            }
+          });
+        });
+    },
   },
 
   mounted() {
     this.getAuction();
-     this.getuser();
+    this.getuser();
+    this.getallbids();
   },
 };
 </script>

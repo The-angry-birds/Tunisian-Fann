@@ -58,7 +58,7 @@
                     class="form-control p-0"
                     id="expdate"
                     required
-                  placeholder="MM/YY"
+               
                   />
                   <label class="form-control-placeholder p-0" for="expdate"
                     >ExpirationDate</label
@@ -73,7 +73,7 @@
                     id="passw"
                     required
                     v-model="cvc"
-                    placeholder="CVC"
+            
                   />
                   <label class="form-control-placeholder p-0" for="passw"
                     >CVV</label
@@ -94,7 +94,7 @@
                 <button
                   type="button"
                   class="btn btn-primary btn-block"
-                  @click.prevent="handleSubmit()"
+                  
                 >
                   Pay
                 </button>
@@ -109,45 +109,21 @@
 
 </template>
 <script>
-import axios from "axios";
+// import axios from "axios"
 
 export default {
-  
-  data() {
-    return {
-     cardumber:"",
-     cvc :"",
-
-       
-
-      }
-    },
-
-  methods: {
-    handleSubmit() {
-      const payment = {
-        adress: {
-          city: this.city,
-          country: this.country,
-          line1: this.line1,
-          line2: this.line2,
-          postal_code: this.postal_code,
-          state: this.state,
-        },
-        email: this.email,
-        name: this.name,
-        phone: this.phone,
-      };
-      axios.get("http://localhost:3000/payment").then((res)=>{
-        console.log(res);
-        axios.post("http://localhost:3000/payment", payment).then((res) => {
-          console.log("==========>", res);
-        });
-
-
-      })
-    },
+  data(){
+    return{
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
+  email: "",
+    }
   },
+  methods:{
+    
+
+  }
 };
 </script>
 
@@ -158,15 +134,18 @@ body {
 }
 .payment{
   margin-top: 10%;
+
 }
 
 .card {
-  background: #000;
+    
+  background: #a08018;
   color: #fff;
   width: 410px !important;
 }
 
 .mrow {
+  
   margin-top: 30px;
   margin-bottom: 30px;
 }
@@ -181,6 +160,7 @@ img {
 }
 
 .mrow img:hover {
+  
   border-bottom: 1px solid #fff;
   cursor: pointer;
 }
@@ -205,17 +185,11 @@ h5 {
   padding: 7px 0 0 10px;
   transition: all 200ms;
   opacity: 0.5;
-  color: #dae0e5 !important;
+  color: #e5dadf !important;
   font-size: 75%;
 }
 
-.form-control:focus + .form-control-placeholder,
-.form-control:valid + .form-control-placeholder {
-  font-size: 75%;
-  transform: translate3d(0, -100%, 0);
-  opacity: 1;
-  top: 10px;
-}
+
 
 .form-control {
   background: transparent;
@@ -225,14 +199,5 @@ h5 {
   outline: 0;
 }
 
-.form-control:focus,
-.form-control:after {
-  outline-width: 0;
-  border-bottom: 1px solid #fff !important;
-  background: transparent;
-  box-shadow: none;
-  border-radius: 0;
-  color: #dae0e5;
-  letter-spacing: 1px;
-}
+
 </style>

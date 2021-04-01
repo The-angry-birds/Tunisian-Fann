@@ -39,9 +39,7 @@
                 <b-card
                   v-for="(art, i) in artwork"
                   :key="i"
-                  v-bind:img-src="art.imageUrl"
-                  img-top
-                  class="mb-2"
+              
                 >
                   <div class="likes-container">
                     <button @click.prevent="like(artwork)">
@@ -89,19 +87,20 @@ export default {
   },
   mounted() {
     this.artist = this.$route.params;
-    this.getAuctions();
     this.getArtwork()
+    this.getAuctions();
   },
   methods: {
     getArtwork() {
       axios
         .get(`http://localhost:3000/api/artworks/${this.artist.id}`)
         .then((res) => {
-          console.log(res.data);
+          console.log("=======",res.data);
           this.artwork = res.data;
         });
     },
     getAuctions() {
+      console.log(this.artist.id)
       axios
         .get(`http://localhost:3000/api/auctionbid/${this.artist.id}`)
         .then((res) => {
@@ -123,17 +122,18 @@ export default {
 }
 
 .cover {
-  background-color: #fbeec1;
+
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #heading {
   padding: 30px !important;
-  background-color: #fbeec1;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 #info-card {
-  background-color: #fbeec1;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 
 #submitbtn {
@@ -143,7 +143,7 @@ export default {
 }
 
 #artworks {
-  background-color: #fbeec1;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 
 .grid {
@@ -306,7 +306,7 @@ figure.effect-ravi:hover #card-desc {
 }
 
 #auctions {
-  background-color: #fbeec1;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 .card-container {
   display: flex;

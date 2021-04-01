@@ -3,13 +3,13 @@
     <ArtistProfileView :artwork="artwork" />
     <div class="artworks-header"></div>
     <div class="search">
-      <label class="search-label">Search for an artwork:</label>
       <input
         class="search-input"
         type="text"
         v-model="search"
-        placeholder="Search..."
+        placeholder="Search for an artwork..."
       />
+      <i class="fas fa-search"></i>
     </div>
     <div class="card-container" :v-if="this.artworks">
       <b-card
@@ -58,7 +58,7 @@ export default {
     like(art) {
       const create = {
         artwork_id: art.id,
-        user_id: 55,
+        user_id: localStorage.getItem("id"),
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
@@ -115,7 +115,7 @@ export default {
 }
 
 .artworks-header {
-  margin-top: 100px;
+  margin-top: 120px;
 }
 .card-container {
   display: flex;
@@ -174,19 +174,25 @@ img {
   margin-right: 10%;
 }
 
-.search-label {
+/* .search-label {
   padding-top: 5px;
   padding-bottom: 5px;
   margin-right: 10px;
-}
+} */
 
 .search-input {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 10px;
   width: 300px;
-  border-style: solid;
-  border-radius: 5px;
+
+  border-top: 0.5px solid;
+  border-bottom: 0.5px solid;
+  /* border-radius: 5px; */
+}
+.search-input:focus {
+  /* border-right: none; */
+  outline: none;
 }
 
 .likes-container {

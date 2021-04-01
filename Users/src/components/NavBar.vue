@@ -7,10 +7,10 @@
           to
         />
       </router-link>
-    <div class="left-nav">
+    
 
       <button>
-        <router-link class="nav-btns" to="/artists">Artists</router-link>
+        <router-link class="nav-btns first-nav-btn" to="/artists">Artists</router-link>
       </button>
 
       <button>
@@ -20,8 +20,7 @@
       <button>
         <router-link class="nav-btns" to="/auctions">Auctions</router-link>
       </button>
-    </div>
-    <div class="right-nav">
+    
       <div v-if="authGuest" class="dropdown">
       <a
         id="dLabel"
@@ -115,7 +114,6 @@
         </li>
       </ul>
     </div>
-    </div>
   </nav>
 </template>
 
@@ -174,9 +172,11 @@ export default {
   margin: 0;
 }
 .navbar {
+  display: flex;  
+  flex-wrap: wrap;
   background: transparent;
   border-radius: 0px;
-  min-width: 100%;
+  min-width: 100vw;
   position: fixed;
   top: 0;
   box-shadow: 0 0 0;
@@ -185,37 +185,26 @@ export default {
   transition: 0.4s;
 }
 
-.left-nav {
-  width: 60%;
-  text-align: center;
-}
-.right-nav{
-  width: 20%;
-  display: flex;
-  flex-wrap: nowrap;
-  text-align: center;
-  }
+
 #nav-join {
   font-family: "Lexend", monospace;
   align-items: center;
   color: #a08018;
   font-size: 18px;
-  margin-left: 10%;
-  margin-right: 10%;
   text-align: center;
 }
 #nav-join:hover {
   color: #000000;
 }
+
 .nav-btns {
   align-items: center;
   color: #a08018;
   font-family: "Lexend", monospace;
   font-size: 18px;
-  
+  margin-right: 5vw;
+  margin-left: 5vw;
   text-decoration: none;
-  margin-left:40px;
-  margin-right: 40px;
 }
 .nav-btns:hover {
   color: #000000;
@@ -238,8 +227,9 @@ export default {
 .navbar-logo {
   width: auto;
   color: #a08018;
-  margin-left: 50%;
-  text-align: center;
+  /* margin-left: 50%; */
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 .dropdown-menu {
   background-color: transparent !important;
@@ -247,10 +237,8 @@ export default {
 }
 
 .dropdown {
-  margin-left:10%;
-  margin-right:10%;
-    text-align: center;
-
+  margin-left:10vh;
+ margin-right: 10px;
 }
 
 .glyphicon-bell {
