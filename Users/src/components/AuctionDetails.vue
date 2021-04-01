@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="auction-cover-img">
+
       <img class="auction-img" :src="artwork.imageUrl" alt="" />
     </div>
     <div class="artist-name">
@@ -25,8 +26,7 @@
         <div class="vl"></div>
         <div class="ending-time">
           <h5>Auction ending in</h5>
-          <h1>
-            {{ distanceDate.days }}d {{ distanceDate.hours }}h
+       {{ distanceDate.days }}d {{ distanceDate.hours }}h
             {{ distanceDate.minutes }}m {{ distanceDate.seconds }}s
           </h1>
         </div>
@@ -42,6 +42,21 @@
         <button class="place-bid-btn" @click.prevent="createBid()">
           Place a bid
         </button>
+
+          <h1>{{ distanceDate.days }}d {{ distanceDate.hours }}h
+              {{ distanceDate.minutes }}m {{ distanceDate.seconds }}s</h1>
+        </div>
+        <input
+              onfocus="this.value=''"
+              type="number"
+              v-model="bidValue"
+              class="form-control"
+              placeholder="Place your desired bid here..."
+              aria-label="bid"
+              aria-describedby="butn"
+            />
+        <button class="place-bid-btn" @click.prevent="createBid()">Place a bid</button>
+
       </div>
     </div>
   </div>
@@ -66,7 +81,9 @@ export default {
     };
   },
   computed: {
+
     type() {
+
       return this.$store.getters.role;
     },
     authGuest() {
@@ -75,18 +92,20 @@ export default {
     },
   },
 
+
   methods: {
     getAuction() {
       this.auction_id = this.$route.params.id;
-
       axios
         .get(`http://localhost:3000/api/auctionbid/${this.auction_id}`)
         .then(({ data }) => {
           console.log("this is auction", data);
           this.auction = data;
+
           if (this.currentBid === 0) {
             this.currentBid = this.auction.starting_price;
           }
+
         })
         .then(() => {
           axios
@@ -98,6 +117,7 @@ export default {
 
               console.log("this is", this.artwork);
             })
+
             .then(() => {
               axios
                 .get(
@@ -108,6 +128,7 @@ export default {
                   this.artist = data;
                 });
             })
+
             .then(() => {
               var countDownDate = new Date(this.auction.endDate).getTime();
 
@@ -138,6 +159,7 @@ export default {
                 };
               });
             });
+
         });
     },
 
@@ -150,14 +172,17 @@ export default {
         })
         .then(({ data }) => {
           this.user_id = data.user.id;
+
           console.log(" this.user_id", this.user_id);
+
         });
     },
     createBid() {
-      if (this.bidValue === " ") {
+       if (this.bidValue === " ") {
         swal("Oops!", "invalid bid1", "error");
       } else if (this.bidValue < this.currentBid) {
         swal("Oops!", "the bid is less than the current bid", "error");
+
       } else if (this.type !== "guest" && !this.authGuest) {
         this.$router.push("/join-as-client");
       } else if (this.type !== "guest" && this.authGuest) {
@@ -167,11 +192,12 @@ export default {
           "error"
         );
       } else {
+
         axios
           .post("http://localhost:3000/api/bid", {
             bidValue: this.bidValue,
             auction_id: this.auction_id,
-            user_id: this.user_id,
+            user_id: this.user_id,  
           })
           .then(() => {
             console.log("updated bid ");
@@ -303,12 +329,16 @@ export default {
   text-align: center;
   width: 100%;
   margin-top: 20px;
+
   transition: 0.4s;
+
 }
 
 .place-bid-btn:hover {
   background-color: white;
+
   color: #1a1a1a;
+
 }
 
 .ending-time {
