@@ -21,7 +21,7 @@
         <router-link class="nav-btns" to="/auctions">Auctions</router-link>
       </button>
     
-      <div v-if="authGuest" class="dropdown">
+      <div v-if="authGuest && type==='guest'" class="dropdown">
       <a
         id="dLabel"
         role="button"
@@ -43,7 +43,52 @@
             View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
           </h4>
         </div>
+        <li  class="divider"></li>
+        <div class="notifications-wrapper">
+          <a class="content" href="#">
+            <div class="notification-item">
+              <h4 class="item-title">Notification 1</h4>
+              <p class="item-info">Notification 1, 1 days ago</p>
+            </div>
+          </a>
+          <a class="content" href="#">
+            <div class="notification-item">
+              <h4 class="item-title">Notification 2</h4>
+              <p class="item-info">Notification 2, 2 days ago</p>
+            </div>
+          </a>
+        </div>
         <li class="divider"></li>
+        <div class="notification-footer">
+          <h4 class="menu-title">
+            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
+          </h4>
+        </div>
+      </ul>
+    </div>
+    <div v-if="authGuest && type==='artist'" class="dropdown">
+      <a
+        id="dLabel"
+        role="button"
+        data-toggle="dropdown"
+        data-target="#"
+        href="/page.html"
+      >
+        <i class="glyphicon glyphicon-bell"></i>
+      </a>
+
+      <ul
+        class="dropdown-menu notifications"
+        role="menu"
+        aria-labelledby="dLabel"
+      >
+        <div v-if="type === 'guest'" class="notification-heading">
+          <h4 class="menu-title">Notifications</h4>
+          <h4 class="menu-title pull-right">
+            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
+          </h4>
+        </div>
+        <li  class="divider"></li>
         <div class="notifications-wrapper">
           <a class="content" href="#">
             <div class="notification-item">
@@ -127,6 +172,7 @@ export default {
     type() {
       return this.$store.getters.role;
     },
+
   },
 
   methods: {
@@ -138,6 +184,7 @@ export default {
     userType() {
       return this.$store.getters.role;
     },
+    
     handleScroll() {
       if (document.documentElement.scrollTop > 80) {
         document.getElementById("navbar").style.padding = "20px 0";

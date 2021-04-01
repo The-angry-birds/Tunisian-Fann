@@ -86,7 +86,7 @@ module.exports = {
     try {
       const artworks = await Artwork.findAll({
 
-        order: [["id", "DESC"]],
+        // order: [["id", "DESC"]],
 }); 
       res.send(artworks);
     } catch (err) {

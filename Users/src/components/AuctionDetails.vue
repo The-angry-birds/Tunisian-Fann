@@ -2,12 +2,7 @@
   <div>
     <div class="auction-container">
       <div class="left-container">
-
-        <img
-          class="auction-image"
-          :src="artwork.imageUrl"
-
-        />
+        <img class="auction-image" :src="artwork.imageUrl" />
       </div>
       <div class="right-container">
         <div class="auction-header">
@@ -50,7 +45,7 @@
             />
             <div class="input-group-append">
               <button
-                class="submit-btn"  
+                class="submit-btn"
                 @click.prevent="createBid()"
                 type="button"
                 id="butn"
@@ -78,9 +73,9 @@ import swal from "sweetalert";
 export default {
   data() {
     return {
-      artist:{},
-      currentBid:0,
-      highBid: 0,
+      artist: {},
+      currentBid: 0,
+
       bidValue: "",
       artwork_id: null,
       artwork: {},
@@ -91,15 +86,30 @@ export default {
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
     };
   },
+  computed: {
+       type() {
+      return this.$store.getters.role;
+    },
+    authGuest() {
+      console.log("this.user", this.$store.getters.logged);
+      return this.$store.getters.logged;
+    }
+    },
 
   methods: {
     getAuction() {
       this.auction_id = this.$route.params.id;
+         
+      
       axios
         .get(`http://localhost:3000/api/auctionbid/${this.auction_id}`)
         .then(({ data }) => {
           console.log("this is auction", data);
           this.auction = data;
+          if(this.currentBid===0){
+            this.currentBid =this.auction.starting_price;
+          }
+
         })
         .then(() => {
           axios
@@ -109,11 +119,19 @@ export default {
             .then(({ data }) => {
               this.artwork = data;
 
-              console.log("this is",this.artwork)
-       
-            }) 
+              console.log("this is", this.artwork);
+            })
             .then(() => {
-            
+              axios
+                .get(
+                  `http://localhost:3000/api/artists/${this.artwork.artist_id}`
+                )
+                .then(({ data }) => {
+                  console.log("this.is artist", data);
+                  this.artist = data;
+                });
+            })
+            .then(() => {
               var countDownDate = new Date(this.auction.endDate).getTime();
 
               var x = setInterval(() => {
@@ -143,14 +161,7 @@ export default {
                 };
               });
             });
-        }).then(() =>{
-           axios.get(`http://localhost:3000/api/artists/${this.artwork.artist_id}`) .then(({ data }) => {
-       
-          console.log("this.is artist", data);
-          this.artist=data
-        })
-        })
-       
+        });
     },
 
     getuser() {
@@ -162,6 +173,7 @@ export default {
         })
         .then(({ data }) => {
           this.user_id = data.user.id;
+          console.log(' this.user_id', this.user_id)
         });
     },
     createBid() {
@@ -169,17 +181,24 @@ export default {
         swal("Oops!", "invalid bid1", "error");
       } else if (this.bidValue < this.currentBid) {
         swal("Oops!", "the bid is less than the current bid", "error");
-      } else {
+        }
+        else if(this.type !=="guest"&& !this.authGuest ){
+        this.$router.push("/join-as-client")
+        }
+        else if(this.type !=="artist"&& this.authGuest){
+          swal("Oops!", "you are an artist you should sign as user first", "error");
+        }
+      else {
         axios
           .post("http://localhost:3000/api/bid", {
             bidValue: this.bidValue,
             auction_id: this.auction_id,
-            user_id: this.user_id,
+            user_id: this.user_id,  
           })
           .then(() => {
             console.log("updated bid ");
             this.getallbids();
-             swal("great", "bid is added", "success ");
+            swal("great", "bid is added", "success ");
           })
           .catch((err) => {
             console.log(err);
