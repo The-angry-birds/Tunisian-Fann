@@ -650,7 +650,7 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your profile has been edited",
+            title: "Your profile has been edited!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -733,7 +733,7 @@ export default {
           })
           .catch((err) => console.log(err));
       } else {
-        console.log("djkslncdlkcdklsds", this.$refs.editfile.files);
+        console.log("check here ", this.$refs.editfile.files);
       }
     },
     //to upload the image
@@ -788,7 +788,7 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your Artwork has been created",
+            title: "Your artwork has been created!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -817,7 +817,7 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your Artwork has been deleted",
+            title: "Your artwork has been deleted!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -856,7 +856,7 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your auction has been addes successfully",
+            title: "Your auction has been added successfully!",
             showConfirmButton: false,
             timer: 1500,
           });
