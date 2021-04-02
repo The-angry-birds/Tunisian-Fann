@@ -59,7 +59,7 @@
 
                   <div class="card-by">
                     by
-                    <p class="card-author">Bensalem Walid</p>
+                    <p class="card-author">{{ artist.firstName }} {{ artist.lastName }}</p>
                   </div>
                   <div></div>
                 </b-card>
@@ -68,7 +68,11 @@
           </div>
           <div class="px-3 py-4">
             <h5 class="mb-4">Auctions</h5>
-            <div class="p-4 rounded shadow-sm" id="auctions"></div>
+            <div class="p-4 rounded shadow-sm" id="auctions">
+
+              <ArtistAuction />
+              
+            </div>
           </div>
         </div>
       </div>
@@ -78,6 +82,8 @@
 
 <script>
 import axios from "axios";
+import ArtistAuction from "./ArtistAuction"
+
 export default {
   data() {
     return {
@@ -86,29 +92,26 @@ export default {
       auction: {},
     };
   },
+  component:{
+    ArtistAuction
 
+  },
   methods: {
     getArtwork() {
       axios
-        .get(`http://localhost:3000/api/artworks/h/${this.artist.id}`)
+        .get(`http://localhost:3000/api/artworks/artist/${this.artist.id}`)
         .then((res) => {
           console.log("=======", res.data.nameArtwork);
           this.artworks = res.data;
         });
     },
-    getAuctions() {
-      console.log(this.artist.id);
-      axios
-        .get(`http://localhost:3000/api/auctionbid/${this.artist.id}`)
-        .then((res) => {
-          console.log(res);
-        });
-    },
+   
+        
+ 
   },
   mounted() {
     this.artist = this.$route.params;
     this.getArtwork();
-    this.getAuctions();
   },
 };
 </script>
@@ -122,7 +125,6 @@ export default {
   padding-top: 50px;
   transform: translateY(5rem);
 }
-
 .img-thumbnail {
   max-width: 250px;
   max-height: 250px;
@@ -130,7 +132,6 @@ export default {
   min-height: 250px;
   object-fit: cover;
 }
-
 .cover {
   background-image: linear-gradient(
     to right,
@@ -140,7 +141,6 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 #heading {
   padding: 30px !important;
   background-image: linear-gradient(
@@ -156,13 +156,11 @@ export default {
     rgb(153, 153, 153)
   );
 }
-
 #submitbtn {
   width: 120px;
   margin: auto;
   margin-top: 20px;
 }
-
 #artworks {
   background-image: linear-gradient(
     to right,
@@ -170,7 +168,6 @@ export default {
     rgb(153, 153, 153)
   );
 }
-
 .grid {
   position: relative;
   margin: 0 auto;
@@ -179,9 +176,7 @@ export default {
   list-style: none;
   text-align: center;
 }
-
 /* Common style */
-
 .grid figure {
   position: relative;
   float: left;
@@ -195,7 +190,6 @@ export default {
   text-align: center;
   cursor: pointer;
 }
-
 .grid figure #card-image {
   position: relative;
   display: block;
@@ -203,7 +197,6 @@ export default {
   max-width: 100%;
   opacity: 0.8;
 }
-
 .grid figure figcaption {
   padding: 2em;
   color: #fff;
@@ -212,12 +205,10 @@ export default {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-
 .grid figure figcaption::before,
 .grid figure figcaption::after {
   pointer-events: none;
 }
-
 .grid figure figcaption,
 .grid figure figcaption > a {
   position: absolute;
@@ -228,7 +219,6 @@ export default {
 }
 /* Anchor will cover the whole item by default */
 /* For some effects it will show as a button */
-
 .grid figure figcaption > a {
   z-index: 1000;
   text-indent: 200%;
@@ -236,26 +226,21 @@ export default {
   font-size: 0;
   opacity: 0;
 }
-
 .grid figure #card-title {
   word-spacing: -0.15em;
   font-weight: 300;
 }
-
 .grid figure #card-title {
   font-weight: 800;
 }
-
 .grid figure #card-title,
 .grid figure #card-desc {
   margin: 0;
 }
-
 .grid figure #card-desc {
   letter-spacing: 1px;
   font-size: 68.5%;
 }
-
 figure.effect-ravi #card-image {
   max-width: none;
   width: -webkit-calc(100% + 50px);
@@ -266,11 +251,9 @@ figure.effect-ravi #card-image {
   -webkit-transform: translate3d(-40px, 0, 0);
   transform: translate3d(-40px, 0, 0);
 }
-
 figure.effect-ravi figcaption {
   text-align: left;
 }
-
 figure.effect-ravi figcaption > div {
   position: absolute;
   bottom: 0;
@@ -279,44 +262,37 @@ figure.effect-ravi figcaption > div {
   width: 100%;
   height: 50%;
 }
-
 figure.effect-ravi #card-title,
 figure.effect-ravi #card-desc {
   -webkit-transform: translate3d(0, 40px, 0);
   transform: translate3d(0, 40px, 0);
 }
-
 figure.effect-ravi #card-title {
   -webkit-transition: -webkit-transform 0.35s;
   transition: transform 0.35s;
 }
-
 figure.effect-ravi #card-desc {
   color: rgba(255, 255, 255, 0.8);
   opacity: 0;
   -webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
   transition: opacity 0.2s, transform 0.35s;
 }
-
 figure.effect-ravi:hover #card-image,
 figure.effect-ravi:hover #card-desc {
   opacity: 1;
 }
-
 figure.effect-ravi:hover #card-image,
 figure.effect-ravi:hover #card-title,
 figure.effect-ravi:hover #card-desc {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
-
 figure.effect-ravi:hover #card-desc {
   -webkit-transition-delay: 0.05s;
   transition-delay: 0.05s;
   -webkit-transition-duration: 0.35s;
   transition-duration: 0.35s;
 }
-
 @media screen and (max-width: 50em) {
   .content {
     padding: 0 10px;
@@ -329,7 +305,6 @@ figure.effect-ravi:hover #card-desc {
     width: 100%;
   }
 }
-
 #auctions {
   background-image: linear-gradient(
     to right,
@@ -354,7 +329,6 @@ figure.effect-ravi:hover #card-desc {
   height: 385px;
   transition: 0.5s;
 }
-
 .mb-2:hover {
   box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
 }
@@ -394,13 +368,11 @@ img {
   text-align: right;
   margin-right: 10%;
 }
-
 .search-label {
   padding-top: 5px;
   padding-bottom: 5px;
   margin-right: 10px;
 }
-
 .search-input {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -409,7 +381,6 @@ img {
   border-style: solid;
   border-radius: 5px;
 }
-
 .likes-container {
   display: flex;
   flex-wrap: nowrap;
@@ -426,7 +397,6 @@ img {
   font-size: 30px;
   color: #a08018;
 }
-
 .likes-number {
   font-size: 15px;
   color: #a08018;

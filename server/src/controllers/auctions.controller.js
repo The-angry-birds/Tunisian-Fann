@@ -78,8 +78,8 @@ module.exports = {
     try {
       const artwork = await Auction.findOne({
         where: {
-          artist_id: req.params.artist_id,
-          artwork_id: req.params.artwork_id,
+          artist_id: req.params.id,
+         
         },
       });
       res.send(artwork);

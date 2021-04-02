@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <ArtistProfileView :auction="auction" />
     <article class="card card--1">
       <div class="card__info-hover">
         <svg class="card__like" viewBox="0 0 24 24">
@@ -42,6 +43,7 @@
 </template>
 
 <script>
+import ArtistProfileView from "./ArtistProfileView";
 export default {
   props: {
     auction: {
@@ -53,6 +55,9 @@ export default {
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
       isExpired: false,
     };
+  },
+  component: {
+    ArtistProfileView,
   },
   methods: {
     calculateCountDown() {
