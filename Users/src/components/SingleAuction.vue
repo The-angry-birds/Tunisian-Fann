@@ -56,7 +56,7 @@ export default {
   methods: {
 
     sharedData(auction) {
-      console.log(auction,"hellllooooooooooooooooooooooooooooooooo");
+      console.log(auction,"hellllooooooo");
   
       this.$router.push({
         path: `/auction-details/${auction.id}`
