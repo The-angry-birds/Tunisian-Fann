@@ -134,12 +134,15 @@ export default {
         this.$store
           .dispatch("access", { email, password })
           .then((resp) => {
-            if(resp.user.banned===true){
-              swal("Oops!", "You are banned!", "error");
-           }else if (resp.message === "wrong password") {
+            if (resp.message === "wrong password") {
               swal("Oops!", "Wrong Password!", "error");
             } else if (resp.message === "user not found") {
               swal("Oops!", "Wrong e-mail!", "error");
+
+            } else if (resp.user.accept === false) {
+              swal("Oops!", "You are Not Accepted", "error");
+            } else if (resp.user.banned === true) {
+              swal("Oops!", "You are banned!", "error");
             } else {
               this.$router.push("/artist-profile");
             }
