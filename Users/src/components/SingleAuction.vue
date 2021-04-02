@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     sharedData(auction) {
-      console.log(auction,"hellllooooooo");
+      console.log(auction, "hellllooooooo");
       this.$router.push({
         path: `/auction-details/${auction.id}`,
       });
@@ -194,6 +194,7 @@ export default {
   overflow: hidden;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   margin: 0px;
+  margin-bottom: 25px;
   height: 300px;
 }
 .card:hover {
