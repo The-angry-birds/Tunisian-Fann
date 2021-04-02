@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="row py-8 px-8">
       <div class="col-md-20 mx-auto">
         <div class="bg-white shadow rounded overflow-hidden">
@@ -601,6 +602,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import ArtistAuction from "./ArtistAuction";
 
+
 export default {
   data() {
     return {
@@ -628,6 +630,7 @@ export default {
   },
   components: {
     ArtistAuction,
+  
     // Auctions,
   },
   methods: {
