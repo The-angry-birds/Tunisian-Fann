@@ -38,7 +38,7 @@ export default {
   methods: {
     getAuctions() {
       axios.get("http://localhost:3000/api/auctions").then((res) => {
-        console.log(res);
+        console.log("===============>",res);
         this.auctions = res.data;
       });
     },

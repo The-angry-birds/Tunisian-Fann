@@ -138,6 +138,7 @@ export default {
               swal("Oops!", "Wrong Password!", "error");
             } else if (resp.message === "user not found") {
               swal("Oops!", "Wrong e-mail!", "error");
+
             } else if (resp.user.accept === false) {
               swal("Oops!", "You are Not Accepted", "error");
             } else if (resp.user.banned === true) {

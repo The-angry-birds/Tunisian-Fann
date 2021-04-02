@@ -11,7 +11,7 @@
         <span class="heading-primary-sub">Where we value ART</span>
         <hr />
       </h1>
-      <a href="#" class="btn btn-header"><span>Discover our auctions </span></a>
+      <a href="/#/auctions" class="btn btn-header"><span>Discover our auctions </span></a>
     </div>
   </header>
 </template>
@@ -70,6 +70,7 @@ header {
   animation-duration: 1s;
   animation-timing-function: ease-in;
   animation: moveInRight 1s ease-out;
+  color:white
 }
 
 .text-box {

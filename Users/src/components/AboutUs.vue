@@ -4,13 +4,7 @@
     <img class="aboutUs-img" src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/soft-voices-artwork-by-bensalem-walid.png" alt="">
     
     <div class="aboutUs-body">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et arcu
-      eget eros semper tempus eget ac nisl. Praesent euismod ligula ligula, quis
-      dignissim nunc vestibulum eu. Duis placerat, erat eget blandit lacinia,
-      arcu dolor dapibus quam, nec fermentum elit turpis eget leo. Proin
-      condimentum metus id massa mollis sodales. Morbi nec nulla sapien. Nam
-      ullamcorper gravida justo, ut fringilla ante blandit id. Phasellus vel
-      rutrum arcu.</p>
+      <p>Welcome to Tunisian Fann, your number one source for fine art in Tunisia! Tunisian Fann envisions a future where everyone is touched by art. In order to achieve this , we’re expanding the art market to reach more artists and art around Tunisia. As the leading marketplace to discover, buy, and sell fine art, Tunisian Fann believes that the process of buying art should be as sensational as art itself. That’s why we’re dedicated to giving you the joyful, welcoming experience that connects collectors with the artists and artwork they love. Check out the artwork on display and start bidding today!</p>
     </div>
   </div>
 </template>
@@ -34,7 +28,7 @@ export default {};
 .aboutUs-header {
   position: absolute;
   color: white;
-  left: 50vw;
+  left: 40vw;
   top: 125vh;
 }
 .aboutUs-img {
@@ -49,8 +43,8 @@ export default {};
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
-  width: 500px;
-  left: 50vw;
+  width: 50%;
+  left: 40vw;
   top: 135vh;
   padding: 20px;
 }

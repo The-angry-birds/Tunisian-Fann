@@ -1,10 +1,10 @@
 const { Auction } = require("../../db/models/auction");
 const { Artwork } = require("../../db/models/artwork");
-const { User } = require("../../db/models/users-model-signup");
+const {Artist} =require("../../db/models/artist");
+
 module.exports = {
   createAuction: async (req, res) => {
     try {
-      console.log("title", req.body.id);
       // console.log("startDate", req.body.startDate);
       // console.log("endDate", req.body.endDate);
       // console.log("starting_price", req.body.starting_price);
@@ -26,24 +26,61 @@ module.exports = {
       res.send(err);
     }
   },
+  //this function is to get the auctions of all the artists
   getAllauctions: async function (req, res) {
     try {
-      const data = await Auction.findAll({});
+      const auctions = await Auction.findAll({
+        raw: true,
+      });
+      const artworks = await Artwork.findAll({
+        raw: true,
+      });
+      var artworksArray = Object.values(artworks);
+      var auctionsArray = Object.values(auctions);
+      var data = [];
+
+      for (var j = 0; j < auctionsArray.length; j++) {
+        if (artworksArray.id === auctionsArray.artwork_id) {
+          var obj = Object.assign(artworksArray[j], auctionsArray[j]);
+          data.push(obj);
+        }
+      }
+      console.log("data", data);
       res.send(data);
     } catch (err) {
       console.log(err);
     }
   },
-  getOneAuction: async (req, res)=> {
+
+  //this function is to get all the artworks of that artist and the auctions of that specific artist.
+  getAuctionByArtistId: async (req, res) => {
     try {
-      const auction = await Auction.findOne({
-        where: { id:req.params.id },
-      })
-      res.send(auction);
-  }catch (err) {
-    console.log(err)
-  }
-}
-
+      const data = await Auction.findAll({
+        where: { artist_id: req.params.artist_id },
+        attributes: [
+          "id",
+          "startDate",
+          "endDate",
+          "starting_price",
+          "artwork_id",
+          "artist_id",
+        ],
+        raw: true,
+      });
+      const artwork = await Artwork.findAll({
+        where: { artist_id: req.params.artist_id },
+      });
+      res.send({ data: data, artwork: artwork });
+    } catch (err) {
+      res.send(err);
+    }
+  },
+  getArtworkWithAuction: async (req, res) => {
+    try {
+      const artwork = await findAll({include:{model: Artwork, required:true},where: {artist_id:req.params.id}});
+      res.send(artwork);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 };
-

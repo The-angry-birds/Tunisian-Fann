@@ -7,7 +7,7 @@ Vue.use(Router);
 const router = new Router({
   routes: [
     {
-      path: "/",
+      path:"/",
       component: () => import("@/components/LandingPage.vue"),
     },
     {
@@ -16,11 +16,6 @@ const router = new Router({
       component: () => import("@/components/JoinAsClient.vue"),
     },
 
-    {
-      path: "/informationCard",
-      name: "informationCard",
-      component: () => import("@/components/CardInformation.vue"),
-    },
     {
       path: "/artworks",
       name: "artworks",
@@ -67,7 +62,7 @@ const router = new Router({
       props: true,
     },
     {
-      path: "/artwork-details",
+      path: "/artwork-details/:id",
       name: "artworkDetails",
       component: () => import("@/components/ArtworkDetails.vue"),
       props: true,

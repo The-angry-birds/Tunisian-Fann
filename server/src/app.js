@@ -3,16 +3,17 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const port = process.env.PORT || 3000;
 const path = require("path");
+const axios = require("axios")
 const app = express();
 
 const cors = require("cors");
 const morgan = require("morgan");
 const router = require("./routes/admin.routes.js");
 const adminRoutes = require("./routes/auth.admin.routes.js");
-const bidRoutes=require("./routes/bid-routes")
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
-
+const bidRoutes = require("./routes/bid-routes");
+const bidauction = require("./routes/auction-bid.routes.js");
 const usersRoutes = require("./routes/users.routes.js");
 const usersSignupRoutes = require("./routes/auth.users.routes.js");
 const artistAuthRoutes = require("./routes/auth.artists.routes.js");
@@ -21,8 +22,8 @@ const artworkRouter = require("./routes/artwork-routes");
 const auctionsRouter = require("./routes/auctions.routes");
 const likesRouter = require("./routes/routes.likes");
 const verifyRouter = require("./routes/auth.verify.routes");
-var server = require('http').createServer(app);  
-var io = require('socket.io')(server);
+var server = require("http").createServer(app);
+var io = require("socket.io")(server);
 
 app.use(morgan("combined"));
 app.use(cors());
@@ -30,7 +31,7 @@ morgan(":method :url :status :res[content-length] - :response-time ms");
 app.use("/api/auth/admin", adminRoutes);
 app.use("/api/categories", router);
 app.use("/api/artworks", artworkRouter);
-
+app.use("/api/auctionbid", bidauction);
 app.use("/api/auth/users", usersSignupRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/bid", bidRoutes);
@@ -55,65 +56,41 @@ app.use("/api/likes", likesRouter);
 //     })
 //     .then((message) => res.send(message));
 // });
-
-var Publishable_Key = process.env.Publishable_Key;
-var Secret_Key = process.env.Secret_Key;
-
-const stripe = require("stripe")(Secret_Key);
-
-// View Engine Setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
-app.get("/payment", function (req, res) {
-  res.render("Home", {
-    key: Publishable_Key,
-  });
+app.post("/payments/init-payment", async (req, res) => {
+  let data
+  try {
+    const body =  {
+      receiverWallet: "6064c507c7e3ca6b3c9fa685",
+      amount: req.body.amount*1000,
+      entMetho: "gateway",
+      token: "TND",
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phoneNumber: req.body.phoneNumber,
+      email: req.body.email,
+      orderId: "12233555",
+      webhook: "merchant.tech/api/notification_payment",
+      successUrl: "success@merchant.tech",
+      failUrl: "fail@merchant.tech",
+    }
+console.log(body)
+  await axios.post("https://api.preprod.konnect.network/api/v1/payments/init-payment",body).then((res)=>{
+      console.log(res.data)
+      data=res.data
+    }).catch((err)=>{
+      console.log(err)
+    })
+    res.send(data)
+  } catch (err) {
+    res.send(err);
+  }
 });
 
-app.post("/payment", function (req, res) {
-  // Moreover you can take more details from user
-  // like Address, Name, etc from form
-  console.log(req.body);
-  stripe.customers
-    .create({
-      email: req.body.stripeEmail,
-      source: req.body.stripeToken,
-      name: "Rikimi",
-      address: {
-        line1: "req.body.line1",
-        postal_code: "req.body.line2",
-        city: "req.body.city",
-        state: "req.body.state",
-        country: "req.body.state",
-      },
-    })
-    .then((customer) => {
-      return stripe.charges.create({
-        amount: 7000, // Charing Rs 25
-        description: "Web Development Product",
-        currency: "USD",
-        customer: customer.id,
-      });
-    })
-    .then((charge) => {
-      res.send("Success"); // If no error occurs
-    })
-    .catch((err) => {
-      res.send(err); // If some error occurs
-    });
-});
-
-// const paymentIntent = await stripe.paymentIntents.create({
-//   amount: 2000,
-//   currency: 'usd',
-//   payment_method_types: ['card'],
-// });
-io.on('connection', function(client) {
-  console.log('Client connected...');
-  client.on('join', function(data) {
-     console.log(data);
-     client.emit('messages', 'Hello from server');
+io.on("connection", function (client) {
+  console.log("Client connected...");
+  client.on("join", function (data) {
+    console.log(data);
+    client.emit("messages", "Hello from server");
   });
 });
 app.listen(process.env.PORT || 3000, () => {

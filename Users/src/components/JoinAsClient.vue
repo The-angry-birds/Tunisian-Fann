@@ -79,17 +79,17 @@ export default {
         this.password === "" ||
         this.Confirmpassword === ""
       ) {
-        swal("Oops!", "please fill information", "error");
+        swal("Oops!", "Please fill in information!", "error");
       } else if (this.password.length < 8) {
-        swal("Oops!", "Passsword need to be more than 8 character", "error");
+        swal("Oops!", "Passsword needs to be at least 8 characters!", "error");
       } else if (this.password !== this.Confirmpassword) {
-        swal("Oops!", "password not match", "error");
+        swal("Oops!", "Password does not match!", "error");
       } else {
         axios
           .get(`http://localhost:3000/api/auth/users/${this.email}`)
           .then((data) => {
             if (data.data.email) {
-              swal("Oops!", "Already exist", "error");
+              swal("Oops!", "This e-mail already exists!", "error");
             } else {
               let data = {
                 email: this.email,
@@ -107,33 +107,33 @@ export default {
     },
     handleClick() {
       if (this.email === "" || this.password === "") {
-        swal("Oops!", "Empty fields", "error");
+        swal("Oops!", "You need to fill in all the empty fields!", "error");
       } else {
         let data = {
           email: this.email,
           password: this.password,
         };
         this.$store.dispatch("login", data).then((res) => {
-          console.log("=====>fghj",res.data.user.banned);
-          if (res.data.user.banned === true) {
+          console.log(res.data.user.banned);
+          if (res.data.message === "wrong password") {
+            swal("Oops!", "Wrong Password!", "error");
+          // } else if (res.data.user.banned !==false ) {
+          //   "Oops!", "You are banned!", "error"
             swal("Oops!", "You are banned!", "error");
-          } else 
-          if (res.data.message === "success") {
+          } else if (res.data.message === "success") {
             swal("Welcome", "success");
             this.$router.push("/");
-          } else if (res.data.message === "wrong password") {
-            swal("Oops!", "Wrong Password!", "error");
           } else {
-            swal("Oops!", "Wrong Email!", "error");
+            swal("Oops!", "Wrong e-mail!", "error");
           }
         });
       }
     },
-    movingsignUp: function () {
+    movingsignUp: function() {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    movingsignIn: function () {
+    movingsignIn: function() {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },

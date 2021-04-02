@@ -1,25 +1,71 @@
 <template>
   <nav class="navbar navbar-expand-sm" id="navbar">
-    <router-link to="/">
-      <img
-        class="navbar-logo"
-        src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
-        to
-      />
-    </router-link>
+      <router-link to="/">
+        <img
+          class="navbar-logo"
+          src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
+          to
+        />
+      </router-link>
+    
 
-    <button>
-      <router-link class="nav-btns" to="/artists">Artists</router-link>
-    </button>
+      <button>
+        <router-link class="nav-btns first-nav-btn" to="/artists">Artists</router-link>
+      </button>
 
-    <button>
-      <router-link class="nav-btns" to="/artworks">Artworks</router-link>
-    </button>
+      <button>
+        <router-link class="nav-btns" to="/artworks">Artworks</router-link>
+      </button>
 
-    <button>
-      <router-link class="nav-btns" to="/auctions">Auctions</router-link>
-    </button>
+      <button>
+        <router-link class="nav-btns" to="/auctions">Auctions</router-link>
+      </button>
+    
+      <div v-if="authGuest" class="dropdown">
+      <a
+        id="dLabel"
+        role="button"
+        data-toggle="dropdown"
+        data-target="#"
+        href="/page.html"
+      >
+        <i class="glyphicon glyphicon-bell"></i>
+      </a>
 
+      <ul
+        class="dropdown-menu notifications"
+        role="menu"
+        aria-labelledby="dLabel"
+      >
+        <div class="notification-heading">
+          <h4 class="menu-title">Notifications</h4>
+          <h4 class="menu-title pull-right">
+            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
+          </h4>
+        </div>
+        <li class="divider"></li>
+        <div class="notifications-wrapper">
+          <a class="content" href="#">
+            <div class="notification-item">
+              <h4 class="item-title">Notification 1</h4>
+              <p class="item-info">Notification 1, 1 days ago</p>
+            </div>
+          </a>
+          <a class="content" href="#">
+            <div class="notification-item">
+              <h4 class="item-title">Notification 2</h4>
+              <p class="item-info">Notification 2, 2 days ago</p>
+            </div>
+          </a>
+        </div>
+        <li class="divider"></li>
+        <div class="notification-footer">
+          <h4 class="menu-title">
+            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
+          </h4>
+        </div>
+      </ul>
+    </div>
     <div v-if="!authGuest" class="dropdown" id="nav-join">
       <button class="dropdown-toggle" type="button" data-toggle="dropdown">
         Join us
@@ -68,57 +114,12 @@
         </li>
       </ul>
     </div>
-
-    <div class="dropdown">
-      <a
-        id="dLabel"
-        role="button"
-        data-toggle="dropdown"
-        data-target="#"
-        href="/page.html"
-      >
-        <i class="glyphicon glyphicon-bell"></i>
-      </a>
-
-      <ul
-        class="dropdown-menu notifications"
-        role="menu"
-        aria-labelledby="dLabel"
-      >
-        <div class="notification-heading">
-          <h4 class="menu-title">Notifications</h4>
-          <h4 class="menu-title pull-right">
-            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
-          </h4>
-        </div>
-        <li class="divider"></li>
-        <div class="notifications-wrapper">
-          <a class="content" href="#">
-            <div class="notification-item">
-              <h4 class="item-title">Notification 1</h4>
-              <p class="item-info">Notification 1, 1 days ago</p>
-            </div>
-          </a>
-          <a class="content" href="#">
-            <div class="notification-item">
-              <h4 class="item-title">Notification 2</h4>
-              <p class="item-info">Notification 2, 2 days ago</p>
-            </div>
-          </a>
-        </div>
-        <li class="divider"></li>
-        <div class="notification-footer">
-          <h4 class="menu-title">
-            View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
-          </h4>
-        </div>
-      </ul>
-    </div>
   </nav>
 </template>
 
 <script>
 export default {
+  
   computed: {
     authGuest() {
       console.log("this.user", this.$store.getters.logged);
@@ -128,13 +129,13 @@ export default {
       return this.$store.getters.role;
     },
   },
-
   methods: {
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
+
     userType() {
       return this.$store.getters.role;
     },
@@ -154,7 +155,6 @@ export default {
       }
     },
   },
-
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -166,15 +166,16 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
-
 * {
   padding: 0;
   margin: 0;
 }
 .navbar {
+  display: flex;  
+  flex-wrap: wrap;
   background: transparent;
   border-radius: 0px;
-  min-width: 100%;
+  min-width: 100vw;
   position: fixed;
   top: 0;
   box-shadow: 0 0 0;
@@ -187,7 +188,7 @@ export default {
   align-items: center;
   color: #a08018;
   font-size: 18px;
-  margin-left: 20%;
+  text-align: center;
 }
 #nav-join:hover {
   color: #000000;
@@ -195,13 +196,10 @@ export default {
 .nav-btns {
   align-items: center;
   color: #a08018;
-  display: flex;
-  float: left;
   font-family: "Lexend", monospace;
   font-size: 18px;
-  height: 100%;
-  margin-left: 80px;
-  top: 2px;
+  margin-right: 5vw;
+  margin-left: 5vw;
   text-decoration: none;
 }
 .nav-btns:hover {
@@ -224,20 +222,19 @@ export default {
 }
 .navbar-logo {
   width: auto;
-  margin-left: 150px;
   color: #a08018;
+  /* margin-left: 50%; */
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 .dropdown-menu {
   background-color: transparent !important;
   backdrop-filter: blur(10px) !important;
 }
-
 .dropdown {
-  display: inline-block;
-  margin-left: 20px;
-  padding: 10px;
+  margin-left:10vh;
+ margin-right: 10px;
 }
-
 .glyphicon-bell {
   color: #a08018;
   text-decoration: none;
@@ -288,48 +285,39 @@ export default {
   padding: 10px;
   font-family: "Lexend";
 }
-
 .notifications-wrapper {
   overflow: auto;
   max-height: 250px;
 }
-
 .menu-title {
   color: #a08018;
   font-size: 1rem;
   display: inline-block;
 }
-
 .glyphicon-circle-arrow-right {
   margin-left: 10px;
 }
-
 .notification-heading,
 .notification-footer {
   padding: 2px 10px;
 }
-
 .dropdown-menu.divider {
   margin: 5px 0;
 }
-
 .item-title {
   font-size: 1rem;
   color: #000;
 }
-
 .notifications a.content {
   text-decoration: none;
   background: #ccc;
 }
-
 .notification-item {
   padding: 10px;
   margin: 5px;
   background: #ccc;
   border-radius: 4px;
 }
-
 .item-info {
   color: #a08018;
 }

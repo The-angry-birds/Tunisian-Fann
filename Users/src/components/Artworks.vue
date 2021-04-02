@@ -1,18 +1,13 @@
 <template>
-
   <div>
-      <ArtistProfileView
-        :artwork_id="artwork_id"
-      
-      />
+    <ArtistProfileView :artwork="artwork" />
     <div class="artworks-header"></div>
     <div class="search">
-      <label class="search-label">Search for an artwork:</label>
       <input
         class="search-input"
         type="text"
         v-model="search"
-        placeholder="Search..."
+        placeholder="Search for an artwork..."
       />
     </div>
     <div class="card-container" :v-if="this.artworks">
@@ -29,16 +24,17 @@
           </button>
           <p class="likes-number">{{ artwork.likes }}</p>
         </div>
-
-        <b-card-text class="card-category">Digital Paintings</b-card-text>
-
-        <h3 class="card-title" @click="sharedData(artwork)">
+        <h3 class="card-title" @click="sharedData(artwork)" id="main">
           {{ artwork.nameArtwork }}
         </h3>
 
+        <b-card-text class="card-category" id="main">{{
+          category.name
+        }}</b-card-text>
+
         <div class="card-by">
           by
-          <p class="card-author">Bensalem Walid</p>
+          <p class="card-author">{{ artwork.artistnamee }}</p>
         </div>
         <div></div>
       </b-card>
@@ -55,6 +51,7 @@ export default {
       search: "",
       artwork_id: "",
       user_id: "",
+      category: {},
     };
   },
 
@@ -62,10 +59,12 @@ export default {
     like(art) {
       const create = {
         artwork_id: art.id,
-        user_id: 55,
+        user_id: localStorage.getItem("id"),
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
+        this.artworks = [];
+        this.getArtworks();
       });
     },
 
@@ -73,18 +72,39 @@ export default {
       axios
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
+          var p = [];
           res.data.map((art) => {
             axios
               .get(`http://localhost:3000/api/likes/${art.id}`)
               .then((res) => {
                 art.likes = res.data.length;
-                console.log(art.likes);
-                this.artworks.push(art);
+                console.log("myliiiikes", art);
+
+                axios
+                  .get(`http://localhost:3000/api/artists/${art.artist_id}`)
+                  .then((res) => {
+                    art.artistnamee =
+                      res.data.firstName + " " + res.data.lastName;
+                    this.artworks.push(art);
+                    p.push(res.data.firstName);
+                    axios
+                      .get(
+                        `http://localhost:3000/api/categories/${art.category_id}`
+                      )
+                      .then(({ data }) => {
+                        this.category = data;
+                        console.log("data", data);
+                      });
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               })
               .catch((err) => {
                 console.log(err);
               });
           });
+          console.log("artworks", this.artworks);
         })
         .catch((err) => {
           console.log(err);
@@ -93,7 +113,6 @@ export default {
 
     sharedData(a) {
       this.$router.push({ name: "artworkDetails", params: a });
-       this.$router.push({ name: "ArtistProfileView", params: a });
     },
   },
   computed: {
@@ -120,7 +139,7 @@ export default {
 }
 
 .artworks-header {
-  margin-top: 100px;
+  margin-top: 120px;
 }
 .card-container {
   display: flex;
@@ -179,19 +198,25 @@ img {
   margin-right: 10%;
 }
 
-.search-label {
+/* .search-label {
   padding-top: 5px;
   padding-bottom: 5px;
   margin-right: 10px;
-}
+} */
 
 .search-input {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 10px;
   width: 300px;
-  border-style: solid;
-  border-radius: 5px;
+
+  border-top: 0.5px solid;
+  border-bottom: 0.5px solid;
+  /* border-radius: 5px; */
+}
+.search-input:focus {
+  /* border-right: none; */
+  outline: none;
 }
 
 .likes-container {
@@ -214,5 +239,8 @@ img {
 .likes-number {
   font-size: 15px;
   color: #a08018;
+}
+#main {
+  text-transform: uppercase;
 }
 </style>

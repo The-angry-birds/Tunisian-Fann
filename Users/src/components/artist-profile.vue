@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="row py-8 px-8">
       <div class="col-md-20 mx-auto">
         <div class="bg-white shadow rounded overflow-hidden">
@@ -10,7 +11,6 @@
                   v-if="user.imageUrl"
                   :src="user.imageUrl"
                   alt="..."
-                  width="200"
                   class="rounded mb-2 img-thumbnail"
                 />
                 <button
@@ -191,12 +191,10 @@
                         />
                         <label class="labels" for="ImageURL">Image URL</label>
                         <input
-                          v-model="url"
-                          type="imageurl"
-                          class="form-control"
+                          type="file"
+                          ref="addfile"
                           id="ImageURL"
-                          aria-describedby="imageurl"
-                          placeholder="Image URL"
+                          v-on:change="handleArtworkUpload()"
                         />
                         <label class="labels" for="Description"
                           >Description</label
@@ -259,13 +257,14 @@
                   :key="i"
                 >
                   <img class="img-card" :src="artwork.imageUrl" />
-                  <p class="card-category">{{ artwork.description }}</p>
                   <h3 class="card-title">{{ artwork.nameArtwork }}</h3>
+                  <p class="card-category">{{ artwork.description }}</p>
+
                   <h6 class="card-price">{{ artwork.price }} dt</h6>
                   <div class="card-by">
                     by
                     <p class="card-author">
-                      {{ user.firstName }}{{ user.lastName }}
+                      {{ user.firstName }} {{ user.lastName }}
                     </p>
                   </div>
                   <div>
@@ -315,24 +314,20 @@
                             <form>
                               <label class="labels" for="Title">Title</label>
                               <input
-                                value="artwork.title"
-                                v-model="art.title"
+                                v-model="art.nameArtwork"
                                 type="title"
                                 class="form-control"
                                 id="Title"
                                 aria-describedby="title"
                                 placeholder="Title"
                               />
-                              <label class="labels" for="ImageURL"
-                                >Image URL</label
-                              >
+                              <label class="labels" for="edit">Image URL</label>
+
                               <input
-                                v-model="art.url"
-                                type="imageurl"
-                                class="form-control"
-                                id="ImageURL"
-                                aria-describedby="imageurl"
-                                placeholder="Image URL"
+                                type="file"
+                                ref="editfile"
+                                id="edit"
+                                v-on:change="ines()"
                               />
                               <label class="labels" for="Description"
                                 >Description</label
@@ -384,9 +379,9 @@
                           <button
                             type="button"
                             class="btn btn-primary"
-                            @click.prevent="handleUpdate()"
+                            @click.prevent="handleUpdate(nameOfCategory)"
                           >
-                            Submit
+                            Submit edit
                           </button>
                         </div>
                       </div>
@@ -447,14 +442,19 @@
             <div class="p-4 rounded shadow-sm" id="auctions">
               <!-- button for adding auctions -->
               <button
-                id="auctions"
                 class="add-artwork-btn"
                 data-toggle="modal"
                 data-target="#addAuctions"
               >
                 Add Auctions
               </button>
-              <Auctions :artist="auction"/>
+              <div
+                class="container"
+                v-for="(auction, i) in auctionData"
+                :key="i"
+              >
+                <ArtistAuction :auction="auction" />
+              </div>
             </div>
           </div>
 
@@ -601,13 +601,14 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-import Auctions from "./Auctions";
+import ArtistAuction from "./ArtistAuction";
+
 
 export default {
   data() {
     return {
       description: "",
-      firstName: "",  
+      firstName: "",
       lastName: "",
       imageUrl: "",
       title: "",
@@ -623,11 +624,15 @@ export default {
       startDate: "",
       endDate: "",
       starting_price: "",
+      auctions: {},
+      artworkAuctions: {},
+      auctionData: {},
     };
   },
   components: {
-    // SingleAuction,
-    Auctions,
+    ArtistAuction,
+  
+    // Auctions,
   },
   methods: {
     //to edit the artist information like firstName and image
@@ -649,7 +654,7 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your profile has been edited",
+            title: "Your profile has been edited!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -704,6 +709,37 @@ export default {
           });
       }
     },
+    handleArtworkUpload() {
+      this.addfile = this.$refs.addfile.files[0];
+      let image = new FormData();
+      image.append("file", this.addfile);
+      image.append("upload_preset", "d4oqyy96");
+      axios
+        .post("https://api.cloudinary.com/v1_1/dwpdokwag/image/upload", image)
+        .then(({ data }) => {
+          console.log("imageId", data.url);
+          this.url = data.url;
+        })
+        .catch((err) => console.log(err));
+    },
+
+    ines() {
+      if (this.$refs.editfile.files) {
+        this.editfile = this.$refs.editfile.files[0];
+        let image = new FormData();
+        image.append("file", this.editfile);
+        image.append("upload_preset", "d4oqyy96");
+        axios
+          .post("https://api.cloudinary.com/v1_1/dwpdokwag/image/upload", image)
+          .then(({ data }) => {
+            console.log("imageId", data.url);
+            this.url = data.url;
+          })
+          .catch((err) => console.log(err));
+      } else {
+        console.log("check here ", this.$refs.editfile.files);
+      }
+    },
     //to upload the image
 
     //to fetch all the categories
@@ -714,22 +750,24 @@ export default {
     },
     //to fetch the artworks of that specific artist
     getAllArtworks() {
+      console.log("auctions", this.auctions);
       axios.get("http://localhost:3000/api/artworks").then(({ data }) => {
         const artworks = data.filter((elem) => {
-          return elem.artist_id === this.getArtist.id;
+          return elem.artist_id === this.user.id;
         });
+        console.log("artworrrrks", artworks);
+        for (var i = 0; i < artworks.length; i++) {
+          for (var j = 0; j < this.auctions.length; j++) {
+            if (artworks[i].id === this.auctions[j].artwork_id) {
+              artworks.splice(i, 1);
+            }
+          }
+        }
+
         this.artworks = artworks;
       });
     },
     handleSubmitArtwork() {
-      console.log("======object", {
-        artist_id: this.getArtist.id,
-        nameArtwork: this.title,
-        description: this.details,
-        imageUrl: this.url,
-        price: this.price,
-        categoryName: this.nameOfCategory,
-      });
       axios
         .post("http://localhost:3000/api/artworks", {
           nameArtwork: this.title,
@@ -745,10 +783,15 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your Artwork has been created",
+            title: "Your artwork has been created!",
             showConfirmButton: false,
             timer: 1500,
           });
+          this.title = "";
+          this.details = "";
+          this.url = "";
+          this.price = null;
+          this.nameOfCategory = "";
         })
         .catch((err) => {
           console.log(err);
@@ -757,30 +800,40 @@ export default {
     setCurrentId(id, art) {
       this.art = art;
       this.currentId = id;
-      console.log("deletd", this.currentId);
+      console.log("idddddd", this.currentId);
     },
     //this function deletes the artwork
     handleDelete() {
       axios
         .delete(`http://localhost:3000/api/artworks/${this.currentId}`)
         .then(({ response }) => {
-          this.getAllArtworks();
           console.log("deleted", response);
+          this.getAllArtworks();
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your Artwork has been deleted",
+            title: "Your artwork has been deleted!",
             showConfirmButton: false,
             timer: 1500,
           });
         });
     },
-    handleUpdate() {
+    handleUpdate(q) {
+      console.log("myurll", this.url);
+      console.log("arttttttttttt", this.art);
       axios
-        .put(`http://localhost:3000/api/artworks/${this.currentId}`, this.art)
+        .put(`http://localhost:3000/api/artworks/${this.currentId}`, {
+          nameArtwork: this.art.nameArtwork,
+          description: this.art.description,
+          imageUrl: this.url,
+          price: this.art.price,
+          categoryName: q,
+        })
         .then((response) => {
-          console.log("heyyyyyy", response.statusText);
+          this.art = response.data;
+          console.log("updated", response);
         });
+      console.log("===Id", this.currentId, "hey you there", this.art);
     },
     //this function posts an auction
     handleSubmitAuction() {
@@ -791,11 +844,49 @@ export default {
         endDate: this.endDate,
         starting_price: this.starting_price,
       };
+
       axios
         .post("http://localhost:3000/api/auctions", auction)
         .then((response) => {
-          alert("created");
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your auction has been added successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log("auction", response);
+          this.title = "";
+          this.startDate = "";
+          this.endDate = "";
+          this.starting_price = "";
+          // this.artworks = ne;
+          console.log("=======================================", this.artworks);
+          this.getAllArtworks();
+          this.getAuctions();
+        });
+    },
+    // this function gives me back the auction and the artwork of that specific artist
+    getAuctions() {
+      axios
+        .get(`http://localhost:3000/api/auctions/${this.getArtist.id}`)
+        .then(({ data }) => {
+          console.log("======data", data);
+          var myauctions = Object.values(data)[0];
+          var myartworks = Object.values(data)[1];
+          this.auctions = myauctions;
+          //looping through the two arrays and assigning the object of the auction to the object of the artwork
+          var mixdata = [];
+          for (var i = 0; i < myauctions.length; i++) {
+            for (var j = 0; j < myartworks.length; j++) {
+              if (myartworks[j].id == myauctions[i].artwork_id) {
+                var myObj = Object.assign(myartworks[j], myauctions[i]);
+                mixdata.push(myObj);
+              }
+            }
+          }
+          this.getAllArtworks();
+          this.auctionData = mixdata;
         });
     },
   },
@@ -806,9 +897,12 @@ export default {
       return this.$store.state.auth.user;
     },
   },
+
   mounted() {
-    this.getCategories();
     this.getAllArtworks();
+    this.getAuctions();
+    this.getCategories();
+
     this.user = this.$store.state.auth.user;
   },
 };
@@ -824,18 +918,38 @@ export default {
   transform: translateY(5rem);
 }
 
+.img-thumbnail {
+  max-width: 250px;
+  max-height: 250px;
+  min-width: 250px;
+  min-height: 250px;
+  object-fit: cover;
+}
+
 .cover {
-  background-color: #fdf5e6;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #heading {
   padding: 30px !important;
-  background-color: #fdf5e6;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 #info-card {
-  background-color: #fdf5e6;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 
 #submitbtn {
@@ -845,7 +959,11 @@ export default {
 }
 
 #artworks {
-  background-color: #fdf5e6;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
 }
 .card-container {
   display: flex;
@@ -862,12 +980,12 @@ export default {
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   width: 300px;
-  height: 490px;
+  height: 470px;
   background-color: white;
 }
 .card-category {
+  margin-top: 2px;
   padding-left: 20px;
-  padding-top: 20px;
   text-transform: uppercase;
   font-size: 13px;
   letter-spacing: 2px;
@@ -875,8 +993,8 @@ export default {
   color: #868686;
 }
 .card-title {
+  padding-top: 20px;
   padding-left: 20px;
-  margin-top: 5px;
   margin-bottom: 10px;
 }
 .card-price {
@@ -956,8 +1074,16 @@ export default {
   background-color: rgb(0, 0, 0);
   color: white;
 }
-/* #auctions {
-  background-color: #fdf5e6;
-} */
+#auctions {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(153, 153, 153)
+  );
+}
+.container {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+}
 </style>
-

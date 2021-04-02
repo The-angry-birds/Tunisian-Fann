@@ -11,7 +11,6 @@
                      v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="#"
-                    width="250"
                     class="rounded mb-2 img-thumbnail"
                   />
                   <button
@@ -173,7 +172,7 @@ export default {
         axios.get("http://localhost:3000/api/users/getUserByToken",{
             headers: { authorization: `Bearer ${token}`}}).then(({ data }) => {
              this.user = data.user
-
+             localStorage.setItem("id",this.user.id)
              console.log(" this is user",this.user )
      
         });
@@ -221,17 +220,26 @@ export default {
   transform: translateY(5rem);
   padding-top: 50px;
 }
+
+.img-thumbnail {
+  max-width: 250px;
+  max-height: 250px;
+  min-width: 250px;
+  min-height: 250px;
+  object-fit: cover;
+}
+
 .cover {
-  background-color: #fbeec1;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
   background-size: cover;
   background-repeat: no-repeat;
 }
 #heading {
   padding: 30px !important;
-  background-color: #fbeec1;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 #recent-bidding {
-  background-color: #fbeec1;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(153, 153, 153));
 }
 #Modal {
   margin-top: 60px;

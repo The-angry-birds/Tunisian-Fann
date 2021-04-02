@@ -1,13 +1,15 @@
 <template>
   <div>
-    <div  class="container">
+    <div class="auctions-header"></div>
+    <div class="container">
       <SingleAuction
+        :artist="artist"
+        :category="category"
         v-for="(auction, i) in auctions"
         :key="i"
         :auction="auction"
-      
       />
-        <!-- :sharedData="sharedData" -->
+      <!-- :sharedData="sharedData" -->
     </div>
   </div>
 </template>
@@ -22,16 +24,45 @@ export default {
       artwork_id: "",
       auctions: {},
       auction: {},
+      artist: {},
+      category: {},
     };
   },
   methods: {
     getAuctions() {
-      axios.get("http://localhost:3000/api/auctions").then((res) => {
-        console.log(res);
-        this.auctions = res.data;
-      });
+      axios
+        .get("http://localhost:3000/api/auctions")
+        .then(({ data }) => {
+          this.auctions = data;
+        })
+        .then(async () => {
+          for (var i = 0; i < this.auctions.length; i++) {
+            try {
+              await axios
+                .get(
+                  `http://localhost:3000/api/artists/${this.auctions[i].artist_id}`
+                )
+                .then(({ data }) => {
+                  console.log("this.is artist", data);
+                  this.artist = data;
+                })
+                .then(() => {
+                  axios
+                    .get(
+                      `http://localhost:3000/api/categories/${this.auctions[i].category_id}`
+                    )
+                    .then(({ data }) => {
+                      console.log("category", data);
+                      this.category = data;
+                    });
+                });
+            } catch (err) {
+              console.log(err);
+            }
+          }
+        });
     },
- 
+    
   },
   components: {
     SingleAuction,
@@ -46,11 +77,13 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
 
+.auctions-header {
+  margin-top: 120px;
+}
+
 .container {
-  margin-top: 60px;
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
 }
-
 </style>
-

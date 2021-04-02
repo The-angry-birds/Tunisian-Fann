@@ -1,5 +1,6 @@
 <template>
-  <div @click="sharedData(auction)" class="container">
+  <div class="container">
+    <ArtistProfileView :auction="auction" />
     <article class="card card--1">
       <div class="card__info-hover">
         <svg class="card__like" viewBox="0 0 24 24">
@@ -14,8 +15,7 @@
               d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z"
             />
           </svg>
-          <!-- <span class="card__time" id="demo">{{ auction.startDate }} /</span> -->
-          <!-- <span class="card__time" id="demo"> / {{ auction.endDate }}</span> -->
+
           <span v-if="!isExpired" class="card__time" id="demo">
             {{ distanceDate.days }}Days {{ distanceDate.hours }}Hr
             {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec :
@@ -30,15 +30,13 @@
       </a>
       <div class="card__info">
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
-        <span class="card__category"> {{ category.name }}</span>
-
+        <span class="card__category">{{ auction.description }}</span>
+        <br>
         <span class="card__by"
-          ><br />
-
-          by
+          >by
           <a href="#" class="card__author" title="author"
-            >{{ artist.firstName }} {{ artist.lastName }}</a
-          ></span
+            >{{ getArtist.firstName }} {{ getArtist.lastName }}
+          </a></span
         >
       </div>
     </article>
@@ -46,11 +44,12 @@
 </template>
 
 <script>
+import ArtistProfileView from "./ArtistProfileView";
 export default {
   props: {
-    auction: Object,
-    artist: Object,
-    category: Object,
+    auction: {
+      type: Object,
+    },
   },
   data() {
     return {
@@ -58,18 +57,15 @@ export default {
       isExpired: false,
     };
   },
+  component: {
+    ArtistProfileView,
+  },
   methods: {
-    sharedData(auction) {
-      console.log(auction,"hellllooooooo");
-      this.$router.push({
-        path: `/auction-details/${auction.id}`,
-      });
-    },
-
     calculateCountDown() {
       // Set the date we're counting down ton
-
+      console.log("============>", this.auction);
       var countDownDate = new Date(this.auction.endDate).getTime();
+      console.log(countDownDate);
       // Update the count down every 1 second
       var x = setInterval(() => {
         // Get today's date and time
@@ -99,11 +95,18 @@ export default {
           minutes: minutes,
           seconds: seconds,
         };
+        console.log(this.distanceDate);
       }, 1000);
     },
   },
   mounted() {
     // this.calculateCountDown();
+  },
+  computed: {
+    //it returns the user that is actually logged in
+    getArtist() {
+      return this.$store.state.auth.user;
+    },
   },
 };
 </script>

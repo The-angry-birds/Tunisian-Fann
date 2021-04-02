@@ -9,10 +9,10 @@
           <h5>Services</h5>
           <ul class="list-unstyled quick-links">
             <li>
-              <a href="#"><i class="fa fa-angle-double-right"></i>Auctions</a>
+              <a href="/#/auctions"><i class="fa fa-angle-double-right"></i>Auctions</a>
             </li>
             <li>
-              <a href="#"><i class="fa fa-angle-double-right"></i>Artworks</a>
+              <a href="/#/artworks"><i class="fa fa-angle-double-right"></i>Artworks</a>
             </li>
           </ul>
         </div>
