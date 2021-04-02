@@ -32,9 +32,12 @@ const auction = (sequelize, type) => {
         required: false,
       },
       starting_price: type.INTEGER,
+      currentBid:type.INTEGER,
+      currentWinner:type.INTEGER,
+      expired:type.BOOLEAN
     },
 
-    { timestamps: true }
+    { timestamps: false }
   );
 
   return auctions;

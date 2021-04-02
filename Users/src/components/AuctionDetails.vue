@@ -60,8 +60,9 @@ export default {
       auction_id: null,
       auction: {},
       user_id: null,
-      isExpired: false,
+      isExpired:false,
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
+      user:{}
     };
   },
   computed: {
@@ -156,6 +157,7 @@ export default {
         })
         .then(({ data }) => {
           this.user_id = data.user.id;
+          this.user=data.user
 
           console.log(" this.user_id", this.user_id);
 
@@ -173,24 +175,41 @@ export default {
         swal(
           "Oops!",
           "you are an artist you should sign as user first",
-          "error"
-        );
-      } else {
-
-        axios
+          "error" 
+        );  
+      } else {  
+        
+        axios 
           .post("http://localhost:3000/api/bid", {
             bidValue: this.bidValue,
             auction_id: this.auction_id,
-            user_id: this.user_id,  
+            user_id: this.user_id, 
+
           })
           .then(() => {
             console.log("updated bid ");
             this.getallbids();
             swal("great", "bid is added", "success ");
+          }).then(() => {
+             axios
+          .post("http://localhost:3000/api/notification", {
+   
+            auction_id: this.auction_id,
+            artist_id:this.artwork.artist_id, 
+     
+          }).then(() => {
+               console.log("notification created") 
+          }).then(() => {
+         axios.patch(`http://localhost:3000/api/bid/${this.auction_id}`,{
+              currentWinner:this.user_id,
+              currentBid:this.bidValue,
+              expired:this.isExpired
+  
+          }).then(() => {
+            console.log("updated bid auction" )
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          })
+      })
       }
     },
     getallbids() {

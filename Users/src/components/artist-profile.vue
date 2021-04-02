@@ -647,8 +647,7 @@ export default {
         )
         .then(({ data }) => {
           console.log("this is my update", data);
-          Swal.fire({
-            position: "top-end",
+          Swal.fire({position: "top-end",
             icon: "success",
             title: "Your profile has been edited",
             showConfirmButton: false,
@@ -865,6 +864,7 @@ export default {
           this.startDate = "";
           this.endDate = "";
           this.starting_price = "";
+          
           // // this.artworks = ne;
           // console.log("=======================================", this.artworks);
           this.getAllArtworks();

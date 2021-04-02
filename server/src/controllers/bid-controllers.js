@@ -1,6 +1,5 @@
 const { Auction } = require("../../db/models/auction");
-const jwt = require("jsonwebtoken");
-const config = require("../../db/configArtist");
+
 const { Bid } = require("../../db/models/bid");
 const { User } = require("../../db/models/users-model-signup");
 
@@ -21,6 +20,21 @@ module.exports = {
       } else {
         res.send("check user id or auction id  ");
       }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  TrackBidAuction: async (req, res) => {
+    try {
+      const bid = await Auction.update(
+        {
+           currentWinner: req.body.currentWinner,
+           currentBid: req.body.currentBid,
+           expired:req.body.expired
+        },
+        { where: { id: req.params.id } }
+      );
+      res.send("update bidder");
     } catch (err) {
       console.log(err);
     }

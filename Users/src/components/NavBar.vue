@@ -22,7 +22,7 @@
       <router-link class="nav-btns" to="/auctions">Auctions</router-link>
     </button>
 
-    <div v-if="authGuest" class="dropdown">
+    <div v-if="authGuest && type === 'artist'" class="dropdown">
       <a
         id="dLabel"
         role="button"
@@ -44,18 +44,17 @@
             View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
           </h4>
         </div>
-        <li class="divider"></li>
-        <div     v-for="(auction, i) in auctionData"
-                :key="i" class="notifications-wrapper">
+        <li  class="divider"></li>
+        <div    class="notifications-wrapper">
           <a class="content" href="#">
-            <div  class="notification-item">
+            <div class="notification-item">
               <h4 class="item-title"></h4>
-              <p class="item-info">auction </p>
+              <p class="item-info">{{auctionDatas.nameArtwork}}</p>
             </div>
           </a>
           <a class="content" href="#">
             <div class="notification-item">
-              <h4 class="item-title">the the auction artwork {{auction.nameArtwork}} </h4>
+              <h4 class="item-title">the the auction artwork</h4>
               <p class="item-info">Notification 2, 2 days ago</p>
             </div>
           </a>
@@ -126,7 +125,9 @@ export default {
   data() {
     return {
       artist: {},
-      auctionData:{}
+      notification: [],
+      auctions:{},
+      auctionArtists:[]
     };
   },
 
@@ -145,41 +146,50 @@ export default {
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
+    allbidden(array) {
+      var uniqueArray = [];
+
+      // Loop through array values
+      for (var i = 0; i < array.length; i++) {
+        if (uniqueArray.indexOf(array[i]) === -1) {
+          uniqueArray.push(array[i]);
+        }
+      }
+      return uniqueArray;
+    },
+
     get_arist() {
-      if (this.type === "artist") {
-        const token = localStorage.getItem("token");
-        const headers = { headers: { Authorization: `Bearer ${token}` } };
-        axios
-          .get("http://localhost:3000/api/auth/artists", headers)
-          .then(({ data }) => {
-            console.log("the navbar artist", this.artist);
-            this.artist = data.user;
-            console.log("the navbar artist after", this.artist);
-          })
-          .then(() => {
-            axios
-              .get(`http://localhost:3000/api/auctions/${this.artist.id}`)
-              .then(({ data }) => {
-                console.log("navbar data", data);
-                var myauctions = Object.values(data)[0];
-                var myartworks = Object.values(data)[1];
-                this.auctions = myauctions;
-                //looping through the two arrays and assigning the object of the auction to the object of the artwork
-                var mixdata = [];
-                for (var i = 0; i < myauctions.length; i++) {
-                  for (var j = 0; j < myartworks.length; j++) {
-                    if (myartworks[j].id == myauctions[i].artwork_id) {
-                      var myObj = Object.assign(myartworks[j], myauctions[i]);
-                      mixdata.push(myObj);
-                    }
+      const token = localStorage.getItem("token");
+      const headers = { headers: { Authorization: `Bearer ${token}` } };
+      axios
+        .get("http://localhost:3000/api/auth/artists", headers)
+        .then(({ data }) => {
+          this.artist = data.user;
+          console.log("the navbar artist after", this.artist);
+        })
+        .then(() => {
+          axios
+            .get(`http://localhost:3000/api/auctions/${this.artist.id}`)
+            .then(({ data }) => {
+              console.log("======data", data);
+              var myauctions = Object.values(data)[0];
+              var myartworks = Object.values(data)[1];
+              this.auctions = myauctions;
+              //looping through the two arrays and assigning the object of the auction to the object of the artwork
+              var mixdata = [];
+              for (var i = 0; i < myauctions.length; i++) {
+                for (var j = 0; j < myartworks.length; j++) {
+                  if (myartworks[j].id == myauctions[i].artwork_id) {
+                    var myObj = Object.assign(myartworks[j], myauctions[i]);
+                    mixdata.push(myObj);
                   }
                 }
-           
-                this.auctionData = mixdata;
-                console.log("this is auction data" , this.auctionData)
-              });
-          });
-      }
+              }
+         
+              this.auctionArtists = mixdata;
+              console.log("this is the all auctiobn ",this.auctionArtists)
+            });
+        }); 
     },
 
     userType() {
@@ -207,7 +217,7 @@ export default {
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
-   mounted() {
+  mounted() {
     this.get_arist();
   },
 };

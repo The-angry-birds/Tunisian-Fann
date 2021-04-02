@@ -57,9 +57,9 @@ export default {
   methods: {
     calculateCountDown() {
       // Set the date we're counting down ton
-      console.log("============>", this.auction);
+
       var countDownDate = new Date(this.auction.endDate).getTime();
-      console.log(countDownDate);
+   
       // Update the count down every 1 second
       var x = setInterval(() => {
         // Get today's date and time
@@ -81,7 +81,7 @@ export default {
         );
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        console.log(days, hours);
+    
 
         // Output the result in an element with id="demo"
         this.distanceDate = {
@@ -90,7 +90,7 @@ export default {
           minutes: minutes,
           seconds: seconds,
         };
-        console.log(this.distanceDate);
+
       }, 1000);
     },
   },
