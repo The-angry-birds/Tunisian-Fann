@@ -75,11 +75,12 @@ export default {
      console.log("===================",this.user)
       const token = localStorage.getItem("token");
         console.log({token})
-      if (token===null) {
+      if (token==undefined) {
+        
         this.$router.push("/join-as-client");
       } else {
         const createPayment = {
-          // email: this.user.email,
+          email: this.user.email,
           firstName: this.user.firstName,
           lastName: this.user.lastName,
           amount: this.oneArt.price,
