@@ -75,7 +75,7 @@ export default {
      console.log("===================",this.user)
       const token = localStorage.getItem("token");
         console.log({token})
-      if (token==undefined) {
+      if (token==null) {
         
         this.$router.push("/join-as-client");
       } else {
