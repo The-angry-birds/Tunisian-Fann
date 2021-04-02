@@ -3,7 +3,11 @@
     <!-- <NavBar></NavBar> -->
     <LPAnimation></LPAnimation>
     <AboutUs></AboutUs>
+    <h2>DISCOVER OUR</h2>
+    <h1>AUCTIONS</h1>
     <Auctions></Auctions>
+    <h2>DISCOVER OUR</h2>
+    <h1>ARTWORKS</h1>
     <Artworks></Artworks>
     <Footer></Footer>
   </div>
@@ -37,5 +41,18 @@ export default {
   background-color: rgb(250, 250, 250);
 }
 
+h2 {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: -80px;
+  font-size: 50px;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: -80px;
+  font-size: 80px;
+}
 </style>
 

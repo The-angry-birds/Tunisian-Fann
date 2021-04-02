@@ -8,7 +8,6 @@
         v-model="search"
         placeholder="Search for an artist..."
       />
-      <i class="fas fa-search"></i>
     </div>
     <div class="row mt-30">
       <div
