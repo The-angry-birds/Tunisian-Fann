@@ -1,5 +1,5 @@
 module.exports = {
-  DATABASE_NAME: "admin",
+  DATABASE_NAME: "Admin",
   USERNAME: "root",
   PASSWORD: "student",
   HOST: "localhost",
