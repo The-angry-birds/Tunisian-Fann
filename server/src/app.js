@@ -13,6 +13,7 @@ const adminRoutes = require("./routes/auth.admin.routes.js");
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 const bidRoutes = require("./routes/bid-routes");
+const notificationsRoutes = require("./routes/notification.routes");
 const bidauction = require("./routes/auction-bid.routes.js");
 const usersRoutes = require("./routes/users.routes.js");
 const usersSignupRoutes = require("./routes/auth.users.routes.js");
@@ -40,6 +41,8 @@ app.use("/api/artists", artistRoutes);
 app.use("/api/auctions", auctionsRouter);
 app.use("/api/auth", verifyRouter);
 app.use("/api/likes", likesRouter);
+app.use("/api/notification",notificationsRoutes );
+;
 
 app.post("/sendmessage", (req, res) => {
   console.log(req.body);

@@ -145,9 +145,11 @@ export default {
               swal("Oops!", "Wrong Password!", "error");
             } else if (resp.message === "user not found") {
               swal("Oops!", "Wrong e-mail!", "error");
-            } else if (resp.user.accept === false) {
-              swal("Oops!", "You need to be verified by the Admin team!", "error");
-            } else if (resp.user.banned === true) {
+            } 
+            // else if (resp.user.accept === false) {
+            //   swal("Oops!", "You need to be verified by the Admin team!", "error");
+            // } 
+            else if (resp.user.banned === true) {
               swal("Oops!", "You are banned!", "error");
              } else {
               this.$router.push("/artist-profile");
