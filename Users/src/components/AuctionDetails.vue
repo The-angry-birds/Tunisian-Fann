@@ -161,16 +161,16 @@ export default {
     },
     createBid() {
        if (this.bidValue === " ") {
-        swal("Oops!", "invalid bid1", "error");
+        swal("Oops!", "Invalid bid!", "error");
       } else if (this.bidValue < this.currentBid) {
-        swal("Oops!", "the bid is less than the current bid", "error");
+        swal("Oops!", "Your bid needs to be higher than the current bid!", "error");
 
       } else if (this.type !== "guest" && !this.authGuest) {
         this.$router.push("/join-as-client");
       } else if (this.type !== "guest" && this.authGuest) {
         swal(
           "Oops!",
-          "you are an artist you should sign as user first",
+          "You are an artist you should sign in as user first!",
           "error"
         );
       } else {
@@ -184,7 +184,7 @@ export default {
           .then(() => {
             console.log("updated bid ");
             this.getallbids();
-            swal("great", "bid is added", "success ");
+            swal("Nice!", "Your bid has been successfully added!", "success");
           })
           .catch((err) => {
             console.log(err);
