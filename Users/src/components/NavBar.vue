@@ -1,27 +1,28 @@
 <template>
   <nav class="navbar navbar-expand-sm" id="navbar">
-      <router-link to="/">
-        <img
-          class="navbar-logo"
-          src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
-          to
-        />
-      </router-link>
-    
+    <router-link to="/">
+      <img
+        class="navbar-logo"
+        src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
+        to
+      />
+    </router-link>
 
-      <button>
-        <router-link class="nav-btns first-nav-btn" to="/artists">Artists</router-link>
-      </button>
+    <button>
+      <router-link class="nav-btns first-nav-btn" to="/artists"
+        >Artists</router-link
+      >
+    </button>
 
-      <button>
-        <router-link class="nav-btns" to="/artworks">Artworks</router-link>
-      </button>
+    <button>
+      <router-link class="nav-btns" to="/artworks">Artworks</router-link>
+    </button>
 
-      <button>
-        <router-link class="nav-btns" to="/auctions">Auctions</router-link>
-      </button>
-    
-      <div v-if="authGuest" class="dropdown">
+    <button>
+      <router-link class="nav-btns" to="/auctions">Auctions</router-link>
+    </button>
+
+    <div v-if="authGuest" class="dropdown">
       <a
         id="dLabel"
         role="button"
@@ -119,12 +120,12 @@
 
 <script>
 export default {
-  
   computed: {
     authGuest() {
       console.log("this.user", this.$store.getters.logged);
       return this.$store.getters.logged;
     },
+  
     type() {
       return this.$store.getters.role;
     },
@@ -171,7 +172,7 @@ export default {
   margin: 0;
 }
 .navbar {
-  display: flex;  
+  display: flex;
   flex-wrap: wrap;
   background: transparent;
   border-radius: 0px;
@@ -232,8 +233,8 @@ export default {
   backdrop-filter: blur(10px) !important;
 }
 .dropdown {
-  margin-left:10vh;
- margin-right: 10px;
+  margin-left: 10vh;
+  margin-right: 10px;
 }
 .glyphicon-bell {
   color: #a08018;
