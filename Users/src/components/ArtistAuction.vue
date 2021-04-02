@@ -95,7 +95,7 @@ export default {
     },
   },
   mounted() {
-    // this.calculateCountDown();
+    this.calculateCountDown();
   },
   computed: {
     //it returns the user that is actually logged in
@@ -242,5 +242,5 @@ export default {
 
 .card:hover .card__info-hover {
   opacity: 1;
-} 
+}
 </style>

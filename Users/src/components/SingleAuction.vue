@@ -26,15 +26,18 @@
       </div>
       <img class="card__img" src="" />
       <a href="#" class="card_link">
-        <img class="card__img--hover" src="https://www.bensalemwalid.com/wp-content/uploads/2021/02/before-lights-out-artwork-by-bensalem-walid.png"/>
+        <img class="card__img--hover" :src="auction.imageUrl" />
       </a>
       <div class="card__info">
-        <span class="card__category">Digital Paintings</span>
-        <h3 class="card__title">Before Lights Out</h3>
+        <h3 class="card__title">{{ auction.nameArtwork }}</h3>
+        <span class="card__category"> {{ auction.description }} </span>
+
         <span class="card__by"
-          >by
+          ><br />
+
+          by
           <a href="#" class="card__author" title="author"
-            >Bensalem Walid</a
+            >{{ artist.firstName }} {{ artist.lastName }}</a
           ></span
         >
       </div>
@@ -46,6 +49,7 @@
 export default {
   props: {
     auction: Object,
+    artist: Object,
   },
   data() {
     return {
@@ -55,12 +59,11 @@ export default {
   },
   methods: {
     sharedData(auction) {
-      console.log(auction, "hellllooooooooooooooooooooooooooooooooo");
-
       this.$router.push({
         path: `/auction-details/${auction.id}`,
       });
     },
+
     calculateCountDown() {
       // Set the date we're counting down ton
 
@@ -127,7 +130,7 @@ export default {
 
 .card--1 .card__img,
 .card--1 .card__img--hover {
-object-fit: cover;
+  object-fit: cover;
 }
 
 .card__like {

@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="auctions-header"></div>
-    <div  class="container">
+    <div class="container">
       <SingleAuction
+        :artist="artist"
         v-for="(auction, i) in auctions"
         :key="i"
         :auction="auction"
-      
       />
-        <!-- :sharedData="sharedData" -->
+      <!-- :sharedData="sharedData" -->
     </div>
   </div>
 </template>
@@ -23,16 +23,29 @@ export default {
       artwork_id: "",
       auctions: {},
       auction: {},
+      artist: {},
     };
   },
   methods: {
     getAuctions() {
-      axios.get("http://localhost:3000/api/auctions").then((res) => {
-        console.log(res);
-        this.auctions = res.data;
-      });
+      axios
+        .get("http://localhost:3000/api/auctions")
+        .then(({ data }) => {
+          this.auctions = data;
+        })
+        .then(() => {
+          for (var i = 0; i < this.auctions.length; i++) {
+            axios
+              .get(
+                `http://localhost:3000/api/artists/${this.auctions[i].artist_id}`
+              )
+              .then(({ data }) => {
+                console.log("this.is artist", data);
+                this.artist = data;
+              });
+          }
+        });
     },
- 
   },
   components: {
     SingleAuction,
@@ -56,6 +69,4 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
-
 </style>
-
