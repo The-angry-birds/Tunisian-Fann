@@ -7,7 +7,8 @@
             <div class="px-4 pt-0 pb-4 cover">
               <div class="media align-items-end profile-head">
                 <div class="profile mr-3">
-                  <img
+               
+                  <img 
                      v-if="user.imageUrl"
                     :src="user.imageUrl"
                     alt="#"
@@ -27,9 +28,7 @@
                   <h4 class="mt-0 mb-0">
                     {{ user.firstName }} {{ user.lastName }}
                   </h4>
-                  <p class="small mb-4">
-                    <i class="fas fa-map-marker-alt mr-2"></i>Nabeul
-                  </p>
+                  
                 </div>
               </div>
             </div>
@@ -38,14 +37,16 @@
               id="heading"
             ></div>
             <div class="px-3 py-3">
-              <h5 class="mb-3">Recent Bidding</h5>
+              <h5 class="mb-3">About</h5>
               <div class="p-4 rounded shadow-sm" id="recent-bidding">
-                <p class="font-italic mb-0">Bidding Example</p>
-                <p class="font-italic mb-0">Bidding Example</p>
-                <p class="font-italic mb-0">Bidding Example</p>
+                <p class="font-italic mb-0">{{ user.email }}</p>
+                
               </div>
             </div>
           </div>
+          <p class="nodata">
+             Work en progress
+          </p>
         </div>
       </div>
     </div>
@@ -220,7 +221,10 @@ export default {
   transform: translateY(5rem);
   padding-top: 50px;
 }
-
+.nodata{
+  margin-left: 45%;
+  margin-top: 15%;
+}
 .img-thumbnail {
   max-width: 250px;
   max-height: 250px;

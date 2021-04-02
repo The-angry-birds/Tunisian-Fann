@@ -60,13 +60,10 @@
       <div class="px-3 py-4">
             <h5 class="mb-4">Auctions</h5>
             <div class="p-4 rounded shadow-sm" id="auctions">              
-              <div class="container" style="margin-top: -80px">
-                <ArtistAuction
-                  :auction="auction"
-                  v-for="(auction, i) in auctionData"
-                  :key="i"
-                />
-              </div>
+              
+
+
+              
             </div>
           </div>
     </div>
