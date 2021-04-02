@@ -1,5 +1,6 @@
 const { Auction } = require("../../db/models/auction");
 const { Artwork } = require("../../db/models/artwork");
+const {Artist} =require("../../db/models/artist");
 
 module.exports = {
   createAuction: async (req, res) => {
@@ -82,12 +83,7 @@ module.exports = {
   },
   getArtworkWithAuction: async (req, res) => {
     try {
-      const artwork = await Auction.findOne({
-        where: {
-          artist_id: req.params.artist_id,
-          artwork_id: req.params.artwork_id,
-        },
-      });
+      const artwork = await findAll({include:{model: Artwork, required:true},where: {artist_id:req.params.id}});
       res.send(artwork);
     } catch (err) {
       console.log(err);

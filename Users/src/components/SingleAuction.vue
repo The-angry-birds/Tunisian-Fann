@@ -30,7 +30,7 @@
       </a>
       <div class="card__info">
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
-        <span class="card__category"> {{ auction.description }} </span>
+        <span class="card__category"> {{ category.name }}</span>
 
         <span class="card__by"
           ><br />
@@ -50,6 +50,7 @@ export default {
   props: {
     auction: Object,
     artist: Object,
+    category: Object,
   },
   data() {
     return {
@@ -59,6 +60,7 @@ export default {
   },
   methods: {
     sharedData(auction) {
+      console.log(auction, "hellllooooooo");
       this.$router.push({
         path: `/auction-details/${auction.id}`,
       });
@@ -101,7 +103,7 @@ export default {
     },
   },
   mounted() {
-    this.calculateCountDown();
+    // this.calculateCountDown();
   },
 };
 </script>
@@ -192,6 +194,7 @@ export default {
   overflow: hidden;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   margin: 0px;
+  margin-bottom: 25px;
   height: 300px;
 }
 .card:hover {

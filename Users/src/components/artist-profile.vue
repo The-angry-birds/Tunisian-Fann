@@ -256,13 +256,14 @@
                   :key="i"
                 >
                   <img class="img-card" :src="artwork.imageUrl" />
-                  <p class="card-category">{{ artwork.description }}</p>
                   <h3 class="card-title">{{ artwork.nameArtwork }}</h3>
+                  <p class="card-category">{{ artwork.description }}</p>
+
                   <h6 class="card-price">{{ artwork.price }} dt</h6>
                   <div class="card-by">
                     by
                     <p class="card-author">
-                      {{ user.firstName }}{{ user.lastName }}
+                      {{ user.firstName }} {{ user.lastName }}
                     </p>
                   </div>
                   <div>
@@ -446,12 +447,12 @@
               >
                 Add Auctions
               </button>
-              <div
-                class="container"
-                v-for="(auction, i) in auctionData"
-                :key="i"
-              >
-                <ArtistAuction :auction="auction" />
+              <div class="container" style="margin-top: -80px">
+                <ArtistAuction
+                  :auction="auction"
+                  v-for="(auction, i) in auctionData"
+                  :key="i"
+                />
               </div>
             </div>
           </div>
@@ -628,6 +629,7 @@ export default {
   },
   components: {
     ArtistAuction,
+
     // Auctions,
   },
   methods: {
@@ -649,7 +651,7 @@ export default {
           console.log("this is my update", data);
           Swal.fire({position: "top-end",
             icon: "success",
-            title: "Your profile has been edited",
+            title: "Your profile has been edited!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -732,7 +734,7 @@ export default {
           })
           .catch((err) => console.log(err));
       } else {
-        console.log("djkslncdlkcdklsds", this.$refs.editfile.files);
+        console.log("check here ", this.$refs.editfile.files);
       }
     },
     //to upload the image
@@ -763,15 +765,6 @@ export default {
       });
     },
     handleSubmitArtwork() {
-      // console.log("======object", {
-      //   artist_id: this.getArtist.id,
-      //   nameArtwork: this.title,
-      //   description: this.details,
-      //   imageUrl: this.url,
-      //   price: this.price,
-      //   categoryName: this.nameOfCategory,
-      // });
-
       axios
         .post("http://localhost:3000/api/artworks", {
           nameArtwork: this.title,
@@ -787,7 +780,7 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your Artwork has been created",
+            title: "Your artwork has been created!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -816,7 +809,7 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your Artwork has been deleted",
+            title: "Your artwork has been deleted!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -834,7 +827,7 @@ export default {
           categoryName: q,
         })
         .then((response) => {
-          // this.art = response.data;
+          this.art = response.data;
           console.log("updated", response);
         });
       // console.log("===Id", this.currentId, "hey you there", this.art);
@@ -855,7 +848,7 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your auction has been addes successfully",
+            title: "Your auction has been added successfully!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -985,12 +978,12 @@ export default {
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   width: 300px;
-  height: 490px;
+  height: 470px;
   background-color: white;
 }
 .card-category {
+  margin-top: 2px;
   padding-left: 20px;
-  padding-top: 20px;
   text-transform: uppercase;
   font-size: 13px;
   letter-spacing: 2px;
@@ -998,8 +991,8 @@ export default {
   color: #868686;
 }
 .card-title {
+  padding-top: 20px;
   padding-left: 20px;
-  margin-top: 5px;
   margin-bottom: 10px;
 }
 .card-price {

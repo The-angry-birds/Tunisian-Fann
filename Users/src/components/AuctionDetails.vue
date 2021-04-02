@@ -165,21 +165,21 @@ export default {
     },
     createBid() { 
        if (this.bidValue === " ") {
-        swal("Oops!", "invalid bid1", "error");
+        swal("Oops!", "Invalid bid!", "error");
       } else if (this.bidValue < this.currentBid) {
-        swal("Oops!", "the bid is less than the current bid", "error");
+        swal("Oops!", "Your bid needs to be higher than the current bid!", "error");
 
       } else if (this.type !== "guest" && !this.authGuest) {
         this.$router.push("/join-as-client");
       } else if (this.type !== "guest" && this.authGuest) {
         swal(
           "Oops!",
-          "you are an artist you should sign as user first",
-          "error" 
-        );  
-      } else {  
-        
-        axios 
+          "You are an artist you should sign in as user first!",
+          "error"
+        );
+      } else {
+
+        axios
           .post("http://localhost:3000/api/bid", {
             bidValue: this.bidValue,
             auction_id: this.auction_id,
@@ -189,27 +189,9 @@ export default {
           .then(() => {
             console.log("updated bid ");
             this.getallbids();
-            swal("great", "bid is added", "success ");
-          }).then(() => {
-             axios
-          .post("http://localhost:3000/api/notification", {
-   
-            auction_id: this.auction_id,
-            artist_id:this.artwork.artist_id, 
-     
-          }).then(() => {
-               console.log("notification created") 
-          }).then(() => {
-         axios.patch(`http://localhost:3000/api/bid/${this.auction_id}`,{
-              currentWinner:this.user_id,
-              currentBid:this.bidValue,
-              expired:this.isExpired
-  
-          }).then(() => {
-            console.log("updated bid auction" )
+            swal("Nice!", "Your bid has been successfully added!", "success");
           })
-          })
-      })
+
       }
     },
     getallbids() {

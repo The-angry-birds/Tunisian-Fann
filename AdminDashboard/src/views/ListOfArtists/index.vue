@@ -55,7 +55,7 @@
             <button
               type="button"
               class="artist-accept-btn btn btn-success"
-              v-on:click="messageArtist()"
+             
               @click="accepted"
               @click.prevent="acceptArtist(artist)"
             >
@@ -101,9 +101,10 @@ export default {
       this.$message("Accepted!");
     },
 
-    bannedArtist(id) {
+    bannedArtist() {
+      console.log("======dghxjklm",this.currentArtist.id)
       axios
-        .put(`http://localhost:3000/api/artists/${id}`)
+        .put(`http://localhost:3000/api/artists/${this.currentArtist.id}`)
         .then((baneed) => {
           console.log("=========>", baneed);
         })
@@ -112,10 +113,12 @@ export default {
         });
     },
     acceptArtist(id) {
+      console.log(id)
+     
       axios
-        .put(`http://localhost:3000/api/artists/accept/${id}`)
+        .put(`http://localhost:3000/api/artists/accept/${this.currentArtist.id}`)
         .then((accepted) => {
-          console.log(accepted);
+          console.log("==========>",accepted);
         })
         .catch((err) => {
           console.log(err);

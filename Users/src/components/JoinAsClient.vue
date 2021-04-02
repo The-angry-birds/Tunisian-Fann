@@ -79,17 +79,17 @@ export default {
         this.password === "" ||
         this.Confirmpassword === ""
       ) {
-        swal("Oops!", "please fill information", "error");
+        swal("Oops!", "Please fill in information!", "error");
       } else if (this.password.length < 8) {
-        swal("Oops!", "Passsword need to be more than 8 character", "error");
+        swal("Oops!", "Passsword needs to be at least 8 characters!", "error");
       } else if (this.password !== this.Confirmpassword) {
-        swal("Oops!", "password not match", "error");
+        swal("Oops!", "Password does not match!", "error");
       } else {
         axios
           .get(`http://localhost:3000/api/auth/users/${this.email}`)
           .then((data) => {
             if (data.data.email) {
-              swal("Oops!", "Already exist", "error");
+              swal("Oops!", "This e-mail already exists!", "error");
             } else {
               let data = {
                 email: this.email,
@@ -107,7 +107,7 @@ export default {
     },
     handleClick() {
       if (this.email === "" || this.password === "") {
-        swal("Oops!", "Empty fields", "error");
+        swal("Oops!", "You need to fill in all the empty fields!", "error");
       } else {
         let data = {
           email: this.email,
@@ -124,7 +124,7 @@ export default {
             swal("Welcome", "success");
             this.$router.push("/");
           } else {
-            swal("Oops!", "Wrong Email!", "error");
+            swal("Oops!", "Wrong e-mail!", "error");
           }
         });
       }

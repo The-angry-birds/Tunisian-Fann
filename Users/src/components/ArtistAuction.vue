@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <ArtistProfileView :auction="auction" />
     <article class="card card--1">
       <div class="card__info-hover">
         <svg class="card__like" viewBox="0 0 24 24">
@@ -28,8 +29,9 @@
         <img class="card__img--hover" :src="auction.imageUrl" />
       </a>
       <div class="card__info">
-        <span class="card__category">{{ auction.description }}</span>
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
+        <span class="card__category">{{ auction.description }}</span>
+        <br>
         <span class="card__by"
           >by
           <a href="#" class="card__author" title="author"
@@ -42,6 +44,7 @@
 </template>
 
 <script>
+import ArtistProfileView from "./ArtistProfileView";
 export default {
   props: {
     auction: {
@@ -53,6 +56,9 @@ export default {
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
       isExpired: false,
     };
+  },
+  component: {
+    ArtistProfileView,
   },
   methods: {
     calculateCountDown() {
@@ -81,7 +87,6 @@ export default {
         );
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
 
         // Output the result in an element with id="demo"
         this.distanceDate = {
@@ -95,7 +100,7 @@ export default {
     },
   },
   mounted() {
-    this.calculateCountDown();
+    // this.calculateCountDown();
   },
   computed: {
     //it returns the user that is actually logged in

@@ -9,7 +9,6 @@
         v-model="search"
         placeholder="Search for an artwork..."
       />
-      <i class="fas fa-search"></i>
     </div>
     <div class="card-container" :v-if="this.artworks">
       <b-card
@@ -30,7 +29,7 @@
         </h3>
 
         <b-card-text class="card-category" id="main">{{
-          artwork.description
+          category.name
         }}</b-card-text>
 
         <div class="card-by">
@@ -52,6 +51,7 @@ export default {
       search: "",
       artwork_id: "",
       user_id: "",
+      category: {},
     };
   },
 
@@ -87,6 +87,14 @@ export default {
                       res.data.firstName + " " + res.data.lastName;
                     this.artworks.push(art);
                     p.push(res.data.firstName);
+                    axios
+                      .get(
+                        `http://localhost:3000/api/categories/${art.category_id}`
+                      )
+                      .then(({ data }) => {
+                        this.category = data;
+                        console.log("data", data);
+                      });
                   })
                   .catch((err) => {
                     console.log(err);

@@ -3,7 +3,17 @@
     <!-- <NavBar></NavBar> -->
     <LPAnimation></LPAnimation>
     <AboutUs></AboutUs>
+
+    <div class="line-header">
+      <h2>DISCOVER OUR</h2>
+      <h1>AUCTIONS</h1>
+    </div>
+
     <Auctions></Auctions>
+    <div class="line-header">
+      <h2>DISCOVER OUR</h2>
+      <h1>ARTWORKS</h1>
+    </div>
     <Artworks></Artworks>
     <Footer></Footer>
   </div>
@@ -37,5 +47,23 @@ export default {
   background-color: rgb(250, 250, 250);
 }
 
+.line-header {
+  margin-bottom: -80px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  font-size: 35px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 55px;
+  font-weight: 800;
+  color: grey;
+  margin-top:-15px;
+}
 </style>
 

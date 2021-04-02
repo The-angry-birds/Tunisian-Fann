@@ -1,5 +1,6 @@
 const { category } = require("../../db/models/categories.model");
 
+//get all categories
 exports.getCategories = async function (req, res) {
   try {
     const data = await category.findAll();
@@ -8,6 +9,7 @@ exports.getCategories = async function (req, res) {
     console.log(err);
   }
 };
+
 exports.storeCategory = async function (req, res) {
   const createategory = new category({
     name: req.body.name,
@@ -22,7 +24,7 @@ exports.storeCategory = async function (req, res) {
   } catch (err) {
     res.send(err);
   }
-}
+};
 exports.deleteCategory = async function (req, res) {
   try {
     const delet = await category.destroy({ where: { id: req.params.id } });
@@ -32,8 +34,8 @@ exports.deleteCategory = async function (req, res) {
     console.log(err);
   }
 };
+//update category
 exports.updateCategory = async function (req, res) {
-  // const updateCase = await Cases.findOne({ where: { id: req.params.id}})
   try {
     const update = await category.update(
       {
@@ -45,6 +47,15 @@ exports.updateCategory = async function (req, res) {
     );
     res.send(update);
     console.log(update);
+  } catch (err) {
+    console.log(err);
+  }
+};
+//get one category by id
+exports.getCategory = async function (req, res) {
+  try {
+    var oneCatgory = await category.findOne({ where: { id: req.params.id } });
+    res.send(oneCatgory);
   } catch (err) {
     console.log(err);
   }
