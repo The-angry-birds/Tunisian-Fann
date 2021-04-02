@@ -60,6 +60,7 @@
                 class="container"
                 v-for="(auction, i) in auctionData"
                 :key="i"
+                
               >
                 <article class="card card--1">
                   <div class="card__info-hover">
@@ -76,17 +77,17 @@
                         />
                       </svg>
 
-                      <!-- <span v-if="!isExpired" class="card__time" id="demo">
+                      <span v-if="!isExpired" class="card__time" id="demo">
             {{ distanceDate.days }}Days {{ distanceDate.hours }}Hr
             {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec :
             Left</span
-          > -->
+          >
                       <!-- <span v-if="isExpired" class="card__time" id="demo"> Expired </span> -->
                     </div>
                   </div>
                   <img class="card__img" src="" />
                   <a href="#" class="card_link">
-                    <img class="card__img--hover" :src="auction.imageUrl" />
+                    <img class="card__img--hover" :src="auction.imageUrl" @click="sharedData(auction)" />
                   </a>
                   <div class="card__info">
                     <h3 class="card__title">{{ auction.nameArtwork }}</h3>
@@ -122,6 +123,8 @@ export default {
       artworks: {},
       auction: {},
       auctionData: {},
+       isExpired: false,
+      distanceDate: { days: null, hours: null, minutes: null, seconds: null },
     };
   },
   component: {
@@ -137,7 +140,7 @@ export default {
         });
     },
     getAuctions() {
-      axios.get(`http://localhost:3000/api/auctions/1`).then(({ data }) => {
+      axios.get(`http://localhost:3000/api/auctions/${this.artist.id}`).then(({ data }) => {
         console.log("===nnn===data", data);
         var myauctions = Object.values(data)[0];
         var myartworks = Object.values(data)[1];
@@ -156,6 +159,13 @@ export default {
         console.log("maaaalek", this.auctionData);
       });
     },
+     sharedData(auction) {
+      console.log(auction, "hellllooooooo");
+      this.$router.push({
+        path: `/auction-details/${auction.id}`,
+      });
+    }
+    
   },
   mounted() {
     this.artist = this.$route.params;
