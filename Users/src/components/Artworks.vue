@@ -9,7 +9,6 @@
         v-model="search"
         placeholder="Search for an artwork..."
       />
-      <i class="fas fa-search"></i>
     </div>
     <div class="card-container" :v-if="this.artworks">
       <b-card
