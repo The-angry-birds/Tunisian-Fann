@@ -26,10 +26,11 @@
         <div class="vl"></div>
         <div class="ending-time">
           <h5>Auction ending in</h5>
-          <h1>{{ distanceDate.days }}d {{ distanceDate.hours }}h
+          <h1 v-if="!isExpired">{{ distanceDate.days }}d {{ distanceDate.hours }}h
               {{ distanceDate.minutes }}m {{ distanceDate.seconds }}s</h1>
+              <h1 v-if="isExpired">it's expired</h1>
         </div>
-        <input
+        <input v-if="!isExpired"
               onfocus="this.value=''"
               type="number"
               v-model="bidValue"
@@ -38,6 +39,7 @@
               aria-label="bid"
               aria-describedby="butn"
             />
+
         <button class="place-bid-btn" @click.prevent="createBid()">Place a bid</button>
       </div>
     </div>
@@ -58,8 +60,9 @@ export default {
       auction_id: null,
       auction: {},
       user_id: null,
-      isExpired: false,
+      isExpired:false,
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
+      user:{}
     };
   },
   computed: {
@@ -154,12 +157,13 @@ export default {
         })
         .then(({ data }) => {
           this.user_id = data.user.id;
+          this.user=data.user
 
           console.log(" this.user_id", this.user_id);
 
         });
     },
-    createBid() {
+    createBid() { 
        if (this.bidValue === " ") {
         swal("Oops!", "Invalid bid!", "error");
       } else if (this.bidValue < this.currentBid) {
@@ -179,16 +183,15 @@ export default {
           .post("http://localhost:3000/api/bid", {
             bidValue: this.bidValue,
             auction_id: this.auction_id,
-            user_id: this.user_id,  
+            user_id: this.user_id, 
+
           })
           .then(() => {
             console.log("updated bid ");
             this.getallbids();
             swal("Nice!", "Your bid has been successfully added!", "success");
           })
-          .catch((err) => {
-            console.log(err);
-          });
+
       }
     },
     getallbids() {
