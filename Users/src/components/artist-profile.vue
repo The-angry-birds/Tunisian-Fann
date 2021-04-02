@@ -61,7 +61,6 @@
                 Add Artwork
               </button>
               <br />
-
               <!-- add auctions -->
               <div
                 class="modal fade"
@@ -322,7 +321,7 @@
                                 placeholder="Title"
                               />
                               <label class="labels" for="edit">Image URL</label>
-
+  
                               <input
                                 type="file"
                                 ref="editfile"
@@ -916,6 +915,10 @@ export default {
 .profile-head {
   padding-top: 50px;
   transform: translateY(5rem);
+}
+.nodata{
+  margin-left: 45%;
+  margin-top: 15%;
 }
 
 .img-thumbnail {
