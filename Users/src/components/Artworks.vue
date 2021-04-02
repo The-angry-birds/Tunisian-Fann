@@ -25,14 +25,13 @@
           </button>
           <p class="likes-number">{{ artwork.likes }}</p>
         </div>
-
-        <b-card-text class="card-category">{{
-          artwork.description
-        }}</b-card-text>
-
-        <h3 class="card-title" @click="sharedData(artwork)">
+        <h3 class="card-title" @click="sharedData(artwork)" id="main">
           {{ artwork.nameArtwork }}
         </h3>
+
+        <b-card-text class="card-category" id="main">{{
+          artwork.description
+        }}</b-card-text>
 
         <div class="card-by">
           by
@@ -64,7 +63,7 @@ export default {
       };
       axios.post("http://localhost:3000/api/likes", create).then((res) => {
         console.log("==>", res.data);
-        this.artworks = []
+        this.artworks = [];
         this.getArtworks();
       });
     },
@@ -97,7 +96,7 @@ export default {
                 console.log(err);
               });
           });
-          console.log("wqdqdwdqqwddqwqwdqd", this.artworks);
+          console.log("artworks", this.artworks);
         })
         .catch((err) => {
           console.log(err);
@@ -232,5 +231,8 @@ img {
 .likes-number {
   font-size: 15px;
   color: #a08018;
+}
+#main {
+  text-transform: uppercase;
 }
 </style>
