@@ -149,7 +149,7 @@ export default {
         });
     },
     getAuctions() {
-      axios.get(`http://localhost:3000/api/auctions/${this.artist.id}`).then(({ data }) => {
+      axios.get(`http://localhost:3000/api/auctions/1`).then(({ data }) => {
         console.log("======data", data.data[i]);
         var myauctions = Object.values(data)[0];
         var myartworks = Object.values(data)[1];
