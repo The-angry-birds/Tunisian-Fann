@@ -10,10 +10,10 @@ const likesSchema = (sequelize, type) => {
         primaryKey: true,
         autoIncrement: true,
       },
-     user_id:type.INTEGER,
+      user_id:type.INTEGER,
       artwork_id: type.STRING,
     },
-    { timestamps: false }
+     { timestamps: false }
   );
   return mylikes;
 };

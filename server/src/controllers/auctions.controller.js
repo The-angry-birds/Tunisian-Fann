@@ -18,6 +18,9 @@ module.exports = {
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         starting_price: req.body.starting_price,
+        currentBid:null,
+        currentWinner:null,
+        expired:null,
       });
 
       res.send("created");
@@ -64,6 +67,9 @@ module.exports = {
           "starting_price",
           "artwork_id",
           "artist_id",
+          "currentBid",
+          "currentWinner",
+          "expired"
         ],
         raw: true,
       });
