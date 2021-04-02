@@ -81,7 +81,6 @@ export default {
         );
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        console.log(days, hours);
 
         // Output the result in an element with id="demo"
         this.distanceDate = {
@@ -95,7 +94,7 @@ export default {
     },
   },
   mounted() {
-    this.calculateCountDown();
+    // this.calculateCountDown();
   },
   computed: {
     //it returns the user that is actually logged in

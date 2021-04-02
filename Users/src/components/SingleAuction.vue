@@ -101,7 +101,7 @@ export default {
     },
   },
   mounted() {
-    this.calculateCountDown();
+    // this.calculateCountDown();
   },
 };
 </script>

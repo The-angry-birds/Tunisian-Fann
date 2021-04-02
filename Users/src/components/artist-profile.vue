@@ -835,7 +835,7 @@ export default {
           categoryName: q,
         })
         .then((response) => {
-          // this.art = response.data;
+          this.art = response.data;
           console.log("updated", response);
         });
       console.log("===Id", this.currentId, "hey you there", this.art);
