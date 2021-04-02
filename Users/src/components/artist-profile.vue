@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="row py-8 px-8">
       <div class="col-md-20 mx-auto">
         <div class="bg-white shadow rounded overflow-hidden">
@@ -448,12 +447,12 @@
               >
                 Add Auctions
               </button>
-              <div
-                class="container"
-                v-for="(auction, i) in auctionData"
-                :key="i"
-              >
-                <ArtistAuction :auction="auction" />
+              <div class="container" style="margin-top: -80px">
+                <ArtistAuction
+                  :auction="auction"
+                  v-for="(auction, i) in auctionData"
+                  :key="i"
+                />
               </div>
             </div>
           </div>
@@ -603,7 +602,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import ArtistAuction from "./ArtistAuction";
 
-
 export default {
   data() {
     return {
@@ -631,7 +629,7 @@ export default {
   },
   components: {
     ArtistAuction,
-  
+
     // Auctions,
   },
   methods: {
