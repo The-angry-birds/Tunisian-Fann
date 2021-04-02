@@ -257,13 +257,14 @@
                   :key="i"
                 >
                   <img class="img-card" :src="artwork.imageUrl" />
-                  <p class="card-category">{{ artwork.description }}</p>
                   <h3 class="card-title">{{ artwork.nameArtwork }}</h3>
+                  <p class="card-category">{{ artwork.description }}</p>
+
                   <h6 class="card-price">{{ artwork.price }} dt</h6>
                   <div class="card-by">
                     by
                     <p class="card-author">
-                      {{ user.firstName }}{{ user.lastName }}
+                      {{ user.firstName }} {{ user.lastName }}
                     </p>
                   </div>
                   <div>
@@ -767,15 +768,6 @@ export default {
       });
     },
     handleSubmitArtwork() {
-      // console.log("======object", {
-      //   artist_id: this.getArtist.id,
-      //   nameArtwork: this.title,
-      //   description: this.details,
-      //   imageUrl: this.url,
-      //   price: this.price,
-      //   categoryName: this.nameOfCategory,
-      // });
-
       axios
         .post("http://localhost:3000/api/artworks", {
           nameArtwork: this.title,
@@ -838,7 +830,7 @@ export default {
           categoryName: q,
         })
         .then((response) => {
-          // this.art = response.data;
+          this.art = response.data;
           console.log("updated", response);
         });
       console.log("===Id", this.currentId, "hey you there", this.art);
@@ -988,12 +980,12 @@ export default {
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   width: 300px;
-  height: 490px;
+  height: 470px;
   background-color: white;
 }
 .card-category {
+  margin-top: 2px;
   padding-left: 20px;
-  padding-top: 20px;
   text-transform: uppercase;
   font-size: 13px;
   letter-spacing: 2px;
@@ -1001,8 +993,8 @@ export default {
   color: #868686;
 }
 .card-title {
+  padding-top: 20px;
   padding-left: 20px;
-  margin-top: 5px;
   margin-bottom: 10px;
 }
 .card-price {

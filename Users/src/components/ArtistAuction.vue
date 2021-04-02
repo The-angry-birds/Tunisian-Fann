@@ -29,8 +29,9 @@
         <img class="card__img--hover" :src="auction.imageUrl" />
       </a>
       <div class="card__info">
-        <span class="card__category">{{ auction.description }}</span>
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
+        <span class="card__category">{{ auction.description }}</span>
+        <br>
         <span class="card__by"
           >by
           <a href="#" class="card__author" title="author"
@@ -86,7 +87,6 @@ export default {
         );
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        console.log(days, hours);
 
         // Output the result in an element with id="demo"
         this.distanceDate = {
@@ -100,7 +100,7 @@ export default {
     },
   },
   mounted() {
-    this.calculateCountDown();
+    // this.calculateCountDown();
   },
   computed: {
     //it returns the user that is actually logged in
