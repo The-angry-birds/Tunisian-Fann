@@ -664,9 +664,9 @@ export default {
           axios
             .get("http://localhost:3000/api/auth/artists", headers)
             .then(({ data }) => {
-              console.log("USERBEFORE", this.user);
+              // console.log("USERBEFORE", this.user);
               this.user = data.user;
-              console.log("USERAFTER", this.user);
+              // console.log("USERAFTER", this.user);
             });
         });
     },
@@ -683,7 +683,7 @@ export default {
         .then(({ data }) => {
           // console.log("imageId", data.url);
           this.imageUrl = data.url;
-          console.log("====", this.user.imageUrl);
+          // console.log("====", this.user.imageUrl);
         })
         .catch((err) => console.log(err));
     },
@@ -703,9 +703,9 @@ export default {
             axios
               .get("http://localhost:3000/api/auth/artists", headers)
               .then(({ data }) => {
-                console.log("USERBEFORE", this.user);
+                // console.log("USERBEFORE", this.user);
                 this.user = data.user;
-                console.log("USERAFTER", this.user);
+                // console.log("USERAFTER", this.user);
               });
           });
       }
@@ -720,12 +720,12 @@ export default {
     },
     //to fetch the artworks of that specific artist
     getAllArtworks() {
-      console.log("auctions", this.auctions);
+      // console.log("auctions", this.auctions);
       axios.get("http://localhost:3000/api/artworks").then(({ data }) => {
         const artworks = data.filter((elem) => {
           return elem.artist_id === this.user.id;
         });
-        console.log("artworrrrks", artworks);
+        // console.log("artworrrrks", artworks);
         for (var i = 0; i < artworks.length; i++) {
           for (var j = 0; j < this.auctions.length; j++) {
             if (artworks[i].id === this.auctions[j].artwork_id) {
@@ -778,7 +778,7 @@ export default {
     setCurrentId(id, art) {
       this.art = art;
       this.currentId = id;
-      console.log("idddddd", this.currentId);
+      // console.log("idddddd", this.currentId);
     },
     //this function deletes the artwork
     handleDelete() {
@@ -805,7 +805,7 @@ export default {
           // this.art = response.data;
           console.log("updated", response);
         });
-      console.log("===Id", this.currentId, "hey you there", this.art);
+      // console.log("===Id", this.currentId, "hey you there", this.art);
     },
     //this function posts an auction
     handleSubmitAuction() {
@@ -826,8 +826,8 @@ export default {
           this.startDate = "";
           this.endDate = "";
           this.starting_price = "";
-          // this.artworks = ne;
-          console.log("=======================================", this.artworks);
+          // // this.artworks = ne;
+          // console.log("=======================================", this.artworks);
           this.getAllArtworks();
           this.getAuctions();
         });
@@ -837,7 +837,7 @@ export default {
       axios
         .get(`http://localhost:3000/api/auctions/${this.getArtist.id}`)
         .then(({ data }) => {
-          console.log("======data", data);
+          // console.log("======data", data);
           var myauctions = Object.values(data)[0];
           var myartworks = Object.values(data)[1];
           this.auctions = myauctions;

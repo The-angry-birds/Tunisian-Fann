@@ -1,27 +1,28 @@
 <template>
   <nav class="navbar navbar-expand-sm" id="navbar">
-      <router-link to="/">
-        <img
-          class="navbar-logo"
-          src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
-          to
-        />
-      </router-link>
-    
+    <router-link to="/">
+      <img
+        class="navbar-logo"
+        src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
+        to
+      />
+    </router-link>
 
-      <button>
-        <router-link class="nav-btns first-nav-btn" to="/artists">Artists</router-link>
-      </button>
+    <button>
+      <router-link class="nav-btns first-nav-btn" to="/artists"
+        >Artists</router-link
+      >
+    </button>
 
-      <button>
-        <router-link class="nav-btns" to="/artworks">Artworks</router-link>
-      </button>
+    <button>
+      <router-link class="nav-btns" to="/artworks">Artworks</router-link>
+    </button>
 
-      <button>
-        <router-link class="nav-btns" to="/auctions">Auctions</router-link>
-      </button>
-    
-      <div v-if="authGuest" class="dropdown">
+    <button>
+      <router-link class="nav-btns" to="/auctions">Auctions</router-link>
+    </button>
+
+    <div v-if="authGuest" class="dropdown">
       <a
         id="dLabel"
         role="button"
@@ -44,16 +45,17 @@
           </h4>
         </div>
         <li class="divider"></li>
-        <div class="notifications-wrapper">
+        <div     v-for="(auction, i) in auctionData"
+                :key="i" class="notifications-wrapper">
           <a class="content" href="#">
-            <div class="notification-item">
-              <h4 class="item-title">Notification 1</h4>
-              <p class="item-info">Notification 1, 1 days ago</p>
+            <div  class="notification-item">
+              <h4 class="item-title"></h4>
+              <p class="item-info">auction </p>
             </div>
           </a>
           <a class="content" href="#">
             <div class="notification-item">
-              <h4 class="item-title">Notification 2</h4>
+              <h4 class="item-title">the the auction artwork {{auction.nameArtwork}} </h4>
               <p class="item-info">Notification 2, 2 days ago</p>
             </div>
           </a>
@@ -118,8 +120,16 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  
+  data() {
+    return {
+      artist: {},
+      auctionData:{}
+    };
+  },
+
   computed: {
     authGuest() {
       console.log("this.user", this.$store.getters.logged);
@@ -134,6 +144,42 @@ export default {
       console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
+    },
+    get_arist() {
+      if (this.type === "artist") {
+        const token = localStorage.getItem("token");
+        const headers = { headers: { Authorization: `Bearer ${token}` } };
+        axios
+          .get("http://localhost:3000/api/auth/artists", headers)
+          .then(({ data }) => {
+            console.log("the navbar artist", this.artist);
+            this.artist = data.user;
+            console.log("the navbar artist after", this.artist);
+          })
+          .then(() => {
+            axios
+              .get(`http://localhost:3000/api/auctions/${this.artist.id}`)
+              .then(({ data }) => {
+                console.log("navbar data", data);
+                var myauctions = Object.values(data)[0];
+                var myartworks = Object.values(data)[1];
+                this.auctions = myauctions;
+                //looping through the two arrays and assigning the object of the auction to the object of the artwork
+                var mixdata = [];
+                for (var i = 0; i < myauctions.length; i++) {
+                  for (var j = 0; j < myartworks.length; j++) {
+                    if (myartworks[j].id == myauctions[i].artwork_id) {
+                      var myObj = Object.assign(myartworks[j], myauctions[i]);
+                      mixdata.push(myObj);
+                    }
+                  }
+                }
+           
+                this.auctionData = mixdata;
+                console.log("this is auction data" , this.auctionData)
+              });
+          });
+      }
     },
 
     userType() {
@@ -161,6 +207,9 @@ export default {
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
+   mounted() {
+    this.get_arist();
+  },
 };
 </script>
 
@@ -171,7 +220,7 @@ export default {
   margin: 0;
 }
 .navbar {
-  display: flex;  
+  display: flex;
   flex-wrap: wrap;
   background: transparent;
   border-radius: 0px;
@@ -232,8 +281,8 @@ export default {
   backdrop-filter: blur(10px) !important;
 }
 .dropdown {
-  margin-left:10vh;
- margin-right: 10px;
+  margin-left: 10vh;
+  margin-right: 10px;
 }
 .glyphicon-bell {
   color: #a08018;
