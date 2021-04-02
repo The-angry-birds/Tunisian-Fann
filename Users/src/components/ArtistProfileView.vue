@@ -71,8 +71,12 @@
           <div class="px-3 py-4">
             <h5 class="mb-4">Auctions</h5>
             <div class="p-4 rounded shadow-sm" id="auctions">
-               <div class="container" v-for="(auction, i) in auctionData"
-        :key="i">
+            <div
+                class="container"
+                v-for="(auction, i) in auctionData"
+                :key="i"
+              >
+                <ArtistAuction :auction="auction" />
     <article class="card card--1">
       <div class="card__info-hover">
         <svg class="card__like" viewBox="0 0 24 24">
@@ -88,12 +92,12 @@
             />
           </svg>
 
-          <!-- <span v-if="!isExpired" class="card__time" id="demo">
+          <span v-if="!isExpired" class="card__time" id="demo">
             {{ distanceDate.days }}Days {{ distanceDate.hours }}Hr
             {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec :
             Left</span
-          > -->
-          <!-- <span v-if="isExpired" class="card__time" id="demo"> Expired </span> -->
+          > 
+           <span v-if="isExpired" class="card__time" id="demo"> Expired </span> 
         </div>
       </div>
       <img class="card__img" src="" />
@@ -134,7 +138,10 @@ export default {
       artworks: {},
       auction: {},
       auctionData: {},
+      distanceDate: { days: null, hours: null, minutes: null, seconds: null },
+      isExpired: false,
     };
+   
   },
   component: {
     ArtistAuction,
@@ -149,7 +156,7 @@ export default {
         });
     },
     getAuctions() {
-      axios.get(`http://localhost:3000/api/auctions/${this.artist.id}`).then(({ data }) => {
+      axios.get(`http://localhost:3000/api/auctions/1`).then(({ data }) => {
         console.log("======data", data.data[i]);
         var myauctions = Object.values(data)[0];
         var myartworks = Object.values(data)[1];
@@ -169,6 +176,42 @@ export default {
         
       });
     },
+    calculateCountDown() {
+      // Set the date we're counting down ton
+
+      var countDownDate = new Date(this.auctionData.endDate).getTime();
+      // Update the count down every 1 second
+      var x = setInterval(() => {
+        // Get today's date and time
+        let now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        let distance = countDownDate - now;
+
+        // If the count down is over, write some text
+        if (distance < 0) {
+          this.isExpired = true;
+          clearInterval(x);
+        }
+
+        // Time calculations for days, hours, minutes and seconds
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Output the result in an element with id="demo"
+        this.distanceDate = {
+          days: days,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+        };
+      }, 1000);
+    },
+  
   },
   mounted() {
     this.artist = this.$route.params;
@@ -580,6 +623,9 @@ img {
   font-family: "Lexend", sans-serif;
 }
 .container {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
   width: 50%;
 }
 
