@@ -30,7 +30,7 @@
       </a>
       <div class="card__info">
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
-        <span class="card__category"> {{ auction.description }} </span>
+        <span class="card__category"> {{ category.name }}</span>
 
         <span class="card__by"
           ><br />
@@ -50,6 +50,7 @@ export default {
   props: {
     auction: Object,
     artist: Object,
+    category: Object,
   },
   data() {
     return {

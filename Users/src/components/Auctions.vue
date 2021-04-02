@@ -4,6 +4,7 @@
     <div class="container">
       <SingleAuction
         :artist="artist"
+        :category="category"
         v-for="(auction, i) in auctions"
         :key="i"
         :auction="auction"
@@ -24,6 +25,7 @@ export default {
       auctions: {},
       auction: {},
       artist: {},
+      category: {},
     };
   },
   methods: {
@@ -33,16 +35,30 @@ export default {
         .then(({ data }) => {
           this.auctions = data;
         })
-        .then(() => {
+        .then(async () => {
           for (var i = 0; i < this.auctions.length; i++) {
-            axios
-              .get(
-                `http://localhost:3000/api/artists/${this.auctions[i].artist_id}`
-              )
-              .then(({ data }) => {
-                console.log("this.is artist", data);
-                this.artist = data;
-              });
+            try {
+              await axios
+                .get(
+                  `http://localhost:3000/api/artists/${this.auctions[i].artist_id}`
+                )
+                .then(({ data }) => {
+                  console.log("this.is artist", data);
+                  this.artist = data;
+                })
+                .then(() => {
+                  axios
+                    .get(
+                      `http://localhost:3000/api/categories/${this.auctions[i].category_id}`
+                    )
+                    .then(({ data }) => {
+                      console.log("category", data);
+                      this.category = data;
+                    });
+                });
+            } catch (err) {
+              console.log(err);
+            }
           }
         });
     },

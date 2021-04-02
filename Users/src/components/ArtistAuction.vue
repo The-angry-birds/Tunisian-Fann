@@ -28,8 +28,9 @@
         <img class="card__img--hover" :src="auction.imageUrl" />
       </a>
       <div class="card__info">
-        <span class="card__category">{{ auction.description }}</span>
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
+        <span class="card__category">{{ auction.description }}</span>
+        <br>
         <span class="card__by"
           >by
           <a href="#" class="card__author" title="author"
