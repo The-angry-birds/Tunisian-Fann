@@ -113,7 +113,6 @@ export default {
             if (res.data.user.accept === false) {
               console.log("===============>",res.data.user.accept)
               swal("Oops!", "You are Not Accepted", "error");
-              this.$router.push("/");
             } else {
               this.$router.push("/artist-profile");
               Swal.fire({
@@ -146,9 +145,9 @@ export default {
             } else if (resp.message === "user not found") {
               swal("Oops!", "Wrong e-mail!", "error");
             } 
-            // else if (resp.user.accept === false) {
-            //   swal("Oops!", "You need to be verified by the Admin team!", "error");
-            // } 
+            else if (resp.user.accept === false) {
+              swal("Oops!", "You need to be verified by the Admin team!", "error");
+            } 
             else if (resp.user.banned === true) {
               swal("Oops!", "You are banned!", "error");
              } else {
