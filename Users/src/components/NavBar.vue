@@ -223,6 +223,7 @@ export default {
   },
   created() {
     window.addEventListener("scroll", this.handleScroll);
+    this.get_arist();
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
