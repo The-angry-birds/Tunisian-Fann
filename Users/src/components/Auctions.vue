@@ -32,6 +32,7 @@ export default {
         console.log(this.auctions);
       });
     },
+    
   },
   components: {
     SingleAuction,

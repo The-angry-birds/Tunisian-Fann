@@ -322,7 +322,7 @@
                                 placeholder="Title"
                               />
                               <label class="labels" for="edit">Image URL</label>
-
+  
                               <input
                                 type="file"
                                 ref="editfile"
@@ -651,8 +651,7 @@ export default {
         )
         .then(({ data }) => {
           console.log("this is my update", data);
-          Swal.fire({
-            position: "top-end",
+          Swal.fire({position: "top-end",
             icon: "success",
             title: "Your profile has been edited!",
             showConfirmButton: false,
@@ -930,7 +929,9 @@ export default {
   padding-top: 50px;
   transform: translateY(5rem);
 }
-.nodata {
+
+.nodata{
+
   margin-left: 45%;
   margin-top: 15%;
 }

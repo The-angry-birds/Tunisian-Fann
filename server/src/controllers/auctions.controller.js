@@ -8,7 +8,6 @@ module.exports = {
       // console.log("startDate", req.body.startDate);
       // console.log("endDate", req.body.endDate);
       // console.log("starting_price", req.body.starting_price);
-
       // if (artworkData) {
       //   res.send("finished the auction");
       // } else {
@@ -22,7 +21,6 @@ module.exports = {
         currentWinner: null,
         expired: null,
       });
-
       res.send("created");
       // }
     } catch (err) {
@@ -40,9 +38,7 @@ module.exports = {
       });
       var artworksArray = Object.values(artworks);
       var auctionsArray = Object.values(auctions);
-
       var data = [];
-
       for (var j = 0; j < auctionsArray.length; j++) {
         for (var i = 0; i < artworksArray.length; i++)
           if (auctionsArray[j].artwork_id === artworksArray[i].id) {
@@ -51,7 +47,6 @@ module.exports = {
           }
       }
       // console.log("data", data);
-
       for (let i = 0; i < data.length; i++) {
         Artist.findOne({
           where: { id: data[i].artist_id },
@@ -83,7 +78,6 @@ module.exports = {
       console.log(err);
     }
   },
-
   //this function is to get all the artworks of that artist and the auctions of that specific artist.
   getAuctionByArtistId: async (req, res) => {
     try {

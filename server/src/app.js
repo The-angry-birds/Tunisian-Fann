@@ -3,7 +3,7 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const port = process.env.PORT || 3000;
 const path = require("path");
-const axios = require("axios");
+const axios = require("axios")
 const app = express();
 
 const cors = require("cors");
@@ -41,7 +41,9 @@ app.use("/api/artists", artistRoutes);
 app.use("/api/auctions", auctionsRouter);
 app.use("/api/auth", verifyRouter);
 app.use("/api/likes", likesRouter);
-app.use("/api/notification", notificationsRoutes);
+app.use("/api/notification",notificationsRoutes );
+;
+
 app.post("/sendmessage", (req, res) => {
   console.log(req.body);
 
@@ -58,11 +60,11 @@ app.post("/sendmessage", (req, res) => {
     .then((message) => res.send(message));
 });
 app.post("/payments/init-payment", async (req, res) => {
-  let data;
+  let data
   try {
-    const body = {
+    const body =  {
       receiverWallet: "6064c507c7e3ca6b3c9fa685",
-      amount: req.body.amount * 1000,
+      amount: req.body.amount*1000,
       entMetho: "gateway",
       token: "TND",
       firstName: req.body.firstName,
@@ -73,21 +75,15 @@ app.post("/payments/init-payment", async (req, res) => {
       webhook: "merchant.tech/api/notification_payment",
       successUrl: "success@merchant.tech",
       failUrl: "fail@merchant.tech",
-    };
-    console.log(body);
-    await axios
-      .post(
-        "https://api.preprod.konnect.network/api/v1/payments/init-payment",
-        body
-      )
-      .then((res) => {
-        console.log(res.data);
-        data = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    res.send(data);
+    }
+console.log(body)
+  await axios.post("https://api.preprod.konnect.network/api/v1/payments/init-payment",body).then((res)=>{
+      console.log(res.data)
+      data=res.data
+    }).catch((err)=>{
+      console.log(err)
+    })
+    res.send(data)
   } catch (err) {
     res.send(err);
   }

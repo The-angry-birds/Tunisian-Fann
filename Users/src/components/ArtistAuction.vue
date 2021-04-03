@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @click="sharedData(auction)">
+ <div class="container" @click="sharedData(auction)">
     <article class="card card--1">
       <div class="card__info-hover">
         <svg class="card__like" viewBox="0 0 24 24">
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import ArtistProfileView from "./ArtistProfileView";
 export default {
   props: {
     auction: {
@@ -60,6 +61,9 @@ export default {
       isExpired: false,
     };
   },
+  component: {
+    ArtistProfileView,
+  },
   methods: {
     sharedData(auction) {
       this.$router.push({
@@ -68,9 +72,9 @@ export default {
     },
     calculateCountDown() {
       // Set the date we're counting down ton
-      console.log("============>", this.auction);
+
       var countDownDate = new Date(this.auction.endDate).getTime();
-      console.log(countDownDate);
+   
       // Update the count down every 1 second
       var x = setInterval(() => {
         // Get today's date and time
@@ -100,7 +104,7 @@ export default {
           minutes: minutes,
           seconds: seconds,
         };
-        console.log(this.distanceDate);
+
       }, 1000);
     },
   },

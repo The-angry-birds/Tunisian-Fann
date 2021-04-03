@@ -29,7 +29,6 @@
               <p class="font-italic mb-0">{{ artist.description }}</p>
             </div>
           </div>
-
           <!-- //ARTWORKS SECTION -->
           <div class="px-3 py-4">
             <h5 class="mb-4">Artworks</h5>
@@ -40,7 +39,6 @@
               <img class="img-card" :src="e.imageUrl" />
               <h3 class="card-title">{{ e.nameArtwork }}</h3>
               <p class="card-category">{{ e.description.substr(0, 10) }}...</p>
-
               <h6 class="card-price">{{ e.price }} dt</h6>
               <div class="card-by">
                 by
@@ -71,7 +69,6 @@
                       d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z"
                     />
                   </svg>
-
                   <span v-if="!isExpired" class="card__time" id="demo">
                     {{ distanceDate.days }}Days {{ distanceDate.hours }}Hr
                     {{ distanceDate.minutes }}Min {{ distanceDate.seconds }}Sec
@@ -95,7 +92,6 @@
                 </span>
                 <span class="card__by"
                   ><br />
-
                   by
                   <a href="#" class="card__author" title="author"
                     >{{ artist.firstName }} {{ artist.lastName }}</a
@@ -110,11 +106,9 @@
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import ArtistAuction from "./ArtistAuction";
-
 export default {
   data() {
     return {
@@ -146,7 +140,6 @@ export default {
           var myauctions = Object.values(data)[0];
           var myartworks = Object.values(data)[1];
           this.auctions = myauctions;
-
           var mixdata = [];
           for (var i = 0; i < myauctions.length; i++) {
             for (var j = 0; j < myartworks.length; j++) {
@@ -174,7 +167,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
 * {
@@ -184,7 +176,6 @@ export default {
   padding-top: 50px;
   transform: translateY(5rem);
 }
-
 .img-thumbnail {
   max-width: 250px;
   max-height: 250px;
@@ -192,7 +183,6 @@ export default {
   min-height: 250px;
   object-fit: cover;
 }
-
 .cover {
   background-image: linear-gradient(
     to right,
@@ -202,7 +192,6 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 #heading {
   padding: 30px !important;
   background-image: linear-gradient(
@@ -218,13 +207,11 @@ export default {
     rgb(153, 153, 153)
   );
 }
-
 #submitbtn {
   width: 120px;
   margin: auto;
   margin-top: 20px;
 }
-
 #artworks {
   background-image: linear-gradient(
     to right,
@@ -361,11 +348,9 @@ export default {
 .container {
   width: 50%;
 }
-
 .card--1 {
   width: 100%;
 }
-
 .cards {
   width: 100%;
   display: flex;
@@ -374,34 +359,28 @@ export default {
   justify-content: center;
   -webkit-justify-content: center;
 }
-
 .card--1 .card__img,
 .card--1 .card__img--hover {
   object-fit: cover;
 }
-
 .card__like {
   width: 18px;
 }
-
 .card__clock {
   width: 20px;
   vertical-align: middle;
   fill: #a08018;
 }
-
 .card__time {
   font-size: 15px;
   color: #a08018;
   vertical-align: middle;
   margin-left: 5px;
 }
-
 .card__clock-info {
   float: right;
   display: flex;
 }
-
 .card__img {
   visibility: hidden;
   background-size: cover;
@@ -410,7 +389,6 @@ export default {
   width: 100%;
   height: 190px;
 }
-
 .card__info-hover {
   position: absolute;
   padding: 16px;
@@ -418,7 +396,6 @@ export default {
   opacity: 0;
   top: 0;
 }
-
 .card__img--hover {
   transition: 0.2s all ease-out;
   background-size: cover;
@@ -429,7 +406,6 @@ export default {
   height: 235px;
   top: 0;
 }
-
 .card {
   transition: all 0.5s;
   background-color: #fff;
@@ -446,7 +422,6 @@ export default {
   box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
   transform: scale(1.1, 1.1);
 }
-
 .card__info {
   z-index: 2;
   background-color: #fff;
@@ -454,7 +429,6 @@ export default {
   border-bottom-right-radius: 12px;
   padding: 8px 16px 16px 16px;
 }
-
 .card__category {
   text-transform: uppercase;
   font-size: 13px;
@@ -462,32 +436,26 @@ export default {
   font-weight: 500;
   color: grey;
 }
-
 .card__title {
   margin-top: 5px;
   margin-bottom: 10px;
 }
-
 .card__by {
   font-size: 12px;
 }
-
 .card__author {
   font-weight: 600;
   text-decoration: none;
   color: #a08018;
 }
-
 .card:hover .card__img--hover {
   height: 100%;
   opacity: 0.4;
 }
-
 .card:hover .card__info {
   background-color: transparent;
   position: relative;
 }
-
 .card:hover .card__info-hover {
   opacity: 1;
 }
