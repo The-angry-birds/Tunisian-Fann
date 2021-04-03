@@ -1,8 +1,7 @@
 const { Auction } = require("../../db/models/auction");
 const { Artwork } = require("../../db/models/artwork");
-const { category } = require("../../db/models/categories.model");
 const { Artist } = require("../../db/models/artist");
-const { QueryTypes } = require("sequelize");
+
 module.exports = {
   createAuction: async (req, res) => {
     try {
@@ -19,6 +18,9 @@ module.exports = {
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         starting_price: req.body.starting_price,
+        currentBid: null,
+        currentWinner: null,
+        expired: null,
       });
 
       res.send("created");
@@ -94,6 +96,9 @@ module.exports = {
           "starting_price",
           "artwork_id",
           "artist_id",
+          "currentBid",
+          "currentWinner",
+          "expired",
         ],
         raw: true,
       });
@@ -107,25 +112,13 @@ module.exports = {
   },
   getArtworkWithAuction: async (req, res) => {
     try {
-      const artwork = await Auction.findOne({
-        where: {
-          artist_id: req.params.artist_id,
-          artwork_id: req.params.artwork_id,
-        },
+      const artwork = await findAll({
+        include: { model: Artwork, required: true },
+        where: { artist_id: req.params.id },
       });
       res.send(artwork);
     } catch (err) {
       console.log(err);
-    }
-  },
-  getO: async (req, res) => {
-    try {
-      var query = `select * from artworks left join categories  on category_id=1 left join auctions  on artwork_id=1`;
-      const users = await sequelize.query(query, { type: QueryTypes.SELECT });
-      console.log(users);
-      res.send(users);
-    } catch (err) {
-      res.send(err);
     }
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="auctions-header"></div>
-    <div class="container">
+    <div class="container" v-if="auctions">
       <SingleAuction
         v-for="auction in auctions"
         :key="auction.artist.id"

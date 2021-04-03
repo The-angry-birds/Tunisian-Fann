@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <div class="artwork-cover-img">
       <img class="artwork-img" v-bind:src="oneArt.imageUrl" alt="" />
     </div>
@@ -71,9 +72,11 @@ export default {
         });
     },
     payment() {
-     
+     console.log("===================",this.user)
       const token = localStorage.getItem("token");
-      if (token === null) {
+        console.log({token})
+      if (token==null) {
+        
         this.$router.push("/join-as-client");
       } else {
         const createPayment = {
@@ -85,8 +88,8 @@ export default {
         axios
           .post("http://localhost:3000/payments/init-payment", createPayment)
           .then((res) => {
-            console.log("================", res);
-            window.location.href = res.data.payUrl;
+            console.log( res);
+            window.open ( res.data.payUrl)
           })
           .catch((err) => {
             console.log(err);

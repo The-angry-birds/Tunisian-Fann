@@ -30,7 +30,7 @@
       <div class="card__info">
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
         <span class="card__category"
-          >{{ auction.description.substr(0, 30) }}...</span
+          >{{ auction.description.substr(0, 9) }}...</span
         >
         <br />
         <span class="card__by"
@@ -105,7 +105,7 @@ export default {
     },
   },
   mounted() {
-    // this.calculateCountDown();
+    this.calculateCountDown();
   },
   computed: {
     //it returns the user that is actually logged in

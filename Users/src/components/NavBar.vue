@@ -1,27 +1,28 @@
 <template>
   <nav class="navbar navbar-expand-sm" id="navbar">
-      <router-link to="/">
-        <img
-          class="navbar-logo"
-          src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
-          to
-        />
-      </router-link>
-    
+    <router-link to="/">
+      <img
+        class="navbar-logo"
+        src="https://i.ibb.co/z4gFfMj/Tunisian-Fann-Logo.png"
+        to
+      />
+    </router-link>
 
-      <button>
-        <router-link class="nav-btns first-nav-btn" to="/artists">Artists</router-link>
-      </button>
+    <button>
+      <router-link class="nav-btns first-nav-btn" to="/artists"
+        >Artists</router-link
+      >
+    </button>
 
-      <button>
-        <router-link class="nav-btns" to="/artworks">Artworks</router-link>
-      </button>
+    <button>
+      <router-link class="nav-btns" to="/artworks">Artworks</router-link>
+    </button>
 
-      <button>
-        <router-link class="nav-btns" to="/auctions">Auctions</router-link>
-      </button>
-    
-      <div v-if="authGuest" class="dropdown">
+    <button>
+      <router-link class="nav-btns" to="/auctions">Auctions</router-link>
+    </button>
+
+    <div v-if="authGuest && type === 'artist'" class="dropdown">
       <a
         id="dLabel"
         role="button"
@@ -41,22 +42,24 @@
           <h4 class="menu-title">Notifications</h4>
           <h4 class="menu-title pull-right">
             View all<i class="glyphicon glyphicon-circle-arrow-right"></i>
-          </h4>
+          </h4>   
         </div>
-        <li class="divider"></li>
-        <div class="notifications-wrapper">
-          <a class="content" href="#">
+        <li   class="divider"></li>
+        <div   v-for="(auc, i) in auctionArtists"
+        :key="i"   class="notifications-wrapper">
+          <a @click="pushNotifications(auc)" class="content" href="#">
             <div class="notification-item">
-              <h4 class="item-title">Notification 1</h4>
-              <p class="item-info">Notification 1, 1 days ago</p>
+              <h4 class="item-title"></h4>
+              <p class="item-info">{{auc.nameArtwork}} auction</p>
             </div>
           </a>
-          <a class="content" href="#">
+        <a class="content" href="#">
             <div class="notification-item">
-              <h4 class="item-title">Notification 2</h4>
-              <p class="item-info">Notification 2, 2 days ago</p>
+              <h4 class="item-title"> artwork {{auc.nameArtwork}} reachs {{auc.currentBid}} TND go to check  </h4>
+        
             </div>
-          </a>
+        </a>
+   
         </div>
         <li class="divider"></li>
         <div class="notification-footer">
@@ -118,22 +121,85 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  
+  data() {
+    return {
+      artist: {},
+      notification: [],
+      auctions:{},
+      auctionArtists:[]
+    };
+  },
+
   computed: {
     authGuest() {
       console.log("this.user", this.$store.getters.logged);
       return this.$store.getters.logged;
     },
+  
     type() {
       return this.$store.getters.role;
     },
   },
   methods: {
+    pushNotifications(auction) {
+   this.$router.push({
+        path: `/auction-details/${auction.id}`,
+      });
+    },
     handleClick() {
       console.log("logging out");
       this.$store.dispatch("logout");
       this.$router.push("/");
+    },
+    allbidden(array) {
+      var uniqueArray = [];
+
+      // Loop through array values
+      for (var i = 0; i < array.length; i++) {
+        if (uniqueArray.indexOf(array[i]) === -1) {
+          uniqueArray.push(array[i]);
+        }
+      }
+      return uniqueArray;
+    },
+
+    get_arist() {
+      const token = localStorage.getItem("token");
+      const headers = { headers: { Authorization: `Bearer ${token}` } };
+      axios
+        .get("http://localhost:3000/api/auth/artists", headers)
+        .then(({ data }) => {
+          this.artist = data.user;
+          console.log("the navbar artist after", this.artist.id);
+        })
+        .then(() => {
+        setInterval(() =>{
+          axios
+            .get(`http://localhost:3000/api/auctions/${this.artist.id}`)
+            .then(({ data }) => {
+              console.log("======data", data);
+              var myauctions = Object.values(data)[0];
+              var myartworks = Object.values(data)[1];
+              this.auctions = myauctions;
+              //looping through the two arrays and assigning the object of the auction to the object of the artwork
+              var mixdata = [];
+              for (var i = 0; i < myauctions.length; i++) {
+                for (var j = 0; j < myartworks.length; j++) {
+                  if (myartworks[j].id == myauctions[i].artwork_id) {
+                    var myObj = Object.assign(myartworks[j], myauctions[i]);
+                    mixdata.push(myObj);
+                  }
+                }
+              }
+         
+              this.auctionArtists = mixdata;
+              console.log("this is the all auctiobn ",this.auctionArtists)
+            });
+        },2000  )  
+        }); 
     },
 
     userType() {
@@ -161,6 +227,9 @@ export default {
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
+  mounted() {
+    this.get_arist();
+  },
 };
 </script>
 
@@ -171,7 +240,7 @@ export default {
   margin: 0;
 }
 .navbar {
-  display: flex;  
+  display: flex;
   flex-wrap: wrap;
   background: transparent;
   border-radius: 0px;
@@ -232,8 +301,8 @@ export default {
   backdrop-filter: blur(10px) !important;
 }
 .dropdown {
-  margin-left:10vh;
- margin-right: 10px;
+  margin-left: 10vh;
+  margin-right: 10px;
 }
 .glyphicon-bell {
   color: #a08018;

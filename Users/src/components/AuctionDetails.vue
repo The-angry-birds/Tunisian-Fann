@@ -26,10 +26,11 @@
         <div class="vl"></div>
         <div class="ending-time">
           <h5>Auction ending in</h5>
-          <h1>{{ distanceDate.days }}d {{ distanceDate.hours }}h
+          <h1 v-if="!isExpired">{{ distanceDate.days }}d {{ distanceDate.hours }}h
               {{ distanceDate.minutes }}m {{ distanceDate.seconds }}s</h1>
+              <h1 v-if="isExpired">it's expired</h1>
         </div>
-        <input
+        <input v-if="!isExpired"
               onfocus="this.value=''"
               type="number"
               v-model="bidValue"
@@ -38,6 +39,7 @@
               aria-label="bid"
               aria-describedby="butn"
             />
+
         <button class="place-bid-btn" @click.prevent="createBid()">Place a bid</button>
       </div>
     </div>
@@ -58,14 +60,13 @@ export default {
       auction_id: null,
       auction: {},
       user_id: null,
-      isExpired: false,
+      isExpired:false,
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
+      user:{}
     };
   },
   computed: {
-
     type() {
-
       return this.$store.getters.role;
     },
     authGuest() {
@@ -73,8 +74,6 @@ export default {
       return this.$store.getters.logged;
     },
   },
-
-
   methods: {
     getAuction() {
       this.auction_id = this.$route.params.id;
@@ -83,11 +82,9 @@ export default {
         .then(({ data }) => {
           console.log("this is auction", data);
           this.auction = data;
-
           if (this.currentBid === 0) {
             this.currentBid = this.auction.starting_price;
           }
-
         })
         .then(() => {
           axios
@@ -96,10 +93,8 @@ export default {
             )
             .then(({ data }) => {
               this.artwork = data;
-
               console.log("this is", this.artwork);
             })
-
             .then(() => {
               axios
                 .get(
@@ -110,20 +105,15 @@ export default {
                   this.artist = data;
                 });
             })
-
             .then(() => {
               var countDownDate = new Date(this.auction.endDate).getTime();
-
               var x = setInterval(() => {
                 let now = new Date().getTime();
-
                 let distance = countDownDate - now;
-
                 if (distance < 0) {
                   this.isExpired = true;
                   clearInterval(x);
                 }
-
                 let days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 let hours = Math.floor(
                   (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
@@ -132,7 +122,6 @@ export default {
                   (distance % (1000 * 60 * 60)) / (1000 * 60)
                 );
                 let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
                 this.distanceDate = {
                   days: days,
                   hours: hours,
@@ -141,54 +130,65 @@ export default {
                 };
               });
             });
-
         });
     },
-
     getuser() {
       const token = localStorage.getItem("token");
-
       axios
         .get("http://localhost:3000/api/users/getUserByToken", {
           headers: { authorization: `Bearer ${token}` },
         })
         .then(({ data }) => {
           this.user_id = data.user.id;
-
+          this.user=data.user
           console.log(" this.user_id", this.user_id);
-
         });
     },
-    createBid() {
+    createBid() { 
        if (this.bidValue === " ") {
-        swal("Oops!", "Invalid bid!", "error");
+        swal("Oops!", "invalid bid1", "error");
       } else if (this.bidValue < this.currentBid) {
-        swal("Oops!", "Your bid needs to be higher than the current bid!", "error");
-
+        swal("Oops!", "the bid is less than the current bid", "error");
       } else if (this.type !== "guest" && !this.authGuest) {
         this.$router.push("/join-as-client");
       } else if (this.type !== "guest" && this.authGuest) {
         swal(
           "Oops!",
-          "You are an artist you should sign in as user first!",
-          "error"
-        );
-      } else {
-
-        axios
+          "you are an artist you should sign as user first",
+          "error" 
+        );  
+      } else {  
+        
+        axios 
           .post("http://localhost:3000/api/bid", {
             bidValue: this.bidValue,
             auction_id: this.auction_id,
-            user_id: this.user_id,  
+            user_id: this.user_id, 
           })
           .then(() => {
             console.log("updated bid ");
             this.getallbids();
-            swal("Nice!", "Your bid has been successfully added!", "success");
+            swal("great", "Your bid has been successfully added!", "success");
+          }).then(() => {
+             axios
+          .post("http://localhost:3000/api/notification", {
+   
+            auction_id: this.auction_id,
+            artist_id:this.artwork.artist_id, 
+     
+          }).then(() => {
+               console.log("notification created") 
+          }).then(() => {
+         axios.patch(`http://localhost:3000/api/bid/${this.auction_id}`,{
+              currentWinner:this.user_id,
+              currentBid:this.bidValue,
+              expired:this.isExpired
+  
+          }).then(() => {
+            console.log("updated bid auction" )
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          })
+      })
       }
     },
     getallbids() {
@@ -196,7 +196,6 @@ export default {
         .get(`http://localhost:3000/api/bid/${this.auction_id}`)
         .then(({ data }) => {
           console.log("allbids", data);
-
           data.forEach((bid) => {
             console.log(bid.bidValue);
             if (bid.bidValue > this.currentBid) {
@@ -206,7 +205,6 @@ export default {
         });
     },
   },
-
   mounted() {
     this.getAuction();
     this.getuser();
@@ -216,11 +214,9 @@ export default {
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
-
 * {
   font-family: "Lexend", serif;
 }
-
 .auction-cover-img {
   height: 80vh;
   width: 100%;
@@ -228,7 +224,6 @@ export default {
   text-align: center;
   padding-top: 120px;
 }
-
 .auction-img {
   height: 90%;
   text-align: center;
@@ -237,28 +232,23 @@ export default {
   border-radius: 5px;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
 }
-
 .auction-img:hover {
   height: 98%;
 }
-
 .artist-name {
   width: 100%;
   height: 50px;
   line-height: 25px;
   padding: 15px;
 }
-
 .artist-name-body {
   margin-left: 5%;
 }
-
 .auction-body {
   display: flex;
   flex-wrap: nowrap;
   background-color: white;
 }
-
 .left-side {
   background-color: white;
   width: 50%;
@@ -268,7 +258,6 @@ export default {
   padding-top: 0px;
   padding-left: 20px;
 }
-
 .right-side {
   background-color: white;
   width: 50%;
@@ -280,7 +269,6 @@ export default {
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   height: 100%;
 }
-
 .current-bid {
   padding: 10px;
   width: 39%;
@@ -289,12 +277,10 @@ export default {
   border-left: 1px solid grey;
   margin-right: 20px;
 }
-
 .form-control {
   margin-top: 10px;
   padding: 10px;
 }
-
 .place-bid-btn {
   align-items: flex-start;
   background-color: #000000;
@@ -311,18 +297,12 @@ export default {
   text-align: center;
   width: 100%;
   margin-top: 20px;
-
   transition: 0.4s;
-
 }
-
 .place-bid-btn:hover {
   background-color: white;
-
   color: #1a1a1a;
-
 }
-
 .ending-time {
   padding: 10px;
 }
