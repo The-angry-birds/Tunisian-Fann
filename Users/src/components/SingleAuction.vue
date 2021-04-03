@@ -30,14 +30,14 @@
       </a>
       <div class="card__info">
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
-        <span class="card__category"> {{ category.name }}</span>
+        <span class="card__category"> {{ auction.category.name }}</span>
 
         <span class="card__by"
           ><br />
 
           by
           <a href="#" class="card__author" title="author"
-            >{{ artist.firstName }} {{ artist.lastName }}</a
+            >{{ auction.artist.firstName }} {{ auction.artist.lastName }}</a
           ></span
         >
       </div>
@@ -49,13 +49,12 @@
 export default {
   props: {
     auction: Object,
-    artist: Object,
-    category: Object,
   },
   data() {
     return {
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
       isExpired: false,
+      // auctionLoaded: false,
     };
   },
   methods: {
@@ -102,7 +101,8 @@ export default {
     },
   },
   mounted() {
-    // this.calculateCountDown();
+    console.log("rendering the auction: ", this.auction);
+    this.calculateCountDown();
   },
 };
 </script>

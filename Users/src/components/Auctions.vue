@@ -3,10 +3,8 @@
     <div class="auctions-header"></div>
     <div class="container">
       <SingleAuction
-        :artist="artist"
-        :category="category"
-        v-for="(auction, i) in auctions"
-        :key="i"
+        v-for="auction in auctions"
+        :key="auction.artist.id"
         :auction="auction"
       />
       <!-- :sharedData="sharedData" -->
@@ -22,53 +20,25 @@ export default {
   data() {
     return {
       artwork_id: "",
-      auctions: {},
+      auctions: [],
       auction: {},
-      artist: {},
-      category: {},
     };
   },
   methods: {
     getAuctions() {
-      axios
-        .get("http://localhost:3000/api/auctions")
-        .then(({ data }) => {
-          this.auctions = data;
-        })
-        .then(async () => {
-          for (var i = 0; i < this.auctions.length; i++) {
-            try {
-              await axios
-                .get(
-                  `http://localhost:3000/api/artists/${this.auctions[i].artist_id}`
-                )
-                .then(({ data }) => {
-                  console.log("this.is artist", data);
-                  this.artist = data;
-                })
-                .then(() => {
-                  axios
-                    .get(
-                      `http://localhost:3000/api/categories/${this.auctions[i].category_id}`
-                    )
-                    .then(({ data }) => {
-                      console.log("category", data);
-                      this.category = data;
-                    });
-                });
-            } catch (err) {
-              console.log(err);
-            }
-          }
-        });
+      axios.get("http://localhost:3000/api/auctions").then(({ data }) => {
+        // console.log("data", data);
+        this.auctions = data;
+        console.log(this.auctions);
+      });
     },
   },
   components: {
     SingleAuction,
   },
-  mounted() {
-    // this.sharedData()
-    this.getAuctions();
+  async mounted() {
+    // this.sharedData();
+    await this.getAuctions();
   },
 };
 </script>

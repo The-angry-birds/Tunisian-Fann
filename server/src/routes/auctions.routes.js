@@ -4,6 +4,6 @@ router.get("/:artist_id", controllerAuction.getAuctionByArtistId);
 router.get("/", controllerAuction.getAllauctions);
 router.post("/", controllerAuction.createAuction);
 router.get("/:artist_id/:artwork_id", controllerAuction.getArtworkWithAuction);
-
+// router.get("/ines", controllerAuction.getO);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @click="sharedData(auction)">
     <article class="card card--1">
       <div class="card__info-hover">
         <svg class="card__like" viewBox="0 0 24 24">
@@ -29,11 +29,13 @@
       </a>
       <div class="card__info">
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
-        <span class="card__category">{{ auction.description }}</span>
-        <br>
+        <span class="card__category"
+          >{{ auction.description.substr(0, 30) }}...</span
+        >
+        <br />
         <span class="card__by"
           >by
-          <a href="#" class="card__author" title="author"
+          <a href="#" class="card__author" title="author" id="main"
             >{{ getArtist.firstName }} {{ getArtist.lastName }}
           </a></span
         >
@@ -48,6 +50,9 @@ export default {
     auction: {
       type: Object,
     },
+    category: {
+      type: Object,
+    },
   },
   data() {
     return {
@@ -56,6 +61,11 @@ export default {
     };
   },
   methods: {
+    sharedData(auction) {
+      this.$router.push({
+        path: `/auction-details/${auction.id}`,
+      });
+    },
     calculateCountDown() {
       // Set the date we're counting down ton
       console.log("============>", this.auction);
@@ -242,5 +252,8 @@ export default {
 
 .card:hover .card__info-hover {
   opacity: 1;
+}
+#main {
+  text-transform: uppercase;
 }
 </style>

@@ -3,11 +3,11 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const port = process.env.PORT || 3000;
 const path = require("path");
-const axios = require("axios")
+const axios = require("axios");
 const app = express();
 
 const cors = require("cors");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const router = require("./routes/admin.routes.js");
 const adminRoutes = require("./routes/auth.admin.routes.js");
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -24,10 +24,22 @@ const likesRouter = require("./routes/routes.likes");
 const verifyRouter = require("./routes/auth.verify.routes");
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
-
-app.use(morgan("combined"));
+// const { QueryTypes } = require("sequelize");
+// const Sequelize = require("sequelize");
+// const { sequelize } = require("../db/index");
+// app.use(morgan("combined"));
 app.use(cors());
-morgan(":method :url :status :res[content-length] - :response-time ms");
+// app.get("/iness", async (req, res) => {
+//   try {
+//     var query = `select * from artworks, artists, categories where artworks.id=1 and artists.id=artworks.artist_id and categories.id=artworks.category_id;`;
+//     const users = await sequelize.query(query, { type: QueryTypes.SELECT });
+//     console.log(users);
+//     res.send(users);
+//   } catch (err) {
+//     res.send(err);
+//   }
+// });
+// morgan(":method :url :status :res[content-length] - :response-time ms");
 app.use("/api/auth/admin", adminRoutes);
 app.use("/api/categories", router);
 app.use("/api/artworks", artworkRouter);
@@ -57,11 +69,11 @@ app.use("/api/likes", likesRouter);
 //     .then((message) => res.send(message));
 // });
 app.post("/payments/init-payment", async (req, res) => {
-  let data
+  let data;
   try {
-    const body =  {
+    const body = {
       receiverWallet: "6064c507c7e3ca6b3c9fa685",
-      amount: req.body.amount*1000,
+      amount: req.body.amount * 1000,
       entMetho: "gateway",
       token: "TND",
       firstName: req.body.firstName,
@@ -72,15 +84,21 @@ app.post("/payments/init-payment", async (req, res) => {
       webhook: "merchant.tech/api/notification_payment",
       successUrl: "success@merchant.tech",
       failUrl: "fail@merchant.tech",
-    }
-console.log(body)
-  await axios.post("https://api.preprod.konnect.network/api/v1/payments/init-payment",body).then((res)=>{
-      console.log(res.data)
-      data=res.data
-    }).catch((err)=>{
-      console.log(err)
-    })
-    res.send(data)
+    };
+    console.log(body);
+    await axios
+      .post(
+        "https://api.preprod.konnect.network/api/v1/payments/init-payment",
+        body
+      )
+      .then((res) => {
+        console.log(res.data);
+        data = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    res.send(data);
   } catch (err) {
     res.send(err);
   }
