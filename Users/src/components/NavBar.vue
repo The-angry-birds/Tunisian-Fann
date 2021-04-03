@@ -173,7 +173,7 @@ export default {
         .get("http://localhost:3000/api/auth/artists", headers)
         .then(({ data }) => {
           this.artist = data.user;
-          console.log("the navbar artist after", this.artist);
+          console.log("the navbar artist after", this.artist.id);
         })
         .then(() => {
         setInterval(() =>{
