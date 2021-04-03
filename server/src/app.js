@@ -25,21 +25,9 @@ const likesRouter = require("./routes/routes.likes");
 const verifyRouter = require("./routes/auth.verify.routes");
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
-// const { QueryTypes } = require("sequelize");
-// const Sequelize = require("sequelize");
-// const { sequelize } = require("../db/index");
+
 app.use(morgan("combined"));
 app.use(cors());
-// app.get("/iness", async (req, res) => {
-//   try {
-//     var query = `select * from artworks, artists, categories where artworks.id=1 and artists.id=artworks.artist_id and categories.id=artworks.category_id;`;
-//     const users = await sequelize.query(query, { type: QueryTypes.SELECT });
-//     console.log(users);
-//     res.send(users);
-//   } catch (err) {
-//     res.send(err);
-//   }
-// });
 morgan(":method :url :status :res[content-length] - :response-time ms");
 app.use("/api/auth/admin", adminRoutes);
 app.use("/api/categories", router);

@@ -1,7 +1,7 @@
 const { Auction } = require("../../db/models/auction");
 const { Artwork } = require("../../db/models/artwork");
 const { Artist } = require("../../db/models/artist");
-
+const { category } = require("../../db/models/categories.model");
 module.exports = {
   createAuction: async (req, res) => {
     try {
