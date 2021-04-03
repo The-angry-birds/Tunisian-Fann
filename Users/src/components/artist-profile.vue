@@ -31,7 +31,7 @@
                 </button>
               </div>
               <div class="media-body mb-5 text-black">
-                <h4 class="mt-0 mb-0">
+                <h4 class="mt-0 mb-0" id="main">
                   {{ user.firstName }} {{ user.lastName }}
                 </h4>
               </div>
@@ -187,7 +187,7 @@
                           aria-describedby="title"
                           placeholder="Title"
                         />
-                        <label class="labels" for="ImageURL">Image URL</label>
+                        <label class="labels" for="ImageURL">Image</label>
                         <input
                           type="file"
                           ref="addfile"
@@ -256,12 +256,14 @@
                 >
                   <img class="img-card" :src="artwork.imageUrl" />
                   <h3 class="card-title">{{ artwork.nameArtwork }}</h3>
-                  <p class="card-category">{{ artwork.description }}</p>
+                  <p class="card-category">
+                    {{ artwork.description.substr(0, 10) }}...
+                  </p>
 
                   <h6 class="card-price">{{ artwork.price }} dt</h6>
                   <div class="card-by">
                     by
-                    <p class="card-author">
+                    <p class="card-author" id="hey">
                       {{ user.firstName }} {{ user.lastName }}
                     </p>
                   </div>
@@ -483,7 +485,7 @@
                 <div class="modal-body">
                   <div class="modal-body">
                     <form>
-                      <label class="labels" for="firstName">First name</label>
+                      <label class="labels" for="firstName">FirstName</label>
                       <input
                         value="artwork.title"
                         v-model="user.firstName"
@@ -491,16 +493,16 @@
                         class="form-control"
                         id="firstName"
                         aria-describedby="title"
-                        placeholder="first name"
+                        placeholder="FirstName..."
                       />
-                      <label class="labels" for="lastName">Last name</label>
+                      <label class="labels" for="lastName">LastName</label>
                       <input
                         v-model="user.lastName"
                         type="title"
                         class="form-control"
                         id="lastName"
                         aria-describedby="lastName"
-                        placeholder="last name"
+                        placeholder="LastName..."
                       />
                       <label class="labels" for="bio">Biography</label>
                       <input
@@ -509,7 +511,7 @@
                         class="form-control"
                         id="bio"
                         aria-describedby="description"
-                        placeholder="your biography"
+                        placeholder="Your biography..."
                       />
                     </form>
                   </div>
@@ -560,7 +562,7 @@
                 <div class="modal-body">
                   <div class="modal-body">
                     <form>
-                      <label class="labels" for="ImageURL">Image URL</label>
+                      <label class="labels" for="ImageURL">Image</label>
                       <input
                         type="file"
                         ref="file"
@@ -624,6 +626,7 @@ export default {
       auctions: {},
       artworkAuctions: {},
       auctionData: {},
+      category: {},
     };
   },
   components: {
@@ -856,7 +859,7 @@ export default {
           this.startDate = "";
           this.endDate = "";
           this.starting_price = "";
-          
+
           // // this.artworks = ne;
           // console.log("=======================================", this.artworks);
           this.getAllArtworks();
@@ -884,6 +887,18 @@ export default {
           }
           this.getAllArtworks();
           this.auctionData = mixdata;
+        })
+        .then(() => {
+          for (var x = 0; x < this.auctionData.length; x++) {
+            axios
+              .get(
+                `http://localhost:3000/api/categories/${this.auctionData[x].category_id}`
+              )
+              .then(({ data }) => {
+                console.log("categoryyyyyy", data);
+                this.category = data;
+              });
+          }
         });
     },
   },
@@ -914,7 +929,9 @@ export default {
   padding-top: 50px;
   transform: translateY(5rem);
 }
+
 .nodata{
+
   margin-left: 45%;
   margin-top: 15%;
 }
@@ -981,7 +998,7 @@ export default {
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   width: 300px;
-  height: 470px;
+  height: 485px;
   background-color: white;
 }
 .card-category {
@@ -1086,5 +1103,15 @@ export default {
   margin-top: 60px;
   display: flex;
   flex-wrap: wrap;
+}
+#main {
+  text-transform: uppercase;
+}
+
+#hey {
+  text-transform: uppercase;
+}
+h4 {
+  font-weight: 700;
 }
 </style>

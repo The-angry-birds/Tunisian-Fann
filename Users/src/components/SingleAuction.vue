@@ -30,60 +30,50 @@
       </a>
       <div class="card__info">
         <h3 class="card__title">{{ auction.nameArtwork }}</h3>
-        <span class="card__category"> {{ category.name }}</span>
-
+        <span class="card__category"> {{ auction.category.name }}</span>
         <span class="card__by"
           ><br />
-
           by
           <a href="#" class="card__author" title="author"
-            >{{ artist.firstName }} {{ artist.lastName }}</a
+            >{{ auction.artist.firstName }} {{ auction.artist.lastName }}</a
           ></span
         >
       </div>
     </article>
   </div>
 </template>
-
 <script>
 export default {
   props: {
     auction: Object,
-    artist: Object,
-    category: Object,
   },
   data() {
     return {
       distanceDate: { days: null, hours: null, minutes: null, seconds: null },
       isExpired: false,
+      // auctionLoaded: false,
     };
   },
   methods: {
     sharedData(auction) {
-      console.log(auction, "hellllooooooo");
       this.$router.push({
         path: `/auction-details/${auction.id}`,
       });
     },
-
     calculateCountDown() {
       // Set the date we're counting down ton
-
       var countDownDate = new Date(this.auction.endDate).getTime();
       // Update the count down every 1 second
       var x = setInterval(() => {
         // Get today's date and time
         let now = new Date().getTime();
-
         // Find the distance between now and the count down date
         let distance = countDownDate - now;
-
         // If the count down is over, write some text
         if (distance < 0) {
           this.isExpired = true;
           clearInterval(x);
         }
-
         // Time calculations for days, hours, minutes and seconds
         let days = Math.floor(distance / (1000 * 60 * 60 * 24));
         let hours = Math.floor(
@@ -91,7 +81,6 @@ export default {
         );
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
         // Output the result in an element with id="demo"
         this.distanceDate = {
           days: days,
@@ -103,6 +92,7 @@ export default {
     },
   },
   mounted() {
+    console.log("rendering the auction: ", this.auction);
     this.calculateCountDown();
   },
 };
@@ -116,11 +106,9 @@ export default {
 .container {
   width: 50%;
 }
-
 .card--1 {
   width: 100%;
 }
-
 .cards {
   width: 100%;
   display: flex;
@@ -129,29 +117,24 @@ export default {
   justify-content: center;
   -webkit-justify-content: center;
 }
-
 .card--1 .card__img,
 .card--1 .card__img--hover {
   object-fit: cover;
 }
-
 .card__like {
   width: 18px;
 }
-
 .card__clock {
   width: 20px;
   vertical-align: middle;
   fill: #a08018;
 }
-
 .card__time {
   font-size: 15px;
   color: #a08018;
   vertical-align: middle;
   margin-left: 5px;
 }
-
 .card__clock-info {
   float: right;
   display: flex;
@@ -165,7 +148,6 @@ export default {
   width: 100%;
   height: 190px;
 }
-
 .card__info-hover {
   position: absolute;
   padding: 16px;
@@ -173,7 +155,6 @@ export default {
   opacity: 0;
   top: 0;
 }
-
 .card__img--hover {
   transition: 0.2s all ease-out;
   background-size: cover;
@@ -184,7 +165,6 @@ export default {
   height: 235px;
   top: 0;
 }
-
 .card {
   transition: all 0.5s;
   background-color: #fff;
@@ -194,14 +174,12 @@ export default {
   overflow: hidden;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   margin: 0px;
-  margin-bottom: 25px;
   height: 300px;
 }
 .card:hover {
   box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
   transform: scale(1.1, 1.1);
 }
-
 .card__info {
   z-index: 2;
   background-color: #fff;
@@ -209,7 +187,6 @@ export default {
   border-bottom-right-radius: 12px;
   padding: 8px 16px 16px 16px;
 }
-
 .card__category {
   text-transform: uppercase;
   font-size: 13px;
@@ -217,12 +194,10 @@ export default {
   font-weight: 500;
   color: grey;
 }
-
 .card__title {
   margin-top: 5px;
   margin-bottom: 10px;
 }
-
 .card__by {
   font-size: 12px;
 }

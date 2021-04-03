@@ -28,9 +28,9 @@
           {{ artwork.nameArtwork }}
         </h3>
 
-        <b-card-text class="card-category" id="main">{{
-          category.name
-        }}</b-card-text>
+        <b-card-text class="card-category" id="main"
+          >{{ artwork.description.substr(0, 9) }}...</b-card-text
+        >
 
         <div class="card-by">
           by
@@ -87,18 +87,18 @@ export default {
                       res.data.firstName + " " + res.data.lastName;
                     this.artworks.push(art);
                     p.push(res.data.firstName);
-                    axios
-                      .get(
-                        `http://localhost:3000/api/categories/${art.category_id}`
-                      )
-                      .then(({ data }) => {
-                        this.category = data;
-                        console.log("data", data);
-                      });
-                  })
-                  .catch((err) => {
-                    console.log(err);
+                    // axios
+                    //   .get(
+                    //     `http://localhost:3000/api/categories/${art.category_id}`
+                    //   )
+                    //   .then(({ data }) => {
+                    //     this.category = data;
+                    //     console.log("data", data);
+                    //   });
                   });
+                // .catch((err) => {
+                //   console.log(err);
+                // });
               })
               .catch((err) => {
                 console.log(err);
@@ -155,7 +155,7 @@ export default {
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   width: 300px;
-  height: 385px;
+  height: 400px;
   transition: 0.5s;
 }
 

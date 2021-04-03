@@ -1,14 +1,13 @@
 const { Auction } = require("../../db/models/auction");
 const { Artwork } = require("../../db/models/artwork");
-const {Artist} =require("../../db/models/artist");
-
+const { Artist } = require("../../db/models/artist");
+const { category } = require("../../db/models/categories.model");
 module.exports = {
   createAuction: async (req, res) => {
     try {
       // console.log("startDate", req.body.startDate);
       // console.log("endDate", req.body.endDate);
       // console.log("starting_price", req.body.starting_price);
-
       // if (artworkData) {
       //   res.send("finished the auction");
       // } else {
@@ -18,11 +17,10 @@ module.exports = {
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         starting_price: req.body.starting_price,
-        currentBid:null,
-        currentWinner:null,
-        expired:null,
+        currentBid: null,
+        currentWinner: null,
+        expired: null,
       });
-
       res.send("created");
       // }
     } catch (err) {
@@ -30,7 +28,7 @@ module.exports = {
     }
   },
   //this function is to get the auctions of all the artists
-  getAllauctions: async function (req, res) {
+  getAllauctions: async (req, res) => {
     try {
       const auctions = await Auction.findAll({
         raw: true,
@@ -41,20 +39,45 @@ module.exports = {
       var artworksArray = Object.values(artworks);
       var auctionsArray = Object.values(auctions);
       var data = [];
-
       for (var j = 0; j < auctionsArray.length; j++) {
-        if (artworksArray.id === auctionsArray.artwork_id) {
-          var obj = Object.assign(artworksArray[j], auctionsArray[j]);
-          data.push(obj);
-        }
+        for (var i = 0; i < artworksArray.length; i++)
+          if (auctionsArray[j].artwork_id === artworksArray[i].id) {
+            var obj = Object.assign(artworksArray[i], auctionsArray[j]);
+            data.push(obj);
+          }
       }
-      console.log("data", data);
-      res.send(data);
+      // console.log("data", data);
+      for (let i = 0; i < data.length; i++) {
+        Artist.findOne({
+          where: { id: data[i].artist_id },
+          raw: true,
+        }).then((artist) => {
+          data[i].artist = artist;
+          category
+            .findOne({
+              where: { id: data[i].category_id },
+              raw: true,
+            })
+            .then((categoryData) => {
+              data[i].category = categoryData;
+              // console.log(auction);
+              console.log("=========== DATA AFTER CHANGE ===========", data);
+              if (i == data.length - 1) {
+                console.log("======= sending back data ======");
+                res.send(data);
+                return;
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+              throw error;
+            });
+        });
+      }
     } catch (err) {
       console.log(err);
     }
   },
-
   //this function is to get all the artworks of that artist and the auctions of that specific artist.
   getAuctionByArtistId: async (req, res) => {
     try {
@@ -69,7 +92,7 @@ module.exports = {
           "artist_id",
           "currentBid",
           "currentWinner",
-          "expired"
+          "expired",
         ],
         raw: true,
       });
@@ -83,7 +106,10 @@ module.exports = {
   },
   getArtworkWithAuction: async (req, res) => {
     try {
-      const artwork = await findAll({include:{model: Artwork, required:true},where: {artist_id:req.params.id}});
+      const artwork = await findAll({
+        include: { model: Artwork, required: true },
+        where: { artist_id: req.params.id },
+      });
       res.send(artwork);
     } catch (err) {
       console.log(err);
