@@ -7,11 +7,14 @@
       <el-form-item label="Description">
         <el-input v-model="description" type="textarea" />
       </el-form-item>
-      <el-form-item label="Image URL">
-        <el-input v-model="imageUrl" type="textarea" />
-      </el-form-item>
+
       <el-form-item>
-        <el-button type="primary" @click="onSubmit"   @click.prevent="handleSubmit()">Create</el-button>
+        <el-button
+          type="primary"
+          @click="onSubmit"
+          @click.prevent="handleSubmit()"
+          >Create</el-button
+        >
         <el-button @click="onCancel">Cancel</el-button>
       </el-form-item>
     </el-form>
@@ -19,50 +22,48 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   data() {
     return {
-      name: '',
-      description: '',
-      imageUrl: '',
-      form: {
-
-      }
-    }
+      name: "",
+      description: "",
+      imageUrl: "",
+      form: {},
+    };
   },
   methods: {
     onSubmit() {
-      this.$message('submit!')
+      this.$message("submit!");
     },
     onCancel() {
       this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      })
+        message: "cancel!",
+        type: "warning",
+      });
     },
     handleSubmit() {
       const create = {
         name: this.name,
         description: this.description,
-        imageUrl: this.imageUrl
-      }
-      axios.post('http://localhost:3000/api/categories', create)
+        imageUrl: this.imageUrl,
+      };
+      axios
+        .post("http://localhost:3000/api/categories", create)
         .then((res) => {
-          console.log(create)
-          console.log(res)
+          console.log(create);
+          console.log(res);
         })
         .catch((err) => {
-          console.log(err)
-        })
-    }
-
-  }
-}
+          console.log(err);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
-.line{
+.line {
   text-align: center;
 }
 </style>
