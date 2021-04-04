@@ -190,7 +190,7 @@ img:hover {
 img {
   border-radius: 5px 5px 0px 0px;
   width: 100%;
-  height: 250px;
+  min-height: 250px;
   object-fit: cover;
 }
 .search {
