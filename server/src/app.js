@@ -8,21 +8,21 @@ const app = express();
 
 const cors = require("cors");
 const morgan = require("morgan");
-const router = require("./routes/admin.routes.js");
+const routerCategories = require("./routes/admin.routes.js");
 const adminRoutes = require("./routes/auth.admin.routes.js");
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
-const bidRoutes = require("./routes/bid-routes");
+const bidRoutes = require("./routes/bid.routes");
 const notificationsRoutes = require("./routes/notification.routes");
-const bidauction = require("./routes/auction-bid.routes.js");
 const usersRoutes = require("./routes/users.routes.js");
 const usersSignupRoutes = require("./routes/auth.users.routes.js");
 const artistAuthRoutes = require("./routes/auth.artists.routes.js");
 const artistRoutes = require("./routes/artists.routes");
-const artworkRouter = require("./routes/artwork-routes");
+const artworkRouter = require("./routes/artwork.routes");
 const auctionsRouter = require("./routes/auctions.routes");
 const likesRouter = require("./routes/routes.likes");
 const verifyRouter = require("./routes/auth.verify.routes");
+const bidauctionRoutes = require("./routes/auction.bid.route")
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 
@@ -30,9 +30,9 @@ app.use(morgan("combined"));
 app.use(cors());
 morgan(":method :url :status :res[content-length] - :response-time ms");
 app.use("/api/auth/admin", adminRoutes);
-app.use("/api/categories", router);
+app.use("/api/auctionbid", bidauctionRoutes);
+app.use("/api/categories", routerCategories);
 app.use("/api/artworks", artworkRouter);
-app.use("/api/auctionbid", bidauction);
 app.use("/api/auth/users", usersSignupRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/bid", bidRoutes);

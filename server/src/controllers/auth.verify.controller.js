@@ -1,5 +1,5 @@
-const { Artist } = require("../../db/models/artist.js");
-const { User } = require("../../db/models/users-model-signup");
+const { Artist } = require("../../db/models/artist.model.js");
+const { User } = require("../../db/models/auth.user.model");
 const config = require("../../db/configArtist");
 const jwt = require("jsonwebtoken");
 

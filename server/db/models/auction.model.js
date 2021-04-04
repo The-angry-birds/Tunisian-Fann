@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const { sequelize } = require("../index");
-const { Artwork } = require("./artwork");
-const { Artist } = require("./artist");
+const { Artwork } = require("./artwork.model");
+const { Artist } = require("./artist.model");
 
 const auction = (sequelize, type) => {
   const auctions = sequelize.define(

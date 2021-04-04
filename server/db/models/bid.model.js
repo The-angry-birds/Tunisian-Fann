@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const { sequelize } = require("../index");
-const { Auction } = require("./auction");
-const { User} = require("./users-model-signup");
+const { Auction } = require("./auction.model");
+const { User} = require("./auth.user.model");
 const Bids = (sequelize, type) => {
   const bid = sequelize.define(
     "bid",

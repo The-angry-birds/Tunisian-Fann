@@ -1029,7 +1029,7 @@ export default {
 .card-author {
   font-weight: 600;
   text-decoration: none;
-  color: #a08018;
+  color: #ad7d52;
   margin-left: 3px;
 }
 .img-card :hover {

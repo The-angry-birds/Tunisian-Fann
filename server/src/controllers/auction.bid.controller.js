@@ -1,4 +1,4 @@
-const { Auction } = require("../../db/models/auction");
+const { Auction } = require("../../db/models/auction.model.js");
 
 module.exports = {
     getoneauction:async function (req, res) {

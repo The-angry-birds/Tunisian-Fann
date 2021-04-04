@@ -1,6 +1,6 @@
-const { Artwork } = require("../../db/models/artwork.js");
-const { category } = require("../../db/models/categories.model.js");
-const { Artist } = require("../../db/models/artist.js");
+const { Artwork } = require("../../db/models/artwork.model");
+const { category } = require("../../db/models/categorie.model");
+const { Artist } = require("../../db/models/artist.model.js");
 const config = require("../../db/configArtist");
 const jwt = require("jsonwebtoken");
 module.exports = {
