@@ -1,7 +1,7 @@
-const { Auction } = require("../../db/models/auction");
-const { Artwork } = require("../../db/models/artwork");
-const { Artist } = require("../../db/models/artist");
-const { category } = require("../../db/models/categories.model");
+const { Auction } = require("../../db/models/auction.model");
+const { Artwork } = require("../../db/models/artwork.model");
+const { Artist } = require("../../db/models/artist.model");
+const { category } = require("../../db/models/categorie.model");
 module.exports = {
   createAuction: async (req, res) => {
     try {
@@ -115,4 +115,12 @@ module.exports = {
       console.log(err);
     }
   },
+  getoneauction:async function (req, res) {
+    try{
+     const auction=await Auction.findOne({where:{id:req.params.id}})
+     res.send(auction)
+    }catch(err){
+        console.log(err)
+    }
+}
 };

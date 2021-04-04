@@ -1,4 +1,4 @@
-const { Likes } = require("../../db/models/likes");
+const { Likes } = require("../../db/models/like.model");
 
 module.exports = {
   setlike: async (req, res) => {

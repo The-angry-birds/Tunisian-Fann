@@ -109,11 +109,11 @@ export default {
         //TODO: mapDispatch()
         this.$store
           .dispatch("register", data)
-          .then(() => {
-            // if (res.data.user.accept === false) {
-            //   console.log("===============>",res.data.user.accept)
-            //   swal("Oops!", "You are Not Accepted", "error");
-            // } else {
+          .then((res) => {
+            if (res.data.user.accept === false) {
+              console.log("===============>", res.data.user.accept);
+              swal("Oops!", "You are Not Accepted", "error");
+            } else {
               this.$router.push("/artist-profile");
               Swal.fire({
                 position: "top-end",
@@ -122,7 +122,7 @@ export default {
                 showConfirmButton: false,
                 timer: 1500,
               });
-            // }
+            }
           })
 
           .catch((err) => {
@@ -140,20 +140,18 @@ export default {
         this.$store
           .dispatch("access", { email, password })
           .then((resp) => {
-            if (resp.message === "wrong password") {
+            if (resp.data.message === "wrong password") {
               swal("Oops!", "Wrong Password!", "error");
-            } else if (resp.message === "user not found") {
+            } else if (resp.data.message === "user not found") {
               swal("Oops!", "Wrong e-mail!", "error");
-            } 
-            // else if (resp.user.accept === false) {
-            //   swal("Oops!", "You need to be verified by the Admin team!", "error");
-            // } 
-            else if (resp.user.banned === true) {
-              swal("Oops!", "You are banned!", "error");
-             } else {
+            } else if (resp.data.message === "success") {
+              swal("Welcome", "success");
               this.$router.push("/artist-profile");
-            }
+            } else if (resp.user.banned === true) {
+              swal("Oops!", "You are banned!", "error");
+            } 
           })
+
           .catch((err) => console.log(err));
       }
     },

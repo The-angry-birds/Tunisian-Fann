@@ -1,7 +1,7 @@
-const { Auction } = require("../../db/models/auction");
+const { Auction } = require("../../db/models/auction.model");
 
-const { Bid } = require("../../db/models/bid");
-const { User } = require("../../db/models/users-model-signup");
+const { Bid } = require("../../db/models/bid.model");
+const { User } = require("../../db/models/auth.user.model");
 
 module.exports = {
   postOneBid: async (req, res) => {
@@ -48,5 +48,5 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-  },
+  }
 };

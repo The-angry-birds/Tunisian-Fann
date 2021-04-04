@@ -55,6 +55,5 @@ export default {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 25px
 }
 </style>

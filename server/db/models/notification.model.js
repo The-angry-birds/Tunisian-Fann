@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const {sequelize } = require("../index");
-const { Auction } =require("./auction.js")
-const {Artist}=require("./artist.js")
+const { Auction } =require("./auction.model.js")
+const {Artist}=require("./artist.model.js")
 
 const notificationSchema = (sequelize, type) => {
     const notification = sequelize.define(

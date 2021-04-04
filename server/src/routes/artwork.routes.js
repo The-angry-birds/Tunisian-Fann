@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const artworkController = require("../controllers/artwork-controller.js");
+const artworkController = require("../controllers/artworks.controller");
 
 router.post("/", artworkController.create);
 router.get("/id", artworkController.getAll);

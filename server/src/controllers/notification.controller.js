@@ -1,6 +1,6 @@
-const { Notification } = require("../../db/models/notifications.js");
-const { Auction } = require("../../db/models/auction");
-const { Artist } = require("../../db/models/artist.js");
+const { Notification } = require("../../db/models/notification.model");
+const { Auction } = require("../../db/models/auction.model");
+const { Artist } = require("../../db/models/artist.model");
 
 
 module.exports ={

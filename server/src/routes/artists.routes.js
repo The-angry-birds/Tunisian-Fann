@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const controllerArtist = require("../controllers/artists-controller.js");
+const controllerArtist = require("../controllers/artists.controller.js");
 
 router.get("/", controllerArtist.getArtist);
 router.get("/:id",controllerArtist.getbanned)

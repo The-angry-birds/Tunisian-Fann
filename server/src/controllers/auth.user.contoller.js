@@ -1,4 +1,4 @@
-const { User } = require("../../db/models/users-model-signup");
+const { User } = require("../../db/models/auth.user.model");
 const config = require("../../db/configArtist");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");

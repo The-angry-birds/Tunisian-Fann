@@ -1,4 +1,4 @@
-const { Artist } = require("../../db/models/artist.js");
+const { Artist } = require("../../db/models/artist.model.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
