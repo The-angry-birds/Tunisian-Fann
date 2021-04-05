@@ -3,9 +3,9 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const port = process.env.PORT || 3000;
 const path = require("path");
-const axios = require("axios")
+const axios = require("axios");
 const app = express();
-
+const YAML = require("yamljs");
 const cors = require("cors");
 const morgan = require("morgan");
 const routerCategories = require("./routes/admin.routes.js");
@@ -22,10 +22,12 @@ const artworkRouter = require("./routes/artwork.routes");
 const auctionsRouter = require("./routes/auctions.routes");
 const likesRouter = require("./routes/routes.likes");
 const verifyRouter = require("./routes/auth.verify.routes");
-const bidauctionRoutes = require("./routes/auction.bid.route")
+const bidauctionRoutes = require("./routes/auction.bid.route");
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
-
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = YAML.load("./swagger.yaml");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(morgan("combined"));
 app.use(cors());
 morgan(":method :url :status :res[content-length] - :response-time ms");
@@ -41,9 +43,7 @@ app.use("/api/artists", artistRoutes);
 app.use("/api/auctions", auctionsRouter);
 app.use("/api/auth", verifyRouter);
 app.use("/api/likes", likesRouter);
-app.use("/api/notification",notificationsRoutes );
-;
-
+app.use("/api/notification", notificationsRoutes);
 app.post("/sendmessage", (req, res) => {
   console.log(req.body);
 
@@ -60,11 +60,11 @@ app.post("/sendmessage", (req, res) => {
     .then((message) => res.send(message));
 });
 app.post("/payments/init-payment", async (req, res) => {
-  let data
+  let data;
   try {
-    const body =  {
+    const body = {
       receiverWallet: "6064c507c7e3ca6b3c9fa685",
-      amount: req.body.amount*1000,
+      amount: req.body.amount * 1000,
       entMetho: "gateway",
       token: "TND",
       firstName: req.body.firstName,
@@ -75,15 +75,21 @@ app.post("/payments/init-payment", async (req, res) => {
       webhook: "merchant.tech/api/notification_payment",
       successUrl: "success@merchant.tech",
       failUrl: "fail@merchant.tech",
-    }
-console.log(body)
-  await axios.post("https://api.preprod.konnect.network/api/v1/payments/init-payment",body).then((res)=>{
-      console.log(res.data)
-      data=res.data
-    }).catch((err)=>{
-      console.log(err)
-    })
-    res.send(data)
+    };
+    console.log(body);
+    await axios
+      .post(
+        "https://api.preprod.konnect.network/api/v1/payments/init-payment",
+        body
+      )
+      .then((res) => {
+        console.log(res.data);
+        data = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    res.send(data);
   } catch (err) {
     res.send(err);
   }

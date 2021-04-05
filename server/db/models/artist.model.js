@@ -33,3 +33,4 @@ const artistAuthSchema = (sequelize, type) => {
 
 let Artist = artistAuthSchema(sequelize, Sequelize);
 module.exports = { Artist };
+
