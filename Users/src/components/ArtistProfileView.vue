@@ -265,7 +265,7 @@ export default {
 .card-author {
   font-weight: 600;
   text-decoration: none;
-  color: #ad7d52;
+  color: #a08018;
   margin-left: 3px;
 }
 .img-card :hover {
