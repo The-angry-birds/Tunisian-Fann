@@ -929,13 +929,10 @@ export default {
   padding-top: 50px;
   transform: translateY(5rem);
 }
-
 .nodata{
-
   margin-left: 45%;
   margin-top: 15%;
 }
-
 .img-thumbnail {
   max-width: 250px;
   max-height: 250px;
@@ -943,7 +940,6 @@ export default {
   min-height: 250px;
   object-fit: cover;
 }
-
 .cover {
   background-image: linear-gradient(
     to right,
@@ -953,7 +949,6 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 #heading {
   padding: 30px !important;
   background-image: linear-gradient(
@@ -969,13 +964,11 @@ export default {
     rgb(153, 153, 153)
   );
 }
-
 #submitbtn {
   width: 120px;
   margin: auto;
   margin-top: 20px;
 }
-
 #artworks {
   background-image: linear-gradient(
     to right,
@@ -1029,7 +1022,7 @@ export default {
 .card-author {
   font-weight: 600;
   text-decoration: none;
-  color: #ad7d52;
+  color: #a08018;
   margin-left: 3px;
 }
 .img-card :hover {
@@ -1107,7 +1100,6 @@ export default {
 #main {
   text-transform: uppercase;
 }
-
 #hey {
   text-transform: uppercase;
 }

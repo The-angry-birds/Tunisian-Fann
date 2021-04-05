@@ -128,11 +128,9 @@ export default {
 .container {
   width: 50%;
 }
-
 .card--1 {
   width: 100%;
 }
-
 .cards {
   width: 100%;
   display: flex;
@@ -141,34 +139,28 @@ export default {
   justify-content: center;
   -webkit-justify-content: center;
 }
-
 .card--1 .card__img,
 .card--1 .card__img--hover {
   object-fit: cover;
 }
-
 .card__like {
   width: 18px;
 }
-
 .card__clock {
   width: 20px;
   vertical-align: middle;
   fill: #a08018;
 }
-
 .card__time {
   font-size: 15px;
   color: #a08018;
   vertical-align: middle;
   margin-left: 5px;
 }
-
 .card__clock-info {
   float: right;
   display: flex;
 }
-
 .card__img {
   visibility: hidden;
   background-size: cover;
@@ -177,7 +169,6 @@ export default {
   width: 100%;
   height: 190px;
 }
-
 .card__info-hover {
   position: absolute;
   padding: 16px;
@@ -185,7 +176,6 @@ export default {
   opacity: 0;
   top: 0;
 }
-
 .card__img--hover {
   transition: 0.2s all ease-out;
   background-size: cover;
@@ -196,7 +186,6 @@ export default {
   height: 235px;
   top: 0;
 }
-
 .card {
   transition: all 0.5s;
   background-color: #fff;
@@ -212,7 +201,6 @@ export default {
   box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
   transform: scale(1.1, 1.1);
 }
-
 .card__info {
   z-index: 2;
   background-color: #fff;
@@ -220,7 +208,6 @@ export default {
   border-bottom-right-radius: 12px;
   padding: 8px 16px 16px 16px;
 }
-
 .card__category {
   text-transform: uppercase;
   font-size: 13px;
@@ -228,32 +215,26 @@ export default {
   font-weight: 500;
   color: grey;
 }
-
 .card__title {
   margin-top: 5px;
   margin-bottom: 10px;
 }
-
 .card__by {
   font-size: 12px;
 }
-
 .card__author {
   font-weight: 600;
   text-decoration: none;
   color: #a08018;
 }
-
 .card:hover .card__img--hover {
   height: 100%;
   opacity: 0.4;
 }
-
 .card:hover .card__info {
   background-color: transparent;
   position: relative;
 }
-
 .card:hover .card__info-hover {
   opacity: 1;
 }

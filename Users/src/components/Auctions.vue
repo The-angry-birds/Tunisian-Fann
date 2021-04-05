@@ -46,14 +46,13 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap");
-
 .auctions-header {
   margin-top: 120px;
 }
-
 .container {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 25px
 }
 </style>
