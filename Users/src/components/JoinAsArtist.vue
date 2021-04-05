@@ -88,15 +88,15 @@ export default {
         this.password === "" ||
         this.confirmPassword === ""
       ) {
-        swal("Oops!", "You need to fill in all the empty fields!", "error");
+        swal("Oops!", "Empty fields", "error");
       } else if (!this.email.includes("@")) {
-        swal("Oops!", "Invalid e-mail!", "error");
+        swal("Oops!", "Invalid mail", "error");
       } else if (this.password !== this.confirmPassword) {
-        swal("Oops!", "Passwords are not matched!", "error");
+        swal("Oops!", "Passwords not matching", "error");
       } else if (!this.has_special && this.has_number) {
         swal(
           "Oops!",
-          "Password needs to have at least one special character and one number!",
+          "Password needs to have at least one special character and one number",
           "error"
         );
       } else {
@@ -109,49 +109,41 @@ export default {
         //TODO: mapDispatch()
         this.$store
           .dispatch("register", data)
-          .then((res) => {
-            if (res.data.user.accept === false) {
-              console.log("===============>", res.data.user.accept);
-              swal("Oops!", "You are Not Accepted", "error");
-            } else {
-              this.$router.push("/artist-profile");
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your work has been saved!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
+          .then(() => {
+            this.$router.push("/artist-profile");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           })
-
           .catch((err) => {
             console.log(err);
-            swal("oops", "Something went wrong!");
+            swal("oops", "Something went wrong");
           });
       }
     },
     access() {
       if (this.email === "" || this.password === "") {
-        swal("Oops!", "You need to fill in all the empty fields!", "error");
+        swal("Oops!", "Empty fields", "error");
       } else {
         let email = this.email;
         let password = this.password;
         this.$store
           .dispatch("access", { email, password })
           .then((resp) => {
-            if (resp.data.message === "wrong password") {
-              swal("Oops!", "Wrong Password!", "error");
-            } else if (resp.data.message === "user not found") {
-              swal("Oops!", "Wrong e-mail!", "error");
-            } else if (resp.data.message === "success") {
-              swal("Welcome", "success");
-              this.$router.push("/artist-profile");
-            } else if (resp.user.banned === true) {
+            if(resp.user.banned===true){
               swal("Oops!", "You are banned!", "error");
-            } 
+           }else if (resp.message === "wrong password") {
+              swal("Oops!", "Wrong Password!", "error");
+            } else if (resp.message === "user not found") {
+              swal("Oops!", "Wrong Email!", "error");
+            } else {
+              this.$router.push("/artist-profile");
+            }
           })
-
           .catch((err) => console.log(err));
       }
     },
