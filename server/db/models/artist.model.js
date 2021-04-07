@@ -17,7 +17,11 @@ const artistAuthSchema = (sequelize, type) => {
       description: type.STRING,
       imageUrl: type.STRING,
       telNumber: type.INTEGER,
-      
+      line1: type.STRING,
+      line2: type.STRING,
+      postcode: type.INTEGER,
+      city: type.STRING,
+      country: type.STRING,
       accept: {
         type: type.BOOLEAN,
         defaultValue: false,
@@ -34,4 +38,3 @@ const artistAuthSchema = (sequelize, type) => {
 
 let Artist = artistAuthSchema(sequelize, Sequelize);
 module.exports = { Artist };
-
