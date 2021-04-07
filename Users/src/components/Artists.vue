@@ -90,7 +90,10 @@ export default {
 .artist-card {
   text-align: center;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 4%;
+  margin-right: 4%;
   padding: 0px;
   border-radius: 5px;
   cursor: pointer;
