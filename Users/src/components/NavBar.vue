@@ -391,4 +391,8 @@ export default {
 .item-info {
   color: #a08018;
 }
+
+@media only screen and (max-width: 600px) {
+  
+}
 </style>

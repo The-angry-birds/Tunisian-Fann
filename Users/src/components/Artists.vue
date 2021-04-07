@@ -9,24 +9,30 @@
         placeholder="Search for an artist..."
       />
     </div>
+
     <div class="row mt-30">
       <div
-        class="col-md-3 col-sm-6"
+        class="col-md-3 col-sm-6 artist-card"
         v-for="(artist, i) in filteredList"
         :key="i"
       >
         <div class="box15">
           <img v-bind:src="artist.imageUrl" alt="" />
           <div class="box-content">
-            <h3 class="title">{{ artist.firstName }} {{ artist.lastName }}</h3>
+            <h3 class="title">{{artist.description}}</h3>
           </div>
         </div>
-        <button class="profile-btn" @click="artistProfile(artist)">
-          PROFILE
-        </button>
+        <div>
+        <h2 class="artist-name">{{ artist.firstName }} {{ artist.lastName }}</h2>
+        <h6>Location</h6>
+        <p>Artworks: 13</p>
+        </div>
       </div>
     </div>
   </div>
+  <!-- <button class="profile-btn" @click="artistProfile(artist)">
+          PROFILE
+        </button> -->
 </template>
 
 <script>
@@ -46,7 +52,7 @@ export default {
         .get(`http://localhost:3000/api/artists`)
         .then((res) => {
           this.artists = res.data;
-          console.log("==========>",this.artists.id);
+          console.log("==========>", this.artists.id);
         })
         .catch((err) => {
           console.log(err);
@@ -78,14 +84,27 @@ export default {
 * {
   font-family: "Lexend", sans-serif;
 }
+
+.artist-card {
+  text-align: center;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  margin: 10px;
+  padding: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+.artist-name {
+  font-weight: 600;
+  color: rgb(121, 121, 121);
+}
 .mt-40 {
   margin-top: 120px;
   padding-bottom: 50px;
 }
 .box15 {
-  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   position: relative;
-  margin-top: 25px;
 }
 .box15:hover {
   border-radius: 5px;
@@ -94,7 +113,8 @@ export default {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 5px 5px 0px 0px;
+  margin-bottom: 10px;
 }
 .box15 .box-content {
   width: 100%;
@@ -105,7 +125,7 @@ export default {
   transition: all 0.5s ease 0s;
 }
 .box15:hover .box-content {
-  background-color: rgba(255, 242, 242, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 .box15 .box-content:after,
 .box15 .box-content:before {
@@ -136,16 +156,18 @@ export default {
 }
 .box15 .title {
   text-align: center;
-  font-size: 22px;
+  font-size: 16px;
   color: #000;
-  margin: 0;
+  /* margin: 25px; */
+  margin-right:25px;
+  margin-left:25px;
   position: relative;
   top: 0;
   opacity: 0;
   transition: all 1s ease 10ms;
 }
 .box15:hover .title {
-  top: 39%;
+  top: 10%;
   opacity: 1;
   transition: all 0.5s cubic-bezier(1, -0.53, 0.405, 1.425) 10ms;
 }
@@ -186,18 +208,5 @@ export default {
 .search-input:focus {
   outline: none;
 }
-.profile-btn {
-  margin-top: 10px;
-  width: 100%;
-  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
-  border-radius: 5px;
-  transition: 0.5s;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  color: #a08018;
-}
-.profile-btn:hover {
-  background-color: #a08018;
-  color: white;
-}
+
 </style>
