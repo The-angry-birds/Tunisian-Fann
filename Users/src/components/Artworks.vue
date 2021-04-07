@@ -137,7 +137,6 @@ export default {
   box-sizing: border-box;
   font-family: "Lexend", serif;
 }
-
 .artworks-header {
   margin-top: 120px;
 }
@@ -158,7 +157,6 @@ export default {
   height: 400px;
   transition: 0.5s;
 }
-
 .mb-2:hover {
   box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
 }
@@ -190,26 +188,23 @@ img:hover {
 img {
   border-radius: 5px 5px 0px 0px;
   width: 100%;
-  height: 250px;
+  min-height: 250px;
   object-fit: cover;
 }
 .search {
   text-align: right;
   margin-right: 10%;
 }
-
 /* .search-label {
   padding-top: 5px;
   padding-bottom: 5px;
   margin-right: 10px;
 } */
-
 .search-input {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 10px;
   width: 300px;
-
   border-top: 0.5px solid;
   border-bottom: 0.5px solid;
   /* border-radius: 5px; */
@@ -218,7 +213,6 @@ img {
   /* border-right: none; */
   outline: none;
 }
-
 .likes-container {
   display: flex;
   flex-wrap: nowrap;
@@ -235,7 +229,6 @@ img {
   font-size: 30px;
   color: #a08018;
 }
-
 .likes-number {
   font-size: 15px;
   color: #a08018;
