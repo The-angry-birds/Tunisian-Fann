@@ -12,9 +12,11 @@
 
     <div class="row mt-30">
       <div
+      @click="artistProfile(artist)"
         class="col-md-3 col-sm-6 artist-card"
         v-for="(artist, i) in filteredList"
         :key="i"
+        
       >
         <div class="box15">
           <img v-bind:src="artist.imageUrl" alt="" />
