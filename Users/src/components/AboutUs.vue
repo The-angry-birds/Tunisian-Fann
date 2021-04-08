@@ -48,5 +48,18 @@ export default {};
   top: 135vh;
   padding: 20px;
 }
+
+@media screen and (max-width: 640px) {
+  .aboutUs-body {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  width: 50%;
+  left: 40vw;
+  top: 135vh;
+  padding: 20px;
+}
+}
 </style>
 

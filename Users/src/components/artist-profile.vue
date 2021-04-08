@@ -6,21 +6,20 @@
           <div class="px-4 pt-0 pb-4 cover">
             <div class="media align-items-end profile-head">
               <div class="profile mr-3">
-                <img
-                  v-if="user.imageUrl"
-                  :src="user.imageUrl"
-                  alt="..."
-                  class="rounded mb-2 img-thumbnail"
-                />
-                <button
-                  href="#"
-                  class="btn btn-outline btn-sm btn-block"
-                  data-toggle="modal"
-                  data-target="#editImage"
-                >
-                  Edit image
-                </button>
-
+                <div>
+                  <img
+                    v-if="user.imageUrl"
+                    :src="user.imageUrl"
+                    alt="..."
+                    class="rounded mb-2 img-thumbnail"
+                  />
+                </div>
+                <div>
+                  <button href="#" data-toggle="modal" data-target="#editImage">
+                    <font-awesome-icon :icon="myIcon" id="icon" />
+                  </button>
+                </div>
+                <div class="wrapper">
                 <button
                   href="#"
                   class="btn btn-outline btn-sm btn-block"
@@ -29,6 +28,7 @@
                 >
                   Edit profile
                 </button>
+                </div>
               </div>
               <div class="media-body mb-5 text-black">
                 <h4 class="mt-0 mb-0" id="main">
@@ -321,8 +321,8 @@
                                 aria-describedby="title"
                                 placeholder="Title"
                               />
-                              <label class="labels" for="edit">Image URL</label>
-  
+                              <label class="labels" for="edit">Image</label>
+
                               <input
                                 type="file"
                                 ref="editfile"
@@ -602,10 +602,12 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import ArtistAuction from "./ArtistAuction";
-
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 export default {
   data() {
     return {
+      myIcon: faCloudUploadAlt,
       description: "",
       firstName: "",
       lastName: "",
@@ -631,7 +633,7 @@ export default {
   },
   components: {
     ArtistAuction,
-
+    FontAwesomeIcon,
     // Auctions,
   },
   methods: {
@@ -651,7 +653,8 @@ export default {
         )
         .then(({ data }) => {
           console.log("this is my update", data);
-          Swal.fire({position: "top-end",
+          Swal.fire({
+            position: "top-end",
             icon: "success",
             title: "Your profile has been edited!",
             showConfirmButton: false,
@@ -929,7 +932,7 @@ export default {
   padding-top: 50px;
   transform: translateY(5rem);
 }
-.nodata{
+.nodata {
   margin-left: 45%;
   margin-top: 15%;
 }
