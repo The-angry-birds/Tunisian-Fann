@@ -56,7 +56,7 @@
 
 <script>
 import swal from "sweetalert";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -109,25 +109,12 @@ export default {
         //TODO: mapDispatch()
         this.$store
           .dispatch("register", data)
-          .then((res) => {
-            if (res.user.accept === false) {
-              swal(
-                "Oops!",
-                "You need to be verified by the Admin team!",
-                "error"
-              );
-            } else if (res.user.banned !== true) {
-              swal("Oops!", "You are banned!", "error");
-            } else {
-              this.$router.push("/artist-profile");
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
+          .then(() => {
+            swal(
+              "Oops!",
+              "You need to be verified by the Admin team!",
+              "error"
+            );
           })
 
           .catch((err) => {
@@ -149,18 +136,15 @@ export default {
               swal("Oops!", "Wrong Password!", "error");
             } else if (resp.message === "user not found") {
               swal("Oops!", "Wrong e-mail!", "error");
-            } else if (resp.message === "success") {
-              this.$router.push("/artist-profile");
-              swal("Oops!", "Wrong e-mail!", "error");
-            } else if (resp.user.accept === false) {
-              swal(
-                "Oops!",
-                "You need to be verified by the Admin team!",
-                "error"
-              );
-            } else if (resp.user.banned === true) {
+            } else if (
+              resp.message === "success" &&
+              resp.user.banned === true
+            ) {
               swal("Oops!", "You are banned!", "error");
-            }
+            } else {
+                this.$router.push("/artist-profile");
+              }
+            
           })
           .catch((err) => console.log(err));
       }
