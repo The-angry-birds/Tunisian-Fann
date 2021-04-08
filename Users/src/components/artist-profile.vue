@@ -6,20 +6,29 @@
           <div class="px-4 pt-0 pb-4 cover">
             <div class="media align-items-end profile-head">
               <div class="profile mr-3">
-                <div>
+                <div class="wrap">
+                  <button
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#editImage"
+                    class="my_icon"
+                  >
+                    <!-- <font-awesome-icon :icon="myIcon" /> -->
+                  </button>
                   <img
-                    v-if="user.imageUrl"
+                    v-if="!user.imageUrl"
+                    class="profileAvatar"
+                    src="https://www.mavinzent.com/assets/avatar_placeholder.svg"
+                    alt="..."
+                  />
+
+                  <img
+                    class="profileAvatar"
+                    v-else
                     :src="user.imageUrl"
                     alt="..."
-                    class="rounded mb-2 img-thumbnail"
                   />
                 </div>
-                <div>
-                  <button href="#" data-toggle="modal" data-target="#editImage">
-                    <font-awesome-icon :icon="myIcon" id="icon" />
-                  </button>
-                </div>
-                <div class="wrapper">
                 <button
                   href="#"
                   class="btn btn-outline btn-sm btn-block"
@@ -28,7 +37,6 @@
                 >
                   Edit profile
                 </button>
-                </div>
               </div>
               <div class="media-body mb-5 text-black">
                 <h4 class="mt-0 mb-0" id="main">
@@ -249,7 +257,11 @@
                 </div>
               </div>
               <div class="card-container">
+                <h1 v-if="!artworks.length" id="artTitle">
+                  NO ARTWORKS POSTED YET ...
+                </h1>
                 <card
+                  v-else
                   class="artwork-card"
                   v-for="(artwork, i) in artworks"
                   :key="i"
@@ -448,8 +460,12 @@
               >
                 Add Auctions
               </button>
-              <div class="container" style="margin-top: -80px">
+              <div class="card-container">
+                <h1 v-if="!auctionData.length" id="artTitle">
+                  NO AUCTIONS POSTED YET..
+                </h1>
                 <ArtistAuction
+                  v-else
                   :auction="auction"
                   v-for="(auction, i) in auctionData"
                   :key="i"
@@ -602,12 +618,12 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import ArtistAuction from "./ArtistAuction";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+// import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 export default {
   data() {
     return {
-      myIcon: faCloudUploadAlt,
+      // myIcon: faCloudUploadAlt,
       description: "",
       firstName: "",
       lastName: "",
@@ -629,11 +645,12 @@ export default {
       artworkAuctions: {},
       auctionData: {},
       category: {},
+      randomImage: "",
     };
   },
   components: {
     ArtistAuction,
-    FontAwesomeIcon,
+    // FontAwesomeIcon,
     // Auctions,
   },
   methods: {
@@ -671,6 +688,14 @@ export default {
             });
         });
     },
+    imgRandom(imgArr) {
+      var image = [1, 2, 3, 4];
+      console.log(imgArr(image));
+      return imgArr[Math.floor(Math.random() * image.length)];
+
+      // console.log(imgRandom(image));
+    },
+
     //to upload the image cloudinary
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
@@ -914,6 +939,7 @@ export default {
   },
 
   mounted() {
+    this.imgRandom();
     this.getAllArtworks();
     this.getAuctions();
     this.getCategories();
@@ -1108,5 +1134,48 @@ export default {
 }
 h4 {
   font-weight: 700;
+}
+.wrap {
+  height: 300px;
+  width: 300px;
+  position: relative;
+  border: 1px solid;
+  background-size: 20%;
+  overflow: hidden;
+  object-fit: cover;
+  margin: 20px auto;
+}
+.profileAvatar {
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+}
+.my_icon {
+  position: absolute;
+  bottom: 0;
+  outline: none;
+  color: transparent;
+  box-sizing: border-box;
+  padding: 0.2px 140px;
+  cursor: pointer;
+  transition: 0.5s;
+  background: rgba(0, 0, 0, 0.5);
+}
+/* .my_icon::-webkit-file-upload-button {
+  visibility: hidden;
+} */
+.my_icon::before {
+  content: "\f030";
+  font-family: fontAwesome;
+  font-size: 30px;
+  color: #fff;
+  display: inline-block;
+}
+
+my_icon:hover {
+  opacity: 1;
+}
+#artTitle {
+  margin-top: 20px;
 }
 </style>
