@@ -110,11 +110,7 @@ export default {
         this.$store
           .dispatch("register", data)
           .then(() => {
-            swal(
-              "Oops!",
-              "You need to be verified by the Admin team!",
-              "error"
-            );
+            swal("Welcome!", " but You need to be verified by the Admin team!");
           })
 
           .catch((err) => {
@@ -138,13 +134,16 @@ export default {
               swal("Oops!", "Wrong e-mail!", "error");
             } else if (
               resp.message === "success" &&
-              resp.user.banned === true
+              resp.user.accept === false
             ) {
-              swal("Oops!", "You are banned!", "error");
+              swal("Sorry!", "You haven't been verified yet !", "error");
+            } else if (resp.user.accept === false) {
+              swal("Sorry!", "You haven't been verified yet !", "error");
+            } else if (resp.user.banned === true) {
+             swal("Oops!", "You are banned!", "error");
             } else {
-                this.$router.push("/artist-profile");
-              }
-            
+              this.$router.push("/artist-profile");
+            }
           })
           .catch((err) => console.log(err));
       }
