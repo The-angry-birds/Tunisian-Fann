@@ -12,22 +12,27 @@
 
     <div class="row mt-30">
       <div
-      @click="artistProfile(artist)"
+        @click="artistProfile(artist)"
         class="col-md-3 col-sm-6 artist-card"
         v-for="(artist, i) in filteredList"
         :key="i"
-        
       >
         <div class="box15">
-          <img v-bind:src="artist.imageUrl" alt="" />
+          <img
+            v-if="!artist.imageUrl"
+            src="https://www.mavinzent.com/assets/avatar_placeholder.svg"
+          />
+          <img v-else v-bind:src="artist.imageUrl" alt="" />
           <div class="box-content">
-            <h3 class="title">{{artist.description}}</h3>
+            <h3 class="title">{{ artist.description }}</h3>
           </div>
         </div>
         <div>
-        <h2 class="artist-name">{{ artist.firstName }} {{ artist.lastName }}</h2>
-        <h6>Location</h6>
-        <p>Artworks: 13</p>
+          <h2 class="artist-name">
+            {{ artist.firstName }} {{ artist.lastName }}
+          </h2>
+          <h6>Location</h6>
+          <p>Artworks: 13</p>
         </div>
       </div>
     </div>
@@ -97,7 +102,6 @@ export default {
   padding: 0px;
   border-radius: 5px;
   cursor: pointer;
-
 }
 
 .artist-name {
@@ -164,8 +168,8 @@ export default {
   font-size: 16px;
   color: #000;
   /* margin: 25px; */
-  margin-right:25px;
-  margin-left:25px;
+  margin-right: 25px;
+  margin-left: 25px;
   position: relative;
   top: 0;
   opacity: 0;
@@ -213,5 +217,4 @@ export default {
 .search-input:focus {
   outline: none;
 }
-
 </style>

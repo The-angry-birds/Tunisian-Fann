@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <div class="artwork-cover-img">
       <img class="artwork-img" v-bind:src="oneArt.imageUrl" alt="" />
     </div>
@@ -12,7 +11,7 @@
     </div>
     <div class="artwork-body">
       <div class="left-side">
-        <h1 class="artwork-name">{{ oneArt.nameArtwork }}</h1>
+        <h1 class="artwork-name" id="main">{{ oneArt.nameArtwork }}</h1>
         <h4>Description</h4>
         <p>
           {{ oneArt.description }}
@@ -72,11 +71,10 @@ export default {
         });
     },
     payment() {
-     console.log("===================",this.user)
+      console.log("===================", this.user);
       const token = localStorage.getItem("token");
-        console.log({token})
-      if (token==null) {
-        
+      console.log({ token });
+      if (token == null) {
         this.$router.push("/join-as-client");
       } else {
         const createPayment = {
@@ -88,8 +86,8 @@ export default {
         axios
           .post("http://localhost:3000/payments/init-payment", createPayment)
           .then((res) => {
-            console.log( res);
-            window.open ( res.data.payUrl)
+            console.log(res);
+            window.open(res.data.payUrl);
           })
           .catch((err) => {
             console.log(err);
@@ -193,12 +191,14 @@ export default {
   text-align: center;
   width: 100%;
   margin-top: 20px;
-  transition: 0.4s
+  transition: 0.4s;
 }
 
 .buy-btn:hover {
   background-color: white;
-  color: #1a1a1a ;
+  color: #1a1a1a;
 }
-
+#main {
+  text-transform: uppercase;
+}
 </style>

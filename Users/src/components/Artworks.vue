@@ -14,6 +14,7 @@
       <b-card
         v-for="(artwork, i) in filteredList"
         :key="i"
+        @click="sharedData(artwork)"
         v-bind:img-src="artwork.imageUrl"
         img-top
         class="mb-2"
@@ -24,7 +25,7 @@
           </button>
           <p class="likes-number">{{ artwork.likes }}</p>
         </div>
-        <h3 class="card-title" @click="sharedData(artwork)" id="main">
+        <h3 class="card-title" id="main">
           {{ artwork.nameArtwork }}
         </h3>
 
@@ -53,7 +54,6 @@ export default {
       user_id: "",
       category: {},
     };
-    
   },
 
   methods: {
@@ -171,6 +171,7 @@ export default {
 .card-title {
   margin-top: 5px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .card-by {
   font-size: 12px;
@@ -191,6 +192,7 @@ img {
   width: 100%;
   min-height: 250px;
   object-fit: cover;
+  cursor: pointer;
 }
 .search {
   text-align: right;

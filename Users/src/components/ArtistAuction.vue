@@ -1,5 +1,5 @@
 <template>
- <div class="container" @click="sharedData(auction)">
+  <div class="container" @click="sharedData(auction)">
     <article class="card card--1">
       <div class="card__info-hover">
         <svg class="card__like" viewBox="0 0 24 24">
@@ -74,7 +74,7 @@ export default {
       // Set the date we're counting down ton
 
       var countDownDate = new Date(this.auction.endDate).getTime();
-   
+
       // Update the count down every 1 second
       var x = setInterval(() => {
         // Get today's date and time
@@ -104,12 +104,11 @@ export default {
           minutes: minutes,
           seconds: seconds,
         };
-
       }, 1000);
     },
   },
   mounted() {
-    // this.calculateCountDown();
+    this.calculateCountDown();
   },
   computed: {
     //it returns the user that is actually logged in
