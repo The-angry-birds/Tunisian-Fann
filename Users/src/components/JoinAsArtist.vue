@@ -70,11 +70,11 @@ export default {
     };
   },
   methods: {
-    signUp: function() {
+    signUp: function () {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    signIn: function() {
+    signIn: function () {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
@@ -109,16 +109,27 @@ export default {
         //TODO: mapDispatch()
         this.$store
           .dispatch("register", data)
-          .then(() => {
-            this.$router.push("/artist-profile");
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Your work has been saved",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+          .then((res) => {
+            if (res.user.accept === false) {
+              swal(
+                "Oops!",
+                "You need to be verified by the Admin team!",
+                "error"
+              );
+            } else if (res.user.banned !== true) {
+              swal("Oops!", "You are banned!", "error");
+            } else {
+              this.$router.push("/artist-profile");
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
           })
+
           .catch((err) => {
             console.log(err);
             swal("oops", "Something went wrong");
@@ -127,22 +138,28 @@ export default {
     },
     access() {
       if (this.email === "" || this.password === "") {
-        swal("Oops!", "Empty fields", "error");
+        swal("Oops!", "You need to fill in all the empty fields!", "error");
       } else {
         let email = this.email;
         let password = this.password;
         this.$store
           .dispatch("access", { email, password })
           .then((resp) => {
-            if(resp.user.banned===true){
-              swal("Oops!", "You are banned!", "error");
-             }
             if (resp.message === "wrong password") {
               swal("Oops!", "Wrong Password!", "error");
             } else if (resp.message === "user not found") {
-              swal("Oops!", "Wrong Email!", "error");
-            } else {
+              swal("Oops!", "Wrong e-mail!", "error");
+            } else if (resp.message === "success") {
               this.$router.push("/artist-profile");
+              swal("Oops!", "Wrong e-mail!", "error");
+            } else if (resp.user.accept === false) {
+              swal(
+                "Oops!",
+                "You need to be verified by the Admin team!",
+                "error"
+              );
+            } else if (resp.user.banned === true) {
+              swal("Oops!", "You are banned!", "error");
             }
           })
           .catch((err) => console.log(err));

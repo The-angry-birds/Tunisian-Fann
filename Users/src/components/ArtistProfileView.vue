@@ -140,7 +140,7 @@ export default {
       axios
         .get(`http://localhost:3000/api/auctions/${this.artist.id}`)
         .then(({ data }) => {
-          console.log("===nnn===data", data);
+          console.log(data);
           var myauctions = Object.values(data)[0];
           var myartworks = Object.values(data)[1];
           this.auctions = myauctions;
@@ -154,11 +154,11 @@ export default {
             }
           }
           this.auctionData = mixdata;
-          console.log("maaaalek", this.auctionData);
+          console.log(this.auctionData);
         });
     },
     sharedData(auction) {
-      console.log(auction, "hellllooooooo");
+      console.log(auction);
       this.$router.push({
         path: `/auction-details/${auction.id}`,
       });
