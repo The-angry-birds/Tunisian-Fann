@@ -222,6 +222,7 @@ export default {
         document.getElementById("navbar").style.backgroundColor = "transparent";
         document.getElementById("navbar").style.boxShadow = "0 0 0";
         document.getElementById("dropdown-menu").style.backgroundColor = "#fff";
+        this.created()
       }
     },
   },
