@@ -5,7 +5,6 @@ export default {
     token: window.localStorage.getItem("token") || "",
     user: {},
     type: "",
-
   },
 
   mutations: {
@@ -14,21 +13,17 @@ export default {
       state.user = user;
       state.type = type;
     },
-    auth_error_or_logout(state,) {
+    auth_error_or_logout(state) {
       state.token = "";
       state.user = {};
       state.type = "";
     },
-
-
-
-
   },
   getters: {
-  
-    logged: (state) => {if (state.user){
-     return !!Object.keys(state.user).length
-      }else {
+    logged: (state) => {
+      if (state.user) {
+        return !!Object.keys(state.user).length;
+      } else {
         state.user = {};
       }
     },
@@ -36,7 +31,6 @@ export default {
     role: (state) => state.type,
   },
   actions: {
-
     //to verify which user is connected whether the guest or the artist
     verify_token({ commit }, token) {
       return new Promise((resolve, reject) => {
@@ -44,7 +38,7 @@ export default {
           .post("http://localhost:3000/api/auth/", { token })
           .then(({ data }) => {
             const { user, type } = data;
-            console.log(type)
+            console.log(type);
             console.log("tyyyyype", { user, token, type });
             commit("auth_success", { user, token, type });
 
@@ -101,6 +95,7 @@ export default {
         axios
           .post("http://localhost:3000/api/auth/artists/login", user)
           .then(({ data }) => {
+            console.log("mydataa", data);
             const { token } = data;
             const user = data.user;
             localStorage.setItem("token", token);

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <font-awesome-icon icon="user-secret" /> -->
     <NavBar></NavBar>
 
     <router-view></router-view>

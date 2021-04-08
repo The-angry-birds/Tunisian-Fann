@@ -26,8 +26,24 @@ const bidauctionRoutes = require("./routes/auction.bid.route");
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = YAML.load("./swagger.yaml");
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+const swaggerJsDoc = require("swagger-jsdoc");
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Tunisian fann API",
+      version: "1.0.0",
+    },
+    servers: [{ url: "http://localhost:3000" }],
+
+    // files containing annotations as above
+  },
+  apis: ["./routes/*.js"],
+};
+
+const specs = swaggerJsDoc(options);
+// const swaggerDocument = YAML.load("./swagger.yaml");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(morgan("combined"));
 app.use(cors());
 morgan(":method :url :status :res[content-length] - :response-time ms");

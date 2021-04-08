@@ -70,11 +70,11 @@ export default {
     };
   },
   methods: {
-    signUp: function () {
+    signUp: function() {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    signIn: function () {
+    signIn: function() {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
@@ -136,7 +136,8 @@ export default {
           .then((resp) => {
             if(resp.user.banned===true){
               swal("Oops!", "You are banned!", "error");
-           }else if (resp.message === "wrong password") {
+             }
+            if (resp.message === "wrong password") {
               swal("Oops!", "Wrong Password!", "error");
             } else if (resp.message === "user not found") {
               swal("Oops!", "Wrong Email!", "error");
