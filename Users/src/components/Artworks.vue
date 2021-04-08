@@ -53,6 +53,7 @@ export default {
       user_id: "",
       category: {},
     };
+    
   },
 
   methods: {
@@ -72,7 +73,7 @@ export default {
       axios
         .get(`http://localhost:3000/api/artworks`)
         .then((res) => {
-          var p = [];
+          var artworksLikes = [];
           res.data.map((art) => {
             axios
               .get(`http://localhost:3000/api/likes/${art.id}`)
@@ -86,7 +87,7 @@ export default {
                     art.artistnamee =
                       res.data.firstName + " " + res.data.lastName;
                     this.artworks.push(art);
-                    p.push(res.data.firstName);
+                    artworksLikes.push(res.data.firstName);
                     // axios
                     //   .get(
                     //     `http://localhost:3000/api/categories/${art.category_id}`

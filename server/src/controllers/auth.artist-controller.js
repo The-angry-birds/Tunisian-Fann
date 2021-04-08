@@ -115,6 +115,11 @@ module.exports = {
           lastName: req.body.lastName,
           description: req.body.description,
           imageUrl: req.body.image,
+          line1: req.body.line1,
+          line2: req.body.line2,
+          postcode: req.body.postcode,
+          city: req.body.city,
+          country: req.body.country,
         },
         { where: { id: req.params.id } }
       );
