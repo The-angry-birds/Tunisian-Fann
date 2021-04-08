@@ -43,7 +43,7 @@
                   <h6 class="card-price">{{ e.price }} dt</h6>
                   <div class="card-by">
                     by
-                    <p class="card-author">
+                    <p class="card-author" >
                       {{ artist.firstName }} {{ artist.lastName }}
                     </p>
                   </div>
