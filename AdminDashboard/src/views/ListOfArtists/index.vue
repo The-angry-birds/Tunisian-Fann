@@ -57,7 +57,7 @@
               class="artist-accept-btn btn btn-success"
              
               @click="accepted"
-              @click.prevent="acceptArtist(artist)"
+              @click.prevent="acceptArtist(artist.id)"
             >
               Accept
             </button>
@@ -102,21 +102,19 @@ export default {
     },
 
     bannedArtist() {
-      console.log("======dghxjklm",this.currentArtist.id)
       axios
         .put(`http://localhost:3000/api/artists/${this.currentArtist.id}`)
         .then((baneed) => {
-          console.log("=========>", baneed);
+          console.log("==//localhost:3000/api/artists/accept/=======>", baneed);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     acceptArtist(id) {
-      console.log(id)
-     
+      console.log('id accept ===>',id)
       axios
-        .put(`http://localhost:3000/api/artists/accept/${this.currentArtist.id}`)
+        .put(`http://localhost:3000/api/artists/accept/${id}`)
         .then((accepted) => {
           console.log("==========>",accepted);
         })

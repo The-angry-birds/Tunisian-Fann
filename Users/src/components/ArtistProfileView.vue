@@ -33,10 +33,10 @@
           <div class="px-3 py-4">
             <h5 class="mb-4">Artworks</h5>
             <div class="p-4 rounded shadow-sm" id="artworks">
-              <div class="card-container">
+              <div class="card-container" @click="ArtworkDetails(artwork)">
                 <card class="artwork-card" v-for="(e, i) in artworks" :key="i">
                   <img class="img-card" :src="e.imageUrl" />
-                  <h3 class="card-title">{{ e.nameArtwork }}</h3>
+                  <h3 class="card-title" >{{ e.nameArtwork }}</h3>
                   <p class="card-category">
                     {{ e.description.substr(0, 10) }}...
                   </p>
@@ -140,7 +140,7 @@ export default {
       axios
         .get(`http://localhost:3000/api/auctions/${this.artist.id}`)
         .then(({ data }) => {
-          console.log("===nnn===data", data);
+          console.log(data);
           var myauctions = Object.values(data)[0];
           var myartworks = Object.values(data)[1];
           this.auctions = myauctions;
@@ -154,11 +154,14 @@ export default {
             }
           }
           this.auctionData = mixdata;
-          console.log("maaaalek", this.auctionData);
+          console.log(this.auctionData);
         });
     },
+    ArtworkDetails(a) {
+      this.$router.push({ name: "artworkDetails", params: a });
+    },
     sharedData(auction) {
-      console.log(auction, "hellllooooooo");
+      console.log(auction);
       this.$router.push({
         path: `/auction-details/${auction.id}`,
       });
