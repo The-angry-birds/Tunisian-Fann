@@ -231,6 +231,8 @@ export default {
   object-fit: cover;
   border-radius: 5px;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  /* perspective: 600px;
+perspective-origin: 50px 100px;  */
 }
 .auction-img:hover {
   height: 98%;

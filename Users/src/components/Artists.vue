@@ -28,13 +28,11 @@
           </div>
         </div>
         <div>
-          <h2 class="artist-name">
-            {{ artist.firstName }} {{ artist.lastName }}
-          </h2>
-          <h6>
-            <font-awesome-icon :icon="myIcon" id="icon" /> {{ artist.city }},
-            {{ artist.country }}
-          </h6>
+
+        <h2 class="artist-name"  >{{ artist.firstName }} {{ artist.lastName }}</h2>
+        <h6 v-if="!artist.city">On the Move </h6>
+        <h6 v-else><font-awesome-icon :icon="myIcon" id="icon" /> {{ artist.city }}, {{ artist.country }}</h6>
+
         </div>
       </div>
     </div>
@@ -50,7 +48,7 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 export default {
   data() {
     return {
-      myIcon: faMapMarkerAlt,
+       myIcon: faMapMarkerAlt,
       artists: [],
       search: "",
       artist: {},
