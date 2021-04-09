@@ -15,19 +15,16 @@
                   >
                     <!-- <font-awesome-icon :icon="myIcon" /> -->
                   </button>
-                  <img
-                    v-if="!user.imageUrl"
-                    class="profileAvatar"
-                    src="https://www.mavinzent.com/assets/avatar_placeholder.svg"
-                    alt="..."
-                  />
+                  <!-- v-if="!user.imageUrl" -->
 
                   <img
                     class="profileAvatar"
-                    v-else
+                    v-if="user.imageUrl"
                     :src="user.imageUrl"
-                    alt="..."
+                    alt=""
                   />
+
+                  <!-- <img class="profileAvatar" :src="user.imageUrl" /> -->
                 </div>
                 <button
                   href="#"
@@ -529,6 +526,56 @@
                         aria-describedby="description"
                         placeholder="Your biography..."
                       />
+                      <label class="labels" for="bio">Address Line 1</label>
+                      <input
+                        v-model="user.line1"
+                        type="description"
+                        class="form-control"
+                        id="bio"
+                        aria-describedby="description"
+                        placeholder="Address Line 1..."
+                      />
+                      <label class="labels" for="bio">Address Line 2 </label>
+                      <input
+                        v-model="user.line2"
+                        type="description"
+                        class="form-control"
+                        id="bio"
+                        aria-describedby="description"
+                        placeholder="Address Line 2..."
+                      />
+
+                      <label class="labels" for="bio"> City </label>
+                      <input
+                        v-model="user.city"
+                        type="description"
+                        class="form-control"
+                        id="bio"
+                        aria-describedby="description"
+                        placeholder="City..."
+                      />
+                      <label class="labels" for="bio"> Zip/Postal Code </label>
+                      <input
+                        v-model="user.postcode"
+                        type="number"
+                        class="form-control"
+                        id="bio"
+                        aria-describedby="description"
+                        placeholder="Address Line 2..."
+                      />
+                      <label class="labels" for="bio">Country </label>
+
+                      <select class="btn-group" v-model="user.country">
+                        <option value="" selected="selected">Country</option>
+
+                        <option
+                          class="m-2"
+                          v-for="(country, i) in countries"
+                          :key="i"
+                        >
+                          {{ country }}
+                        </option>
+                      </select>
                     </form>
                   </div>
                 </div>
@@ -618,6 +665,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import ArtistAuction from "./ArtistAuction";
+import countries from "./countries.js";
 // import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 export default {
@@ -645,7 +693,8 @@ export default {
       artworkAuctions: {},
       auctionData: {},
       category: {},
-      randomImage: "",
+      countries: {},
+      country: "Country",
     };
   },
   components: {
@@ -654,6 +703,10 @@ export default {
     // Auctions,
   },
   methods: {
+    //to fetch the countries
+    fetchCountries() {
+      this.countries = countries;
+    },
     //to edit the artist information like firstName and image
     handleSubmit() {
       // const data = {
@@ -688,13 +741,8 @@ export default {
             });
         });
     },
-    imgRandom(imgArr) {
-      var image = [1, 2, 3, 4];
-      console.log(imgArr(image));
-      return imgArr[Math.floor(Math.random() * image.length)];
 
-      // console.log(imgRandom(image));
-    },
+    //get a random index for the avatar
 
     //to upload the image cloudinary
     handleFileUpload() {
@@ -714,6 +762,7 @@ export default {
         .catch((err) => console.log(err));
     },
     onsubmit() {
+      console.log("three", this.user.imageUrl);
       if (this.imageUrl) {
         axios
           .patch(
@@ -731,6 +780,7 @@ export default {
               .then(({ data }) => {
                 // console.log("USERBEFORE", this.user);
                 this.user = data.user;
+                console.log("one", this.user.imageUrl);
                 // console.log("USERAFTER", this.user);
               });
           });
@@ -939,11 +989,10 @@ export default {
   },
 
   mounted() {
-    // this.imgRandom();
     this.getAllArtworks();
     this.getAuctions();
     this.getCategories();
-
+    this.fetchCountries();
     this.user = this.$store.state.auth.user;
   },
 };

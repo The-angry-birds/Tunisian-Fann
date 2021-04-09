@@ -13,14 +13,21 @@ module.exports = {
       var token = jwt.sign({ email: req.body.email }, config.secret, {
         expiresIn: "4h",
       });
+      var images = [
+        "https://www.w3schools.com/howto/img_avatar.png",
+        "https://www.w3schools.com/howto/img_avatar2.png",
+        "https://www.w3schools.com/w3images/avatar5.png",
+        "https://www.w3schools.com/w3images/avatar6.png",
+        "https://www.w3schools.com/w3images/avatar1.png",
+      ];
+      var image = images[Math.floor(Math.random() * images.length)];
       const artist = await Artist.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        imageUrl: req.body.imageUrl,
+        imageUrl: image,
         password: hash,
         category: req.body.category,
-        imageUrl: req.body.imageUrl,
         description: req.body.description,
       });
       if (artist) {
