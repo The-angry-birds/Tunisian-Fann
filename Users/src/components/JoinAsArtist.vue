@@ -67,14 +67,17 @@ export default {
       confirmPassword: "",
       has_special: false,
       has_number: false,
+      // randomImage: "",
+     
+      selectedImage: null,
     };
   },
   methods: {
-    signUp: function () {
+    signUp: function() {
       const container = document.getElementById("container");
       container.classList.add("right-panel-active");
     },
-    signIn: function () {
+    signIn: function() {
       const container = document.getElementById("container");
       container.classList.remove("right-panel-active");
     },
@@ -105,6 +108,7 @@ export default {
           lastName: this.lastName,
           email: this.email,
           password: this.password,
+          imageUrl: this.imageUrl,
         };
         //TODO: mapDispatch()
         this.$store
@@ -119,6 +123,7 @@ export default {
           });
       }
     },
+
     access() {
       if (this.email === "" || this.password === "") {
         swal("Oops!", "You need to fill in all the empty fields!", "error");
@@ -140,7 +145,7 @@ export default {
             } else if (resp.user.accept === false) {
               swal("Sorry!", "You haven't been verified yet !", "error");
             } else if (resp.user.banned === true) {
-             swal("Oops!", "You are banned!", "error");
+              swal("Oops!", "You are banned!", "error");
             } else {
               this.$router.push("/artist-profile");
             }
