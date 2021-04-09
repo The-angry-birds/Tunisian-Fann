@@ -33,8 +33,12 @@
           <div class="px-3 py-4">
             <h5 class="mb-4">Artworks</h5>
             <div class="p-4 rounded shadow-sm" id="artworks">
-              <div class="card-container" @click="ArtworkDetails(artwork)">
-                <card class="artwork-card" v-for="(e, i) in artworks" :key="i">
+              
+                  <h1 v-if="!artworks.length" >
+                          NO ARTWORKS AVAILABLE YET ...
+                </h1>
+              <div  v-else class="card-container" @click="ArtworkDetails(artwork)">
+                <card    class="artwork-card" v-for="(e, i) in artworks" :key="i">
                   <img class="img-card" :src="e.imageUrl" />
                   <h3 class="card-title" >{{ e.nameArtwork }}</h3>
                   <p class="card-category">
@@ -57,7 +61,10 @@
         <div class="px-3 py-4">
           <h5 class="mb-4">Auctions</h5>
           <div class="p-4 rounded shadow-sm" id="auctions">
-            <div class="container" v-for="(auction, i) in auctionData" :key="i">
+             <h1 v-if="!auctionData.length" >
+                         NO AUCTIONS AVAILABLE YET ...
+                </h1>
+            <div v-else class="container" v-for="(auction, i) in auctionData" :key="i">
               <article class="card card--1">
                 <div class="card__info-hover">
                   <svg class="card__like" viewBox="0 0 24 24">
