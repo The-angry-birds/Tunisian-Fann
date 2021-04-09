@@ -193,6 +193,7 @@ img {
   min-height: 250px;
   object-fit: cover;
   cursor: pointer;
+  
 }
 .search {
   text-align: right;

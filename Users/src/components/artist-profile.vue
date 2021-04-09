@@ -939,7 +939,7 @@ export default {
   },
 
   mounted() {
-    this.imgRandom();
+    // this.imgRandom();
     this.getAllArtworks();
     this.getAuctions();
     this.getCategories();
