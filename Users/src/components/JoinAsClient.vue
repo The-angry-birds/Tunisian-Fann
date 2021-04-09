@@ -121,7 +121,7 @@ export default {
           //   "Oops!", "You are banned!", "error"
             swal("Oops!", "You are banned!", "error");
           } else if (res.data.message === "success") {
-            swal("Welcome", "success");
+            swal("Successfully signed in", "Welcome", "success");
             this.$router.push("/");
           } else {
             swal("Oops!", "Wrong e-mail!", "error");

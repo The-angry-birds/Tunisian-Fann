@@ -88,15 +88,15 @@ export default {
         this.password === "" ||
         this.confirmPassword === ""
       ) {
-        swal("Oops!", "Empty fields", "error");
+        swal("Oops!", "You need to fill all the empty fields!", "error");
       } else if (!this.email.includes("@")) {
-        swal("Oops!", "Invalid mail", "error");
+        swal("Oops!", "Invalid e-mail!", "error");
       } else if (this.password !== this.confirmPassword) {
-        swal("Oops!", "Passwords not matching", "error");
+        swal("Oops!", "Passwords does not match!", "error");
       } else if (!this.has_special && this.has_number) {
         swal(
           "Oops!",
-          "Password needs to have at least one special character and one number",
+          "Password needs to have at least one special character and one number!",
           "error"
         );
       } else {
@@ -110,12 +110,12 @@ export default {
         this.$store
           .dispatch("register", data)
           .then(() => {
-            swal("Welcome!", " but You need to be verified by the Admin team!");
+            swal("Welcome!", "You need to be verified by the admin!");
           })
 
           .catch((err) => {
             console.log(err);
-            swal("oops", "Something went wrong");
+            swal("Oops!", "Something went wrong!");
           });
       }
     },
@@ -136,9 +136,9 @@ export default {
               resp.message === "success" &&
               resp.user.accept === false
             ) {
-              swal("Sorry!", "You haven't been verified yet !", "error");
+              swal("Sorry!", "You haven't been verified yet!", "error");
             } else if (resp.user.accept === false) {
-              swal("Sorry!", "You haven't been verified yet !", "error");
+              swal("Sorry!", "You haven't been verified yet!", "error");
             } else if (resp.user.banned === true) {
              swal("Oops!", "You are banned!", "error");
             } else {

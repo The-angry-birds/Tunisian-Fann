@@ -45,7 +45,7 @@
             </div>
           </div>
           <p class="nodata">
-             Work en progress
+             Work in progress...
           </p>
         </div>
       </div>
