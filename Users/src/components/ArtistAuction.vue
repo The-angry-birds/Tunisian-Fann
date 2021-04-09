@@ -108,7 +108,7 @@ export default {
     },
   },
   mounted() {
-    // this.calculateCountDown();
+    this.calculateCountDown();
   },
   computed: {
     //it returns the user that is actually logged in

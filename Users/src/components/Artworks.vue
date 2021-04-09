@@ -14,7 +14,7 @@
       <b-card
         v-for="(artwork, i) in filteredList"
         :key="i"
-        @click="sharedData(artwork)"
+       
         v-bind:img-src="artwork.imageUrl"
         img-top
         class="mb-2"
@@ -25,7 +25,7 @@
           </button>
           <p class="likes-number">{{ artwork.likes }}</p>
         </div>
-        <h3 class="card-title" id="main">
+        <h3 class="card-title" id="main"  @click="sharedData(artwork)">
           {{ artwork.nameArtwork }}
         </h3>
 

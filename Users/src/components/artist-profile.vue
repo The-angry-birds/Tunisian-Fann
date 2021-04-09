@@ -39,6 +39,9 @@
                 <h4 class="mt-0 mb-0" id="main">
                   {{ user.firstName }} {{ user.lastName }}
                 </h4>
+                  <h6 v-if="!user.city">On the Move </h6>
+        <h6 v-else><font-awesome-icon :icon="myIcon" id="icon" /> {{ user.city }}, {{ user.country }}</h6>
+
               </div>
             </div>
           </div>
@@ -561,7 +564,7 @@
                         class="form-control"
                         id="bio"
                         aria-describedby="description"
-                        placeholder="Address Line 2..."
+                        placeholder="Zip/Postal Code..."
                       />
                       <label class="labels" for="bio">Country </label>
 
@@ -668,10 +671,11 @@ import ArtistAuction from "./ArtistAuction";
 import countries from "./countries.js";
 // import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 export default {
   data() {
     return {
-      // myIcon: faCloudUploadAlt,
+     myIcon: faMapMarkerAlt,
       description: "",
       firstName: "",
       lastName: "",
